@@ -836,5 +836,19 @@ docs_markdown = create_doc_section(
     fn2code_string(ex_applyclasses),
     title="Markdown + HTML Frankification")
 
-                
+def ex_loading1():
+    return Loading()
+
+def ex_loading2():
+    types = [LoadingT.spinner, LoadingT.dots, LoadingT.ring, LoadingT.ball, LoadingT.bars, LoadingT.infinity]
+    sizes = [LoadingT.xs, LoadingT.sm, LoadingT.md, LoadingT.lg]
+    rows = [Div(*[Loading((t,s)) for s in sizes], cls='flex gap-4') for t in types]
+    return Div(*rows, cls='flex flex-col gap-4')
+
+docs_loading = create_doc_section(
+    fn2code_string(ex_loading1),
+    fn2code_string(ex_loading2),
+    Loading,
+    LoadingT,
+    title="Loading")
 

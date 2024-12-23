@@ -854,18 +854,33 @@ def TableFromDicts(header_data:Sequence, body_data:Sequence[dict], footer_data=N
 
 # %% ../nbs/02_franken.ipynb
 franken_class_map = {
-    'h1': 'uk-h1 my-4 mb-4',
-    'h2': 'uk-h2 my-8',
-    'h3': 'uk-h3 my-8',
-    'h4': 'uk-h4 my-8',
-    'a': "uk-link",
-    'p': 'my-1',
-    'blockquote': "uk-blockquote mb-8",
-    'hr':'uk-divider-icon my-4',
-    'table':'uk-table-middle uk-table-divider uk-table-hover uk-table-small',
-    'ol': 'uk-list-decimal',
-    'ul': 'uk-list-disc my-2 mb-4',
-    'code': 'uk-codespan'
+    'h1': 'uk-h1 text-4xl font-bold mt-12 mb-6',
+    'h2': 'uk-h2 text-3xl font-bold mt-10 mb-5', 
+    'h3': 'uk-h3 text-2xl font-semibold mt-8 mb-4',
+    'h4': 'uk-h4 text-xl font-semibold mt-6 mb-3',
+    
+    # Body text and links
+    'p': 'text-lg leading-relaxed mb-6',
+    'a': 'uk-link text-primary hover:text-primary-focus underline',
+    
+    # Lists with proper spacing
+    'ul': 'uk-list uk-list-disc space-y-2 mb-6 ml-6',
+    'ol': 'uk-list uk-list-decimal space-y-2 mb-6 ml-6',
+    'li': 'leading-relaxed',
+    
+    # Code and quotes
+    'pre': 'bg-base-200 rounded-lg p-4 mb-6 overflow-x-auto',
+    'code': 'uk-codespan px-1',
+    'blockquote': 'uk-blockquote pl-4 border-l-4 border-primary italic mb-6',
+    
+    # Tables
+    'table': 'uk-table uk-table-divider uk-table-hover uk-table-small w-full mb-6',
+    'th': 'text-left p-2',
+    'td': 'p-2',
+    
+    # Other elements
+    'hr': 'uk-divider-icon my-8',
+    'img': 'max-w-full h-auto rounded-lg mb-6'
 }
 
 # %% ../nbs/02_franken.ipynb

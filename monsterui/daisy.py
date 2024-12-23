@@ -78,9 +78,11 @@ class LoadingT(VEnum):
     lg = auto()
 
 # %% ../nbs/03_daisy.ipynb
-def Loading(cls=(LoadingT.bars, LoadingT.lg), **kwargs):
+def Loading(cls=(LoadingT.bars, LoadingT.lg), htmx_indicator=False, **kwargs):
     "Creates a loading animation component"
-    return Span(cls=('loading', stringify(cls)), **kwargs)
+    classes = ['loading', stringify(cls)]
+    if htmx_indicator: classes.append('htmx-indicator')
+    return Span(cls=classes, **kwargs)
 
 # %% ../nbs/03_daisy.ipynb
 class ToastHT(VEnum):

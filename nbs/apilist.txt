@@ -5,13 +5,73 @@
 - `class Theme`
     Selector to choose theme and get all headers needed for app.  Includes frankenui + tailwind
 
-    - `def headers(self, mode)`
+    - `def headers(self, mode, daisy)`
         Create frankenui and tailwind cdns
 
     - `def local_headers(self, mode, static_dir)`
         Create headers using local files downloaded from CDNs
 
     - `@property def name(self)`
+
+## monsterui.daisy
+
+- `class AlertT`
+    Alert styles
+
+    - `@property def name(self)`
+
+- `def Alert(*c, **kwargs)`
+    Alert informs users about important events.
+
+- `class StepsT`
+    Options for Steps
+
+    - `@property def name(self)`
+
+- `class StepT`
+    Step styles for LiStep
+
+    - `@property def name(self)`
+
+- `def Steps(*li, **kwargs)`
+    Creates a steps container with horizontal scrolling
+
+- `def LiStep(*c, **kwargs)`
+    Creates a step list item with optional styling
+
+- `class LoadingT`
+    - `@property def name(self)`
+
+- `def Loading(cls, htmx_indicator, **kwargs)`
+    Creates a loading animation component
+
+- `class ToastHT`
+    Horizontal position for Toast
+
+    - `@property def name(self)`
+
+- `class ToastVT`
+    Vertical position for Toast
+
+    - `@property def name(self)`
+
+- `def Toast(*c, **kwargs)`
+    Toasts are stacked announcements, positioned on the corner of page.
+
+## monsterui.foundations
+
+> Data Structures and Utilties
+
+- `def stringify(o)`
+    Converts input types into strings that can be passed to FT components
+
+- `class VEnum`
+    - `def __str__(self)`
+    - `def __add__(self, other)`
+    - `def __radd__(self, other)`
+    - `@property def name(self)`
+
+## monsterui.franken
 
 - `class TextT`
     Text Styles from https://franken-ui.dev/docs/text
@@ -65,7 +125,7 @@
     - `@property def name(self)`
 
 - `def Button(*c, **kwargs)`
-    A Button with Styling (defaults to `type=submit` for form submission)
+    A Button with Styling (defaults to `submit` for form submission)
 
 - `class ContainerT`
     Max width container sizes from https://franken-ui.dev/docs/container
@@ -89,18 +149,6 @@
 - `def DividerSplit(*c)`
     Creates a simple horizontal line divider with configurable thickness and vertical spacing
 
-- `def Alert(*args, **kwargs)`
-    A styled alert component that can contain a AlertTitle, AlertDescription and AlertCloseButton
-
-- `def AlertCloseButton(*args, **kwargs)`
-    A button component for closing an Alert
-
-- `def AlertTitle(*args, **kwargs)`
-    A title component for use within an Alert
-
-- `def AlertDescription(*args, **kwargs)`
-    A description component for use within an Alert
-
 - `def Article(*c, **kwargs)`
     A styled article container for blog posts or similar content
 
@@ -115,11 +163,47 @@
 
     - `@property def name(self)`
 
+- `def Form(*c, **kwargs)`
+    A Form with default spacing between form elements
+
+- `def Fieldset(*c, **kwargs)`
+    A Fieldset with default styling
+
+- `def Legend(*c, **kwargs)`
+    A Legend with default styling
+
+- `def Input(*c, **kwargs)`
+    An Input with default styling
+
+- `def Select(*option, **kwargs)`
+    A Select with default styling
+
+- `def Radio(*c, **kwargs)`
+    A Radio with default styling
+
+- `def CheckboxX(*c, **kwargs)`
+    A Checkbox with default styling
+
+- `def Range(*c, **kwargs)`
+    A Range with default styling
+
+- `def TextArea(*c, **kwargs)`
+    A Textarea with default styling
+
+- `def Switch(*c, **kwargs)`
+    A Switch with default styling
+
+- `def FormLabel(*c, **kwargs)`
+    A Label with default styling
+
 - `class LabelT`
     - `@property def name(self)`
 
 - `def Label(*c, **kwargs)`
     FrankenUI labels, which look like pills
+
+- `def UkFormSection(title, description, *c)`
+    A form section with a title, description and optional button
 
 - `def GenericLabelInput(label, lbl_cls, input_cls, container, cls, id, input_fn, **kwargs)`
     `Div(Label,Input)` component with Uk styling injected appropriately. Generally you should higher level API, such as `UkTextArea` which is created for you in this library
@@ -133,20 +217,26 @@
 - `def LabelCheckboxX(label, lbl_cls, input_cls, container, cls, **kwargs)`
     `Div(Label,Input)` component with Uk styling injected appropriately. Generally you should higher level API, such as `UkTextArea` which is created for you in this library
 
+- `@delegates(GenericLabelInput, but=['input_fn', 'cls']) def LabelRange(*args, **kwargs)`
+    Creates a labeled range input with nice default spacing and links/names them based on id
+
 - `@delegates(GenericLabelInput, but=['input_fn', 'cls']) def LabelTextArea(*args, **kwargs)`
-    Creates a labeled textarea with optional initial value
+    Creates a labeled textarea with nice default spacing and links/names them based on id
+
+- `@delegates(GenericLabelInput, but=['input_fn', 'cls']) def LabelSwitch(*args, **kwargs)`
+    Creates a labeled switch with nice default spacing and links/names them based on id
 
 - `def LabelSelect(*option, **kwargs)`
-    `Div(Label,Input)` component with Uk styling injected appropriately. Generally you should higher level API, such as `UkTextArea` which is created for you in this library
+    Creates a Labeled Select - Generally you should use LabelUkSelect for a more full features and styled select
 
 - `def Options(*c)`
     Helper function to wrap things into `Option`s for use in `UkSelect`
 
 - `def UkSelect(*option, **kwargs)`
-    Creates a select dropdown with uk styling
+    Creates a select dropdown with uk styling and option for adding a search box
 
 - `def LabelUkSelect(*option, **kwargs)`
-    Creates a select dropdown with uk styling
+    Creates a select dropdown with uk styling and a label and provides option for adding a search box
 
 - `class AT`
     Link styles from https://franken-ui.dev/docs/link
@@ -158,11 +248,35 @@
 
     - `@property def name(self)`
 
+- `def UkList(*c, **kwargs)`
+    Creates a list with styling
+
+- `def ModalContainer(*c, **kwargs)`
+    Creates a modal container that components go in
+
+- `def ModalDialog(*c, **kwargs)`
+    Creates a modal dialog
+
+- `def ModalHeader(*c, **kwargs)`
+    Creates a modal header
+
+- `def ModalBody(*c, **kwargs)`
+    Creates a modal body
+
+- `def ModalFooter(*c, **kwargs)`
+    Creates a modal footer
+
+- `def ModalTitle(*c, **kwargs)`
+    Creates a modal title
+
+- `def ModalCloseButton(*c, **kwargs)`
+    Creates a button that closes a modal with js
+
 - `def HTMXModalCloseButton(*c, **kwargs)`
     Creates a button that closes a modal using HTMX
 
 - `def Modal(*c, **kwargs)`
-    Create a Modal using the appropriate Modal* classes to put the boilerplate in the appropriate places for you
+    Create a Modal using the appropriate Modal classes to put the boilerplate in the appropriate places for you
 
 - `class PaddingT`
     Padding Modifiers from https://franken-ui.dev/docs/padding
@@ -173,6 +287,15 @@
     Position modifiers from https://franken-ui.dev/docs/position
 
     - `@property def name(self)`
+
+- `def UkIcon(icon, height, width, stroke_width, cls, **kwargs)`
+    Creates an icon using lucide icons
+
+- `def UkIconLink(icon, height, width, stroke_width, cls, button, **kwargs)`
+    Creates an icon link using lucide icons
+
+- `def DiceBearAvatar(seed_name, h, w)`
+    Creates an Avatar using https://dicebear.com/
 
 - `class FlexT`
     Flexbox modifiers from UIkit
@@ -194,27 +317,53 @@
 - `def DivRAligned(*c, **kwargs)`
     Creates a flex div with it's components aligned to the right
 
+- `def DivVStacked(*c, **kwargs)`
+    Creates a flex div with it's components stacked vertically
+
+- `def DivHStacked(*c, **kwargs)`
+    Creates a flex div with it's components stacked horizontally
+
 - `class NavT`
     - `@property def name(self)`
+
+- `def NavContainer(*li, **kwargs)`
+    Creates a navigation container.  A Nav is a list (NavBar is something different)
+
+- `def NavBarContainer(*c, **kwargs)`
+    Create a NavBarContainer to put NavBar sides in
+
+- `def NavBarNav(*li, **kwargs)`
+    A Nav that is part of a NavBar
+
+- `def DropDownNavContainer(*li, **kwargs)`
+    A Nav that is part of a DropDown
+
+- `def TabContainer(*li, **kwargs)`
+    A Tab that is part of a TabContainer
 
 - `class CardT`
     Card styles from UIkit
 
     - `@property def name(self)`
 
+- `def Card(*c, **kwargs)`
+    Creates a Card with a header, body, and footer
+
 - `class TableT`
     - `@property def name(self)`
 
-## monsterui.foundations
+- `def Table(*args, **kwargs)`
+    Creates a table
 
-> Data Structures and Utilties
+- `def TableFromLists(header_data, body_data, footer_data, header_cell_render, body_cell_render, footer_cell_render, cls, sortable, **kwargs)`
+    Creates a Table from a list of header data and a list of lists of body data
 
-- `def stringify(o)`
-    Converts input types into strings that can be passed to FT components
+- `def TableFromDicts(header_data, body_data, footer_data, header_cell_render, body_cell_render, footer_cell_render, cls, sortable, **kwargs)`
+    Creates a Table from a list of header data and a list of dicts of body data
 
-- `class VEnum`
-    - `def __str__(self)`
-    - `def __add__(self, other)`
-    - `def __radd__(self, other)`
-    - `@property def name(self)`
+- `def apply_classes(html_str, class_map, class_map_mods)`
+    Apply classes to html string
+
+- `def render_md(md_content, class_map, class_map_mods)`
+    Renders markdown using mistletoe and lxml
 

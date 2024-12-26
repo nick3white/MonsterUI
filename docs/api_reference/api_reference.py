@@ -2,7 +2,7 @@
 
 from fasthtml.common import *
 from monsterui.all import *
-from nbdev.showdoc import *
+# from nbdev.showdoc import *
 from utils import create_flippable_card, fn2code_string
 from enum import EnumType
 from collections.abc import Callable
@@ -12,17 +12,60 @@ Any variable starting with docs_ is a function that generates a section of the A
 
 These are automatically added to the docs sidebar so you don't have to do anything other than add the function using create_doc_section.
 '''
+from inspect import signature, getdoc, getsourcefile, getsourcelines
 
 # Utilities
+def get_github_url(func):
+    "Create GitHub URL for function, assuming AnswerDotAI/MonsterUI repo"
+    file = getsourcefile(func).split('MonsterUI/')[-1]
+    line = getsourcelines(func)[-1]
+    return f"https://github.com/AnswerDotAI/MonsterUI/blob/main/{file}#L{line}"
+
+from fastcore.docments import docments, docstring, get_name
+def show_doc(func) -> str:
+    "Convert a Google-style docstring to markdown"
+    params = docments(func, args_kwargs=True)
+    funcname = get_name(func)
+    doc = docstring(func)
+    par, ret = None, None
+    if params:
+        par = Div(Strong('Params'), 
+                  Ul(*[Li(render_md(f"`{name}` {desc if desc else ''}",class_map_mods={'p':'leading-relaxed'}), cls='') for name, desc in params.items() if name != 'return'], cls='uk-list-disc space-y-2 mb-6 ml-6'))
+    if 'return' in params and params['return']: ret = render_md(f"**Returns:** {params['return']}") 
+    return Div(
+        # DivFullySpaced(H3(func.__name__, cls='uk-h3 text-2xl font-semibold mt-8 mb-4'),A("Source", href=get_github_url(func), cls='text-primary hover:text-primary-focus underline')),
+        DivFullySpaced(render_md(f"### {func.__name__}"),A("Source", href=get_github_url(func), cls='text-primary hover:text-primary-focus underline')),
+        Div(Pre(Code(f"{funcname}{signature(func)}", 
+          cls='hljs language-python px-1 block overflow-x-auto'), 
+    cls='bg-base-200 rounded-lg p-4 mb-6')),
+        Div(Blockquote(render_md(doc), cls='pl-4 border-l-4 border-primary mb-6'), par, ret, cls='ml-10'))
 
 def enum_to_html_table(enum_class):
-    headers = ["Option", "Value"]
-    rows = [[name, value.value] for name, value in enum_class.__members__.items()]
+    "Creates a compact multi-column table display for enum documentation"
+    items = list(enum_class.__members__.items())
+    n_cols = min(4, max(2, round((len(items) ** 0.5))))
+    
+    # Create header/cell pairs with borders
+    def make_pair(opt, val, i): 
+        border = 'border-l border-base-300 pl-4' if i > 0 else ''
+        return [Th('Option', cls=border), Th('Value')] if opt == 'header' else [Td(opt, cls=border), Td(val)]
+    
+    # Build rows with padding for incomplete final row
+    rows = []
+    for i in range(0, len(items), n_cols):
+        cells = []
+        for j in range(n_cols):
+            name, val = items[i + j] if i + j < len(items) else ('', '')
+            cells.extend(make_pair(name, val.value if val else '', j))
+        rows.append(Tr(*cells))
+
     return Div(
-        Hr(cls='uk-divider-icon my-4'),
-        H3(enum_class.__name__,cls='my-4'),
-        P(I(enum_class.__doc__)),
-        TableFromLists(headers, rows, cls=(TableT.hover, 'uk-table-small')),)
+        Hr(cls='uk-divider-icon my-2'),
+        DivFullySpaced(H3(enum_class.__name__, cls='my-2'), P(I(enum_class.__doc__), cls='text-sm')),
+        Table(
+            Thead(Tr(*make_pair('header', '', 0) * n_cols)),
+            Tbody(*rows),
+            cls=(TableT.hover, 'uk-table-small uk-table-justify uk-table-middle')))
 
 def render_content(c):
     "Renders content by type"
@@ -33,8 +76,9 @@ def render_content(c):
         extra_cls = c[2] if len(tuple(c)) == 3 else None
         return create_flippable_card(c[0], c[1], extra_cls)
     elif isinstance(c, Callable): # Callables are rendered as documentation via show_doc
-        _html = show_doc(c, renderer=BasicHtmlRenderer)._repr_html_()
-        return NotStr(apply_classes(_html, class_map_mods={"table":'uk-table uk-table-hover uk-table-small'}))
+        return show_doc(c)
+        # _html = show_doc(c, renderer=BasicHtmlRenderer)._repr_html_()
+        # return NotStr(apply_classes(_html, class_map_mods={"table":'uk-table uk-table-hover uk-table-small'}))
     else: return c
 
 def create_doc_section(*content, title):
@@ -66,7 +110,6 @@ docs_button_link = create_doc_section(
     Button, 
     fn2code_string(ex_buttons),
     ButtonT, 
-    A,
     AT,
     fn2code_string(ex_links),
     title="Buttons & Links")
@@ -172,7 +215,7 @@ docs_typography = create_doc_section(
     TextFont,
     TextT,
     H1, H2, H3, H4, Titled,
-    P, PParagraph, PLarge, PLead, PSmall, PMuted,
+    PParagraph, PLarge, PLead, PSmall, PMuted,
     CodeSpan, Blockquote,
     title="Text Style")
 
@@ -312,7 +355,7 @@ docs_cards = create_doc_section(
     fn2code_string(ex_card3),
     CardTitle,
     CardT,
-    "The remainder of these are only needed if you're doing something really special.  They are used in the `Card` function to generate the boilerplate for you.",
+    P("The remainder of these are only needed if you're doing something really special.  They are used in the `Card` function to generate the boilerplate for you.", cls='my-6'),
     CardContainer,
     CardHeader,
     CardBody,
@@ -408,6 +451,14 @@ docs_forms = create_doc_section(
     fn2code_string(ex_formlabel),
     Input,
     fn2code_string(ex_input),
+    LabelInput,
+    LabelCheckboxX,
+    LabelSwitch,
+    LabelRange,
+    LabelTextArea,
+    LabelRadio,
+    LabelSelect,
+    LabelUkSelect,
     Progress,
     fn2code_string(ex_progress),
     Radio,
@@ -682,9 +733,8 @@ docs_navigation = create_doc_section(
     P("A tabs can use any method of navigation (htmx, or href).  However, often these are use in conjunction with switchers do to this client side", cls=TextFont.muted_sm),
     fn2code_string(ex_tabs1),
     H1("API Docs"),
-    Nav,
-    NavT,
     NavContainer,
+    NavT,
     NavCloseLi,
     NavSubtitle,
     NavHeaderLi,
@@ -772,10 +822,7 @@ docs_tables = create_doc_section(
     TableT,
     Tbody,
     Th,
-    Td,
-    Tfoot,
-    Thead,
-    Tr,    
+    Td,    
     title="Tables")
 
 # Icons

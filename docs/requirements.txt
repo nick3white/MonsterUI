@@ -6,7 +6,6 @@ fastcore
 fh_matplotlib
 numpy
 matplotlib
-nbdev
 pysymbol_llm
 mistletoe
 lxml

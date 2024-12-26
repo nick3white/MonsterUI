@@ -2,20 +2,19 @@
 
 # %% auto 0
 __all__ = ['franken_class_map', 'TextT', 'TextFont', 'PParagraph', 'PLarge', 'PLead', 'PSmall', 'PMuted', 'CodeSpan',
-           'Blockquote', 'H1', 'H2', 'H3', 'H4', 'ButtonT', 'Button', 'Main', 'ContainerT', 'Container', 'Titled',
-           'DividerT', 'Divider', 'DividerSplit', 'DividerLine', 'Article', 'ArticleTitle', 'ArticleMeta', 'SectionT',
-           'Section', 'Form', 'Fieldset', 'Legend', 'Input', 'Select', 'Radio', 'CheckboxX', 'Range', 'TextArea',
-           'Switch', 'FormLabel', 'LabelT', 'Label', 'UkFormSection', 'GenericLabelInput', 'LabelInput', 'LabelRadio',
-           'LabelCheckboxX', 'LabelRange', 'LabelTextArea', 'LabelSwitch', 'LabelSelect', 'Options', 'UkSelect',
+           'Blockquote', 'H1', 'H2', 'H3', 'H4', 'ButtonT', 'Button', 'ContainerT', 'Container', 'Titled', 'DividerT',
+           'Divider', 'DividerSplit', 'DividerLine', 'Article', 'ArticleTitle', 'ArticleMeta', 'SectionT', 'Section',
+           'Form', 'Fieldset', 'Legend', 'Input', 'Select', 'Radio', 'CheckboxX', 'Range', 'TextArea', 'Switch',
+           'FormLabel', 'LabelT', 'Label', 'UkFormSection', 'GenericLabelInput', 'LabelInput', 'LabelRange',
+           'LabelTextArea', 'LabelSwitch', 'LabelRadio', 'LabelCheckboxX', 'LabelSelect', 'Options', 'UkSelect',
            'LabelUkSelect', 'AT', 'ListT', 'UkList', 'ModalContainer', 'ModalDialog', 'ModalHeader', 'ModalBody',
-           'ModalFooter', 'ModalTitle', 'ModalCloseButton', 'HTMXModalCloseButton', 'Modal', 'PaddingT', 'PositionT',
-           'Placeholder', 'Progress', 'UkIcon', 'UkIconLink', 'DiceBearAvatar', 'FlexT', 'Grid', 'DivFullySpaced',
-           'DivCentered', 'DivLAligned', 'DivRAligned', 'DivVStacked', 'DivHStacked', 'NavT', 'NavContainer',
-           'NavParentLi', 'NavDividerLi', 'NavHeaderLi', 'NavSubtitle', 'NavCloseLi', 'NavBarContainer', 'NavBarLSide',
-           'NavBarRSide', 'NavBarCenter', 'NavBarNav', 'NavBarSubtitle', 'NavBarNavContainer', 'NavBarParentIcon',
-           'DropDownNavContainer', 'TabContainer', 'CardT', 'CardTitle', 'CardHeader', 'CardBody', 'CardFooter',
-           'CardContainer', 'Card', 'TableT', 'Table', 'Td', 'Th', 'Tr', 'Thead', 'Tbody', 'TableFromLists',
-           'TableFromDicts', 'apply_classes', 'render_md']
+           'ModalFooter', 'ModalTitle', 'ModalCloseButton', 'Modal', 'PaddingT', 'PositionT', 'Placeholder', 'Progress',
+           'UkIcon', 'UkIconLink', 'DiceBearAvatar', 'FlexT', 'Grid', 'DivFullySpaced', 'DivCentered', 'DivLAligned',
+           'DivRAligned', 'DivVStacked', 'DivHStacked', 'NavT', 'NavContainer', 'NavParentLi', 'NavDividerLi',
+           'NavHeaderLi', 'NavSubtitle', 'NavCloseLi', 'NavBarContainer', 'NavBarLSide', 'NavBarRSide', 'NavBarCenter',
+           'NavBarNav', 'NavBarSubtitle', 'NavBarNavContainer', 'NavBarParentIcon', 'DropDownNavContainer',
+           'TabContainer', 'CardT', 'CardTitle', 'CardHeader', 'CardBody', 'CardFooter', 'CardContainer', 'Card',
+           'TableT', 'Table', 'Td', 'Th', 'Tbody', 'TableFromLists', 'TableFromDicts', 'apply_classes', 'render_md']
 
 # %% ../nbs/02_franken.ipynb
 import fasthtml.common as fh
@@ -69,50 +68,83 @@ class TextFont(Enum):
     bold_sm = stringify((TextT.bold, TextT.small))
 
 # %% ../nbs/02_franken.ipynb
-def PParagraph(*args, cls='', **kwargs): 
-    "P Tag with uk-paragraph style applied"
-    return fh.P(*args, cls=('uk-paragraph',stringify(cls)), **kwargs)
-def PLarge(*args, cls='', **kwargs):
-    "P Tag with uk-text-large style applied"
-    return fh.P(*args, cls=('uk-text-large', stringify(cls)), **kwargs)
-def PLead(*args, cls='', **kwargs):
-    "P Tag with uk-text-lead style applied"
-    return fh.P(*args, cls=('uk-text-lead',  stringify(cls)), **kwargs)
-def PSmall(*args, cls='', **kwargs):
-    "P Tag with uk-text-small style applied"
-    return fh.P(*args, cls=('uk-text-small', stringify(cls)), **kwargs)
-def PMuted(*args, cls='', **kwargs):
-    "P Tag with uk-text-muted style applied"
-    return fh.P(*args, cls=('uk-text-muted', stringify(cls)), **kwargs)
+def PParagraph(*c, # Contents of P tag (often text)
+               cls='', # Classes in addition to paragraph styling
+               **kwargs # Additional args for P tag
+               ): # P(..., cls='uk-paragraph')
+    "P Tag with paragraph style applied"
+    return fh.P(*c, cls=('uk-paragraph', stringify(cls)), **kwargs)
+def PLarge(*c, # Contents of P tag (often text)
+           cls='', # Classes in addition to paragraph styling
+           **kwargs # Additional args for P tag
+           ): # P(..., cls='uk-text-large')
+    "P Tag with large style applied"
+    return fh.P(*c, cls=('uk-text-large', stringify(cls)), **kwargs)
+def PLead(*c, # Contents of P tag (often text)
+          cls='', # Classes in addition to paragraph styling
+          **kwargs # Additional args for P tag
+          ): # P(..., cls='uk-text-lead')
+    "P Tag with lead style applied"
+    return fh.P(*c, cls=('uk-text-lead', stringify(cls)), **kwargs)
+def PSmall(*c, # Contents of P tag (often text)
+           cls='', # Classes in addition to paragraph styling
+           **kwargs # Additional args for P tag
+           ): # P(..., cls='uk-text-small')
+    "P Tag with small style applied"
+    return fh.P(*c, cls=('uk-text-small', stringify(cls)), **kwargs)
+def PMuted(*c, # Contents of P tag (often text)
+           cls='', # Classes in addition to paragraph styling
+           **kwargs # Additional args for P tag
+           ): # P(..., cls='uk-text-muted')
+    "P Tag with muted style applied"
+    return fh.P(*c, cls=('uk-text-muted', stringify(cls)), **kwargs)
 
 # %% ../nbs/02_franken.ipynb
-def CodeSpan(*args, **kwargs):
+def CodeSpan(*c, # Contents of CodeSpan tag (inline text code snippets)
+             cls=(), # Classes in addition to CodeSpan styling
+             **kwargs # Additional args for CodeSpan tag
+             ): # Code(..., cls='uk-codespan')
     "A CodeSpan with Styling"
-    return fh.Code(*args, cls=('uk-codespan"'), **kwargs)
+    return fh.Code(*c, cls=('uk-codespan', stringify(cls)), **kwargs)
 
 # %% ../nbs/02_franken.ipynb
-def Blockquote(*c:FT|str, cls:Enum|str|tuple=(), **kwargs)->FT:
-    "A Blockquote with Styling"
+def Blockquote(*c:FT|str, # Contents of Blockquote tag (often text)
+               cls:Enum|str|tuple=(), # Classes in addition to Blockquote styling
+               **kwargs # Additional args for Blockquote tag
+               ): # Blockquote(..., cls='uk-blockquote')
+    "Blockquote with Styling"
     return fh.Blockquote(*c, cls=('uk-blockquote',stringify(cls)), **kwargs)
 
 # %% ../nbs/02_franken.ipynb
-def H1(*c:FT|str, cls:Enum|str|tuple=(), **kwargs)->FT: 
-    "A H1 with Styling"
+def H1(*c:FT|str, # Contents of H1 tag (often text)
+       cls:Enum|str|tuple=(), # Classes in addition to H1 styling
+       **kwargs # Additional args for H1 tag
+       ): # H1(..., cls='uk-h1')
+    "H1 with styling and appropriate size"
     return fh.H1(*c, cls=('uk-h1',stringify(cls)), **kwargs)
 
 # %% ../nbs/02_franken.ipynb
-def H2(*c:FT|str, cls:Enum|str|tuple=(), **kwargs)->FT: 
-    "A H2 with Styling"
+def H2(*c:FT|str, # Contents of H2 tag (often text)
+       cls:Enum|str|tuple=(), # Classes in addition to H2 styling
+       **kwargs # Additional args for H2 tag
+       ): # H2(..., cls='uk-h2')
+    "H2 with styling and appropriate size"
     return fh.H2(*c, cls=('uk-h2',stringify(cls)), **kwargs)
 
 # %% ../nbs/02_franken.ipynb
-def H3(*c:FT|str, cls:Enum|str|tuple=(), **kwargs)->FT: 
-    "A H3 with Styling"
+def H3(*c:FT|str, # Contents of H3 tag (often text)
+       cls:Enum|str|tuple=(), # Classes in addition to H3 styling
+       **kwargs # Additional args for H3 tag
+       ): # H3(..., cls='uk-h3')
+    "H3 with styling and appropriate size"
     return fh.H3(*c, cls=('uk-h3',stringify(cls)), **kwargs)
 
 # %% ../nbs/02_franken.ipynb
-def H4(*c:FT|str, cls:Enum|str|tuple=(), **kwargs)->FT:
-    "A H4 with Styling"
+def H4(*c:FT|str, # Contents of H4 tag (often text)
+       cls:Enum|str|tuple=(), # Classes in addition to H4 styling
+       **kwargs # Additional args for H4 tag
+       ): # H4(..., cls='uk-h4')
+    "H4 with styling and appropriate size"
     return fh.H4(*c, cls=('uk-h4',stringify(cls)), **kwargs)
 
 # %% ../nbs/02_franken.ipynb
@@ -128,18 +160,14 @@ class ButtonT(VEnum):
     ghost = auto()
 
 # %% ../nbs/02_franken.ipynb
-def Button(*c: Union[str, FT],
-           cls: Union[str, Enum]=ButtonT.default,
-           submit=True,
-           **kwargs
-          ) -> FT:
-    "A Button with Styling (defaults to `submit` for form submission)"
-    if 'type' not in kwargs:
-        kwargs['type'] = 'submit' if submit else 'button'
+def Button(*c: Union[str, FT], # Contents of `Button` tag (often text)
+           cls: Union[str, Enum]=ButtonT.default, # Classes in addition to `Button` styling (use `ButtonT` for built in styles)
+           submit=True, # Whether the button should submit a form
+           **kwargs # Additional args for `Button` tag
+           ) -> FT: # Button(..., cls='uk-button')
+    "Button with Styling (defaults to `submit` for form submission)"
+    if 'type' not in kwargs: kwargs['type'] = 'submit' if submit else 'button'
     return fh.Button(*c, cls=('uk-button', stringify(cls)), **kwargs)
-
-# %% ../nbs/02_franken.ipynb
-def Main(*args, **kwargs): return fh.Main(*args, **kwargs)
 
 # %% ../nbs/02_franken.ipynb
 class ContainerT(VEnum):
@@ -152,29 +180,39 @@ class ContainerT(VEnum):
     expand = auto()
 
 # %% ../nbs/02_franken.ipynb
-def Container(*c, cls=('mt-5', ContainerT.xlarge), **kwargs): 
-    "A Div to be used as a container that often wraps large sections or a page of content"
+def Container(*c, # Contents of Container tag (often other FT Components)
+              cls=('mt-5', ContainerT.xlarge), # Classes in addition to Container styling
+              **kwargs # Additional args for Container (`Div` tag)
+              ): # Container(..., cls='uk-container')
+    "Div to be used as a container that often wraps large sections or a page of content"
     return Div(*c, cls=('uk-container',stringify(cls)), **kwargs)
 
 # %% ../nbs/02_franken.ipynb
-def Titled(title:str="FastHTML app", *args, cls='uk-container-xlarge', **kwargs)->FT:
+def Titled(title:str="FastHTML app", # Title of the page
+           *c, # Contents of the page (often other tags)
+           cls=ContainerT.xlarge, # Classes in addition to Container styling
+           **kwargs # Additional args for Container (`Div` tag)
+           )->FT: # Title, Main(Container(H1(title), content))
     "Creates a standard page structure for titled page.  Main(Container(title, content))"
-    return fh.Title(title), fh.Main(Container(H1(title), *args, cls=cls, **kwargs))
+    return fh.Title(title), fh.Main(Container(H1(title), *c, cls=cls, **kwargs))
 
 # %% ../nbs/02_franken.ipynb
 class DividerT(VEnum):
-    " Divider Styles from https://franken-ui.dev/docs/divider"
+    "Divider Styles from https://franken-ui.dev/docs/divider"
     def _generate_next_value_(name, start, count, last_values): return str2ukcls('divider', name)
     icon=auto()
     small=auto()
     vertical=auto()
 
 # %% ../nbs/02_franken.ipynb
-def Divider(*args, cls=('my-4', DividerT.icon), **kwargs):
+def Divider(*c, # contents of Divider tag (often nothing)
+            cls=('my-4', DividerT.icon), # Classes in addition to Divider styling
+            **kwargs # Additional args for Divider tag
+            ): #  Hr(..., cls='uk-divider-icon') or Div(..., cls='uk-divider-vertical')
     "Divider with default styling and margin"
     cls = stringify(cls)
     container = Div if 'uk-divider-vertical' in cls else Hr
-    return container(*args, cls=cls, **kwargs)
+    return container(*c, cls=cls, **kwargs)
 
 # %% ../nbs/02_franken.ipynb
 def DividerSplit(*c, cls=(), line_cls=(), text_cls=()):
@@ -188,32 +226,24 @@ def DividerSplit(*c, cls=(), line_cls=(), text_cls=()):
 def DividerLine(lwidth=2, y_space=4): return Hr(cls=f"my-{y_space} h-[{lwidth}px] w-full bg-secondary")
 
 # %% ../nbs/02_franken.ipynb
-# def Alert(*args, cls=(), **kwargs): 
-#     "A styled alert component that can contain a AlertTitle, AlertDescription and AlertCloseButton"
-#     return Div(*args, cls=('uk-alert', stringify(cls)), uk_alert=True, **kwargs)
-
-# def AlertCloseButton(*args, cls=(), **kwargs): 
-#     "A button component for closing an Alert"
-#     return A(*args, cls=('uk-alert-close', stringify(cls)), **kwargs)
-
-# def AlertTitle(*args, cls='', **kwargs): 
-#     "A title component for use within an Alert"
-#     return Div(*args, cls=('uk-alert-title', stringify(cls)), **kwargs)
-
-# def AlertDescription(*args, cls='', **kwargs): 
-#     "A description component for use within an Alert"
-#     return Div(*args, cls=('uk-alert-description', stringify(cls)), **kwargs)
-
-# %% ../nbs/02_franken.ipynb
-def Article(*c, cls=(), **kwargs):
+def Article(*c, # contents of Article tag (often other tags)
+            cls=(), # Classes in addition to Article styling
+            **kwargs # Additional args for Article tag
+            ): # Article(..., cls='uk-article')
     "A styled article container for blog posts or similar content"
     return fh.Article(*c, cls=('uk-article',stringify(cls)), **kwargs)
 
-def ArticleTitle(*c, cls=(), **kwargs):
+def ArticleTitle(*c, # contents of ArticleTitle tag (often other tags)
+                 cls=(), # Classes in addition to ArticleTitle styling
+                 **kwargs # Additional args for ArticleTitle tag
+                 ): # H1(..., cls='uk-article-title')
     "A title component for use within an Article"
     return H1(*c, cls=('uk-article-title',stringify(cls)), **kwargs)
 
-def ArticleMeta(*c, cls=(), **kwargs):
+def ArticleMeta(*c, # contents of ArticleMeta tag (often other tags)
+                cls=(), # Classes in addition to ArticleMeta styling
+                **kwargs # Additional args for ArticleMeta tag
+                ): # P(..., cls='uk-article-meta')
     "A metadata component for use within an Article showing things like date, author etc"
     return P(*c, cls=('uk-article-meta',stringify(cls)), **kwargs)
 
@@ -232,48 +262,86 @@ class SectionT(VEnum):
     remove_vertical = auto()
 
 # %% ../nbs/02_franken.ipynb
-def Section(*c, cls=(), **kwargs):
+def Section(*c, # contents of Section tag (often other tags)
+            cls=(), # Classes in addition to Section styling
+            **kwargs # Additional args for Section tag
+            ): # Div(..., cls='uk-section')
+    "Section with styling and margins"
     return fh.Div(*c, cls=('uk-section',stringify(cls)), **kwargs)
 
 # %% ../nbs/02_franken.ipynb
-def Form(*c, cls='space-y-3', **kwargs):
+def Form(*c, # contents of Form tag (often Buttons, FormLabels, and LabelInputs)
+          cls='space-y-3', # Classes in addition to Form styling (default is 'space-y-3' to prevent scrunched up form elements)
+          **kwargs # Additional args for Form tag
+          ): # Form(..., cls='space-y-3')
     "A Form with default spacing between form elements"
     return fh.Form(*c, cls=stringify(cls), **kwargs)
 
 # %% ../nbs/02_franken.ipynb
-def Fieldset(*c, cls=(), **kwargs): 
+def Fieldset(*c, # contents of Fieldset tag (often other tags)
+             cls=(), # Classes in addition to Fieldset styling
+             **kwargs # Additional args for Fieldset tag
+             ): # Fieldset(..., cls='uk-fieldset')
     "A Fieldset with default styling"
     return fh.Fieldset(*c, cls=('uk-fieldset',stringify(cls)), **kwargs)
 
-def Legend(*c, cls=(), **kwargs): 
+def Legend(*c, # contents of Legend tag (often other tags)
+           cls=(), # Classes in addition to Legend styling
+           **kwargs # Additional args for Legend tag
+           ): # Legend(..., cls='uk-legend')
     "A Legend with default styling"
     return fh.Legend(*c, cls=('uk-legend',stringify(cls)), **kwargs)
 
 # %% ../nbs/02_franken.ipynb
-def Input(*c, cls=(), **kwargs):      
+def Input(*c, # contents of Input tag (often nothing)
+          cls=(), # Classes in addition to Input styling
+          **kwargs # Additional args for Input tag
+          ): # Input(..., cls='uk-input')
     "An Input with default styling"
     return fh.Input(*c, cls=('uk-input',stringify(cls)), **kwargs)
-def Select(*option, cls=(), **kwargs):
-    "A Select with default styling"
+
+def Select(*option, # options for the select dropdown
+           cls=(), # Classes in addition to Select styling
+           **kwargs # Additional args for Select tag
+           ): # Select(..., cls='uk-select')
+    "A Select with default styling, though often `UkSelect` is a better choice"
     return fh.Select(*option, cls=('uk-select',stringify(cls)), **kwargs)
-def Radio(*c, cls=(), **kwargs):   
+def Radio(*c, # contents of Radio tag (often nothing)
+           cls=(), # Classes in addition to Radio styling
+           **kwargs # Additional args for Radio tag
+           ): # Input(..., cls='uk-radio', type='radio')
     "A Radio with default styling"
     return fh.Input(*c, cls=('uk-radio',stringify(cls)), type='radio', **kwargs)
-def CheckboxX(*c, cls=(), **kwargs): 
+def CheckboxX(*c, # contents of CheckboxX tag (often nothing)
+               cls=(), # Classes in addition to CheckboxX styling
+               **kwargs # Additional args for CheckboxX tag
+               ): # Input(..., cls='uk-checkbox', type='checkbox')
     "A Checkbox with default styling"
     return fh.Input(*c, cls=('uk-checkbox',stringify(cls)), type='checkbox', **kwargs)
-def Range(*c, cls=(), **kwargs):      
+def Range(*c, # contents of Range tag (often nothing)
+           cls=(), # Classes in addition to Range styling
+           **kwargs # Additional args for Range tag
+           ): # Input(..., cls='uk-range', type='range')
     "A Range with default styling"
     return fh.Input(*c, cls=('uk-range',stringify(cls)), type='range', **kwargs)
-def TextArea(*c, cls=(), **kwargs):      
+def TextArea(*c, # contents of TextArea tag (often text)
+             cls=(), # Classes in addition to TextArea styling
+             **kwargs # Additional args for TextArea tag
+             ): # TextArea(..., cls='uk-textarea')
     "A Textarea with default styling"
     return fh.Textarea(*c, cls=('uk-textarea',stringify(cls)), **kwargs)
-def Switch(*c, cls=(), **kwargs): 
+def Switch(*c, # contents of Switch tag (often nothing)
+           cls=(), # Classes in addition to Switch styling
+           **kwargs # Additional args for Switch tag
+           ): # Input(..., cls='uk-toggle-switch uk-toggle-switch-primary min-w-9', type='checkbox')
     "A Switch with default styling"
     return fh.Input(*c, cls=('uk-toggle-switch uk-toggle-switch-primary min-w-9',stringify(cls)), type='checkbox', **kwargs)
 
 # %% ../nbs/02_franken.ipynb
-def FormLabel(*c, cls=(), **kwargs): 
+def FormLabel(*c, # contents of FormLabel tag (often text)
+               cls=(), # Classes in addition to FormLabel styling
+               **kwargs # Additional args for FormLabel tag
+               ): # Label(..., cls='uk-form-label')
     "A Label with default styling"
     return fh.Label(*c, cls=('uk-form-label',stringify(cls)), **kwargs)
 
@@ -285,7 +353,10 @@ class LabelT(VEnum):
     danger = auto()
 
 # %% ../nbs/02_franken.ipynb
-def Label(*c, cls=(), **kwargs):
+def Label(*c, # contents of Label tag (often text)
+           cls=(), # Classes in addition to Label styling
+           **kwargs # Additional args for Label tag
+           ): # Label(..., cls='uk-label')
     "FrankenUI labels, which look like pills"
     return fh.Label(*c, cls=('uk-label',stringify(cls)), **kwargs)
 
@@ -299,16 +370,16 @@ def UkFormSection(title, description, *c, button_txt='Update', outer_margin=6, i
 
 # %% ../nbs/02_franken.ipynb
 def GenericLabelInput(
-               label:str|FT,
-               lbl_cls='',
-               input_cls='',
-               container=Div, 
-               cls='',
-               id='',
-               input_fn=noop, 
-                **kwargs
-                ):
-    "`Div(Label,Input)` component with Uk styling injected appropriately. Generally you should higher level API, such as `UkTextArea` which is created for you in this library"
+               label:str|FT, # FormLabel content (often text)
+               lbl_cls='', # Additional classes for FormLabel
+               input_cls='', # Additional classes for user input (Input, Select, etc)
+               container=Div, # Container to wrap label and input in (default is Div)
+               cls='', # Classes on container (default is '')
+               id='', # id for label and input (`id`, `name` and `for` attributes are set to this value)
+               input_fn=noop, # User input FT component 
+                **kwargs # Additional args for user input
+                ): 
+    "`Div(Label,Input)` component with Uk styling injected appropriately. Generally you should higher level API, such as `LabelInput` which is created for you in this library"
     if isinstance(label, str) or label.tag != 'label': 
         label = FormLabel(cls=stringify(lbl_cls), fr=id)(label)
     inp = input_fn(id=id, cls=stringify(input_cls), **kwargs)        
@@ -316,21 +387,64 @@ def GenericLabelInput(
     return label, inp
 
 # %% ../nbs/02_franken.ipynb
-@delegates(GenericLabelInput, but=['input_fn','cls'])
-def LabelInput(*args, cls='space-y-2', **kwargs): 
-    "A Label and Input pair that provides default spacing and links/names them based on id"
-    return GenericLabelInput(*args, cls=stringify(cls),input_fn=Input, **kwargs)
+def LabelInput(label:str|FT, # FormLabel content (often text)
+               lbl_cls='', # Additional classes for `FormLabel`
+               input_cls='', # Additional classes for `Input`
+               cls='space-y-2', # Classes on container (default is `'space-y-2'` to prevent scrunched up form elements)
+               id='', # id for `FormLabel` and `Input` (`id`, `name` and `for` attributes are set to this value)
+                **kwargs # Additional args for `Input`
+               ):  # Div(cls='space-y-2')(`FormLabel`, `Input`)
+    "A `FormLabel` and `Input` pair that provides default spacing and links/names them based on id"
+    return GenericLabelInput(label=label, lbl_cls=lbl_cls, input_cls=input_cls,
+                             container=Div, cls=cls, id=id, input_fn=Input, **kwargs)
 
 # %% ../nbs/02_franken.ipynb
-def LabelRadio(label:str|FT,
-               lbl_cls='',
-               input_cls='',
-               container=Div, 
-               cls='flex items-center space-x-2',
-               id='',
-                **kwargs
-                ):
-    "A Label and Radio pair that provides default spacing and links/names them based on id"
+def LabelRange(label:str|FT, # FormLabel content (often text)
+               lbl_cls='', # Additional classes for `FormLabel`
+               input_cls='', # Additional classes for `Range`
+               cls='space-y-2', # Classes on container (default is `'space-y-2'` to prevent scrunched up form elements)
+               id='', # id for `FormLabel` and `Range` (`id`, `name` and `for` attributes are set to this value)
+                **kwargs # Additional args for `Range`
+               ):  # Div(cls='space-y-2')(`FormLabel`, `Range`)
+    "A `FormLabel` and `Range` pair that provides default spacing and links/names them based on id"
+    return GenericLabelInput(label=label, lbl_cls=lbl_cls, input_cls=input_cls,
+                             container=Div, cls=cls, id=id, input_fn=Range, **kwargs)
+
+# %% ../nbs/02_franken.ipynb
+def LabelTextArea(label:str|FT, # FormLabel content (often text)
+                  value='', # Value for the textarea
+                  lbl_cls='', # Additional classes for `FormLabel`
+                  input_cls='', # Additional classes for `TextArea`
+                  cls='space-y-2', # Classes on container (default is `'space-y-2'` to prevent scrunched up form elements)
+                  id='', # id for `FormLabel` and `TextArea` (`id`, `name` and `for` attributes are set to this value)
+                  **kwargs # Additional args for `TextArea`
+                  ):  # Div(cls='space-y-2')(`FormLabel`, `TextArea`)
+    def text_area_with_value(**kw): return TextArea(value, **kw)
+    return GenericLabelInput(label=label, lbl_cls=lbl_cls, input_cls=input_cls,
+                             container=Div, cls=cls, id=id, input_fn=text_area_with_value, **kwargs)
+
+# %% ../nbs/02_franken.ipynb
+@delegates(GenericLabelInput, but=['input_fn','cls'])
+def LabelSwitch(label:str|FT, # FormLabel content (often text)
+               lbl_cls='', # Additional classes for `FormLabel`
+               input_cls='', # Additional classes for `Switch`
+               cls='space-x-2', # Classes on container (default is `'space-x-2'` to prevent scrunched up form elements)
+               id='', # id for `FormLabel` and `Switch` (`id`, `name` and `for` attributes are set to this value)
+                **kwargs # Additional args for `Switch`
+               ):  # Div(cls='space-y-2')(`FormLabel`, `Switch`)
+    return GenericLabelInput(label=label, lbl_cls=lbl_cls, input_cls=input_cls,
+                             container=Div, cls=cls, id=id, input_fn=Switch, **kwargs)
+
+# %% ../nbs/02_franken.ipynb
+def LabelRadio(label:str|FT, # FormLabel content (often text)
+               lbl_cls='', # Additional classes for `FormLabel`
+               input_cls='', # Additional classes for `Radio`
+               container=Div, # Container to wrap label and input in (default is Div)
+               cls='flex items-center space-x-2', # Classes on container (default is 'flex items-center space-x-2')
+               id='', # id for `FormLabel` and `Radio` (`id`, `name` and `for` attributes are set to this value)
+                **kwargs # Additional args for `Radio`
+               ):  # Div(cls='flex items-center space-x-2')(`FormLabel`, `Radio`)
+    "A FormLabel and Radio pair that provides default spacing and links/names them based on id"
     if isinstance(label, str) or label.tag != 'label': 
         label = FormLabel(cls=stringify(lbl_cls), fr=id)(label)
     inp = Radio(id=id, cls=stringify(input_cls), **kwargs)        
@@ -338,15 +452,15 @@ def LabelRadio(label:str|FT,
     return inp, label
 
 # %% ../nbs/02_franken.ipynb
-def LabelCheckboxX(label:str|FT,
-               lbl_cls='',
-               input_cls='',
-               container=Div, 
-               cls='flex items-center space-x-2',
-                **kwargs
-                ):
-    "`Div(Label,Input)` component with Uk styling injected appropriately. Generally you should higher level API, such as `UkTextArea` which is created for you in this library"
-    
+def LabelCheckboxX(label:str|FT, # FormLabel content (often text)
+               lbl_cls='', # Additional classes for `FormLabel`
+               input_cls='', # Additional classes for `CheckboxX`
+               container=Div, # Container to wrap label and input in (default is Div)
+               cls='flex items-center space-x-2', # Classes on container (default is 'flex items-center space-x-2')
+               id='', # id for `FormLabel` and `CheckboxX` (`id`, `name` and `for` attributes are set to this value)
+                **kwargs # Additional args for `CheckboxX`
+               ):  # Div(cls='flex items-center space-x-2')(`FormLabel`, `CheckboxX`)
+    "A FormLabel and CheckboxX pair that provides default spacing and links/names them based on id"
     id = kwargs.pop('id', fh.unqid())
     if isinstance(label, str) or label.tag != 'label': 
         label = FormLabel(cls=stringify(lbl_cls), fr=id)(label)
@@ -355,39 +469,16 @@ def LabelCheckboxX(label:str|FT,
     return inp, label
 
 # %% ../nbs/02_franken.ipynb
-# @delegates(GenericLabelInput, but=['input_fn','cls'])
-# def LabelCheckboxX(*args, cls='space-x-2', **kwargs): return GenericLabelInput(*args, cls=stringify(cls), input_fn=CheckboxX, **kwargs)
-
-# %% ../nbs/02_franken.ipynb
-@delegates(GenericLabelInput, but=['input_fn','cls'])
-def LabelRange(*args, cls='space-y-2', **kwargs): 
-    "Creates a labeled range input with nice default spacing and links/names them based on id"
-    return GenericLabelInput(*args, cls=stringify(cls), input_fn=Range, **kwargs)
-
-# %% ../nbs/02_franken.ipynb
-@delegates(GenericLabelInput, but=['input_fn','cls'])
-def LabelTextArea(*args, cls='space-y-2', value='', **kwargs): 
-    "Creates a labeled textarea with nice default spacing and links/names them based on id"
-    def text_area_with_value(**kw): return TextArea(value, **kw)
-    return GenericLabelInput(*args, cls=stringify(cls), input_fn=text_area_with_value, **kwargs)
-
-# %% ../nbs/02_franken.ipynb
-@delegates(GenericLabelInput, but=['input_fn','cls'])
-def LabelSwitch(*args, cls='space-x-2', **kwargs): 
-    "Creates a labeled switch with nice default spacing and links/names them based on id"
-    return GenericLabelInput(*args, cls=stringify(cls), input_fn=Switch, **kwargs)
-
-# %% ../nbs/02_franken.ipynb
-def LabelSelect(*option,
-               label:str|FT,
-               lbl_cls='',
-               input_cls='',
-               container=Div, 
-               cls='space-y-2',
-               id='',
-                **kwargs
+def LabelSelect(*option, # Options for the select dropdown (can use `Options` helper function to create)
+               label:str|FT, # FormLabel content (often text)
+               lbl_cls='', # Additional classes for `FormLabel`
+               input_cls='', # Additional classes for `Select`
+               container=Div, # Container to wrap label and input in (default is Div)
+               cls='space-y-2', # Classes on container (default is 'space-y-2')
+               id='', # id for `FormLabel` and `Select` (`id`, `name` and `for` attributes are set to this value)
+                **kwargs # Additional args for `Select`
                 ):
-    "Creates a Labeled Select - Generally you should use LabelUkSelect for a more full features and styled select"
+    "A FormLabel and Select pair that provides default spacing and links/names them based on id (usually UkLabelSelect is a better choice)"
     if isinstance(label, str) or label.tag != 'label': 
         label = FormLabel(lbl_cls=stringify(lbl_cls), fr=id)(label)
     inp = Select(*option, id=id, cls=stringify(input_cls), **kwargs)        
@@ -428,7 +519,7 @@ def LabelUkSelect(*option,            # Options for the select dropdown (can use
              placeholder="",     # Placeholder text for the select input
              searchable=False,   # Whether the select should be searchable
              **kwargs):          # Additional arguments passed to Uk_select
-    "Creates a select dropdown with uk styling and a label and provides option for adding a search box"
+    "A FormLabel and Select pair that provides default spacing and links/names them based on id"
     lbl_cls, inp_cls, cls = map(stringify, (lbl_cls, inp_cls, cls))
     if label: 
         lbl = FormLabel(cls=f'{lbl_cls}', fr=id)(label) 
@@ -461,59 +552,75 @@ class ListT(VEnum):
     striped = auto()
 
 # %% ../nbs/02_franken.ipynb
-def UkList(*c, cls=(), **kwargs): 
+def UkList(*li, # `Li` tags to put in the list
+           cls=(), # Additional classes on the list
+           **kwargs # Additional args for `Ul` tag
+           ): # Ul(..., cls='uk-list')
     "Creates a list with styling"
-    return fh.Ul(*c, cls=('uk-list',stringify(cls)), **kwargs)
+    return fh.Ul(*li, cls=('uk-list',stringify(cls)), **kwargs)
 
 # %% ../nbs/02_franken.ipynb
-def ModalContainer(*c, cls=(), **kwargs):   
+def ModalContainer(*c, # Components to put in the modal (often `ModalDialog`)
+                     cls=(), # Additional classes on the `ModalContainer`
+                     **kwargs # Additional args for `Div` tag
+                     ): # Div(..., cls='uk-modal uk-modal-container')
     "Creates a modal container that components go in"
     return fh.Div(*c, cls=('uk-modal uk-modal-container',stringify(cls)), uk_modal=True, **kwargs)
-def ModalDialog(*c, cls=(), **kwargs):      
+def ModalDialog(*c, # Components to put in the `ModalDialog` (often `ModalBody`, `ModalHeader`, etc)
+                  cls=(), # Additional classes on the `ModalDialog`
+                  **kwargs # Additional args for `Div` tag
+                  ): # Div(..., cls='uk-modal-dialog')
     "Creates a modal dialog"
     return fh.Div(*c, cls=('uk-modal-dialog',   stringify(cls)),                **kwargs)
-def ModalHeader(*c, cls=(), **kwargs):      
+def ModalHeader(*c, # Components to put in the `ModalHeader`
+                  cls=(), # Additional classes on the `ModalHeader`
+                  **kwargs # Additional args for `Div` tag
+                  ): # Div(..., cls='uk-modal-header')
     "Creates a modal header"
     return fh.Div(*c, cls=('uk-modal-header',   stringify(cls)),                **kwargs)
-def ModalBody(*c, cls=(), **kwargs):        
+def ModalBody(*c, # Components to put in the `ModalBody` (often forms, sign in buttons, images, etc.)
+               cls=(), # Additional classes on the `ModalBody`
+               **kwargs # Additional args for `Div` tag
+               ): # Div(..., cls='uk-modal-body')
     "Creates a modal body"
     return fh.Div(*c, cls=('uk-modal-body',     stringify(cls)),                **kwargs)
-def ModalFooter(*c, cls=(), **kwargs):      
+def ModalFooter(*c, # Components to put in the `ModalFooter` (often buttons)
+                 cls=(), # Additional classes on the `ModalFooter`
+                 **kwargs # Additional args for `Div` tag
+                 ): # Div(..., cls='uk-modal-footer')
     "Creates a modal footer"
     return fh.Div(*c, cls=('uk-modal-footer',   stringify(cls)),                **kwargs)
-def ModalTitle(*c, cls=(), **kwargs):       
+def ModalTitle(*c, # Components to put in the `ModalTitle` (often text)
+                cls=(), # Additional classes on the `ModalTitle`
+                **kwargs # Additional args for `H2` tag
+                ): # H2(..., cls='uk-modal-title')
     "Creates a modal title"
-    return fh.H2(*c,  cls=('uk-modal-title',    stringify(cls)),                **kwargs)
-def ModalCloseButton(*c, cls=(), **kwargs): 
+    return fh.H2(*c,  cls=('uk-modal-title',  stringify(cls)),  **kwargs)
+def ModalCloseButton(*c, # Components to put in the button (often text and/or an icon)
+                      cls=(), # Additional classes on the button
+                      htmx=False, # Whether to use HTMX to close the modal (must add hx_get to a route that closes the modal)
+                      **kwargs # Additional args for `Button` tag
+                      ): # Button(..., cls='uk-modal-close') + `hx_target` and `hx_swap` if htmx is True
     "Creates a button that closes a modal with js"
-    return Button(*c, cls=('uk-modal-close',    stringify(cls)),                **kwargs)
+    if htmx: 
+        kwargs['hx_target'] = 'closest .uk-modal'
+        kwargs['hx_swap'] = 'delete'
+    return Button(*c, cls=('uk-modal-close', stringify(cls)), **kwargs)
 
 # %% ../nbs/02_franken.ipynb
-def HTMXModalCloseButton(*c, cls=(), target=None, **kwargs):
-    "Creates a button that closes a modal using HTMX"
-    return Button(
-        *c, 
-        cls=('uk-modal-close', stringify(cls)),
-        hx_target='closest .uk-modal', 
-        hx_swap='delete',
-        type='button',
-        **kwargs
-    )
-
-# %% ../nbs/02_franken.ipynb
-def Modal(*c,
-        header=None,          # Components that go in the header
-        footer=None,          # Components that go in the footer
-        cls=(),               # class for outermost container
-        dialog_cls=(),        # classes for the dialog
-        header_cls='p-6',     # classes for the header
-        body_cls='space-y-6', # classes for the body
-        footer_cls=(),        # classes for the footer
+def Modal(*c,                 # Components to put in the `ModalBody` (often forms, sign in buttons, images, etc.)
+        header=None,          # Components that go in the `ModalHeader` (often a `ModalTitle`)
+        footer=None,          # Components that go in the `ModalFooter` (often a `ModalCloseButton`)
+        cls=(),               # Additional classes on the outermost `ModalContainer` 
+        dialog_cls=(),        # Additional classes on the `ModalDialog` 
+        header_cls='p-6',     # Additional classes on the `ModalHeader`
+        body_cls='space-y-6', # Additional classes on the `ModalBody`
+        footer_cls=(),        # Additional classes on the `ModalFooter`
         id='',                # id for the outermost container
-        open=False,
-        **kwargs              # classes for the outermost container
-        ): # Modal
-    "Create a Modal using the appropriate Modal classes to put the boilerplate in the appropriate places for you"
+        open=False,           # Whether the modal is open (typically used for HTMX controlled modals)
+        **kwargs              # Additional args for the outermost `Div` tag
+        ): # Fully styled modal FT Component
+    "Creates a modal with the appropriate classes to put the boilerplate in the appropriate places for you"
     if open:
         cls = stringify((cls, 'uk-open'))
         kwargs['style'] = stringify((kwargs.get('style',''), 'display: block;'))
@@ -563,35 +670,52 @@ class PositionT(VEnum):
     center_vertical = auto()
 
 # %% ../nbs/02_franken.ipynb
-def Placeholder(*c, cls=(), **kwargs):
+def Placeholder(*c, # Components to put in the placeholder
+                  cls=(), # Additional classes on the placeholder
+                  **kwargs # Additional args for `Div` tag
+                  ): # Div(..., cls='uk-placeholder')
+    "Creates a placeholder"
     return fh.Div(*c, cls=('uk-placeholder',stringify(cls)), **kwargs)
 
 # %% ../nbs/02_franken.ipynb
-def Progress(*c, cls=(), value="", max="", **kwargs):
+def Progress(*c, # Components to put in the progress bar (often nothing)
+             cls=(), # Additional classes on the progress bar
+             value="", # Value of the progress bar
+             max="100", # Max value of the progress bar (defaults to 100 for percentage)
+             **kwargs # Additional args for `Progress` tag
+             ): # Progress(..., cls='uk-progress')
+    "Creates a progress bar"
     return fh.Progress(*c, value=value, max=max, cls=('uk-progress',stringify(cls)), **kwargs)
 
 # %% ../nbs/02_franken.ipynb
-def UkIcon(icon,height=None,width=None,stroke_width=None,cls=(), **kwargs):
+def UkIcon(icon:str, # Icon name from [lucide icons](https://lucide.dev/icons/)
+           height:int=None, 
+           width:int=None, 
+           stroke_width:int=None, # Thickness of lines
+           cls=(), # Additional classes on the `Uk_icon` tag
+           **kwargs # Additional args for `Uk_icon` tag
+           ): # a lucide icon of the specified size 
     "Creates an icon using lucide icons"
     return Uk_icon(icon=icon, height=height, width=width, stroke_width=stroke_width, cls=cls, **kwargs)
 
 # %% ../nbs/02_franken.ipynb
-def UkIconLink(icon, 
-           height=None,
-           width=None,
-           stroke_width=None,
-           cls=(), 
-           button=False, 
-           **kwargs):
+def UkIconLink(icon:str,  # Icon name from [lucide icons](https://lucide.dev/icons/)
+           height:int=None, 
+           width:int=None, 
+           stroke_width:int=None, # Thickness of lines
+           cls=(), # Additional classes on the icon
+           button:bool=False, # Whether to use a button (defaults to a link)
+           **kwargs # Additional args for `A` or `Button` tag
+           ): # a lucide icon  button or link of the specified size
     "Creates an icon link using lucide icons"
     fn = fh.Button if button else fh.A
     return fn(cls=(f"uk-icon-{'button' if button else 'link'}", stringify(cls)), **kwargs)(
         UkIcon(icon=icon, height=height, width=width, stroke_width=stroke_width))
 
 # %% ../nbs/02_franken.ipynb
-def DiceBearAvatar(seed_name, # Seed name (ie 'Isaac Flath')
-                   h=20,         # Height 
-                   w=20,          # Width
+def DiceBearAvatar(seed_name:str, # Seed name (ie 'Isaac Flath')
+                   h:int=20,         # Height 
+                   w:int=20,          # Width
                   ):          # Span with Avatar
     "Creates an Avatar using https://dicebear.com/"
     url = 'https://api.dicebear.com/8.x/lorelei/svg?seed='
@@ -615,12 +739,22 @@ class FlexT(VEnum):
     nowrap, wrap, wrap_reverse = auto(), auto(), auto()
 
 # %% ../nbs/02_franken.ipynb
-def Grid(*div, cols_min=1, cols_max=None, cols_sm=None, cols_md=None, cols_lg=None, cols_xl=None, cols=None, cls='gap-4', **kwargs):
+def Grid(*div, # `Div` components to put in the grid
+         cols_min:int=1, # Minimum number of columns at any screen size
+         cols_max:int=4, # Maximum number of columns allowed at any screen size
+         cols_sm:int=None, # Number of columns on small screens
+         cols_md:int=None, # Number of columns on medium screens
+         cols_lg:int=None, # Number of columns on large screens
+         cols_xl:int=None, # Number of columns on extra large screens
+         cols:int=None, # Number of columns on all screens
+         cls='gap-4', # Additional classes on the grid (tip: `gap` provides spacing for grids)
+         **kwargs # Additional args for `Div` tag
+         ): # Responsive grid component
     "Creates a responsive grid layout with smart defaults based on content"
     if cols: cols_min = cols_sm = cols_md = cols_lg = cols_xl = cols
     else:
         n = len(div)
-        cols_max = min(n, cols_max or 4)
+        cols_max = min(n, cols_max)
         cols_sm = cols_sm or min(n, cols_min, cols_max)
         cols_md = cols_md or min(n, cols_min+1, cols_max) 
         cols_lg = cols_lg or min(n, cols_min+2, cols_max) 
@@ -629,7 +763,7 @@ def Grid(*div, cols_min=1, cols_max=None, cols_sm=None, cols_md=None, cols_lg=No
 
 # %% ../nbs/02_franken.ipynb
 def DivFullySpaced(*c,                # Components
-                   cls='uk-width-1-1',# Classes for outer div
+                   cls='uk-width-1-1',# Classes for outer div (`uk-width-1-1` makes it use all available width)
                    **kwargs           # Additional args for outer div
                   ):                  # Div with spaced components via flex classes
     "Creates a flex div with it's components having as much space between them as possible"
@@ -638,15 +772,16 @@ def DivFullySpaced(*c,                # Components
 
 # %% ../nbs/02_franken.ipynb
 def DivCentered(*c,      # Components
-                cls='space-y-4',  # Classes for outer div
+                cls='space--4',  # Classes for outer div (`space-y-4` provides spacing between components)
+                vstack=True, # Whether to stack the components vertically
                 **kwargs # Additional args for outer div
                ): # Div with components centered in it
     "Creates a flex div with it's components centered in it"
     cls=stringify(cls)
-    return Div(cls=(FlexT.block,FlexT.column,FlexT.middle,FlexT.center,cls),**kwargs)(*c)
+    return Div(cls=(FlexT.block,(FlexT.column if vstack else FlexT.row),FlexT.middle,FlexT.center,cls),**kwargs)(*c)
 
 # %% ../nbs/02_franken.ipynb
-def DivLAligned(*c,      # Components
+def DivLAligned(*c, # Components
                 cls='space-x-4',  # Classes for outer div
                 **kwargs # Additional args for outer div
                ): # Div with components aligned to the left
@@ -655,7 +790,7 @@ def DivLAligned(*c,      # Components
     return Div(cls=(FlexT.block,FlexT.left,FlexT.middle,cls), **kwargs)(*c)
 
 # %% ../nbs/02_franken.ipynb
-def DivRAligned(*c,      # Components
+def DivRAligned(*c, # Components
                 cls='space-x-4',  # Classes for outer div
                 **kwargs # Additional args for outer div
                ): # Div with components aligned to the right
@@ -664,13 +799,19 @@ def DivRAligned(*c,      # Components
     return Div(cls=(FlexT.block,FlexT.right,FlexT.middle,cls), **kwargs)(*c)
 
 # %% ../nbs/02_franken.ipynb
-def DivVStacked(*c, cls='space-y-4', **kwargs):
+def DivVStacked(*c, # Components
+                cls='space-y-4', # Additional classes on the div  (tip: `space-y-4` provides spacing between components)
+                **kwargs # Additional args for the div
+               ): # Div with components stacked vertically
     "Creates a flex div with it's components stacked vertically"
     cls=stringify(cls)
     return Div(cls=(FlexT.block,FlexT.column,FlexT.middle,cls), **kwargs)(*c)
 
 # %% ../nbs/02_franken.ipynb
-def DivHStacked(*c, cls='space-x-4', **kwargs):
+def DivHStacked(*c, # Components
+                cls='space-x-4', # Additional classes on the div (`space-x-4` provides spacing between components)
+                **kwargs # Additional args for the div
+               ): # Div with components stacked horizontally
     "Creates a flex div with it's components stacked horizontally"
     cls=stringify(cls)
     return Div(cls=(FlexT.block,FlexT.row,FlexT.middle,cls), **kwargs)(*c)
@@ -683,66 +824,124 @@ class NavT(VEnum):
     secondary = auto()
 
 # %% ../nbs/02_franken.ipynb
-def NavContainer(*li, 
-                 cls=NavT.primary,
-                 parent=True, 
-                 uk_nav=False, #True for default collapsible behavior, see https://franken-ui.dev/docs/nav#component-options for more advanced options
-                 **kwargs):
-    "Creates a navigation container.  A Nav is a list (NavBar is something different)"
+def NavContainer(*li, # List items are navigation elements (Special `Li` such as `NavParentLi`, `NavDividerLi`, `NavHeaderLi`, `NavSubtitle`, `NavCloseLi` can also be used)
+                 cls=NavT.primary, # Additional classes on the nav
+                 parent=True, # Whether this nav is a *parent* or *sub* nav
+                 uk_nav=False, #True for default collapsible behavior, see [frankenui docs](https://franken-ui.dev/docs/nav#component-options) for more advanced options
+                 **kwargs # Additional args
+                 ): # FT Component that is a list of `Li` styled for a sidebar navigation menu
+    "Creates a navigation container (useful for creating a sidebar navigation).  A Nav is a list (NavBar is something different)"
     return fh.Ul(*li, uk_nav=uk_nav, cls=(f"uk-nav{'' if parent else '-sub'}", stringify(cls)),**kwargs)
 
 # %% ../nbs/02_franken.ipynb
-def NavParentLi(*nav_container, cls=(), **kwargs): return fh.Li(*nav_container,  cls=('uk-parent',  stringify(cls)),**kwargs)
-def NavDividerLi(*c,cls=(), **kwargs): return fh.Li(*c, cls=('uk-nav-divider', stringify(cls)),**kwargs)
-def NavHeaderLi(*c,cls=(), **kwargs): return fh.Li(*c, cls=('uk-nav-header', stringify(cls)),**kwargs)
-def NavSubtitle(*c,cls=TextFont.muted_sm, **kwargs): return fh.Div(*c, cls=('uk-nav-subtitle', stringify(cls)),**kwargs)
-def NavCloseLi(*c,cls=(), **kwargs): return fh.Li(*c, cls=('uk-drop-close', stringify(cls)),**kwargs)
+def NavParentLi(*nav_container, # `NavContainer` container for a nested nav with `parent=False`)
+                cls=(), # Additional classes on the li
+                **kwargs # Additional args for the li
+               ): # Navigation list item
+    "Creates a navigation list item with a parent nav for nesting"
+    return fh.Li(*nav_container,  cls=('uk-parent',  stringify(cls)),**kwargs)
+def NavDividerLi(*c, # Components
+                 cls=(), # Additional classes on the li
+                 **kwargs # Additional args for the li
+                ): # Navigation list item with a divider
+    "Creates a navigation list item with a divider"
+    return fh.Li(*c, cls=('uk-nav-divider', stringify(cls)),**kwargs)
+def NavHeaderLi(*c, # Components
+                cls=(), # Additional classes on the li
+                **kwargs # Additional args for the li
+               ): # Navigation list item with a header
+    "Creates a navigation list item with a header"
+    return fh.Li(*c, cls=('uk-nav-header', stringify(cls)),**kwargs)
+def NavSubtitle(*c, # Components
+                 cls=TextFont.muted_sm, # Additional classes on the div
+                 **kwargs # Additional args for the div
+                ): # Navigation subtitle
+    "Creates a navigation subtitle"
+    return fh.Div(*c, cls=('uk-nav-subtitle', stringify(cls)),**kwargs)
+def NavCloseLi(*c, # Components
+               cls=(), # Additional classes on the li
+               **kwargs # Additional args for the li
+              ): # Navigation list item with a close button
+    "Creates a navigation list item with a close button"
+    return fh.Li(*c, cls=('uk-drop-close', stringify(cls)),**kwargs)
 
 # %% ../nbs/02_franken.ipynb
-def NavBarContainer(*c, 
-                    cls=(),
-                    container_cls=ContainerT.expand,
-                    uk_navbar=True,
-                    **kwargs): 
+def NavBarContainer(*navbarside, # Components (typically `NavBarLSide` or `NavBarRSide` or `NavBarCenter`)
+                    cls=(), # Additional classes on the container
+                    container_cls=ContainerT.expand, # Additional classes on the container
+                    uk_navbar=True, # Whether to use a navbar
+                    **kwargs # Additional args for the container
+                   ): # NavBar container
     "Create a NavBarContainer to put NavBar sides in"
-    return fh.Div(Container(Div(*c, uk_navbar=uk_navbar),cls=stringify(container_cls)), cls=('',stringify(cls)), **kwargs) #uk-navbar-container
-def NavBarLSide(*c,  cls=(), **kwargs): return fh.Div(*c, cls=('uk-navbar-left',  stringify(cls)), **kwargs)
-def NavBarRSide(*c,  cls=(), **kwargs): return fh.Div(*c, cls=('uk-navbar-right', stringify(cls)), **kwargs)
-def NavBarCenter(*c, cls=(), **kwargs): return fh.Div(*c, cls=('uk-navbar-center',stringify(cls)), **kwargs)
+    return fh.Div(Container(Div(*navbarside, uk_navbar=uk_navbar),cls=stringify(container_cls)), cls=('',stringify(cls)), **kwargs) #uk-navbar-container
+
+def NavBarLSide(*c,  # Components
+                cls=(), # Additional classes on the div
+                **kwargs # Additional args for the div
+               ): # NavBar left side
+    "Creates a NavBar left side"
+    return fh.Div(*c, cls=('uk-navbar-left',  stringify(cls)), **kwargs)
+def NavBarRSide(*c,  # Components
+                cls=(), # Additional classes on the div
+                **kwargs # Additional args for the div
+               ): # NavBar right side
+    "Creates a NavBar right side"
+    return fh.Div(*c, cls=('uk-navbar-right', stringify(cls)), **kwargs)
+def NavBarCenter(*c, # Components
+                  cls=(), # Additional classes on the div
+                  **kwargs # Additional args for the div
+                 ): # NavBar center
+    "Creates a NavBar center"
+    return fh.Div(*c, cls=('uk-navbar-center',stringify(cls)), **kwargs)
 
 # %% ../nbs/02_franken.ipynb
-def NavBarNav(*li, cls=(), **kwargs):
-    "A Nav that is part of a NavBar"
+def NavBarNav(*li, # Components
+              cls=(), # Additional classes on the nav
+              **kwargs # Additional args for the nav
+             ): # Nav that is part of a NavBar
+    "A Nav that is part of a NavBar that could go in a `NavBarLSide`, `NavBarRSide`, or `NavBarCenter`"
     return fh.Nav(*li, cls=('uk-navbar-nav',      stringify(cls)),                 **kwargs)
 
 # %% ../nbs/02_franken.ipynb
-def NavBarSubtitle(title, subtitle, cls=(), subtitle_cls=TextFont.muted_sm, **kwargs): 
+def NavBarSubtitle(title, # Title
+                   subtitle, # Subtitle
+                   cls=(), # Additional classes on the div
+                   subtitle_cls=TextFont.muted_sm, # Additional classes on the subtitle
+                   **kwargs # Additional args for the div
+                  ): # NavBar subtitle
+    "Creates a NavBar subtitle"
     return fh.Div(title,fh.Div(subtitle, cls=('uk-navbar-subtitle', stringify(subtitle_cls))), cls=stringify(cls), **kwargs)
 
 # %% ../nbs/02_franken.ipynb
-def NavBarNavContainer(*li, 
-                       cls=NavT.primary,
-                         parent=True, 
-                         uk_nav=False, #True for default collapsible behavior, see https://franken-ui.dev/docs/nav#component-options for more advanced options
-                         **kwargs):
+def NavBarNavContainer(*li, # Components
+                       cls=NavT.primary, # Additional classes on the nav
+                       parent=True, # Whether to use a parent nav
+                       uk_nav=False, #True for default collapsible behavior, see https://franken-ui.dev/docs/nav#component-options for more advanced options
+                       **kwargs # Additional args for the nav
+                      ): # NavBar nav container
     return Div(cls="uk-navbar-dropdown")(NavContainer(*li, cls=('uk-navbar-dropdown-nav',stringify(cls)), uk_nav=uk_nav, parent=parent, **kwargs))
 
 # %% ../nbs/02_franken.ipynb
 def NavBarParentIcon(): return Span(uk_navbar_parent_icon=True)
 
 # %% ../nbs/02_franken.ipynb
-def DropDownNavContainer(*li, 
-                         cls=NavT.primary,
-                         parent=True, 
+def DropDownNavContainer(*li, # Components
+                         cls=NavT.primary, # Additional classes on the nav
+                         parent=True, # Whether to use a parent nav
                          uk_nav=False, #True for default collapsible behavior, see https://franken-ui.dev/docs/nav#component-options for more advanced options
-                         uk_dropdown=True,
-                         **kwargs):
+                         uk_dropdown=True, # Whether to use a dropdown
+                         **kwargs # Additional args for the nav
+                        ): # DropDown nav container
     "A Nav that is part of a DropDown"
     return Div(cls = 'uk-drop uk-dropdown',uk_dropdown=uk_dropdown)(NavContainer(*li, cls=('uk-dropdown-nav',stringify(cls)), uk_nav=uk_nav, parent=parent, **kwargs))
 
 # %% ../nbs/02_franken.ipynb
-def TabContainer(*li,cls='', alt=False, **kwargs):
-    "A Tab that is part of a TabContainer"
+def TabContainer(*li, # Components
+                  cls='', # Additional classes on the `Ul`
+                  alt=False, # Whether to use an alternative tab style
+                  **kwargs # Additional args for the `Ul`
+                 ): # Tab container
+    "A TabContainer where children will be different tabs"
     cls = stringify(cls)
     return Ul(cls=(f"uk-tab{'-alt' if alt else ''}",stringify(cls)),**kwargs)(*li)
 
@@ -756,31 +955,51 @@ class CardT(VEnum):
     danger = auto()
 
 # %% ../nbs/02_franken.ipynb
-def CardTitle(*c, cls=(), **kwargs):
+def CardTitle(*c, # Components (often a string)
+              cls=(), # Additional classes on the div
+              **kwargs # Additional args for the div
+             ): 
+    "Creates a card title"
     return fh.Div(*c, cls=('uk-card-title',stringify(cls)), **kwargs)
 
-def CardHeader(*c, cls=(), **kwargs):
+def CardHeader(*c, # Components that goes in the header (often a `ModalTitle` and description)
+               cls=(), # Additional classes on the div
+               **kwargs # Additional args for the div
+              ): # Container for the header of a card
+    "Creates a card header"
     return fh.Div(*c, cls=('uk-card-header',stringify(cls)), **kwargs)
 
-def CardBody(*c, cls=(), **kwargs):
+def CardBody(*c, # Components that go in the body (Main content of the card such as a form, and image, a signin form, etc.)
+              cls=(), # Additional classes on the div
+              **kwargs # Additional args for the div
+             ): # Container for the body of a card
+    "Creates a card body"
     return fh.Div(*c, cls=('uk-card-body',stringify(cls)), **kwargs)
 
-def CardFooter(*c, cls=(), **kwargs):
+def CardFooter(*c, # Components that go in the footer (often a `ModalCloseButton`)
+               cls=(), # Additional classes on the div
+               **kwargs # Additional args for the div
+              ): # Container for the footer of a card
+    "Creates a card footer"
     return fh.Div(*c, cls=('uk-card-footer',stringify(cls)), **kwargs)
 
-def CardContainer(*c, cls=CardT.default, **kwargs):
+def CardContainer(*c, # Components (typically `CardHeader`, `CardBody`, `CardFooter`)
+                   cls=CardT.default, # Additional classes on the div
+                   **kwargs # Additional args for the div
+                  ): # Container for a card
+    "Creates a card container"
     return fh.Div(*c, cls=('uk-card',stringify(cls)), **kwargs)
 
 # %% ../nbs/02_franken.ipynb
-def Card(*c, # Components that go in the body
-        header=None, # Components that go in the header
-        footer=None,  # Components that go in the footer
+def Card(*c, # Components that go in the body (Main content of the card such as a form, and image, a signin form, etc.)
+        header=None, # A component that goes in the header (often a `ModalTitle` and description)
+        footer=None,  # A component that goes in the footer (often a `ModalCloseButton`)
         body_cls='space-y-6', # classes for the body
         header_cls=(), # classes for the header
         footer_cls=(), # classes for the footer
         cls=(), #class for outermost component
-        **kwargs # classes that for the card itself
-        ):
+        **kwargs # additional arguments for the `CardContainer`
+        ): # Card component
     "Creates a Card with a header, body, and footer"
     header_cls, footer_cls, body_cls, cls = map(stringify, (header_cls, footer_cls, body_cls, cls))
     res = []
@@ -802,33 +1021,47 @@ class TableT(VEnum):
     responsive = auto()
 
 # %% ../nbs/02_franken.ipynb
-def Table(*args, cls=(TableT.middle, TableT.divider, TableT.hover, TableT.small), **kwargs): 
+def Table(*c, # Components (typically `Thead`, `Tbody`, `Tfoot`)
+          cls=(TableT.middle, TableT.divider, TableT.hover, TableT.small), # Additional classes on the table
+          **kwargs # Additional args for the table
+         ): # Table component
     "Creates a table"
-    return fh.Table(cls=('uk-table', stringify(cls)), *args, **kwargs)
+    return fh.Table(cls=('uk-table', stringify(cls)), *c, **kwargs)
 
 # %% ../nbs/02_franken.ipynb
-def _TableCell(Component, *args, cls=(), shrink=False, expand=False, small=False, **kwargs):
+def _TableCell(Component, 
+               *c, # Components that go in the cell
+               cls=(), # Additional classes on the cell container
+               shrink=False, # Whether to shrink the cell
+               expand=False, # Whether to expand the cell
+               small=False, # Whether to use a small table
+               **kwargs # Additional args for the cell
+              ): # Table cell
     "Creates a table cell"
     cls = stringify(cls)
     if shrink: cls += ' uk-table-shrink'
     if expand: cls += ' uk-table-expand'
     if small: cls += ' uk-table-small'
-    return Component(*args,cls=cls, **kwargs)
+    return Component(*c,cls=cls, **kwargs)
 
 @delegates(_TableCell, but=['Component'])
-def Td(*args,**kwargs):  return _TableCell(fh.Td, *args, **kwargs)
+def Td(*c,**kwargs):  return _TableCell(fh.Td, *c, **kwargs)
 @delegates(_TableCell, but=['Component'])
-def Th(*args,**kwargs): return _TableCell(fh.Th, *args, **kwargs)
+def Th(*c,**kwargs): return _TableCell(fh.Th, *c, **kwargs)
 
-def Tr(*cells, cls=(), **kwargs):  return fh.Tr(*cells, cls=stringify(cls), **kwargs)
-def Thead(*rows, cls=(), **kwargs): return fh.Thead(*rows, cls=stringify(cls), **kwargs)
 def Tbody(*rows, cls=(), sortable=False, **kwargs): return fh.Tbody(*rows, cls=stringify(cls), uk_sortable=sortable, **kwargs)
 
 # %% ../nbs/02_franken.ipynb
-def TableFromLists(header_data, body_data, footer_data=None, 
-                   header_cell_render=Th,body_cell_render=Td, footer_cell_render=Td,
-                   cls=(TableT.middle, TableT.divider, TableT.hover, TableT.small), 
-                   sortable=False, **kwargs):
+def TableFromLists(header_data:Sequence, # List of header data
+                   body_data:Sequence[Sequence], # List of lists of body data
+                   footer_data=None, # List of footer data
+                   header_cell_render=Th, # Function(content) -> FT that renders header cells
+                   body_cell_render=Td, # Function(key, content) -> FT that renders body cells
+                   footer_cell_render=Td, #  Function(key, content) -> FT that renders footer cells
+                   cls=(TableT.middle, TableT.divider, TableT.hover, TableT.small), # Additional classes on the table
+                   sortable=False, # Whether to use sortable table
+                   **kwargs # Additional args for the table
+                  ): # Table from lists
     "Creates a Table from a list of header data and a list of lists of body data"
     return Table(
                 Thead(Tr(*map(header_cell_render, header_data))),
@@ -838,11 +1071,16 @@ def TableFromLists(header_data, body_data, footer_data=None,
                 **kwargs)
 
 # %% ../nbs/02_franken.ipynb
-def TableFromDicts(header_data:Sequence, body_data:Sequence[dict], footer_data=None, 
-                   header_cell_render=Th, body_cell_render=lambda k,v : Td(v), footer_cell_render=lambda k,v : Td(v),
-                   cls=(TableT.middle, TableT.divider, TableT.hover, TableT.small),
-                   sortable=False,
-                   **kwargs):
+def TableFromDicts(header_data:Sequence, # List of header data
+                   body_data:Sequence[dict], # List of dicts of body data
+                   footer_data=None, # List of footer data
+                   header_cell_render=Th, # Function(content) -> FT that renders header cells
+                   body_cell_render=lambda k,v : Td(v), # Function(key, content) -> FT that renders body cells
+                   footer_cell_render=lambda k,v : Td(v), #  Function(key, content) -> FT that renders footer cells
+                   cls=(TableT.middle, TableT.divider, TableT.hover, TableT.small), # Additional classes on the table
+                   sortable=False, # Whether to use sortable table
+                   **kwargs # Additional args for the table
+                  ): # Styled Table
     "Creates a Table from a list of header data and a list of dicts of body data"
     return Table(
         Thead(Tr(*[header_cell_render(h) for h in header_data])),
@@ -869,8 +1107,9 @@ franken_class_map = {
     'li': 'leading-relaxed',
     
     # Code and quotes
-    'pre': 'bg-base-200 rounded-lg p-4 mb-6 overflow-x-auto',
+    'pre': 'bg-base-200 rounded-lg p-4 mb-6',
     'code': 'uk-codespan px-1',
+    'pre code': 'uk-codespan px-1 block overflow-x-auto',
     'blockquote': 'uk-blockquote pl-4 border-l-4 border-primary italic mb-6',
     
     # Tables
@@ -884,9 +1123,10 @@ franken_class_map = {
 }
 
 # %% ../nbs/02_franken.ipynb
-def apply_classes(html_str:str, 
-                  class_map=None, 
-                  class_map_mods=None):
+def apply_classes(html_str:str, # Html string
+                  class_map=None, # Class map
+                  class_map_mods=None # Class map that will modify the class map map (useful for small changes to a base class map)
+                 ): # Html string with classes applied
     "Apply classes to html string"
     if not html_str: return html_str
     try:
@@ -895,8 +1135,10 @@ def apply_classes(html_str:str,
 
         if class_map_mods: class_map = {**class_map, **class_map_mods}
         html_str = html.fromstring(html_str)
-        for tag, classes in class_map.items():
-            for element in html_str.xpath(f'//{tag}'):
+        for selector, classes in class_map.items():
+            # Handle descendant selectors (e.g., 'pre code')
+            xpath = '//' + '/descendant::'.join(selector.split())
+            for element in html_str.xpath(xpath):
                 existing_class = element.get('class', '')
                 new_class = f"{existing_class} {classes}".strip()
                 element.set('class', new_class)
@@ -907,7 +1149,10 @@ def apply_classes(html_str:str,
         return html_str
 
 # %% ../nbs/02_franken.ipynb
-def render_md(md_content:str, class_map=None, class_map_mods=None):
+def render_md(md_content:str, # Markdown content
+               class_map=None, # Class map
+               class_map_mods=None # Additional class map
+              ): # Rendered markdown
     "Renders markdown using mistletoe and lxml"
     if md_content=='': return md_content
     # Check for required dependencies

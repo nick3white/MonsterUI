@@ -1,7 +1,7 @@
 python-fasthtml
 pandas
 plotly
-monsterui
+monsterui @ git+https://github.com/AnswerDotAI/monsterui
 fastcore
 fh_matplotlib
 numpy

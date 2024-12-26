@@ -19,6 +19,8 @@ def get_github_url(func):
     "Create GitHub URL for function, assuming AnswerDotAI/MonsterUI repo"
     file = getsourcefile(func).split('MonsterUI/')[-1]
     line = getsourcelines(func)[-1]
+
+    file = file.replace('/opt/venv/lib/python3.11/site-packages/','')
     return f"https://github.com/AnswerDotAI/MonsterUI/blob/main/{file}#L{line}"
 
 from fastcore.docments import docments, docstring, get_name

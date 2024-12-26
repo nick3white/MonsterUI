@@ -86,38 +86,38 @@
     - `def __str__(self)`
     - `@property def name(self)`
 
-- `def PParagraph(*args, **kwargs)`
-    P Tag with uk-paragraph style applied
+- `def PParagraph(*c, **kwargs)`
+    P Tag with paragraph style applied
 
-- `def PLarge(*args, **kwargs)`
-    P Tag with uk-text-large style applied
+- `def PLarge(*c, **kwargs)`
+    P Tag with large style applied
 
-- `def PLead(*args, **kwargs)`
-    P Tag with uk-text-lead style applied
+- `def PLead(*c, **kwargs)`
+    P Tag with lead style applied
 
-- `def PSmall(*args, **kwargs)`
-    P Tag with uk-text-small style applied
+- `def PSmall(*c, **kwargs)`
+    P Tag with small style applied
 
-- `def PMuted(*args, **kwargs)`
-    P Tag with uk-text-muted style applied
+- `def PMuted(*c, **kwargs)`
+    P Tag with muted style applied
 
-- `def CodeSpan(*args, **kwargs)`
+- `def CodeSpan(*c, **kwargs)`
     A CodeSpan with Styling
 
 - `def Blockquote(*c, **kwargs)`
-    A Blockquote with Styling
+    Blockquote with Styling
 
 - `def H1(*c, **kwargs)`
-    A H1 with Styling
+    H1 with styling and appropriate size
 
 - `def H2(*c, **kwargs)`
-    A H2 with Styling
+    H2 with styling and appropriate size
 
 - `def H3(*c, **kwargs)`
-    A H3 with Styling
+    H3 with styling and appropriate size
 
 - `def H4(*c, **kwargs)`
-    A H4 with Styling
+    H4 with styling and appropriate size
 
 - `class ButtonT`
     Options for styling Buttons
@@ -125,7 +125,7 @@
     - `@property def name(self)`
 
 - `def Button(*c, **kwargs)`
-    A Button with Styling (defaults to `submit` for form submission)
+    Button with Styling (defaults to `submit` for form submission)
 
 - `class ContainerT`
     Max width container sizes from https://franken-ui.dev/docs/container
@@ -133,9 +133,9 @@
     - `@property def name(self)`
 
 - `def Container(*c, **kwargs)`
-    A Div to be used as a container that often wraps large sections or a page of content
+    Div to be used as a container that often wraps large sections or a page of content
 
-- `def Titled(title, *args, **kwargs)`
+- `def Titled(title, *c, **kwargs)`
     Creates a standard page structure for titled page.  Main(Container(title, content))
 
 - `class DividerT`
@@ -143,7 +143,7 @@
 
     - `@property def name(self)`
 
-- `def Divider(*args, **kwargs)`
+- `def Divider(*c, **kwargs)`
     Divider with default styling and margin
 
 - `def DividerSplit(*c)`
@@ -163,6 +163,9 @@
 
     - `@property def name(self)`
 
+- `def Section(*c, **kwargs)`
+    Section with styling and margins
+
 - `def Form(*c, **kwargs)`
     A Form with default spacing between form elements
 
@@ -176,7 +179,7 @@
     An Input with default styling
 
 - `def Select(*option, **kwargs)`
-    A Select with default styling
+    A Select with default styling, though often `UkSelect` is a better choice
 
 - `def Radio(*c, **kwargs)`
     A Radio with default styling
@@ -206,28 +209,22 @@
     A form section with a title, description and optional button
 
 - `def GenericLabelInput(label, lbl_cls, input_cls, container, cls, id, input_fn, **kwargs)`
-    `Div(Label,Input)` component with Uk styling injected appropriately. Generally you should higher level API, such as `UkTextArea` which is created for you in this library
+    `Div(Label,Input)` component with Uk styling injected appropriately. Generally you should higher level API, such as `LabelInput` which is created for you in this library
 
-- `@delegates(GenericLabelInput, but=['input_fn', 'cls']) def LabelInput(*args, **kwargs)`
-    A Label and Input pair that provides default spacing and links/names them based on id
+- `def LabelInput(label, lbl_cls, input_cls, cls, id, **kwargs)`
+    A `FormLabel` and `Input` pair that provides default spacing and links/names them based on id
+
+- `def LabelRange(label, lbl_cls, input_cls, cls, id, **kwargs)`
+    A `FormLabel` and `Range` pair that provides default spacing and links/names them based on id
 
 - `def LabelRadio(label, lbl_cls, input_cls, container, cls, id, **kwargs)`
-    A Label and Radio pair that provides default spacing and links/names them based on id
+    A FormLabel and Radio pair that provides default spacing and links/names them based on id
 
-- `def LabelCheckboxX(label, lbl_cls, input_cls, container, cls, **kwargs)`
-    `Div(Label,Input)` component with Uk styling injected appropriately. Generally you should higher level API, such as `UkTextArea` which is created for you in this library
-
-- `@delegates(GenericLabelInput, but=['input_fn', 'cls']) def LabelRange(*args, **kwargs)`
-    Creates a labeled range input with nice default spacing and links/names them based on id
-
-- `@delegates(GenericLabelInput, but=['input_fn', 'cls']) def LabelTextArea(*args, **kwargs)`
-    Creates a labeled textarea with nice default spacing and links/names them based on id
-
-- `@delegates(GenericLabelInput, but=['input_fn', 'cls']) def LabelSwitch(*args, **kwargs)`
-    Creates a labeled switch with nice default spacing and links/names them based on id
+- `def LabelCheckboxX(label, lbl_cls, input_cls, container, cls, id, **kwargs)`
+    A FormLabel and CheckboxX pair that provides default spacing and links/names them based on id
 
 - `def LabelSelect(*option, **kwargs)`
-    Creates a Labeled Select - Generally you should use LabelUkSelect for a more full features and styled select
+    A FormLabel and Select pair that provides default spacing and links/names them based on id (usually UkLabelSelect is a better choice)
 
 - `def Options(*c)`
     Helper function to wrap things into `Option`s for use in `UkSelect`
@@ -236,7 +233,7 @@
     Creates a select dropdown with uk styling and option for adding a search box
 
 - `def LabelUkSelect(*option, **kwargs)`
-    Creates a select dropdown with uk styling and a label and provides option for adding a search box
+    A FormLabel and Select pair that provides default spacing and links/names them based on id
 
 - `class AT`
     Link styles from https://franken-ui.dev/docs/link
@@ -248,7 +245,7 @@
 
     - `@property def name(self)`
 
-- `def UkList(*c, **kwargs)`
+- `def UkList(*li, **kwargs)`
     Creates a list with styling
 
 - `def ModalContainer(*c, **kwargs)`
@@ -272,11 +269,8 @@
 - `def ModalCloseButton(*c, **kwargs)`
     Creates a button that closes a modal with js
 
-- `def HTMXModalCloseButton(*c, **kwargs)`
-    Creates a button that closes a modal using HTMX
-
 - `def Modal(*c, **kwargs)`
-    Create a Modal using the appropriate Modal classes to put the boilerplate in the appropriate places for you
+    Creates a modal with the appropriate classes to put the boilerplate in the appropriate places for you
 
 - `class PaddingT`
     Padding Modifiers from https://franken-ui.dev/docs/padding
@@ -287,6 +281,12 @@
     Position modifiers from https://franken-ui.dev/docs/position
 
     - `@property def name(self)`
+
+- `def Placeholder(*c, **kwargs)`
+    Creates a placeholder
+
+- `def Progress(*c, **kwargs)`
+    Creates a progress bar
 
 - `def UkIcon(icon, height, width, stroke_width, cls, **kwargs)`
     Creates an icon using lucide icons
@@ -327,24 +327,66 @@
     - `@property def name(self)`
 
 - `def NavContainer(*li, **kwargs)`
-    Creates a navigation container.  A Nav is a list (NavBar is something different)
+    Creates a navigation container (useful for creating a sidebar navigation).  A Nav is a list (NavBar is something different)
 
-- `def NavBarContainer(*c, **kwargs)`
+- `def NavParentLi(*nav_container, **kwargs)`
+    Creates a navigation list item with a parent nav for nesting
+
+- `def NavDividerLi(*c, **kwargs)`
+    Creates a navigation list item with a divider
+
+- `def NavHeaderLi(*c, **kwargs)`
+    Creates a navigation list item with a header
+
+- `def NavSubtitle(*c, **kwargs)`
+    Creates a navigation subtitle
+
+- `def NavCloseLi(*c, **kwargs)`
+    Creates a navigation list item with a close button
+
+- `def NavBarContainer(*navbarside, **kwargs)`
     Create a NavBarContainer to put NavBar sides in
 
+- `def NavBarLSide(*c, **kwargs)`
+    Creates a NavBar left side
+
+- `def NavBarRSide(*c, **kwargs)`
+    Creates a NavBar right side
+
+- `def NavBarCenter(*c, **kwargs)`
+    Creates a NavBar center
+
 - `def NavBarNav(*li, **kwargs)`
-    A Nav that is part of a NavBar
+    A Nav that is part of a NavBar that could go in a `NavBarLSide`, `NavBarRSide`, or `NavBarCenter`
+
+- `def NavBarSubtitle(title, subtitle, cls, subtitle_cls, **kwargs)`
+    Creates a NavBar subtitle
 
 - `def DropDownNavContainer(*li, **kwargs)`
     A Nav that is part of a DropDown
 
 - `def TabContainer(*li, **kwargs)`
-    A Tab that is part of a TabContainer
+    A TabContainer where children will be different tabs
 
 - `class CardT`
     Card styles from UIkit
 
     - `@property def name(self)`
+
+- `def CardTitle(*c, **kwargs)`
+    Creates a card title
+
+- `def CardHeader(*c, **kwargs)`
+    Creates a card header
+
+- `def CardBody(*c, **kwargs)`
+    Creates a card body
+
+- `def CardFooter(*c, **kwargs)`
+    Creates a card footer
+
+- `def CardContainer(*c, **kwargs)`
+    Creates a card container
 
 - `def Card(*c, **kwargs)`
     Creates a Card with a header, body, and footer
@@ -352,7 +394,7 @@
 - `class TableT`
     - `@property def name(self)`
 
-- `def Table(*args, **kwargs)`
+- `def Table(*c, **kwargs)`
     Creates a table
 
 - `def TableFromLists(header_data, body_data, footer_data, header_cell_render, body_cell_render, footer_cell_render, cls, sortable, **kwargs)`

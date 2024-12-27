@@ -19,7 +19,6 @@ def get_github_url(func):
     "Create GitHub URL for function, assuming AnswerDotAI/MonsterUI repo"
     file = getsourcefile(func).split('MonsterUI/')[-1]
     line = getsourcelines(func)[-1]
-
     file = file.replace('/opt/venv/lib/python3.11/site-packages/','')
     return f"https://github.com/AnswerDotAI/MonsterUI/blob/main/{file}#L{line}"
 
@@ -35,11 +34,12 @@ def show_doc(func) -> str:
                   Ul(*[Li(render_md(f"`{name}` {desc if desc else ''}",class_map_mods={'p':'leading-relaxed'}), cls='') for name, desc in params.items() if name != 'return'], cls='uk-list-disc space-y-2 mb-6 ml-6'))
     if 'return' in params and params['return']: ret = render_md(f"**Returns:** {params['return']}") 
     return Div(
-        # DivFullySpaced(H3(func.__name__, cls='uk-h3 text-2xl font-semibold mt-8 mb-4'),A("Source", href=get_github_url(func), cls='text-primary hover:text-primary-focus underline')),
-        DivFullySpaced(render_md(f"### {func.__name__}"),A("Source", href=get_github_url(func), cls='text-primary hover:text-primary-focus underline')),
-        Div(Pre(Code(f"{funcname}{signature(func)}", 
-          cls='hljs language-python px-1 block overflow-x-auto'), 
-    cls='bg-base-200 rounded-lg p-4 mb-6')),
+        DivFullySpaced(
+            render_md(f"### {funcname}"),
+            A("Source", href=get_github_url(func), cls='text-primary hover:text-primary-focus underline')),
+        Pre(Code(f"{funcname}{signature(func)}",
+                 cls='hljs language-python px-1 block overflow-x-auto'),
+                 cls='bg-base-200 rounded-lg p-4 mb-6'),
         Div(Blockquote(render_md(doc), cls='pl-4 border-l-4 border-primary mb-6'), par, ret, cls='ml-10'))
 
 def enum_to_html_table(enum_class):

@@ -71,31 +71,31 @@ class TextFont(Enum):
 def PParagraph(*c, # Contents of P tag (often text)
                cls='', # Classes in addition to paragraph styling
                **kwargs # Additional args for P tag
-               ): # P(..., cls='uk-paragraph')
+               )->FT: # P(..., cls='uk-paragraph')
     "P Tag with paragraph style applied"
     return fh.P(*c, cls=('uk-paragraph', stringify(cls)), **kwargs)
 def PLarge(*c, # Contents of P tag (often text)
            cls='', # Classes in addition to paragraph styling
            **kwargs # Additional args for P tag
-           ): # P(..., cls='uk-text-large')
+           )->FT: # P(..., cls='uk-text-large')
     "P Tag with large style applied"
     return fh.P(*c, cls=('uk-text-large', stringify(cls)), **kwargs)
 def PLead(*c, # Contents of P tag (often text)
           cls='', # Classes in addition to paragraph styling
           **kwargs # Additional args for P tag
-          ): # P(..., cls='uk-text-lead')
+          )->FT: # P(..., cls='uk-text-lead')
     "P Tag with lead style applied"
     return fh.P(*c, cls=('uk-text-lead', stringify(cls)), **kwargs)
 def PSmall(*c, # Contents of P tag (often text)
            cls='', # Classes in addition to paragraph styling
            **kwargs # Additional args for P tag
-           ): # P(..., cls='uk-text-small')
+           )->FT: # P(..., cls='uk-text-small')
     "P Tag with small style applied"
     return fh.P(*c, cls=('uk-text-small', stringify(cls)), **kwargs)
 def PMuted(*c, # Contents of P tag (often text)
            cls='', # Classes in addition to paragraph styling
            **kwargs # Additional args for P tag
-           ): # P(..., cls='uk-text-muted')
+           )->FT: # P(..., cls='uk-text-muted')
     "P Tag with muted style applied"
     return fh.P(*c, cls=('uk-text-muted', stringify(cls)), **kwargs)
 
@@ -103,7 +103,7 @@ def PMuted(*c, # Contents of P tag (often text)
 def CodeSpan(*c, # Contents of CodeSpan tag (inline text code snippets)
              cls=(), # Classes in addition to CodeSpan styling
              **kwargs # Additional args for CodeSpan tag
-             ): # Code(..., cls='uk-codespan')
+             )->FT: # Code(..., cls='uk-codespan')
     "A CodeSpan with Styling"
     return fh.Code(*c, cls=('uk-codespan', stringify(cls)), **kwargs)
 
@@ -111,7 +111,7 @@ def CodeSpan(*c, # Contents of CodeSpan tag (inline text code snippets)
 def Blockquote(*c:FT|str, # Contents of Blockquote tag (often text)
                cls:Enum|str|tuple=(), # Classes in addition to Blockquote styling
                **kwargs # Additional args for Blockquote tag
-               ): # Blockquote(..., cls='uk-blockquote')
+               )->FT: # Blockquote(..., cls='uk-blockquote')
     "Blockquote with Styling"
     return fh.Blockquote(*c, cls=('uk-blockquote',stringify(cls)), **kwargs)
 
@@ -119,7 +119,7 @@ def Blockquote(*c:FT|str, # Contents of Blockquote tag (often text)
 def H1(*c:FT|str, # Contents of H1 tag (often text)
        cls:Enum|str|tuple=(), # Classes in addition to H1 styling
        **kwargs # Additional args for H1 tag
-       ): # H1(..., cls='uk-h1')
+       )->FT: # H1(..., cls='uk-h1')
     "H1 with styling and appropriate size"
     return fh.H1(*c, cls=('uk-h1',stringify(cls)), **kwargs)
 
@@ -127,7 +127,7 @@ def H1(*c:FT|str, # Contents of H1 tag (often text)
 def H2(*c:FT|str, # Contents of H2 tag (often text)
        cls:Enum|str|tuple=(), # Classes in addition to H2 styling
        **kwargs # Additional args for H2 tag
-       ): # H2(..., cls='uk-h2')
+       )->FT: # H2(..., cls='uk-h2')
     "H2 with styling and appropriate size"
     return fh.H2(*c, cls=('uk-h2',stringify(cls)), **kwargs)
 
@@ -135,7 +135,7 @@ def H2(*c:FT|str, # Contents of H2 tag (often text)
 def H3(*c:FT|str, # Contents of H3 tag (often text)
        cls:Enum|str|tuple=(), # Classes in addition to H3 styling
        **kwargs # Additional args for H3 tag
-       ): # H3(..., cls='uk-h3')
+       )->FT: # H3(..., cls='uk-h3')
     "H3 with styling and appropriate size"
     return fh.H3(*c, cls=('uk-h3',stringify(cls)), **kwargs)
 
@@ -143,7 +143,7 @@ def H3(*c:FT|str, # Contents of H3 tag (often text)
 def H4(*c:FT|str, # Contents of H4 tag (often text)
        cls:Enum|str|tuple=(), # Classes in addition to H4 styling
        **kwargs # Additional args for H4 tag
-       ): # H4(..., cls='uk-h4')
+       )->FT: # H4(..., cls='uk-h4')
     "H4 with styling and appropriate size"
     return fh.H4(*c, cls=('uk-h4',stringify(cls)), **kwargs)
 
@@ -183,7 +183,7 @@ class ContainerT(VEnum):
 def Container(*c, # Contents of Container tag (often other FT Components)
               cls=('mt-5', ContainerT.xlarge), # Classes in addition to Container styling
               **kwargs # Additional args for Container (`Div` tag)
-              ): # Container(..., cls='uk-container')
+              )->FT: # Container(..., cls='uk-container')
     "Div to be used as a container that often wraps large sections or a page of content"
     return Div(*c, cls=('uk-container',stringify(cls)), **kwargs)
 
@@ -208,7 +208,7 @@ class DividerT(VEnum):
 def Divider(*c, # contents of Divider tag (often nothing)
             cls=('my-4', DividerT.icon), # Classes in addition to Divider styling
             **kwargs # Additional args for Divider tag
-            ): #  Hr(..., cls='uk-divider-icon') or Div(..., cls='uk-divider-vertical')
+            )->FT: #  Hr(..., cls='uk-divider-icon') or Div(..., cls='uk-divider-vertical')
     "Divider with default styling and margin"
     cls = stringify(cls)
     container = Div if 'uk-divider-vertical' in cls else Hr
@@ -229,21 +229,21 @@ def DividerLine(lwidth=2, y_space=4): return Hr(cls=f"my-{y_space} h-[{lwidth}px
 def Article(*c, # contents of Article tag (often other tags)
             cls=(), # Classes in addition to Article styling
             **kwargs # Additional args for Article tag
-            ): # Article(..., cls='uk-article')
+            )->FT: # Article(..., cls='uk-article')
     "A styled article container for blog posts or similar content"
     return fh.Article(*c, cls=('uk-article',stringify(cls)), **kwargs)
 
 def ArticleTitle(*c, # contents of ArticleTitle tag (often other tags)
                  cls=(), # Classes in addition to ArticleTitle styling
                  **kwargs # Additional args for ArticleTitle tag
-                 ): # H1(..., cls='uk-article-title')
+                 )->FT: # H1(..., cls='uk-article-title')
     "A title component for use within an Article"
     return H1(*c, cls=('uk-article-title',stringify(cls)), **kwargs)
 
 def ArticleMeta(*c, # contents of ArticleMeta tag (often other tags)
                 cls=(), # Classes in addition to ArticleMeta styling
                 **kwargs # Additional args for ArticleMeta tag
-                ): # P(..., cls='uk-article-meta')
+                )->FT: # P(..., cls='uk-article-meta')
     "A metadata component for use within an Article showing things like date, author etc"
     return P(*c, cls=('uk-article-meta',stringify(cls)), **kwargs)
 
@@ -265,7 +265,7 @@ class SectionT(VEnum):
 def Section(*c, # contents of Section tag (often other tags)
             cls=(), # Classes in addition to Section styling
             **kwargs # Additional args for Section tag
-            ): # Div(..., cls='uk-section')
+            )->FT: # Div(..., cls='uk-section')
     "Section with styling and margins"
     return fh.Div(*c, cls=('uk-section',stringify(cls)), **kwargs)
 
@@ -273,7 +273,7 @@ def Section(*c, # contents of Section tag (often other tags)
 def Form(*c, # contents of Form tag (often Buttons, FormLabels, and LabelInputs)
           cls='space-y-3', # Classes in addition to Form styling (default is 'space-y-3' to prevent scrunched up form elements)
           **kwargs # Additional args for Form tag
-          ): # Form(..., cls='space-y-3')
+          )->FT: # Form(..., cls='space-y-3')
     "A Form with default spacing between form elements"
     return fh.Form(*c, cls=stringify(cls), **kwargs)
 
@@ -281,14 +281,14 @@ def Form(*c, # contents of Form tag (often Buttons, FormLabels, and LabelInputs)
 def Fieldset(*c, # contents of Fieldset tag (often other tags)
              cls=(), # Classes in addition to Fieldset styling
              **kwargs # Additional args for Fieldset tag
-             ): # Fieldset(..., cls='uk-fieldset')
+             )->FT: # Fieldset(..., cls='uk-fieldset')
     "A Fieldset with default styling"
     return fh.Fieldset(*c, cls=('uk-fieldset',stringify(cls)), **kwargs)
 
 def Legend(*c, # contents of Legend tag (often other tags)
            cls=(), # Classes in addition to Legend styling
            **kwargs # Additional args for Legend tag
-           ): # Legend(..., cls='uk-legend')
+           )->FT: # Legend(..., cls='uk-legend')
     "A Legend with default styling"
     return fh.Legend(*c, cls=('uk-legend',stringify(cls)), **kwargs)
 
@@ -296,44 +296,44 @@ def Legend(*c, # contents of Legend tag (often other tags)
 def Input(*c, # contents of Input tag (often nothing)
           cls=(), # Classes in addition to Input styling
           **kwargs # Additional args for Input tag
-          ): # Input(..., cls='uk-input')
+          )->FT: # Input(..., cls='uk-input')
     "An Input with default styling"
     return fh.Input(*c, cls=('uk-input',stringify(cls)), **kwargs)
 
 def Select(*option, # options for the select dropdown
            cls=(), # Classes in addition to Select styling
            **kwargs # Additional args for Select tag
-           ): # Select(..., cls='uk-select')
+           )->FT: # Select(..., cls='uk-select')
     "A Select with default styling, though often `UkSelect` is a better choice"
     return fh.Select(*option, cls=('uk-select',stringify(cls)), **kwargs)
 def Radio(*c, # contents of Radio tag (often nothing)
            cls=(), # Classes in addition to Radio styling
            **kwargs # Additional args for Radio tag
-           ): # Input(..., cls='uk-radio', type='radio')
+           )->FT: # Input(..., cls='uk-radio', type='radio')
     "A Radio with default styling"
     return fh.Input(*c, cls=('uk-radio',stringify(cls)), type='radio', **kwargs)
 def CheckboxX(*c, # contents of CheckboxX tag (often nothing)
                cls=(), # Classes in addition to CheckboxX styling
                **kwargs # Additional args for CheckboxX tag
-               ): # Input(..., cls='uk-checkbox', type='checkbox')
+               )->FT: # Input(..., cls='uk-checkbox', type='checkbox')
     "A Checkbox with default styling"
     return fh.Input(*c, cls=('uk-checkbox',stringify(cls)), type='checkbox', **kwargs)
 def Range(*c, # contents of Range tag (often nothing)
            cls=(), # Classes in addition to Range styling
            **kwargs # Additional args for Range tag
-           ): # Input(..., cls='uk-range', type='range')
+           )->FT: # Input(..., cls='uk-range', type='range')
     "A Range with default styling"
     return fh.Input(*c, cls=('uk-range',stringify(cls)), type='range', **kwargs)
 def TextArea(*c, # contents of TextArea tag (often text)
              cls=(), # Classes in addition to TextArea styling
              **kwargs # Additional args for TextArea tag
-             ): # TextArea(..., cls='uk-textarea')
+             )->FT: # TextArea(..., cls='uk-textarea')
     "A Textarea with default styling"
     return fh.Textarea(*c, cls=('uk-textarea',stringify(cls)), **kwargs)
 def Switch(*c, # contents of Switch tag (often nothing)
            cls=(), # Classes in addition to Switch styling
            **kwargs # Additional args for Switch tag
-           ): # Input(..., cls='uk-toggle-switch uk-toggle-switch-primary min-w-9', type='checkbox')
+           )->FT: # Input(..., cls='uk-toggle-switch uk-toggle-switch-primary min-w-9', type='checkbox')
     "A Switch with default styling"
     return fh.Input(*c, cls=('uk-toggle-switch uk-toggle-switch-primary min-w-9',stringify(cls)), type='checkbox', **kwargs)
 
@@ -341,7 +341,7 @@ def Switch(*c, # contents of Switch tag (often nothing)
 def FormLabel(*c, # contents of FormLabel tag (often text)
                cls=(), # Classes in addition to FormLabel styling
                **kwargs # Additional args for FormLabel tag
-               ): # Label(..., cls='uk-form-label')
+               )->FT: # Label(..., cls='uk-form-label')
     "A Label with default styling"
     return fh.Label(*c, cls=('uk-form-label',stringify(cls)), **kwargs)
 
@@ -356,7 +356,7 @@ class LabelT(VEnum):
 def Label(*c, # contents of Label tag (often text)
            cls=(), # Classes in addition to Label styling
            **kwargs # Additional args for Label tag
-           ): # Label(..., cls='uk-label')
+           )->FT: # Label(..., cls='uk-label')
     "FrankenUI labels, which look like pills"
     return fh.Label(*c, cls=('uk-label',stringify(cls)), **kwargs)
 
@@ -393,7 +393,7 @@ def LabelInput(label:str|FT, # FormLabel content (often text)
                cls='space-y-2', # Classes on container (default is `'space-y-2'` to prevent scrunched up form elements)
                id='', # id for `FormLabel` and `Input` (`id`, `name` and `for` attributes are set to this value)
                 **kwargs # Additional args for `Input`
-               ):  # Div(cls='space-y-2')(`FormLabel`, `Input`)
+               )->FT:  # Div(cls='space-y-2')(`FormLabel`, `Input`)
     "A `FormLabel` and `Input` pair that provides default spacing and links/names them based on id"
     return GenericLabelInput(label=label, lbl_cls=lbl_cls, input_cls=input_cls,
                              container=Div, cls=cls, id=id, input_fn=Input, **kwargs)
@@ -405,7 +405,7 @@ def LabelRange(label:str|FT, # FormLabel content (often text)
                cls='space-y-2', # Classes on container (default is `'space-y-2'` to prevent scrunched up form elements)
                id='', # id for `FormLabel` and `Range` (`id`, `name` and `for` attributes are set to this value)
                 **kwargs # Additional args for `Range`
-               ):  # Div(cls='space-y-2')(`FormLabel`, `Range`)
+               )->FT:  # Div(cls='space-y-2')(`FormLabel`, `Range`)
     "A `FormLabel` and `Range` pair that provides default spacing and links/names them based on id"
     return GenericLabelInput(label=label, lbl_cls=lbl_cls, input_cls=input_cls,
                              container=Div, cls=cls, id=id, input_fn=Range, **kwargs)
@@ -418,7 +418,7 @@ def LabelTextArea(label:str|FT, # FormLabel content (often text)
                   cls='space-y-2', # Classes on container (default is `'space-y-2'` to prevent scrunched up form elements)
                   id='', # id for `FormLabel` and `TextArea` (`id`, `name` and `for` attributes are set to this value)
                   **kwargs # Additional args for `TextArea`
-                  ):  # Div(cls='space-y-2')(`FormLabel`, `TextArea`)
+                  )->FT:  # Div(cls='space-y-2')(`FormLabel`, `TextArea`)
     def text_area_with_value(**kw): return TextArea(value, **kw)
     return GenericLabelInput(label=label, lbl_cls=lbl_cls, input_cls=input_cls,
                              container=Div, cls=cls, id=id, input_fn=text_area_with_value, **kwargs)
@@ -431,7 +431,7 @@ def LabelSwitch(label:str|FT, # FormLabel content (often text)
                cls='space-x-2', # Classes on container (default is `'space-x-2'` to prevent scrunched up form elements)
                id='', # id for `FormLabel` and `Switch` (`id`, `name` and `for` attributes are set to this value)
                 **kwargs # Additional args for `Switch`
-               ):  # Div(cls='space-y-2')(`FormLabel`, `Switch`)
+               )->FT:  # Div(cls='space-y-2')(`FormLabel`, `Switch`)
     return GenericLabelInput(label=label, lbl_cls=lbl_cls, input_cls=input_cls,
                              container=Div, cls=cls, id=id, input_fn=Switch, **kwargs)
 
@@ -443,7 +443,7 @@ def LabelRadio(label:str|FT, # FormLabel content (often text)
                cls='flex items-center space-x-2', # Classes on container (default is 'flex items-center space-x-2')
                id='', # id for `FormLabel` and `Radio` (`id`, `name` and `for` attributes are set to this value)
                 **kwargs # Additional args for `Radio`
-               ):  # Div(cls='flex items-center space-x-2')(`FormLabel`, `Radio`)
+               )->FT:  # Div(cls='flex items-center space-x-2')(`FormLabel`, `Radio`)
     "A FormLabel and Radio pair that provides default spacing and links/names them based on id"
     if isinstance(label, str) or label.tag != 'label': 
         label = FormLabel(cls=stringify(lbl_cls), fr=id)(label)
@@ -459,7 +459,7 @@ def LabelCheckboxX(label:str|FT, # FormLabel content (often text)
                cls='flex items-center space-x-2', # Classes on container (default is 'flex items-center space-x-2')
                id='', # id for `FormLabel` and `CheckboxX` (`id`, `name` and `for` attributes are set to this value)
                 **kwargs # Additional args for `CheckboxX`
-               ):  # Div(cls='flex items-center space-x-2')(`FormLabel`, `CheckboxX`)
+               )->FT:  # Div(cls='flex items-center space-x-2')(`FormLabel`, `CheckboxX`)
     "A FormLabel and CheckboxX pair that provides default spacing and links/names them based on id"
     id = kwargs.pop('id', fh.unqid())
     if isinstance(label, str) or label.tag != 'label': 
@@ -555,7 +555,7 @@ class ListT(VEnum):
 def UkList(*li, # `Li` tags to put in the list
            cls=(), # Additional classes on the list
            **kwargs # Additional args for `Ul` tag
-           ): # Ul(..., cls='uk-list')
+           )->FT: # Ul(..., cls='uk-list')
     "Creates a list with styling"
     return fh.Ul(*li, cls=('uk-list',stringify(cls)), **kwargs)
 
@@ -563,44 +563,44 @@ def UkList(*li, # `Li` tags to put in the list
 def ModalContainer(*c, # Components to put in the modal (often `ModalDialog`)
                      cls=(), # Additional classes on the `ModalContainer`
                      **kwargs # Additional args for `Div` tag
-                     ): # Div(..., cls='uk-modal uk-modal-container')
+                     )->FT: # Div(..., cls='uk-modal uk-modal-container')
     "Creates a modal container that components go in"
     return fh.Div(*c, cls=('uk-modal uk-modal-container',stringify(cls)), uk_modal=True, **kwargs)
 def ModalDialog(*c, # Components to put in the `ModalDialog` (often `ModalBody`, `ModalHeader`, etc)
                   cls=(), # Additional classes on the `ModalDialog`
                   **kwargs # Additional args for `Div` tag
-                  ): # Div(..., cls='uk-modal-dialog')
+                  )->FT: # Div(..., cls='uk-modal-dialog')
     "Creates a modal dialog"
     return fh.Div(*c, cls=('uk-modal-dialog',   stringify(cls)),                **kwargs)
 def ModalHeader(*c, # Components to put in the `ModalHeader`
                   cls=(), # Additional classes on the `ModalHeader`
                   **kwargs # Additional args for `Div` tag
-                  ): # Div(..., cls='uk-modal-header')
+                  )->FT: # Div(..., cls='uk-modal-header')
     "Creates a modal header"
     return fh.Div(*c, cls=('uk-modal-header',   stringify(cls)),                **kwargs)
 def ModalBody(*c, # Components to put in the `ModalBody` (often forms, sign in buttons, images, etc.)
                cls=(), # Additional classes on the `ModalBody`
                **kwargs # Additional args for `Div` tag
-               ): # Div(..., cls='uk-modal-body')
+               )->FT: # Div(..., cls='uk-modal-body')
     "Creates a modal body"
     return fh.Div(*c, cls=('uk-modal-body',     stringify(cls)),                **kwargs)
 def ModalFooter(*c, # Components to put in the `ModalFooter` (often buttons)
                  cls=(), # Additional classes on the `ModalFooter`
                  **kwargs # Additional args for `Div` tag
-                 ): # Div(..., cls='uk-modal-footer')
+                 )->FT: # Div(..., cls='uk-modal-footer')
     "Creates a modal footer"
     return fh.Div(*c, cls=('uk-modal-footer',   stringify(cls)),                **kwargs)
 def ModalTitle(*c, # Components to put in the `ModalTitle` (often text)
                 cls=(), # Additional classes on the `ModalTitle`
                 **kwargs # Additional args for `H2` tag
-                ): # H2(..., cls='uk-modal-title')
+                )->FT: # H2(..., cls='uk-modal-title')
     "Creates a modal title"
     return fh.H2(*c,  cls=('uk-modal-title',  stringify(cls)),  **kwargs)
 def ModalCloseButton(*c, # Components to put in the button (often text and/or an icon)
                       cls=(), # Additional classes on the button
                       htmx=False, # Whether to use HTMX to close the modal (must add hx_get to a route that closes the modal)
                       **kwargs # Additional args for `Button` tag
-                      ): # Button(..., cls='uk-modal-close') + `hx_target` and `hx_swap` if htmx is True
+                      )->FT: # Button(..., cls='uk-modal-close') + `hx_target` and `hx_swap` if htmx is True
     "Creates a button that closes a modal with js"
     if htmx: 
         kwargs['hx_target'] = 'closest .uk-modal'
@@ -619,7 +619,7 @@ def Modal(*c,                 # Components to put in the `ModalBody` (often form
         id='',                # id for the outermost container
         open=False,           # Whether the modal is open (typically used for HTMX controlled modals)
         **kwargs              # Additional args for the outermost `Div` tag
-        ): # Fully styled modal FT Component
+        )->FT: # Fully styled modal FT Component
     "Creates a modal with the appropriate classes to put the boilerplate in the appropriate places for you"
     if open:
         cls = stringify((cls, 'uk-open'))
@@ -673,7 +673,7 @@ class PositionT(VEnum):
 def Placeholder(*c, # Components to put in the placeholder
                   cls=(), # Additional classes on the placeholder
                   **kwargs # Additional args for `Div` tag
-                  ): # Div(..., cls='uk-placeholder')
+                  )->FT: # Div(..., cls='uk-placeholder')
     "Creates a placeholder"
     return fh.Div(*c, cls=('uk-placeholder',stringify(cls)), **kwargs)
 
@@ -683,7 +683,7 @@ def Progress(*c, # Components to put in the progress bar (often nothing)
              value="", # Value of the progress bar
              max="100", # Max value of the progress bar (defaults to 100 for percentage)
              **kwargs # Additional args for `Progress` tag
-             ): # Progress(..., cls='uk-progress')
+             )->FT: # Progress(..., cls='uk-progress')
     "Creates a progress bar"
     return fh.Progress(*c, value=value, max=max, cls=('uk-progress',stringify(cls)), **kwargs)
 
@@ -694,7 +694,7 @@ def UkIcon(icon:str, # Icon name from [lucide icons](https://lucide.dev/icons/)
            stroke_width:int=None, # Thickness of lines
            cls=(), # Additional classes on the `Uk_icon` tag
            **kwargs # Additional args for `Uk_icon` tag
-           ): # a lucide icon of the specified size 
+           )->FT: # a lucide icon of the specified size 
     "Creates an icon using lucide icons"
     return Uk_icon(icon=icon, height=height, width=width, stroke_width=stroke_width, cls=cls, **kwargs)
 
@@ -706,7 +706,7 @@ def UkIconLink(icon:str,  # Icon name from [lucide icons](https://lucide.dev/ico
            cls=(), # Additional classes on the icon
            button:bool=False, # Whether to use a button (defaults to a link)
            **kwargs # Additional args for `A` or `Button` tag
-           ): # a lucide icon  button or link of the specified size
+           )->FT: # a lucide icon  button or link of the specified size
     "Creates an icon link using lucide icons"
     fn = fh.Button if button else fh.A
     return fn(cls=(f"uk-icon-{'button' if button else 'link'}", stringify(cls)), **kwargs)(
@@ -749,7 +749,7 @@ def Grid(*div, # `Div` components to put in the grid
          cols:int=None, # Number of columns on all screens
          cls='gap-4', # Additional classes on the grid (tip: `gap` provides spacing for grids)
          **kwargs # Additional args for `Div` tag
-         ): # Responsive grid component
+         )->FT: # Responsive grid component
     "Creates a responsive grid layout with smart defaults based on content"
     if cols: cols_min = cols_sm = cols_md = cols_lg = cols_xl = cols
     else:
@@ -775,7 +775,7 @@ def DivCentered(*c,      # Components
                 cls='space--4',  # Classes for outer div (`space-y-4` provides spacing between components)
                 vstack=True, # Whether to stack the components vertically
                 **kwargs # Additional args for outer div
-               ): # Div with components centered in it
+               )->FT: # Div with components centered in it
     "Creates a flex div with it's components centered in it"
     cls=stringify(cls)
     return Div(cls=(FlexT.block,(FlexT.column if vstack else FlexT.row),FlexT.middle,FlexT.center,cls),**kwargs)(*c)
@@ -784,7 +784,7 @@ def DivCentered(*c,      # Components
 def DivLAligned(*c, # Components
                 cls='space-x-4',  # Classes for outer div
                 **kwargs # Additional args for outer div
-               ): # Div with components aligned to the left
+               )->FT: # Div with components aligned to the left
     "Creates a flex div with it's components aligned to the left"
     cls=stringify(cls)
     return Div(cls=(FlexT.block,FlexT.left,FlexT.middle,cls), **kwargs)(*c)
@@ -793,7 +793,7 @@ def DivLAligned(*c, # Components
 def DivRAligned(*c, # Components
                 cls='space-x-4',  # Classes for outer div
                 **kwargs # Additional args for outer div
-               ): # Div with components aligned to the right
+               )->FT: # Div with components aligned to the right
     "Creates a flex div with it's components aligned to the right"
     cls=stringify(cls)
     return Div(cls=(FlexT.block,FlexT.right,FlexT.middle,cls), **kwargs)(*c)
@@ -802,7 +802,7 @@ def DivRAligned(*c, # Components
 def DivVStacked(*c, # Components
                 cls='space-y-4', # Additional classes on the div  (tip: `space-y-4` provides spacing between components)
                 **kwargs # Additional args for the div
-               ): # Div with components stacked vertically
+               )->FT: # Div with components stacked vertically
     "Creates a flex div with it's components stacked vertically"
     cls=stringify(cls)
     return Div(cls=(FlexT.block,FlexT.column,FlexT.middle,cls), **kwargs)(*c)
@@ -811,7 +811,7 @@ def DivVStacked(*c, # Components
 def DivHStacked(*c, # Components
                 cls='space-x-4', # Additional classes on the div (`space-x-4` provides spacing between components)
                 **kwargs # Additional args for the div
-               ): # Div with components stacked horizontally
+               )->FT: # Div with components stacked horizontally
     "Creates a flex div with it's components stacked horizontally"
     cls=stringify(cls)
     return Div(cls=(FlexT.block,FlexT.row,FlexT.middle,cls), **kwargs)(*c)
@@ -829,7 +829,7 @@ def NavContainer(*li, # List items are navigation elements (Special `Li` such as
                  parent=True, # Whether this nav is a *parent* or *sub* nav
                  uk_nav=False, #True for default collapsible behavior, see [frankenui docs](https://franken-ui.dev/docs/nav#component-options) for more advanced options
                  **kwargs # Additional args
-                 ): # FT Component that is a list of `Li` styled for a sidebar navigation menu
+                 )->FT: # FT Component that is a list of `Li` styled for a sidebar navigation menu
     "Creates a navigation container (useful for creating a sidebar navigation).  A Nav is a list (NavBar is something different)"
     return fh.Ul(*li, uk_nav=uk_nav, cls=(f"uk-nav{'' if parent else '-sub'}", stringify(cls)),**kwargs)
 
@@ -837,31 +837,31 @@ def NavContainer(*li, # List items are navigation elements (Special `Li` such as
 def NavParentLi(*nav_container, # `NavContainer` container for a nested nav with `parent=False`)
                 cls=(), # Additional classes on the li
                 **kwargs # Additional args for the li
-               ): # Navigation list item
+               )->FT: # Navigation list item
     "Creates a navigation list item with a parent nav for nesting"
     return fh.Li(*nav_container,  cls=('uk-parent',  stringify(cls)),**kwargs)
 def NavDividerLi(*c, # Components
                  cls=(), # Additional classes on the li
                  **kwargs # Additional args for the li
-                ): # Navigation list item with a divider
+                )->FT: # Navigation list item with a divider
     "Creates a navigation list item with a divider"
     return fh.Li(*c, cls=('uk-nav-divider', stringify(cls)),**kwargs)
 def NavHeaderLi(*c, # Components
                 cls=(), # Additional classes on the li
                 **kwargs # Additional args for the li
-               ): # Navigation list item with a header
+               )->FT: # Navigation list item with a header
     "Creates a navigation list item with a header"
     return fh.Li(*c, cls=('uk-nav-header', stringify(cls)),**kwargs)
 def NavSubtitle(*c, # Components
                  cls=TextFont.muted_sm, # Additional classes on the div
                  **kwargs # Additional args for the div
-                ): # Navigation subtitle
+                )->FT: # Navigation subtitle
     "Creates a navigation subtitle"
     return fh.Div(*c, cls=('uk-nav-subtitle', stringify(cls)),**kwargs)
 def NavCloseLi(*c, # Components
                cls=(), # Additional classes on the li
                **kwargs # Additional args for the li
-              ): # Navigation list item with a close button
+              )->FT: # Navigation list item with a close button
     "Creates a navigation list item with a close button"
     return fh.Li(*c, cls=('uk-drop-close', stringify(cls)),**kwargs)
 
@@ -871,26 +871,26 @@ def NavBarContainer(*navbarside, # Components (typically `NavBarLSide` or `NavBa
                     container_cls=ContainerT.expand, # Additional classes on the container
                     uk_navbar=True, # Whether to use a navbar
                     **kwargs # Additional args for the container
-                   ): # NavBar container
+                   )->FT: # NavBar container
     "Create a NavBarContainer to put NavBar sides in"
     return fh.Div(Container(Div(*navbarside, uk_navbar=uk_navbar),cls=stringify(container_cls)), cls=('',stringify(cls)), **kwargs) #uk-navbar-container
 
 def NavBarLSide(*c,  # Components
                 cls=(), # Additional classes on the div
                 **kwargs # Additional args for the div
-               ): # NavBar left side
+               )->FT: # NavBar left side
     "Creates a NavBar left side"
     return fh.Div(*c, cls=('uk-navbar-left',  stringify(cls)), **kwargs)
 def NavBarRSide(*c,  # Components
                 cls=(), # Additional classes on the div
                 **kwargs # Additional args for the div
-               ): # NavBar right side
+               )->FT: # NavBar right side
     "Creates a NavBar right side"
     return fh.Div(*c, cls=('uk-navbar-right', stringify(cls)), **kwargs)
 def NavBarCenter(*c, # Components
                   cls=(), # Additional classes on the div
                   **kwargs # Additional args for the div
-                 ): # NavBar center
+                 )->FT: # NavBar center
     "Creates a NavBar center"
     return fh.Div(*c, cls=('uk-navbar-center',stringify(cls)), **kwargs)
 
@@ -898,7 +898,7 @@ def NavBarCenter(*c, # Components
 def NavBarNav(*li, # Components
               cls=(), # Additional classes on the nav
               **kwargs # Additional args for the nav
-             ): # Nav that is part of a NavBar
+             )->FT: # Nav that is part of a NavBar
     "A Nav that is part of a NavBar that could go in a `NavBarLSide`, `NavBarRSide`, or `NavBarCenter`"
     return fh.Nav(*li, cls=('uk-navbar-nav',      stringify(cls)),                 **kwargs)
 
@@ -908,7 +908,7 @@ def NavBarSubtitle(title, # Title
                    cls=(), # Additional classes on the div
                    subtitle_cls=TextFont.muted_sm, # Additional classes on the subtitle
                    **kwargs # Additional args for the div
-                  ): # NavBar subtitle
+                  )->FT: # NavBar subtitle
     "Creates a NavBar subtitle"
     return fh.Div(title,fh.Div(subtitle, cls=('uk-navbar-subtitle', stringify(subtitle_cls))), cls=stringify(cls), **kwargs)
 
@@ -918,7 +918,7 @@ def NavBarNavContainer(*li, # Components
                        parent=True, # Whether to use a parent nav
                        uk_nav=False, #True for default collapsible behavior, see https://franken-ui.dev/docs/nav#component-options for more advanced options
                        **kwargs # Additional args for the nav
-                      ): # NavBar nav container
+                      )->FT: # NavBar nav container
     return Div(cls="uk-navbar-dropdown")(NavContainer(*li, cls=('uk-navbar-dropdown-nav',stringify(cls)), uk_nav=uk_nav, parent=parent, **kwargs))
 
 # %% ../nbs/02_franken.ipynb
@@ -931,7 +931,7 @@ def DropDownNavContainer(*li, # Components
                          uk_nav=False, #True for default collapsible behavior, see https://franken-ui.dev/docs/nav#component-options for more advanced options
                          uk_dropdown=True, # Whether to use a dropdown
                          **kwargs # Additional args for the nav
-                        ): # DropDown nav container
+                        )->FT: # DropDown nav container
     "A Nav that is part of a DropDown"
     return Div(cls = 'uk-drop uk-dropdown',uk_dropdown=uk_dropdown)(NavContainer(*li, cls=('uk-dropdown-nav',stringify(cls)), uk_nav=uk_nav, parent=parent, **kwargs))
 
@@ -940,7 +940,7 @@ def TabContainer(*li, # Components
                   cls='', # Additional classes on the `Ul`
                   alt=False, # Whether to use an alternative tab style
                   **kwargs # Additional args for the `Ul`
-                 ): # Tab container
+                 )->FT: # Tab container
     "A TabContainer where children will be different tabs"
     cls = stringify(cls)
     return Ul(cls=(f"uk-tab{'-alt' if alt else ''}",stringify(cls)),**kwargs)(*li)
@@ -965,28 +965,28 @@ def CardTitle(*c, # Components (often a string)
 def CardHeader(*c, # Components that goes in the header (often a `ModalTitle` and description)
                cls=(), # Additional classes on the div
                **kwargs # Additional args for the div
-              ): # Container for the header of a card
+              )->FT: # Container for the header of a card
     "Creates a card header"
     return fh.Div(*c, cls=('uk-card-header',stringify(cls)), **kwargs)
 
 def CardBody(*c, # Components that go in the body (Main content of the card such as a form, and image, a signin form, etc.)
               cls=(), # Additional classes on the div
               **kwargs # Additional args for the div
-             ): # Container for the body of a card
+             )->FT: # Container for the body of a card
     "Creates a card body"
     return fh.Div(*c, cls=('uk-card-body',stringify(cls)), **kwargs)
 
 def CardFooter(*c, # Components that go in the footer (often a `ModalCloseButton`)
                cls=(), # Additional classes on the div
                **kwargs # Additional args for the div
-              ): # Container for the footer of a card
+              )->FT: # Container for the footer of a card
     "Creates a card footer"
     return fh.Div(*c, cls=('uk-card-footer',stringify(cls)), **kwargs)
 
 def CardContainer(*c, # Components (typically `CardHeader`, `CardBody`, `CardFooter`)
                    cls=CardT.default, # Additional classes on the div
                    **kwargs # Additional args for the div
-                  ): # Container for a card
+                  )->FT: # Container for a card
     "Creates a card container"
     return fh.Div(*c, cls=('uk-card',stringify(cls)), **kwargs)
 
@@ -999,7 +999,7 @@ def Card(*c, # Components that go in the body (Main content of the card such as 
         footer_cls=(), # classes for the footer
         cls=(), #class for outermost component
         **kwargs # additional arguments for the `CardContainer`
-        ): # Card component
+        )->FT: # Card component
     "Creates a Card with a header, body, and footer"
     header_cls, footer_cls, body_cls, cls = map(stringify, (header_cls, footer_cls, body_cls, cls))
     res = []
@@ -1024,7 +1024,7 @@ class TableT(VEnum):
 def Table(*c, # Components (typically `Thead`, `Tbody`, `Tfoot`)
           cls=(TableT.middle, TableT.divider, TableT.hover, TableT.small), # Additional classes on the table
           **kwargs # Additional args for the table
-         ): # Table component
+         )->FT: # Table component
     "Creates a table"
     return fh.Table(cls=('uk-table', stringify(cls)), *c, **kwargs)
 
@@ -1036,7 +1036,7 @@ def _TableCell(Component,
                expand=False, # Whether to expand the cell
                small=False, # Whether to use a small table
                **kwargs # Additional args for the cell
-              ): # Table cell
+              )->FT: # Table cell
     "Creates a table cell"
     cls = stringify(cls)
     if shrink: cls += ' uk-table-shrink'
@@ -1061,7 +1061,7 @@ def TableFromLists(header_data:Sequence, # List of header data
                    cls=(TableT.middle, TableT.divider, TableT.hover, TableT.small), # Additional classes on the table
                    sortable=False, # Whether to use sortable table
                    **kwargs # Additional args for the table
-                  ): # Table from lists
+                  )->FT: # Table from lists
     "Creates a Table from a list of header data and a list of lists of body data"
     return Table(
                 Thead(Tr(*map(header_cell_render, header_data))),
@@ -1080,7 +1080,7 @@ def TableFromDicts(header_data:Sequence, # List of header data
                    cls=(TableT.middle, TableT.divider, TableT.hover, TableT.small), # Additional classes on the table
                    sortable=False, # Whether to use sortable table
                    **kwargs # Additional args for the table
-                  ): # Styled Table
+                  )->FT: # Styled Table
     "Creates a Table from a list of header data and a list of dicts of body data"
     return Table(
         Thead(Tr(*[header_cell_render(h) for h in header_data])),
@@ -1126,7 +1126,7 @@ franken_class_map = {
 def apply_classes(html_str:str, # Html string
                   class_map=None, # Class map
                   class_map_mods=None # Class map that will modify the class map map (useful for small changes to a base class map)
-                 ): # Html string with classes applied
+                 )->str: # Html string with classes applied
     "Apply classes to html string"
     if not html_str: return html_str
     try:
@@ -1152,7 +1152,7 @@ def apply_classes(html_str:str, # Html string
 def render_md(md_content:str, # Markdown content
                class_map=None, # Class map
                class_map_mods=None # Additional class map
-              ): # Rendered markdown
+              )->FT: # Rendered markdown
     "Renders markdown using mistletoe and lxml"
     if md_content=='': return md_content
     # Check for required dependencies

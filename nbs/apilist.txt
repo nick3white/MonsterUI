@@ -16,7 +16,7 @@
 ## monsterui.daisy
 
 - `class AlertT`
-    Alert styles
+    Alert styles from DaisyUI
 
     - `@property def name(self)`
 
@@ -34,10 +34,10 @@
     - `@property def name(self)`
 
 - `def Steps(*li, **kwargs)`
-    Creates a steps container with horizontal scrolling
+    Creates a steps container
 
 - `def LiStep(*c, **kwargs)`
-    Creates a step list item with optional styling
+    Creates a step list item
 
 - `class LoadingT`
     - `@property def name(self)`

@@ -69,7 +69,7 @@ def LiStep(*c, # Description for Step that goes next to bubble (often text)
            **kwargs # Aditional arguments for the step (`Li` component)
           )->FT: # Li(..., cls='step')
     "Creates a step list item"
-    return Li(*c, cls=('step', stringify(cls)), **kwargs)
+    return Li(*c, cls=('step', stringify(cls)), data_content=data_content, **kwargs)
 
 # %% ../nbs/03_daisy.ipynb
 class LoadingT(VEnum):

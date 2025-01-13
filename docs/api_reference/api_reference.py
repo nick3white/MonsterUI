@@ -88,6 +88,33 @@ def create_doc_section(*content, title):
 
 def string2code_string(code: str) -> tuple: return eval(code), code
 
+# Sliders
+
+def ex_sliders_1():
+    return Slider(*[Img(src=f'https://picsum.photos/200/200?random={i}') for i in range(10)])
+
+def ex_sliders_2():
+    def _card(i): return Card(H3(f'Card {i}'), P(f'Card {i} content'))
+    return Slider(*[_card(i) for i in range(10)])
+
+def ex_sliders_3():
+    def _card(i): return Card(H3(f'Card {i}'), P(f'Card {i} content'))
+    return Slider(*[_card(i) for i in range(10)], items_cls='gap-10', uk_slider='autoplay: true; autoplay-interval: 1000')
+
+docs_sliders = create_doc_section(
+    "Here is a simple example of a slider:",
+    fn2code_string(ex_sliders_1),
+    "Here is a slider with cards:",
+    fn2code_string(ex_sliders_2),
+    "Here is a slider with cards and autoplay:",
+    fn2code_string(ex_sliders_3),
+    "Typically you want to use the `Slider` component, but if you need more control you can use the `SliderContainer`, `SliderItems`, and `SliderNav` components.",
+    Slider,
+    SliderContainer,
+    SliderItems,
+    SliderNav,
+    title="Sliders")
+
 # Buttons
 
 def ex_buttons(): 

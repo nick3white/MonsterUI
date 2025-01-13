@@ -12,9 +12,10 @@ __all__ = ['franken_class_map', 'TextT', 'TextFont', 'PParagraph', 'PLarge', 'PL
            'UkIcon', 'UkIconLink', 'DiceBearAvatar', 'FlexT', 'Grid', 'DivFullySpaced', 'DivCentered', 'DivLAligned',
            'DivRAligned', 'DivVStacked', 'DivHStacked', 'NavT', 'NavContainer', 'NavParentLi', 'NavDividerLi',
            'NavHeaderLi', 'NavSubtitle', 'NavCloseLi', 'NavBarContainer', 'NavBarLSide', 'NavBarRSide', 'NavBarCenter',
-           'NavBarNav', 'NavBarSubtitle', 'NavBarNavContainer', 'NavBarParentIcon', 'DropDownNavContainer',
-           'TabContainer', 'CardT', 'CardTitle', 'CardHeader', 'CardBody', 'CardFooter', 'CardContainer', 'Card',
-           'TableT', 'Table', 'Td', 'Th', 'Tbody', 'TableFromLists', 'TableFromDicts', 'apply_classes', 'render_md']
+           'NavBarNav', 'NavBarSubtitle', 'NavBarNavContainer', 'NavBarParentIcon', 'SliderContainer', 'SliderItems',
+           'SliderNav', 'Slider', 'DropDownNavContainer', 'TabContainer', 'CardT', 'CardTitle', 'CardHeader',
+           'CardBody', 'CardFooter', 'CardContainer', 'Card', 'TableT', 'Table', 'Td', 'Th', 'Tbody', 'TableFromLists',
+           'TableFromDicts', 'apply_classes', 'render_md']
 
 # %% ../nbs/02_franken.ipynb
 import fasthtml.common as fh
@@ -923,6 +924,57 @@ def NavBarNavContainer(*li, # Components
 
 # %% ../nbs/02_franken.ipynb
 def NavBarParentIcon(): return Span(uk_navbar_parent_icon=True)
+
+# %% ../nbs/02_franken.ipynb
+def SliderContainer(
+        *c, # Components
+        cls='', # Additional classes on the container
+        uk_slider=True, # See FrankenUI Slider docs for more options
+        **kwargs # Additional args for the container
+    ) -> FT: # Div(..., cls='relative', uk_slider=True, ...)
+    "Creates a slider container"
+    return Div(*c, cls=('relative', stringify(cls)), uk_slider=uk_slider, **kwargs)
+
+# %% ../nbs/02_franken.ipynb
+def SliderItems(
+        *c, # Components
+        cls='', # Additional classes for the items
+        **kwargs # Additional args for the items
+    ) -> FT: # Div(..., cls='uk-slider-items uk-grid', ...)
+    "Creates a slider items container"
+    return Div(*c, cls=('uk-slider-items uk-grid', stringify(cls)), **kwargs)
+
+# %% ../nbs/02_franken.ipynb
+def SliderNav(
+        cls='uk-position-small uk-hidden-hover', # Additional classes for the navigation
+        prev_cls='absolute left-0 top-1/2 -translate-y-1/2', # Additional classes for the previous navigation
+        next_cls='absolute right-0 top-1/2 -translate-y-1/2', # Additional classes for the next navigation
+        **kwargs # Additional args for the navigation
+    ) -> FT: # Left and right navigation arrows for Slider component
+    "Navigation arrows for Slider component"
+    return (
+        fh.A(cls=(prev_cls, stringify(cls)), href='',
+             uk_slidenav_previous=True, uk_slider_item='previous', **kwargs),
+        fh.A(cls=(next_cls, stringify(cls)), href='',
+             uk_slidenav_next=True, uk_slider_item='next', **kwargs)
+    )
+
+# %% ../nbs/02_franken.ipynb
+def Slider(*c, # Items to show in slider
+           cls='', # Classes for slider container
+           items_cls='gap-4', # Classes for items container
+           nav=True, # Whether to show navigation arrows
+           nav_cls='', # Classes for navigation arrows
+           **kwargs # Additional args for slider container
+    ) -> FT: # SliderContainer(SliderItems(..., cls='gap-4'), SliderNav?)
+    "Creates a slider with optional navigation arrows"
+    nav_comp = SliderNav(cls=nav_cls) if nav else ()
+    return SliderContainer(
+        SliderItems(*c, cls=items_cls),
+        *nav_comp,
+        cls=cls,
+        **kwargs
+    )
 
 # %% ../nbs/02_franken.ipynb
 def DropDownNavContainer(*li, # Components

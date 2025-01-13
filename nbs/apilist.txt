@@ -362,6 +362,18 @@
 - `def NavBarSubtitle(title, subtitle, cls, subtitle_cls, **kwargs)`
     Creates a NavBar subtitle
 
+- `def SliderContainer(*c, **kwargs)`
+    Creates a slider container
+
+- `def SliderItems(*c, **kwargs)`
+    Creates a slider items container
+
+- `def SliderNav(cls, prev_cls, next_cls, **kwargs)`
+    Navigation arrows for Slider component
+
+- `def Slider(*c, **kwargs)`
+    Creates a slider with optional navigation arrows
+
 - `def DropDownNavContainer(*li, **kwargs)`
     A Nav that is part of a DropDown
 

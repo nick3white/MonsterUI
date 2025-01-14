@@ -150,8 +150,14 @@ def ex_theme_switcher():
     return Uk_theme_switcher()
 
 docs_theme_headers = create_doc_section( 
-   "To get headers with a default theme use `hdrs=Theme.<color>.headers()`.  For example for the blue theme you would use `hdrs=Theme.blue.headers()`.  Theme options are:",
-    "> Note: Tailwind is included in the headers for convenience",
+   """
+   To get headers with a default theme use `hdrs=Theme.<color>.headers()`.  For example for the blue theme you would use `hdrs=Theme.blue.headers()`.  The theme integrated together different frameworks and allows tailwind, FrankenUI, HighlighJS, and DaisyUI components to work well together.
+   
+   Tailwind, FrankenUI and DaisyUI are imported by default.  You must use DaisyUI headers to use anything in the `daisy` module, and FrankenUI headers to use anything in the `franken` module.
+
+   HighlightJS is not added by default, but you can add it by setting `highlightjs=True` in the headers function.  The `render_md` function will use HighlightJS for code blocks.
+   
+   Theme options are:""",
     Card(Grid(map(P,Theme)),cls='mb-8'),
     H3("Theme Picker"),
     fn2code_string(ex_theme_switcher),
@@ -226,10 +232,8 @@ def ex_ps():
 def ex_other():
     return Div(
         CodeSpan("This is a CodeSpan element"),
-        Blockquote("This is a blockquote element"))
-
-
-
+        Blockquote("This is a blockquote element"),
+        CodeBlock("#This is a CodeBlock element\n\ndef add(a,b): return a+b"))
 
 docs_typography = create_doc_section(
     PLarge("High Level Options"),
@@ -245,7 +249,7 @@ docs_typography = create_doc_section(
     TextT,
     H1, H2, H3, H4, Titled,
     PParagraph, PLarge, PLead, PSmall, PMuted,
-    CodeSpan, Blockquote,
+    CodeSpan, Blockquote, CodeBlock,
     title="Text Style")
 
 

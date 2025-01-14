@@ -2,10 +2,10 @@
 
 # %% auto 0
 __all__ = ['franken_class_map', 'TextT', 'TextFont', 'PParagraph', 'PLarge', 'PLead', 'PSmall', 'PMuted', 'CodeSpan',
-           'Blockquote', 'H1', 'H2', 'H3', 'H4', 'ButtonT', 'Button', 'ContainerT', 'Container', 'Titled', 'DividerT',
-           'Divider', 'DividerSplit', 'DividerLine', 'Article', 'ArticleTitle', 'ArticleMeta', 'SectionT', 'Section',
-           'Form', 'Fieldset', 'Legend', 'Input', 'Select', 'Radio', 'CheckboxX', 'Range', 'TextArea', 'Switch',
-           'FormLabel', 'LabelT', 'Label', 'UkFormSection', 'GenericLabelInput', 'LabelInput', 'LabelRange',
+           'Blockquote', 'CodeBlock', 'H1', 'H2', 'H3', 'H4', 'ButtonT', 'Button', 'ContainerT', 'Container', 'Titled',
+           'DividerT', 'Divider', 'DividerSplit', 'DividerLine', 'Article', 'ArticleTitle', 'ArticleMeta', 'SectionT',
+           'Section', 'Form', 'Fieldset', 'Legend', 'Input', 'Select', 'Radio', 'CheckboxX', 'Range', 'TextArea',
+           'Switch', 'FormLabel', 'LabelT', 'Label', 'UkFormSection', 'GenericLabelInput', 'LabelInput', 'LabelRange',
            'LabelTextArea', 'LabelSwitch', 'LabelRadio', 'LabelCheckboxX', 'LabelSelect', 'Options', 'UkSelect',
            'LabelUkSelect', 'AT', 'ListT', 'UkList', 'ModalContainer', 'ModalDialog', 'ModalHeader', 'ModalBody',
            'ModalFooter', 'ModalTitle', 'ModalCloseButton', 'Modal', 'PaddingT', 'PositionT', 'Placeholder', 'Progress',
@@ -115,6 +115,18 @@ def Blockquote(*c:FT|str, # Contents of Blockquote tag (often text)
                )->FT: # Blockquote(..., cls='uk-blockquote')
     "Blockquote with Styling"
     return fh.Blockquote(*c, cls=('uk-blockquote',stringify(cls)), **kwargs)
+
+# %% ../nbs/02_franken.ipynb
+def CodeBlock(*c: str, # Contents of Code tag (often text)
+              cls: Enum | str | tuple = (), # Classes for the outer container
+              code_cls: Enum | str | tuple = (), # Classes for the code tag
+              **kwargs # Additional args for Code tag
+              ) -> FT: # Div(Pre(Code(..., cls='uk-codeblock), cls='multiple tailwind styles'), cls='uk-block')
+    "CodeBlock with Styling"
+    return Div(
+        Pre(Code(*c, cls=('uk-codeblock', stringify(code_cls)), **kwargs),
+            cls=('bg-gray-100 dark:bg-gray-800 dark:text-gray-200 p-0.4 rounded text-sm font-mono')),
+        cls=('uk-block', stringify(cls)))
 
 # %% ../nbs/02_franken.ipynb
 def H1(*c:FT|str, # Contents of H1 tag (often text)

@@ -2,11 +2,11 @@ from fasthtml.common import *
 from functools import partial
 from monsterui.all import *
 from fasthtml.components import Uk_theme_switcher
-from utils import hjs, render_nb
+from utils import render_nb
 from pathlib import Path
 
 # Setup the app
-app,rt = fast_app(pico=False, hdrs=(*Theme.blue.headers(),*hjs, Link(rel="icon", type="image/x-icon", href="/favicon.ico")))
+app,rt = fast_app(pico=False, hdrs=(*Theme.blue.headers(highlightjs=True), Link(rel="icon", type="image/x-icon", href="/favicon.ico")))
 
 def is_htmx(request=None): 
     "Check if the request is an HTMX request"

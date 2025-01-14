@@ -14,46 +14,6 @@ import json
 from pathlib import Path
 
 
-hjs = (
-    # Core highlight.js and copy plugin
-    Script(src='https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/highlight.min.js'),
-    Script(src='https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/languages/python.min.js'),
-    Script(src='https://cdn.jsdelivr.net/gh/arronhunt/highlightjs-copy/dist/highlightjs-copy.min.js'),
-    
-    # Themes and styles
-    Link(rel='stylesheet', href='https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/styles/atom-one-dark.css', id='hljs-dark'),
-    Link(rel='stylesheet', href='https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/styles/atom-one-light.css', id='hljs-light'),
-    Link(rel='stylesheet', href='https://cdn.jsdelivr.net/gh/arronhunt/highlightjs-copy/dist/highlightjs-copy.min.css'),
-
-    
-    # Initialization script
-    Script('''
-        // Initialize highlight.js with copy plugin
-        hljs.addPlugin(new CopyButtonPlugin());
-        hljs.configure({
-            cssSelector: 'pre code',
-            languages: ['python'],
-            ignoreUnescapedHTML: true
-        });
-
-        // Theme switching logic
-        function updateTheme() {
-            const isDark = document.documentElement.classList.contains('dark');
-            document.getElementById('hljs-dark').disabled = !isDark;
-            document.getElementById('hljs-light').disabled = isDark;
-        }
-
-        // Watch for theme changes
-        new MutationObserver(mutations => 
-            mutations.forEach(m => m.target.tagName === 'HTML' && 
-                m.attributeName === 'class' && updateTheme())
-        ).observe(document.documentElement, { attributes: true });
-
-        // Initial setup
-        updateTheme();
-        htmx.onLoad(hljs.highlightAll);
-    ''', type='module')
-)
 def create_flippable_card(content, source_code, extra_cls=None):
     "Creates a card that flips between content and source code"
     _id = 'f'+str(unqid())

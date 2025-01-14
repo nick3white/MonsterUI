@@ -1345,16 +1345,10 @@ __all__ = ['HEADER_URLS', 'daisy_styles', 'fast_app', 'FastHTML', 'Theme']
 # %% ../nbs/01_core.ipynb
 import fasthtml.common as fh
 from .foundations import *
-from fasthtml.common import is_listy, Div, P, Span, Script, FastHTML, FT, to_xml, show,fast_app
-from fasthtml.svg import Svg
-from fasthtml.components import Uk_theme_switcher, Main
+from fasthtml.common import FastHTML, fast_app
 from enum import Enum, auto
-from fasthtml.components import Uk_select,Uk_input_tag,Uk_icon
-from functools import partial
-from itertools import zip_longest
-from typing import Union, Tuple, Optional
 from fastcore.all import *
-import copy, re, httpx
+import httpx
 from pathlib import Path
 
 # %% ../nbs/01_core.ipynb
@@ -1406,7 +1400,14 @@ HEADER_URLS = {
         'franken_js': "https://unpkg.com/franken-ui@1.1.0/dist/js/core.iife.js",
         'icon_js': "https://cdn.jsdelivr.net/gh/answerdotai/monsterui@main/monsterui/icon.iife.js",
         'tailwind': "https://cdn.tailwindcss.com",
-        'daisyui': "https://cdn.jsdelivr.net/npm/daisyui@4.12.22/dist/full.min.css"}
+        'daisyui': "https://cdn.jsdelivr.net/npm/daisyui@4.12.22/dist/full.min.css",
+        'highlight_js': "https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/highlight.min.js",
+        'highlight_python': "https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/languages/python.min.js",
+        'highlight_light_css': "https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/styles/atom-one-light.css",
+        'highlight_dark_css': "https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/styles/atom-one-dark.css",
+        'highlight_copy': "https://cdn.jsdelivr.net/gh/arronhunt/highlightjs-copy/dist/highlightjs-copy.min.js",
+        'highlight_copy_css': "https://cdn.jsdelivr.net/gh/arronhunt/highlightjs-copy/dist/highlightjs-copy.min.css",
+}
 
 def _download_resource(url, static_dir):
     "Download a single resource and return its local path"
@@ -1435,7 +1436,7 @@ daisy_styles = Style("""
 
 # %% ../nbs/01_core.ipynb
 class Theme(Enum):
-    "Selector to choose theme and get all headers needed for app.  Includes frankenui + tailwind"
+    "Selector to choose theme and get all headers needed for app.  Includes frankenui + tailwind + daisyui + highlight.js options"
     def _generate_next_value_(name, start, count, last_values): return name
     slate = auto()
     stone = auto()
@@ -1450,8 +1451,7 @@ class Theme(Enum):
     violet = auto()
     zinc = auto()
 
-
-    def _create_headers(self, urls, mode='auto', daisy=True):
+    def _create_headers(self, urls, mode='auto', daisy=True, highlightjs=False):
         "Create header elements with given URLs"
         hdrs = [
             fh.Link(rel="stylesheet", href=urls['franken_css']),
@@ -1459,16 +1459,47 @@ class Theme(Enum):
             fh.Script(type="module", src=urls['icon_js']),
             fh.Script(src=urls['tailwind']),
             _headers_theme(self.value, mode=mode)]
-        if daisy: 
-            hdrs += [fh.Link(rel="stylesheet", href=urls['daisyui']),daisy_styles]
+
+        if daisy:
+            hdrs += [fh.Link(rel="stylesheet", href=urls['daisyui']), daisy_styles]
+            
+        if highlightjs:
+            hdrs += [
+                fh.Script(src=urls['highlight_js']),
+                fh.Script(src=urls['highlight_python']),
+                fh.Link(rel="stylesheet", href=urls['highlight_light_css'], id='hljs-light'),
+                fh.Link(rel="stylesheet", href=urls['highlight_dark_css'], id='hljs-dark'),
+                fh.Script(src=urls['highlight_copy']),
+                fh.Link(rel="stylesheet", href=urls['highlight_copy_css']),
+                fh.Script('''
+                    hljs.addPlugin(new CopyButtonPlugin());
+                    hljs.configure({
+                        cssSelector: 'pre code',
+                        languages: ['python'],
+                        ignoreUnescapedHTML: true
+                    });
+                    function updateTheme() {
+                        const isDark = document.documentElement.classList.contains('dark');
+                        document.getElementById('hljs-dark').disabled = !isDark;
+                        document.getElementById('hljs-light').disabled = isDark;
+                    }
+                    new MutationObserver(mutations =>
+                        mutations.forEach(m => m.target.tagName === 'HTML' &&
+                            m.attributeName === 'class' && updateTheme())
+                    ).observe(document.documentElement, { attributes: true });
+                    updateTheme();
+                    htmx.onLoad(hljs.highlightAll);
+                ''', type='module'),
+            ]
+
         return hdrs
 
-    def headers(self, mode='auto', daisy=True):
+    def headers(self, mode='auto', daisy=True, highlightjs=False):
         "Create frankenui and tailwind cdns"
-        return self._create_headers(HEADER_URLS, mode=mode, daisy=daisy)
+        return self._create_headers(HEADER_URLS, mode=mode, daisy=daisy, highlightjs=highlightjs)    
     
-    def local_headers(self, mode='auto', static_dir='static'):
+    def local_headers(self, mode='auto', static_dir='static', daisy=True, highlightjs=False):
         "Create headers using local files downloaded from CDNs"
         Path(static_dir).mkdir(exist_ok=True)
         local_urls = dict([_download_resource(url, static_dir) for url in HEADER_URLS.items()])
-        return self._create_headers(local_urls, mode=mode,daisy=daisy)</doc></docs><api><doc title="API List" desc="A succint list of all functions and methods in fasthtml.">404: Not Found</doc></api><examples><doc title="Authentication">404: Not Found</doc><doc title="Cards">404: Not Found</doc><doc title="Dashboard">404: Not Found</doc><doc title="Forms">404: Not Found</doc><doc title="Mail">404: Not Found</doc><doc title="Music">404: Not Found</doc><doc title="Playground">404: Not Found</doc><doc title="Tasks">404: Not Found</doc></examples></project>
+        return self._create_headers(local_urls, mode=mode, daisy=daisy, highlightjs=highlightjs)</doc></docs><api><doc title="API List" desc="A succint list of all functions and methods in fasthtml.">404: Not Found</doc></api><examples><doc title="Authentication">404: Not Found</doc><doc title="Cards">404: Not Found</doc><doc title="Dashboard">404: Not Found</doc><doc title="Forms">404: Not Found</doc><doc title="Mail">404: Not Found</doc><doc title="Music">404: Not Found</doc><doc title="Playground">404: Not Found</doc><doc title="Tasks">404: Not Found</doc></examples></project>

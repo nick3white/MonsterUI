@@ -6,11 +6,11 @@ __all__ = ['HEADER_URLS', 'daisy_styles', 'fast_app', 'FastHTML', 'Theme']
 # %% ../nbs/01_core.ipynb
 import fasthtml.common as fh
 from .foundations import *
-from fasthtml.common import is_listy, Div, P, Span, Script, FastHTML, FT, to_xml, show,fast_app
+from fasthtml.common import is_listy, Div, P, Span, Script, FastHTML, FT, to_xml, show, fast_app, Code, Pre
 from fasthtml.svg import Svg
 from fasthtml.components import Uk_theme_switcher, Main
 from enum import Enum, auto
-from fasthtml.components import Uk_select,Uk_input_tag,Uk_icon
+from fasthtml.components import Uk_select, Uk_input_tag, Uk_icon
 from functools import partial
 from itertools import zip_longest
 from typing import Union, Tuple, Optional
@@ -18,14 +18,16 @@ from fastcore.all import *
 import copy, re, httpx
 from pathlib import Path
 
+
 # %% ../nbs/01_core.ipynb
 @delegates(fh.fast_app, but=['pico'])
 def fast_app(*args, pico=False, **kwargs):
     "Create a FastHTML or FastHTMLWithLiveReload app with `bg-background text-foreground` to bodykw for frankenui themes"
     if 'bodykw' not in kwargs: kwargs['bodykw'] = {}
     if 'class' not in kwargs['bodykw']: kwargs['bodykw']['class'] = ''
-    kwargs['bodykw']['class'] = stringify((kwargs['bodykw']['class'],'bg-background text-foreground'))
+    kwargs['bodykw']['class'] = stringify((kwargs['bodykw']['class'], 'bg-background text-foreground'))
     return fh.fast_app(*args, pico=pico, **kwargs)
+
 
 # %% ../nbs/01_core.ipynb
 @delegates(fh.FastHTML, but=['pico'])
@@ -33,9 +35,10 @@ def FastHTML(*args, pico=False, **kwargs):
     "Create a FastHTML app and adds `bg-background text-foreground` to bodykw for frankenui themes"
     if 'bodykw' not in kwargs: kwargs['bodykw'] = {}
     if 'class' not in kwargs['bodykw']: kwargs['bodykw']['class'] = ''
-    kwargs['bodykw']['class'] = stringify((kwargs['bodykw']['class'],'bg-background text-foreground'))
-    bodykw = kwargs.pop('bodykw',{})
+    kwargs['bodykw']['class'] = stringify((kwargs['bodykw']['class'], 'bg-background text-foreground'))
+    bodykw = kwargs.pop('bodykw', {})
     return fh.FastHTML(*args, pico=pico, **bodykw, **kwargs)
+
 
 # %% ../nbs/01_core.ipynb
 def _headers_theme(color, mode='auto'):
@@ -54,28 +57,38 @@ def _headers_theme(color, mode='auto'):
         'light': 'htmlElement.classList.remove("dark");',
         'dark': 'htmlElement.classList.add("dark");'
     }
-    
+
     return fh.Script(f'''
         const htmlElement = document.documentElement;
         {mode_script[mode]}
         htmlElement.classList.add(localStorage.getItem("theme") || "uk-theme-{color}");
     ''')
 
+
 # %% ../nbs/01_core.ipynb
 HEADER_URLS = {
-        'franken_css': "https://unpkg.com/franken-ui@1.1.0/dist/css/core.min.css",
-        'franken_js': "https://unpkg.com/franken-ui@1.1.0/dist/js/core.iife.js",
-        'icon_js': "https://cdn.jsdelivr.net/gh/answerdotai/monsterui@main/monsterui/icon.iife.js",
-        'tailwind': "https://cdn.tailwindcss.com",
-        'daisyui': "https://cdn.jsdelivr.net/npm/daisyui@4.12.22/dist/full.min.css"}
+    'franken_css': "https://unpkg.com/franken-ui@1.1.0/dist/css/core.min.css",
+    'franken_js': "https://unpkg.com/franken-ui@1.1.0/dist/js/core.iife.js",
+    'icon_js': "https://cdn.jsdelivr.net/gh/answerdotai/monsterui@main/monsterui/icon.iife.js",
+    'tailwind': "https://cdn.tailwindcss.com",
+    'daisyui': "https://cdn.jsdelivr.net/npm/daisyui@4.12.22/dist/full.min.css",
+    'highlight_js': "https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/highlight.min.js",
+    'highlight_python': "https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/languages/python.min.js",
+    'highlight_light_css': "https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/styles/atom-one-light.css",
+    'highlight_dark_css': "https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/styles/atom-one-dark.css",
+    'highlight_copy': "https://cdn.jsdelivr.net/gh/arronhunt/highlightjs-copy/dist/highlightjs-copy.min.js",
+    'highlight_copy_css': "https://cdn.jsdelivr.net/gh/arronhunt/highlightjs-copy/dist/highlightjs-copy.min.css",
+}
+
 
 def _download_resource(url, static_dir):
     "Download a single resource and return its local path"
     static = Path(static_dir)
-    fname = static/f"{url[0]}.{'js' if 'js' in url[1] else 'css'}"
+    fname = static / f"{url[0]}.{'js' if 'js' in url[1] else 'css'}"
     content = httpx.get(url[1], follow_redirects=True).content
     fname.write_bytes(content)
     return (url[0], f"/{static_dir}/{fname.name}")
+
 
 # %% ../nbs/01_core.ipynb
 daisy_styles = Style("""
@@ -96,8 +109,11 @@ daisy_styles = Style("""
 
 # %% ../nbs/01_core.ipynb
 class Theme(Enum):
-    "Selector to choose theme and get all headers needed for app.  Includes frankenui + tailwind"
-    def _generate_next_value_(name, start, count, last_values): return name
+    "Selector to choose theme and get all headers needed for app. Includes frankenui + tailwind"
+
+    def _generate_next_value_(name, start, count, last_values):
+        return name
+
     slate = auto()
     stone = auto()
     gray = auto()
@@ -111,25 +127,59 @@ class Theme(Enum):
     violet = auto()
     zinc = auto()
 
-
-    def _create_headers(self, urls, mode='auto', daisy=True):
+    def _create_headers(self, urls, mode='auto', daisy=True, highlightjs=False):
         "Create header elements with given URLs"
         hdrs = [
             fh.Link(rel="stylesheet", href=urls['franken_css']),
             fh.Script(type="module", src=urls['franken_js']),
             fh.Script(type="module", src=urls['icon_js']),
             fh.Script(src=urls['tailwind']),
-            _headers_theme(self.value, mode=mode)]
-        if daisy: 
-            hdrs += [fh.Link(rel="stylesheet", href=urls['daisyui']),daisy_styles]
+            _headers_theme(self.value, mode=mode),
+        ]
+
+        if daisy:
+            hdrs += [fh.Link(rel="stylesheet", href=urls['daisyui']), daisy_styles]
+
+        if highlightjs:
+            hdrs += [
+                fh.Script(src=urls['highlight_js']),
+                fh.Script(src=urls['highlight_python']),
+                fh.Link(rel="stylesheet", href=urls['highlight_light_css'], id='hljs-light'),
+                fh.Link(rel="stylesheet", href=urls['highlight_dark_css'], id='hljs-dark'),
+                fh.Script(src=urls['highlight_copy']),
+                fh.Link(rel="stylesheet", href=urls['highlight_copy_css']),
+                fh.Script('''
+                    hljs.addPlugin(new CopyButtonPlugin());
+                    hljs.configure({
+                        cssSelector: 'pre code',
+                        languages: ['python'],
+                        ignoreUnescapedHTML: true
+                    });
+
+                    function updateTheme() {
+                        const isDark = document.documentElement.classList.contains('dark');
+                        document.getElementById('hljs-dark').disabled = !isDark;
+                        document.getElementById('hljs-light').disabled = isDark;
+                    }
+
+                    new MutationObserver(mutations =>
+                        mutations.forEach(m => m.target.tagName === 'HTML' &&
+                            m.attributeName === 'class' && updateTheme())
+                    ).observe(document.documentElement, { attributes: true });
+
+                    updateTheme();
+                    htmx.onLoad(hljs.highlightAll);
+                ''', type='module'),
+            ]
+
         return hdrs
 
-    def headers(self, mode='auto', daisy=True):
+    def headers(self, mode='auto', daisy=True, highlightjs=False):
         "Create frankenui and tailwind cdns"
-        return self._create_headers(HEADER_URLS, mode=mode, daisy=daisy)
-    
+        return self._create_headers(HEADER_URLS, mode=mode, daisy=daisy, highlightjs=highlightjs)
+
     def local_headers(self, mode='auto', static_dir='static'):
         "Create headers using local files downloaded from CDNs"
         Path(static_dir).mkdir(exist_ok=True)
         local_urls = dict([_download_resource(url, static_dir) for url in HEADER_URLS.items()])
-        return self._create_headers(local_urls, mode=mode,daisy=daisy)
+        return self._create_headers(local_urls, mode=mode, daisy=True, highlightjs=False)

@@ -2,7 +2,7 @@
 
 # %% auto 0
 __all__ = ['franken_class_map', 'TextT', 'TextFont', 'PParagraph', 'PLarge', 'PLead', 'PSmall', 'PMuted', 'CodeSpan',
-           'Blockquote', 'H1', 'H2', 'H3', 'H4', 'ButtonT', 'Button', 'ContainerT', 'Container', 'Titled', 'DividerT',
+           'Blockquote', 'CodeBlock', 'H1', 'H2', 'H3', 'H4', 'ButtonT', 'Button', 'ContainerT', 'Container', 'Titled', 'DividerT',
            'Divider', 'DividerSplit', 'DividerLine', 'Article', 'ArticleTitle', 'ArticleMeta', 'SectionT', 'Section',
            'Form', 'Fieldset', 'Legend', 'Input', 'Select', 'Radio', 'CheckboxX', 'Range', 'TextArea', 'Switch',
            'FormLabel', 'LabelT', 'Label', 'UkFormSection', 'GenericLabelInput', 'LabelInput', 'LabelRange',
@@ -19,7 +19,7 @@ __all__ = ['franken_class_map', 'TextT', 'TextFont', 'PParagraph', 'PLarge', 'PL
 # %% ../nbs/02_franken.ipynb
 import fasthtml.common as fh
 from .foundations import *
-from fasthtml.common import is_listy, Div, P, Span, Script, FastHTML, FT, to_xml, show,fast_app
+from fasthtml.common import is_listy, Div, P, Span, Script, FastHTML, FT, to_xml, show,fast_app , Code, Pre
 from fasthtml.svg import Svg
 from fasthtml.components import Uk_theme_switcher, Main
 from enum import Enum, auto
@@ -114,6 +114,16 @@ def Blockquote(*c:FT|str, # Contents of Blockquote tag (often text)
                )->FT: # Blockquote(..., cls='uk-blockquote')
     "Blockquote with Styling"
     return fh.Blockquote(*c, cls=('uk-blockquote',stringify(cls)), **kwargs)
+
+# %% ../nbs/02_franken.ipynb
+def CodeBlock(*c: str, cls: Enum | str | tuple = (), **kwargs) -> FT:
+    return Div(
+        Pre(
+            Code(*c, cls=('uk-codeblock', stringify(cls)), **kwargs),
+            cls=('bg-gray-100 dark:bg-gray-800 dark:text-gray-200 p-0.4 rounded text-sm font-mono overflow-auto')
+        ),
+        cls='uk-block'
+    )
 
 # %% ../nbs/02_franken.ipynb
 def H1(*c:FT|str, # Contents of H1 tag (often text)

@@ -124,7 +124,7 @@ def CodeBlock(*c: str, # Contents of Code tag (often text)
     "CodeBlock with Styling"
     return Div(
         Pre(Code(*c, cls=('uk-codeblock', stringify(code_cls)), **kwargs),
-            cls=('bg-gray-100 dark:bg-gray-800 dark:text-gray-200 p-0.4 rounded text-sm font-mono overflow-auto')),
+            cls=('bg-gray-100 dark:bg-gray-800 dark:text-gray-200 p-0.4 rounded text-sm font-mono')),
         cls=('uk-block', stringify(cls)))
 
 # %% ../nbs/02_franken.ipynb

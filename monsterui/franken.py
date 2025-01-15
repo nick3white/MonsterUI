@@ -12,10 +12,10 @@ __all__ = ['franken_class_map', 'TextT', 'TextFont', 'PParagraph', 'PLarge', 'PL
            'UkIcon', 'UkIconLink', 'DiceBearAvatar', 'FlexT', 'Grid', 'DivFullySpaced', 'DivCentered', 'DivLAligned',
            'DivRAligned', 'DivVStacked', 'DivHStacked', 'NavT', 'NavContainer', 'NavParentLi', 'NavDividerLi',
            'NavHeaderLi', 'NavSubtitle', 'NavCloseLi', 'NavBarContainer', 'NavBarLSide', 'NavBarRSide', 'NavBarCenter',
-           'NavBarNav', 'NavBarSubtitle', 'NavBarNavContainer', 'NavBarParentIcon', 'SliderContainer', 'SliderItems',
-           'SliderNav', 'Slider', 'DropDownNavContainer', 'TabContainer', 'CardT', 'CardTitle', 'CardHeader',
-           'CardBody', 'CardFooter', 'CardContainer', 'Card', 'TableT', 'Table', 'Td', 'Th', 'Tbody', 'TableFromLists',
-           'TableFromDicts', 'apply_classes', 'render_md']
+           'NavBarNav', 'NavBarSubtitle', 'NavBarNavContainer', 'NavBarParentIcon', 'Navbar', 'SliderContainer',
+           'SliderItems', 'SliderNav', 'Slider', 'DropDownNavContainer', 'TabContainer', 'CardT', 'CardTitle',
+           'CardHeader', 'CardBody', 'CardFooter', 'CardContainer', 'Card', 'TableT', 'Table', 'Td', 'Th', 'Tbody',
+           'TableFromLists', 'TableFromDicts', 'apply_classes', 'render_md']
 
 # %% ../nbs/02_franken.ipynb
 import fasthtml.common as fh
@@ -932,10 +932,34 @@ def NavBarNavContainer(*li, # Components
                        uk_nav=False, #True for default collapsible behavior, see https://franken-ui.dev/docs/nav#component-options for more advanced options
                        **kwargs # Additional args for the nav
                       )->FT: # NavBar nav container
+    "Drop Down Nav"
     return Div(cls="uk-navbar-dropdown")(NavContainer(*li, cls=('uk-navbar-dropdown-nav',stringify(cls)), uk_nav=uk_nav, parent=parent, **kwargs))
 
 # %% ../nbs/02_franken.ipynb
 def NavBarParentIcon(): return Span(uk_navbar_parent_icon=True)
+
+# %% ../nbs/02_franken.ipynb
+def Navbar(nav_links:dict|List[FT]={}, # List of Li(A(...)) components or dict of {"name":"href value"}
+           title:str|FT='Title', # `H1(title)` if string else any FT component on left of navbar (Often a logo)
+           active:str="" # if `nav_links` is a dict shows an indicator of which page you are on
+          )->FT: # Navigation bar
+    "Creates a fully responsive navigation bar.  This will collapse to hamburger menu when on mobile."
+    _click = "htmx.find('#header-right').classList.toggle('hidden')"
+    menu_icon = UkIcon("menu", width=30, height=30, cls="md:hidden", hx_on_click=_click)
+    
+    if isinstance(nav_links, dict):
+        def _item(link):
+            name, target = link
+            return Li(A(name, href=target), cls='uk-active' if active == name else '')
+        nav_links = map(_item, nav_links.items())
+
+    return Div(
+        Container(
+            Div(cls='md:flex md:relative')(
+                NavBarLSide(H1(title), menu_icon),
+                NavBarRSide(
+                    NavBarNav(*nav_links, cls='w-full flex-col md:flex-row'),
+                    cls='hidden md:flex md:justify-between',  id="header-right"))))
 
 # %% ../nbs/02_franken.ipynb
 def SliderContainer(

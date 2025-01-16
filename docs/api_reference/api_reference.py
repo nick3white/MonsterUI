@@ -793,6 +793,7 @@ docs_navigation = create_doc_section(
     NavHeaderLi,
     NavDividerLi,
     NavParentLi,
+    Navbar,
     NavBarCenter,
     NavBarRSide,
     NavBarLSide,

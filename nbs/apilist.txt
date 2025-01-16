@@ -365,6 +365,12 @@
 - `def NavBarSubtitle(title, subtitle, cls, subtitle_cls, **kwargs)`
     Creates a NavBar subtitle
 
+- `def NavBarNavContainer(*li, **kwargs)`
+    Drop Down Nav
+
+- `def Navbar(nav_links, title, active)`
+    Creates a fully responsive navigation bar.  This will collapse to hamburger menu when on mobile.
+
 - `def SliderContainer(*c, **kwargs)`
     Creates a slider container
 

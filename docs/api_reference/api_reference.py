@@ -136,12 +136,12 @@ def ex_links():
         A('Reset Link', cls=AT.reset))
 
 docs_button_link = create_doc_section(
-    Button, 
-    Div(id='button') # for linking to in release post
+    Div(id='button'), # for linking to in release post
     fn2code_string(ex_buttons),
+    fn2code_string(ex_links),
+    Button, 
     ButtonT, 
     AT,
-    fn2code_string(ex_links),
     title="Buttons & Links")
 
 # Theme
@@ -706,8 +706,7 @@ def ex_navbar2():
                    Li(A(UkIcon("rocket"))), Li(A('Page1',href='/rt1')), 
                    Li(A("Page2", href='/rt3')))
     
-    return Navbar(title=
-                  DivLAligned(Img(src='/api_reference/logo.svg'),UkIcon('rocket',height=30,width=30)), 
+    return Navbar(title=DivLAligned(Img(src='/api_reference/logo.svg'),UkIcon('rocket',height=30,width=30)), 
                   nav_links=nav_content)
 
 def ex_navbar3():

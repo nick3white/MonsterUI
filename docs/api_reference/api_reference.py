@@ -137,6 +137,7 @@ def ex_links():
 
 docs_button_link = create_doc_section(
     Button, 
+    Div(id='button') # for linking to in release post
     fn2code_string(ex_buttons),
     ButtonT, 
     AT,
@@ -159,7 +160,7 @@ docs_theme_headers = create_doc_section(
    
    Theme options are:""",
     Card(Grid(map(P,Theme)),cls='mb-8'),
-    H3("Theme Picker"),
+    H3("Theme Picker", id='theme'),
     fn2code_string(ex_theme_switcher),
     "Themes are controlled with `bg-background text-foreground` classes on the `Body` tag.  `fast_app` and `FastHTML` will do this for you automatically so you typically do not have to do anything",
     fast_app,

@@ -943,8 +943,9 @@ def Navbar(nav_links:dict|List[FT]={}, # List of Li(A(...)) components or dict o
            title:str|FT='Title', # `H1(title)` if string else any FT component on left of navbar (Often a logo)
            active:str="" # if `nav_links` is a dict shows an indicator of which page you are on
           )->FT: # Navigation bar
+    _id = fh.unqid()
     "Creates a fully responsive navigation bar.  This will collapse to hamburger menu when on mobile."
-    _click = "htmx.find('#header-right').classList.toggle('hidden')"
+    _click = f"htmx.find('#{_id}').classList.toggle('hidden')"
     menu_icon = UkIcon("menu", width=30, height=30, cls="md:hidden", hx_on_click=_click)
     
     if isinstance(nav_links, dict):
@@ -959,7 +960,7 @@ def Navbar(nav_links:dict|List[FT]={}, # List of Li(A(...)) components or dict o
                 NavBarLSide(H1(title), menu_icon),
                 NavBarRSide(
                     NavBarNav(*nav_links, cls='w-full flex-col md:flex-row'),
-                    cls='hidden md:flex md:justify-between',  id="header-right"))))
+                    cls='hidden md:flex md:justify-between',  id=_id))))
 
 # %% ../nbs/02_franken.ipynb
 def SliderContainer(

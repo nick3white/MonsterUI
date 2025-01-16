@@ -772,7 +772,7 @@ docs_navigation = create_doc_section(
     H2("Nav"),
     fn2code_string(ex_nav1),
     fn2code_string(ex_nav2),
-    H2("Navbars"),
+    H2("Navbars", id='navbars'),
     "Fully responsive simple navbar using the high level API and dicts to let MonsterUI do it all for you.  This will collapse to a hamburger menu on mobile devices",
     fn2code_string(ex_navbar1),
     "Pass your own components to the high level navbar API for more flexibility.  This will collapse to a hamburger menu on mobile devices",

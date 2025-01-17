@@ -19,9 +19,26 @@ def get_github_url(func):
     "Create GitHub URL for function, assuming AnswerDotAI/MonsterUI repo"
     file = getsourcefile(func).split('MonsterUI/')[-1]
     line = getsourcelines(func)[-1]
-    file = file.replace('/opt/venv/lib/python3.11/site-packages/','')
+    file = file.replace('/opt/venv/lib/python3.12/site-packages/','')
     return f"https://github.com/AnswerDotAI/MonsterUI/blob/main/{file}#L{line}"
 
+def get_github_url(func):
+    "Create GitHub URL for function, assuming AnswerDotAI/MonsterUI repo"
+    try:
+        file = getsourcefile(func)
+        line = getsourcelines(func)[-1]
+        
+        # Get path after monsterui/ (case insensitive)
+        file = file.lower()
+        if 'monsterui/' in file:
+            file = file.split('monsterui/')[-1]
+        elif 'site-packages/' in file:
+            file = file.split('site-packages/')[-1]
+            
+        return f"https://github.com/AnswerDotAI/MonsterUI/blob/main/monsterui/{file}#L{line}"
+    except:
+        return None
+    
 from fastcore.docments import docments, docstring, get_name
 def show_doc(func) -> str:
     "Convert a Google-style docstring to markdown"

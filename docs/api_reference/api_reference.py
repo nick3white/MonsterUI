@@ -381,12 +381,13 @@ def ex_card3():
     return Grid(*team, cols_sm=1, cols_md=1, cols_lg=2, cols_xl=3)
 
 docs_cards = create_doc_section(
-    Card,
     H3("Example Usage"),
     fn2code_string(ex_card),
     (*fn2code_string(ex_card2_wide),'uk-visible@s'),
     (*fn2code_string(ex_card2_tall),'uk-hidden@s'),
     fn2code_string(ex_card3),
+    H3("API Reference"),
+    Card,
     CardTitle,
     CardT,
     P("The remainder of these are only needed if you're doing something really special.  They are used in the `Card` function to generate the boilerplate for you.", cls='my-6'),

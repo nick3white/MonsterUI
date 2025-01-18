@@ -715,7 +715,7 @@ def ex_nav2():
     )
 
 def ex_navbar1():
-    return Navbar(title='My Blog', 
+    return NavBar(title='My Blog', 
                   nav_links={'Page1':'/rt1','Page2':'/rt2','Page3':'/rt3'}, 
                   active='Page2')
 
@@ -724,7 +724,7 @@ def ex_navbar2():
                    Li(A(UkIcon("rocket"))), Li(A('Page1',href='/rt1')), 
                    Li(A("Page2", href='/rt3')))
     
-    return Navbar(title=DivLAligned(Img(src='/api_reference/logo.svg'),UkIcon('rocket',height=30,width=30)), 
+    return NavBar(title=DivLAligned(Img(src='/api_reference/logo.svg'),UkIcon('rocket',height=30,width=30)), 
                   nav_links=nav_content)
 
 def ex_navbar3():
@@ -811,7 +811,7 @@ docs_navigation = create_doc_section(
     NavHeaderLi,
     NavDividerLi,
     NavParentLi,
-    Navbar,
+    NavBar,
     NavBarCenter,
     NavBarRSide,
     NavBarLSide,

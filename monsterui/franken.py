@@ -12,7 +12,7 @@ __all__ = ['franken_class_map', 'TextT', 'TextFont', 'PParagraph', 'PLarge', 'PL
            'UkIcon', 'UkIconLink', 'DiceBearAvatar', 'FlexT', 'Grid', 'DivFullySpaced', 'DivCentered', 'DivLAligned',
            'DivRAligned', 'DivVStacked', 'DivHStacked', 'NavT', 'NavContainer', 'NavParentLi', 'NavDividerLi',
            'NavHeaderLi', 'NavSubtitle', 'NavCloseLi', 'NavBarContainer', 'NavBarLSide', 'NavBarRSide', 'NavBarCenter',
-           'NavBarNav', 'NavBarSubtitle', 'NavBarNavContainer', 'NavBarParentIcon', 'Navbar', 'SliderContainer',
+           'NavBarNav', 'NavBarSubtitle', 'NavBarNavContainer', 'NavBarParentIcon', 'NavBar', 'SliderContainer',
            'SliderItems', 'SliderNav', 'Slider', 'DropDownNavContainer', 'TabContainer', 'CardT', 'CardTitle',
            'CardHeader', 'CardBody', 'CardFooter', 'CardContainer', 'Card', 'TableT', 'Table', 'Td', 'Th', 'Tbody',
            'TableFromLists', 'TableFromDicts', 'apply_classes', 'render_md']
@@ -939,7 +939,7 @@ def NavBarNavContainer(*li, # Components
 def NavBarParentIcon(): return Span(uk_navbar_parent_icon=True)
 
 # %% ../nbs/02_franken.ipynb
-def Navbar(nav_links:dict|List[FT]={}, # List of Li(A(...)) components or dict of {"name":"href value"}
+def NavBar(nav_links:dict|List[FT]={}, # List of Li(A(...)) components or dict of {"name":"href value"}
            title:str|FT='Title', # `H1(title)` if string else any FT component on left of navbar (Often a logo)
            active:str="" # if `nav_links` is a dict shows an indicator of which page you are on
           )->FT: # Navigation bar

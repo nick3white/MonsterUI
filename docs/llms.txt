@@ -1,0 +1,38 @@
+# MonsterUI Documentation
+
+
+> MonsterUI is a python library which brings styling to python for FastHTML apps.
+
+Things to remembers when using MonsterUI:
+- While Pico CSS is commonly used in FastHTML apps, that is *completely incompatible* with MonsterUI. 
+- MonsterUI is *not* compatible with FastAPI syntax and is not targeted at creating API services.
+
+## API Reference
+- [Button | Link](https://monsterui.answer.ai/api_ref/docs_button_link/md)
+- [Cards](https://monsterui.answer.ai/api_ref/docs_cards/md)
+- [Containers](https://monsterui.answer.ai/api_ref/docs_containers/md)
+- [Dividers](https://monsterui.answer.ai/api_ref/docs_dividers/md)
+- [Forms](https://monsterui.answer.ai/api_ref/docs_forms/md)
+- [Icons](https://monsterui.answer.ai/api_ref/docs_icons/md)
+- [Layout](https://monsterui.answer.ai/api_ref/docs_layout/md)
+- [Lists](https://monsterui.answer.ai/api_ref/docs_lists/md)
+- [Loading](https://monsterui.answer.ai/api_ref/docs_loading/md)
+- [Markdown](https://monsterui.answer.ai/api_ref/docs_markdown/md)
+- [Modals](https://monsterui.answer.ai/api_ref/docs_modals/md)
+- [Navigation](https://monsterui.answer.ai/api_ref/docs_navigation/md)
+- [Notifications](https://monsterui.answer.ai/api_ref/docs_notifications/md)
+- [Sliders](https://monsterui.answer.ai/api_ref/docs_sliders/md)
+- [Steps](https://monsterui.answer.ai/api_ref/docs_steps/md)
+- [Tables](https://monsterui.answer.ai/api_ref/docs_tables/md)
+- [Theme | Headers](https://monsterui.answer.ai/api_ref/docs_theme_headers/md)
+- [Typography](https://monsterui.answer.ai/api_ref/docs_typography/md)
+
+## Optional
+- [Auth](https://monsterui.answer.ai/auth/md)
+- [Cards](https://monsterui.answer.ai/cards/md)
+- [Forms](https://monsterui.answer.ai/forms/md)
+- [Music](https://monsterui.answer.ai/music/md)
+- [Mail](https://monsterui.answer.ai/mail/md)
+- [Tasks](https://monsterui.answer.ai/tasks/md)
+- [Playground](https://monsterui.answer.ai/playground/md)
+- [Dashboard](https://monsterui.answer.ai/dashboard/md)

@@ -21,6 +21,7 @@ jobs:
           python -m pip install --upgrade pip
           pip install -e .
           pip install fastcore llms-txt pysymbol_llm
+          pip install -r docs/requirements.txt
       - name: Run update script
         run: |
           cd docs

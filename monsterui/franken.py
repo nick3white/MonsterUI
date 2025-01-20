@@ -15,7 +15,7 @@ __all__ = ['franken_class_map', 'TextT', 'TextFont', 'PParagraph', 'PLarge', 'PL
            'NavBarNav', 'NavBarSubtitle', 'NavBarNavContainer', 'NavBarParentIcon', 'NavBar', 'SliderContainer',
            'SliderItems', 'SliderNav', 'Slider', 'DropDownNavContainer', 'TabContainer', 'CardT', 'CardTitle',
            'CardHeader', 'CardBody', 'CardFooter', 'CardContainer', 'Card', 'TableT', 'Table', 'Td', 'Th', 'Tbody',
-           'TableFromLists', 'TableFromDicts', 'apply_classes', 'render_md']
+           'TableFromLists', 'TableFromDicts', 'ScrollspyNav', 'ScrollspySection', 'apply_classes', 'render_md']
 
 # %% ../nbs/02_franken.ipynb
 import fasthtml.common as fh
@@ -27,9 +27,9 @@ from enum import Enum, auto
 from fasthtml.components import Uk_select,Uk_input_tag,Uk_icon
 from functools import partial
 from itertools import zip_longest
-from typing import Union, Tuple, Optional
+from typing import Union, Tuple, Optional, Sequence
 from fastcore.all import *
-import copy, re, httpx
+import copy, re, httpx, os
 from pathlib import Path
 
 # %% ../nbs/02_franken.ipynb
@@ -1178,6 +1178,32 @@ def TableFromDicts(header_data:Sequence, # List of header data
         cls=stringify(cls),    
         **kwargs
     )
+
+# %% ../nbs/02_franken.ipynb
+def ScrollspyNav(links: Sequence[Tuple[str, str]],  # List of (label, target)
+                 cls="uk-nav uk-nav-default",  # Navigation container classes
+                 scrollspy_options="closest: li; scroll: true"  # Scrollspy options
+                 ) -> FT:
+    """
+    Creates a Scrollspy navigation menu.
+    Each link points to a section identified by its `id` attribute.
+    """
+    items = [
+        fh.Li(fh.A(label, href=f"#{target}", cls="scrollspy-link", data_scrollspy="true"))
+        for label, target in links
+    ]
+    return fh.Ul(*items, cls=cls, uk_scrollspy_nav=scrollspy_options)
+
+# %% ../nbs/02_franken.ipynb
+def ScrollspySection(element_id: str,  # Section ID
+                     *content,  # Content to display
+                     cls="",  # Additional classes
+                     **kwargs) -> FT:
+    """
+    Creates a Scrollspy-compatible section.
+    The `element_id` attribute must match the `href` in `ScrollspyNav`.
+    """
+    return Div(*content, id=element_id, cls=f"scrollspy-section {cls}", data_scrollspy="true", **kwargs)
 
 # %% ../nbs/02_franken.ipynb
 franken_class_map = {

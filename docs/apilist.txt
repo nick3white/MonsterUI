@@ -135,6 +135,9 @@
 
     - `@property def name(self)`
 
+- `class BackgroundT`
+    - `@property def name(self)`
+
 - `def Container(*c, **kwargs)`
     Div to be used as a container that often wraps large sections or a page of content
 

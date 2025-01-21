@@ -36,7 +36,7 @@ Things to remembers when using MonsterUI:
     ]
     
     # Write to file
-    Path('../docs/llms.txt').write_text('\n'.join(content))
+    Path('llms.txt').write_text('\n'.join(content))
     return urls, examples
 
 urls, examples = create_llms_txt()

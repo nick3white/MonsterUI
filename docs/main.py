@@ -11,12 +11,15 @@ import httpx
 def _not_found(req, exc):
     _path = req.url.path.rstrip('/')
     print(_path)
-    if _path.endswith('.md') or _path.endswith('/md'):
+    if _path.endswith('.md') or _path.endswith('/md') or _path.endswith('/rmd') or _path.endswith('.rmd'):
         url = f'https://monsterui.answer.ai{_path[:-3].rstrip("/")}'
         try:
             r = httpx.head(url, follow_redirects=True, timeout=1.0)
             if r.status_code < 400:  # Accept 2xx and 3xx status codes
-                return PlainTextResponse(read_html(url, sel='#content'))
+                if _path.endswith('.rmd') or _path.endswith('/rmd'):
+                    return Container(render_md(read_html(url, sel='#content')))
+                elif _path.endswith('.md') or _path.endswith('/md'):
+                    return PlainTextResponse(read_html(url, sel='#content'))
         except (httpx.TimeoutException, httpx.NetworkError):
             pass    
     return _create_page(
@@ -52,14 +55,14 @@ def with_layout(sidebar_section, content):
 # Build the Example Pages
 ###
  
-from examples.tasks import tasks_homepage
-from examples.cards import cards_homepage
-from examples.dashboard import dashboard_homepage
-from examples.forms import forms_homepage
-from examples.music import music_homepage
-from examples.auth import auth_homepage
-from examples.playground import playground_homepage
-from examples.mail import mail_homepage
+from examples.tasks import index as tasks_homepage
+from examples.cards import index as cards_homepage
+from examples.dashboard import index as dashboard_homepage
+from examples.forms import index as forms_homepage
+from examples.music import index as music_homepage
+from examples.auth import index as auth_homepage
+from examples.playground import index as playground_homepage
+from examples.mail import index as mail_homepage
 
 def _example_route(name, homepage, o:str, request=None):
     match o:
@@ -71,35 +74,35 @@ _create_example_page = partial(_create_page, sidebar_section='Examples')
 
 @rt('/tasks')
 @rt('/tasks/{o}')
-def tasks(o:str='', request=None): return _example_route('tasks', tasks_homepage, o, request)
+def tasks(o:str='', request=None): return _example_route('tasks', tasks_homepage(), o, request)
 
 @rt('/cards')
 @rt('/cards/{o}')
-def cards(o:str, request=None): return _example_route('cards', cards_homepage, o, request)
+def cards(o:str, request=None): return _example_route('cards', cards_homepage(), o, request)
 
 @rt('/dashboard')
 @rt('/dashboard/{o}')
-def dashboard(o:str, request=None): return _example_route('dashboard', dashboard_homepage, o, request)
+def dashboard(o:str, request=None): return _example_route('dashboard', dashboard_homepage(), o, request)
 
 @rt('/forms')
 @rt('/forms/{o}')
-def forms(o:str, request=None): return _example_route('forms', forms_homepage, o, request)
+def forms(o:str, request=None): return _example_route('forms', forms_homepage(), o, request)
 
 @rt('/music')
 @rt('/music/{o}')
-def music(o:str, request=None): return _example_route('music', music_homepage, o, request)
+def music(o:str, request=None): return _example_route('music', music_homepage(), o, request)
 
 @rt('/auth')
 @rt('/auth/{o}')
-def auth(o:str, request=None): return _example_route('auth', auth_homepage, o, request)
+def auth(o:str, request=None): return _example_route('auth', auth_homepage(), o, request)
 
 @rt('/playground')
 @rt('/playground/{o}')
-def playground(o:str, request=None): return _example_route('playground', playground_homepage, o, request)
+def playground(o:str, request=None): return _example_route('playground', playground_homepage(), o, request)
 
 @rt('/mail')
-@rt('/mail/{o}')
-def mail(o:str, request=None): return _example_route('mail', mail_homepage, o, request)
+@rt('/mail/{o}')    
+def mail(o:str, request=None): return _example_route('mail', mail_homepage(), o, request)
 
 ###
 # Build the API Reference Pages
@@ -114,9 +117,7 @@ reference_fns = L([o for o in dir(api_reference) if o.startswith('docs_')])
 def api_route(request, o:str):
     if o not in reference_fns: raise HTTPException(404)
     content = getattr(api_reference, o)()
-    return _create_page(Container(content), 
-                        request=request, 
-                        sidebar_section='API Reference')
+    return _create_page(Container(content), request=request, sidebar_section='API Reference')
 
 ###
 # Build the Guides Pages

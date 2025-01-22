@@ -1,8 +1,11 @@
-"""FrankenUI Forms Example"""
+"""FrankenUI Forms Example built with MonsterUI (original design by ShadCN)"""
+
 
 from fasthtml.common import *
 from monsterui.all import *
 from fasthtml.svg import *
+
+app, rt = fast_app(hdrs=Theme.blue.headers())
 
 def HelpText(c):
     return P(c,cls=TextFont.muted_sm)
@@ -132,8 +135,9 @@ def display_form():
               for i, label in enumerate(["Recents", "Home", "Applications", "Desktop", "Downloads", "Documents"])]))
     return UkFormSection('Display', 'Turn items on or off to control what\'s displayed in the app.', button_txt='Update display', *content)
 
-def page():
-    return Div(
+@rt
+def index():
+    return Title("Forms Example"),Container(
         heading(),
         Div(cls="flex gap-x-12")(
             sidebar,
@@ -141,4 +145,4 @@ def page():
                     Li(cls="uk-active")(profile_form(),
                     *map(Li, [account_form(), appearance_form(), notifications_form(), display_form()])))))
 
-forms_homepage = page()
+serve()

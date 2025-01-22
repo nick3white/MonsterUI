@@ -3,6 +3,8 @@
 from fasthtml.common import *
 from monsterui.all import *
  
+app, rt = fast_app(hdrs=Theme.blue.headers())
+
 def MusicLi(t,hk=''): return Li(A(DivFullySpaced(t,P(hk,cls=TextFont.muted_sm))))
 
 music_items = [("About Music", ""   ),
@@ -103,8 +105,9 @@ sidebar = NavContainer(
     NavHeaderLi(H3("Playlists")),*[MusicSidebarLi(*o) for o in playlists_data],
     cls=(NavT.primary,'space-y-3','pl-8'))
 
-def page():
-    return Div(Container(music_headers,cls='py-8'), DividerSplit(),
+@rt
+def index():
+    return Title("Music Example"),Container(music_headers, DividerSplit(),
         Grid(sidebar,
             Div(cls="col-span-4 border-l border-border")(
                 Div(cls="px-8 py-6")(
@@ -114,6 +117,6 @@ def page():
                     Ul(id="component-nav", cls="uk-switcher")(
                         Li(*music_content),
                         Li(podcast_tab())))),
-            cols=5))
+            cols_sm=1, cols_md=1, cols_lg=5, cols_xl=5))
 
-music_homepage = page()
+serve()

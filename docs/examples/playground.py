@@ -1,8 +1,10 @@
-"""FrankenUI Playground Example"""
+"""FrankenUI Playground Example built with MonsterUI (original design by ShadCN)"""
 
 from fasthtml.common import *
 from monsterui.all import *
 from fasthtml.svg import *
+
+app, rt = fast_app(hdrs=Theme.blue.headers())
 
 preset_options = ["Grammatical Standard English", "Summarize for a 2nd grader",
         "Text to command","Q&A","English to other languages","Parse unstructured data",
@@ -49,7 +51,8 @@ rsidebar = NavContainer(
     LabelRange(label='Top P'),
     cls='space-y-6 mt-8')
 
-def page():
+@rt
+def index(): 
     navbar = playground_navbar()
     main_content = Div(
         Div(cls="flex-1")(
@@ -61,6 +64,6 @@ def page():
         Button(UkIcon(icon="history"), cls=ButtonT.secondary),
         cls="flex gap-x-2")
     
-    return Div(navbar, Div(cls="flex w-full")(main_content, rsidebar), bottom_buttons)
+    return Title("Playground Example"),Div(navbar, Div(cls="flex w-full")(main_content, rsidebar), bottom_buttons)
 
-playground_homepage = page()
+serve()

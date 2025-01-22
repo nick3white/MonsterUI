@@ -1,10 +1,12 @@
-"""FrankenUI Mail Example"""
+"""FrankenUI Mail Example built with MonsterUI (original design by ShadCN)"""
 
 from fasthtml.common import *
 from monsterui.all import *
 from fasthtml.svg import *
 import pathlib, json
 from datetime import datetime
+
+app, rt = fast_app(hdrs=Theme.blue.headers())
 
 sidebar_group1 = (('home', 'Inbox', '128'), ('file-text', 'Drafts', '9'), (' arrow-up-right', 'Sent', ''),
     ('ban', 'Junk', '23'), ('trash', 'Trash', ''), ('folder', 'Archive', ''))
@@ -15,13 +17,13 @@ sidebar_group2 = (('globe','Social','972'),('info','Updates','342'),('messages-s
 def MailSbLi(icon, title, cnt): 
     return Li(A(DivLAligned(Span(UkIcon(icon)),Span(title),P(cnt,cls=TextFont.muted_sm))))
 
-sidebar = Container(NavContainer(
+sidebar = NavContainer(
     NavHeaderLi(H3("Email")),
     Li(UkSelect(map(Option, ('alicia@example.com','alicia@gmail.com', 'alicia@yahoo.com')))),
     *[MailSbLi(i, t, c) for i, t, c in sidebar_group1],
     Li(Hr()),
     *[MailSbLi(i, t, c) for i, t, c in sidebar_group2],
-    cls='space-y-6'))
+    cls='space-y-6 mt-3')
 
 mail_data = json.load(open(pathlib.Path('data/mail.json')))
 
@@ -98,11 +100,14 @@ def MailDetailView(mail):
                 LabelSwitch('Mute this thread',id='mute'),
                 Button('Send', cls=ButtonT.primary))))
 
-def mail_homepage():
-    return Div(cls='flex divide-x divide-border')(
-        sidebar,
-        Grid(MailContent(),
-             MailDetailView(mail_data[0]),
-             cols=2, gap=0, cls='flex-1 divide-x divide-border'))
+@rt
+def index():
+    return Title("Mail Example"),Container(
+        Grid(Div(sidebar, cls='col-span-1'),
+             Div(MailContent(), cls='col-span-2'),
+             Div(MailDetailView(mail_data[0]), cls='col-span-2'),
+             cols_sm=1, cols_md=1, cols_lg=5, cols_xl=5, 
+             gap=0, cls='flex-1'),
+        cls=('flex', ContainerT.xlarge))
 
-mail_homepage = mail_homepage()
+serve()

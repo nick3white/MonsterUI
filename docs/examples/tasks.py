@@ -1,9 +1,11 @@
-"""FrankenUI Tasks Example"""
+"""FrankenUI Tasks Example built with MonsterUI (original design by ShadCN)"""
 
 from fasthtml.common import *
 from monsterui.all import *
 from fasthtml.svg import *
 import json
+
+app, rt = fast_app(hdrs=Theme.blue.headers())
 
 def LAlignedCheckTxt(txt): return DivLAligned(UkIcon(icon='check'), P(txt, cls=TextFont.muted_sm))
 
@@ -72,32 +74,32 @@ def task_dropdown():
                    map(NavCloseLi,[
                        *map(A,('Edit', 'Make a copy', 'Favorite')),
                         A(DivFullySpaced(*[P(o, cls=TextFont.muted_sm) for o in ('Delete', '⌘⌫')]))])))
-
 def header_render(col):
     match col:
         case "Done":    return Th(CheckboxX(), shrink=True)
         case 'Actions': return Th("",          shrink=True)
-        case _:         return Th(col,         )
+        case _:         return Th(col,         expand=True)
 
 def cell_render(col, val):
     def _Td(*args,cls='', **kwargs): return Td(*args, cls=f'p-2 {cls}',**kwargs)
     match col:
         case "Done": return _Td(shrink=True)(CheckboxX(selected=val))
-        case "Task":  return _Td(val)
-        case "Title": return _Td(cls='max-w-[500px] truncate', expand=True)(val, cls='font-medium')
-        case "Status" | "Priority": return _Td(cls='uk-text-nowrap uk-text-capitalize')(Span(val))
+        case "Task":  return _Td(val, cls='uk-visible@s')  # Hide on small screens
+        case "Title": return _Td(val, cls='font-medium', expand=True)
+        case "Status" | "Priority": return _Td(cls='uk-visible@m uk-text-nowrap uk-text-capitalize')(Span(val))
         case "Actions": return _Td(task_dropdown(), shrink=True)
         case _: raise ValueError(f"Unknown column: {col}")
 
 task_columns = ["Done", 'Task', 'Title', 'Status', 'Priority', 'Actions']
 
-tasks_table = Div(cls='uk-overflow-auto mt-4 rounded-md border border-border')(
+tasks_table = Div(cls='mt-4')(
     TableFromDicts(
         header_data=task_columns,
         body_data=paginated_data,
         body_cell_render=cell_render,
         header_cell_render=header_render,
-        sortable=True))
+        sortable=True,
+        cls=(TableT.responsive, TableT.small, TableT.divider)))
 
 
 def footer():
@@ -106,12 +108,11 @@ def footer():
         Div('1 of 100 row(s) selected.', cls=TextFont.muted_sm),
         DivLAligned(
             DivCentered(f'Page {current_page + 1} of {total_pages}', cls=TextT.small),
-            DivLAligned(
-                UkIconLink(icon='chevrons-left',  button=True),
-                UkIconLink(icon='chevron-left',   button=True),
-                UkIconLink(icon='chevron-right',  button=True),
-                UkIconLink(icon='chevrons-right', button=True))))
+            DivLAligned(*[UkIconLink(icon=i,  button=True) for i in ('chevrons-left', 'chevron-left', 'chevron-right', 'chevrons-right')])))
 
 tasks_ui = Div(DivFullySpaced(DivLAligned(table_controls), cls='mt-8'), tasks_table, footer())
 
-tasks_homepage = Container(page_heading, tasks_ui, CreateTaskModal())
+@rt
+def index(): return Container(page_heading, tasks_ui, CreateTaskModal())
+
+serve()

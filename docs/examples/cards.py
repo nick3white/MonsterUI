@@ -7,6 +7,8 @@ from monsterui.all import *
 import calendar
 from datetime import datetime
 
+app, rt = fast_app(hdrs=Theme.blue.headers())
+
 CreateAccount = Card(
     Grid(Button(DivLAligned(UkIcon('github'),Div('Github'))),Button('Google')),
             DividerSplit("OR CONTINUE WITH", text_cls=TextFont.muted_sm),
@@ -116,12 +118,13 @@ Notifications = Card(
     header = (H4('Notification'),Div('Choose what you want to be notified about.', cls=('mt-1.5', TextFont.muted_sm))),
     body_cls='pt-0')
 
-def page():
-    return Title("Custom"),Grid(
-            *map(DivVStacked,(
-                      (PaymentMethod,CreateAccount),
-                      (TeamMembers, ShareDocument,DateCard,Notifications),
-                      (ReportIssue,MonsterUI,CookieSettings))),
-         cols_md=1, cols_lg=2, cols_xl=3)
+@rt
+def index():
+    return Title("Cards Example"),Container(Grid(
+            *map(Div,(
+                      Div(PaymentMethod,CreateAccount, cls='space-y-4'),
+                      Div(TeamMembers, ShareDocument,DateCard,Notifications, cls='space-y-4'),
+                      Div(ReportIssue,MonsterUI,CookieSettings, cls='space-y-4'))),
+         cols_md=1, cols_lg=2, cols_xl=3))
 
-cards_homepage = page()
+serve()

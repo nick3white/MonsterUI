@@ -1,8 +1,13 @@
+"""FrankenUI Auth Example built with MonsterUI (original design by ShadCN)"""
+
 from fasthtml.common import *
 from monsterui.all import *
 from fasthtml.svg import *
 
-def page():    
+app, rt = fast_app(hdrs=Theme.blue.headers())
+
+@rt
+def index():    
     left = Div(cls="col-span-1 hidden flex-col justify-between bg-zinc-900 p-8 text-white lg:flex")(
         Div(cls=(TextT.bold,TextT.default))("Acme Inc"),
         Blockquote(cls="space-y-2")(
@@ -29,6 +34,7 @@ def page():
                     cls=(TextFont.muted_sm,"text-center")),
                 cls="space-y-6")))
     
-    return Grid(left,right,cols=2, gap=0,cls='h-screen')
+    return Title("Auth Example"),Grid(left,right,cols=2, gap=0,cls='h-screen')
 
-auth_homepage = page()
+
+serve()

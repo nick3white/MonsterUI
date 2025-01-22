@@ -1,4 +1,4 @@
-"""FrankenUI Dashboard Example"""
+"""FrankenUI Dashboard Example built with MonsterUI (original design by ShadCN)"""
 
 from fasthtml.common import *
 from monsterui.all import *
@@ -7,6 +7,8 @@ import numpy as np
 import plotly.express as px
 import pandas as pd
 import numpy as np
+
+app, rt = fast_app(hdrs=Theme.blue.headers())
 
 def generate_chart(num_points=30):
     df = pd.DataFrame({
@@ -84,8 +86,9 @@ top_nav = NavBar(
     Div(team_dropdown, *map(lambda x: Li(A(x)), ["Overview", "Customers", "Products", "Settings"])),
     DivLAligned(avatar_dropdown, Input(placeholder='Search')))
 
-def page():
-    return Div(cls="space-y-4")(
+@rt
+def index():
+    return Title("Dashboard Example"), Container(
         top_nav,
         H2('Dashboard'),
         TabContainer(
@@ -96,6 +99,7 @@ def page():
         Grid(
             Card(Safe(generate_chart(100)),cls='col-span-4'),
             recent_sales,
-            gap=4,cols=7))
+            gap=4,cols=7),
+        cls=('space-y-4', ContainerT.xlarge))
 
-dashboard_homepage = page()
+serve()

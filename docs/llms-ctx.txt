@@ -429,11 +429,16 @@
 
 - `def render_md(md_content, class_map, class_map_mods)`
     Renders markdown using mistletoe and lxml
-</doc></api reference><examples><doc title="Auth">from fasthtml.common import *
+</doc></api reference><examples><doc title="Auth">"""FrankenUI Auth Example built with MonsterUI (original design by ShadCN)"""
+
+from fasthtml.common import *
 from monsterui.all import *
 from fasthtml.svg import *
 
-def page():    
+app, rt = fast_app(hdrs=Theme.blue.headers())
+
+@rt
+def index():    
     left = Div(cls="col-span-1 hidden flex-col justify-between bg-zinc-900 p-8 text-white lg:flex")(
         Div(cls=(TextT.bold,TextT.default))("Acme Inc"),
         Blockquote(cls="space-y-2")(
@@ -460,9 +465,10 @@ def page():
                     cls=(TextFont.muted_sm,"text-center")),
                 cls="space-y-6")))
     
-    return Grid(left,right,cols=2, gap=0,cls='h-screen')
+    return Title("Auth Example"),Grid(left,right,cols=2, gap=0,cls='h-screen')
 
-auth_homepage = page()</doc><doc title="Cards">"""FrankenUI Cards Example built with MonsterUI (original design by ShadCN)"""
+
+serve()</doc><doc title="Cards">"""FrankenUI Cards Example built with MonsterUI (original design by ShadCN)"""
 
 from fasthtml.common import *
 from fasthtml.components import Uk_input_tag
@@ -470,6 +476,8 @@ from fasthtml.svg import *
 from monsterui.all import *
 import calendar
 from datetime import datetime
+
+app, rt = fast_app(hdrs=Theme.blue.headers())
 
 CreateAccount = Card(
     Grid(Button(DivLAligned(UkIcon('github'),Div('Github'))),Button('Google')),
@@ -580,19 +588,23 @@ Notifications = Card(
     header = (H4('Notification'),Div('Choose what you want to be notified about.', cls=('mt-1.5', TextFont.muted_sm))),
     body_cls='pt-0')
 
-def page():
-    return Title("Custom"),Grid(
-            *map(DivVStacked,(
-                      (PaymentMethod,CreateAccount),
-                      (TeamMembers, ShareDocument,DateCard,Notifications),
-                      (ReportIssue,MonsterUI,CookieSettings))),
-         cols_md=1, cols_lg=2, cols_xl=3)
+@rt
+def index():
+    return Title("Cards Example"),Container(Grid(
+            *map(Div,(
+                      Div(PaymentMethod,CreateAccount, cls='space-y-4'),
+                      Div(TeamMembers, ShareDocument,DateCard,Notifications, cls='space-y-4'),
+                      Div(ReportIssue,MonsterUI,CookieSettings, cls='space-y-4'))),
+         cols_md=1, cols_lg=2, cols_xl=3))
 
-cards_homepage = page()</doc><doc title="Forms">"""FrankenUI Forms Example"""
+serve()</doc><doc title="Forms">"""FrankenUI Forms Example built with MonsterUI (original design by ShadCN)"""
+
 
 from fasthtml.common import *
 from monsterui.all import *
 from fasthtml.svg import *
+
+app, rt = fast_app(hdrs=Theme.blue.headers())
 
 def HelpText(c):
     return P(c,cls=TextFont.muted_sm)
@@ -722,8 +734,9 @@ def display_form():
               for i, label in enumerate(["Recents", "Home", "Applications", "Desktop", "Downloads", "Documents"])]))
     return UkFormSection('Display', 'Turn items on or off to control what\'s displayed in the app.', button_txt='Update display', *content)
 
-def page():
-    return Div(
+@rt
+def index():
+    return Title("Forms Example"),Container(
         heading(),
         Div(cls="flex gap-x-12")(
             sidebar,
@@ -731,11 +744,13 @@ def page():
                     Li(cls="uk-active")(profile_form(),
                     *map(Li, [account_form(), appearance_form(), notifications_form(), display_form()])))))
 
-forms_homepage = page()</doc><doc title="Music">"""FrankenUI Music Example build with MonsterUI (Original design by ShadCN)"""
+serve()</doc><doc title="Music">"""FrankenUI Music Example build with MonsterUI (Original design by ShadCN)"""
 
 from fasthtml.common import *
 from monsterui.all import *
  
+app, rt = fast_app(hdrs=Theme.blue.headers())
+
 def MusicLi(t,hk=''): return Li(A(DivFullySpaced(t,P(hk,cls=TextFont.muted_sm))))
 
 music_items = [("About Music", ""   ),
@@ -836,8 +851,9 @@ sidebar = NavContainer(
     NavHeaderLi(H3("Playlists")),*[MusicSidebarLi(*o) for o in playlists_data],
     cls=(NavT.primary,'space-y-3','pl-8'))
 
-def page():
-    return Div(Container(music_headers,cls='py-8'), DividerSplit(),
+@rt
+def index():
+    return Title("Music Example"),Container(music_headers, DividerSplit(),
         Grid(sidebar,
             Div(cls="col-span-4 border-l border-border")(
                 Div(cls="px-8 py-6")(
@@ -847,15 +863,17 @@ def page():
                     Ul(id="component-nav", cls="uk-switcher")(
                         Li(*music_content),
                         Li(podcast_tab())))),
-            cols=5))
+            cols_sm=1, cols_md=1, cols_lg=5, cols_xl=5))
 
-music_homepage = page()</doc><doc title="Mail">"""FrankenUI Mail Example"""
+serve()</doc><doc title="Mail">"""FrankenUI Mail Example built with MonsterUI (original design by ShadCN)"""
 
 from fasthtml.common import *
 from monsterui.all import *
 from fasthtml.svg import *
 import pathlib, json
 from datetime import datetime
+
+app, rt = fast_app(hdrs=Theme.blue.headers())
 
 sidebar_group1 = (('home', 'Inbox', '128'), ('file-text', 'Drafts', '9'), (' arrow-up-right', 'Sent', ''),
     ('ban', 'Junk', '23'), ('trash', 'Trash', ''), ('folder', 'Archive', ''))
@@ -866,13 +884,13 @@ sidebar_group2 = (('globe','Social','972'),('info','Updates','342'),('messages-s
 def MailSbLi(icon, title, cnt): 
     return Li(A(DivLAligned(Span(UkIcon(icon)),Span(title),P(cnt,cls=TextFont.muted_sm))))
 
-sidebar = Container(NavContainer(
+sidebar = NavContainer(
     NavHeaderLi(H3("Email")),
     Li(UkSelect(map(Option, ('alicia@example.com','alicia@gmail.com', 'alicia@yahoo.com')))),
     *[MailSbLi(i, t, c) for i, t, c in sidebar_group1],
     Li(Hr()),
     *[MailSbLi(i, t, c) for i, t, c in sidebar_group2],
-    cls='space-y-6'))
+    cls='space-y-6 mt-3')
 
 mail_data = json.load(open(pathlib.Path('data/mail.json')))
 
@@ -949,19 +967,24 @@ def MailDetailView(mail):
                 LabelSwitch('Mute this thread',id='mute'),
                 Button('Send', cls=ButtonT.primary))))
 
-def mail_homepage():
-    return Div(cls='flex divide-x divide-border')(
-        sidebar,
-        Grid(MailContent(),
-             MailDetailView(mail_data[0]),
-             cols=2, gap=0, cls='flex-1 divide-x divide-border'))
+@rt
+def index():
+    return Title("Mail Example"),Container(
+        Grid(Div(sidebar, cls='col-span-1'),
+             Div(MailContent(), cls='col-span-2'),
+             Div(MailDetailView(mail_data[0]), cls='col-span-2'),
+             cols_sm=1, cols_md=1, cols_lg=5, cols_xl=5, 
+             gap=0, cls='flex-1'),
+        cls=('flex', ContainerT.xlarge))
 
-mail_homepage = mail_homepage()</doc><doc title="Tasks">"""FrankenUI Tasks Example"""
+serve()</doc><doc title="Tasks">"""FrankenUI Tasks Example built with MonsterUI (original design by ShadCN)"""
 
 from fasthtml.common import *
 from monsterui.all import *
 from fasthtml.svg import *
 import json
+
+app, rt = fast_app(hdrs=Theme.blue.headers())
 
 def LAlignedCheckTxt(txt): return DivLAligned(UkIcon(icon='check'), P(txt, cls=TextFont.muted_sm))
 
@@ -1030,32 +1053,32 @@ def task_dropdown():
                    map(NavCloseLi,[
                        *map(A,('Edit', 'Make a copy', 'Favorite')),
                         A(DivFullySpaced(*[P(o, cls=TextFont.muted_sm) for o in ('Delete', '⌘⌫')]))])))
-
 def header_render(col):
     match col:
         case "Done":    return Th(CheckboxX(), shrink=True)
         case 'Actions': return Th("",          shrink=True)
-        case _:         return Th(col,         )
+        case _:         return Th(col,         expand=True)
 
 def cell_render(col, val):
     def _Td(*args,cls='', **kwargs): return Td(*args, cls=f'p-2 {cls}',**kwargs)
     match col:
         case "Done": return _Td(shrink=True)(CheckboxX(selected=val))
-        case "Task":  return _Td(val)
-        case "Title": return _Td(cls='max-w-[500px] truncate', expand=True)(val, cls='font-medium')
-        case "Status" | "Priority": return _Td(cls='uk-text-nowrap uk-text-capitalize')(Span(val))
+        case "Task":  return _Td(val, cls='uk-visible@s')  # Hide on small screens
+        case "Title": return _Td(val, cls='font-medium', expand=True)
+        case "Status" | "Priority": return _Td(cls='uk-visible@m uk-text-nowrap uk-text-capitalize')(Span(val))
         case "Actions": return _Td(task_dropdown(), shrink=True)
         case _: raise ValueError(f"Unknown column: {col}")
 
 task_columns = ["Done", 'Task', 'Title', 'Status', 'Priority', 'Actions']
 
-tasks_table = Div(cls='uk-overflow-auto mt-4 rounded-md border border-border')(
+tasks_table = Div(cls='mt-4')(
     TableFromDicts(
         header_data=task_columns,
         body_data=paginated_data,
         body_cell_render=cell_render,
         header_cell_render=header_render,
-        sortable=True))
+        sortable=True,
+        cls=(TableT.responsive, TableT.small, TableT.divider)))
 
 
 def footer():
@@ -1064,19 +1087,20 @@ def footer():
         Div('1 of 100 row(s) selected.', cls=TextFont.muted_sm),
         DivLAligned(
             DivCentered(f'Page {current_page + 1} of {total_pages}', cls=TextT.small),
-            DivLAligned(
-                UkIconLink(icon='chevrons-left',  button=True),
-                UkIconLink(icon='chevron-left',   button=True),
-                UkIconLink(icon='chevron-right',  button=True),
-                UkIconLink(icon='chevrons-right', button=True))))
+            DivLAligned(*[UkIconLink(icon=i,  button=True) for i in ('chevrons-left', 'chevron-left', 'chevron-right', 'chevrons-right')])))
 
 tasks_ui = Div(DivFullySpaced(DivLAligned(table_controls), cls='mt-8'), tasks_table, footer())
 
-tasks_homepage = Container(page_heading, tasks_ui, CreateTaskModal())</doc><doc title="Playground">"""FrankenUI Playground Example"""
+@rt
+def index(): return Container(page_heading, tasks_ui, CreateTaskModal())
+
+serve()</doc><doc title="Playground">"""FrankenUI Playground Example built with MonsterUI (original design by ShadCN)"""
 
 from fasthtml.common import *
 from monsterui.all import *
 from fasthtml.svg import *
+
+app, rt = fast_app(hdrs=Theme.blue.headers())
 
 preset_options = ["Grammatical Standard English", "Summarize for a 2nd grader",
         "Text to command","Q&A","English to other languages","Parse unstructured data",
@@ -1123,7 +1147,8 @@ rsidebar = NavContainer(
     LabelRange(label='Top P'),
     cls='space-y-6 mt-8')
 
-def page():
+@rt
+def index(): 
     navbar = playground_navbar()
     main_content = Div(
         Div(cls="flex-1")(
@@ -1135,9 +1160,9 @@ def page():
         Button(UkIcon(icon="history"), cls=ButtonT.secondary),
         cls="flex gap-x-2")
     
-    return Div(navbar, Div(cls="flex w-full")(main_content, rsidebar), bottom_buttons)
+    return Title("Playground Example"),Div(navbar, Div(cls="flex w-full")(main_content, rsidebar), bottom_buttons)
 
-playground_homepage = page()</doc><doc title="Dashboard">"""FrankenUI Dashboard Example"""
+serve()</doc><doc title="Dashboard">"""FrankenUI Dashboard Example built with MonsterUI (original design by ShadCN)"""
 
 from fasthtml.common import *
 from monsterui.all import *
@@ -1146,6 +1171,8 @@ import numpy as np
 import plotly.express as px
 import pandas as pd
 import numpy as np
+
+app, rt = fast_app(hdrs=Theme.blue.headers())
 
 def generate_chart(num_points=30):
     df = pd.DataFrame({
@@ -1223,8 +1250,9 @@ top_nav = NavBar(
     Div(team_dropdown, *map(lambda x: Li(A(x)), ["Overview", "Customers", "Products", "Settings"])),
     DivLAligned(avatar_dropdown, Input(placeholder='Search')))
 
-def page():
-    return Div(cls="space-y-4")(
+@rt
+def index():
+    return Title("Dashboard Example"), Container(
         top_nav,
         H2('Dashboard'),
         TabContainer(
@@ -1235,6 +1263,7 @@ def page():
         Grid(
             Card(Safe(generate_chart(100)),cls='col-span-4'),
             recent_sales,
-            gap=4,cols=7))
+            gap=4,cols=7),
+        cls=('space-y-4', ContainerT.xlarge))
 
-dashboard_homepage = page()</doc></examples></project>
+serve()</doc></examples></project>

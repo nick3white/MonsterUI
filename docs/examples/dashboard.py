@@ -8,19 +8,24 @@ import plotly.express as px
 import pandas as pd
 import numpy as np
 
-def generate_chart(num_points):
-    dates = pd.date_range('2024-01-01', periods=num_points)
+def generate_chart(num_points=30):
     df = pd.DataFrame({
-        'Date':    dates,
-        'Revenue': (np.random.exponential(1, num_points) + np.sin(np.linspace(0,4,num_points))*0.3).cumsum(),
-        'Users':   (np.random.exponential(0.8, num_points) + np.cos(np.linspace(0,4,num_points))*0.2).cumsum(),
-        'Growth':  (np.random.exponential(0.6, num_points) + np.sin(np.linspace(0,6,num_points))*0.4).cumsum()})
-    fig = px.area(df, x='Date', y=df.columns[1:], template='plotly_white', line_shape='spline')
-    fig.update_layout(
-        margin=dict(l=20,r=20,t=20,b=20), hovermode='x unified',
-        showlegend=True, legend_bgcolor='rgba(0,0,0,0)',plot_bgcolor='rgba(0,0,0,0)')
+        'Date': pd.date_range('2024-01-01', periods=num_points),
+        'Revenue': np.random.normal(100, 10, num_points).cumsum(),
+        'Users': np.random.normal(80, 8, num_points).cumsum(), 
+        'Growth': np.random.normal(60, 6, num_points).cumsum()})
     
-    return fig.to_html(include_plotlyjs=True,  full_html=False, config={'displayModeBar': False})
+    fig = px.line(df, x='Date', y=['Revenue', 'Users', 'Growth'],  template='plotly_white', line_shape='spline')
+    
+    fig.update_traces(mode='lines+markers')
+    fig.update_layout(
+        margin=dict(l=20, r=20, t=20, b=20), hovermode='x unified',
+        showlegend=True, legend=dict(orientation='h', yanchor='bottom', y=1.02,  xanchor='right', x=1),
+        plot_bgcolor='rgba(0,0,0,0)', paper_bgcolor='rgba(0,0,0,0)',
+        xaxis=dict(showgrid=True, gridwidth=1, gridcolor='rgba(0,0,0,0.1)'),
+        yaxis=dict(showgrid=True, gridwidth=1, gridcolor='rgba(0,0,0,0.1)'))
+    
+    return fig.to_html(include_plotlyjs=True, full_html=False, config={'displayModeBar': False})
 
 def InfoCard(title, value, change): return Card(H3(value),P(change, cls=TextFont.muted_sm), header = H4(title))
 

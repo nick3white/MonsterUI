@@ -68,6 +68,7 @@ class TextFont(Enum):
     muted_sm = stringify((TextT.muted, TextT.small))
     muted_lg = stringify((TextT.muted, TextT.large))
     bold_sm = stringify((TextT.bold, TextT.small))
+    md_weight_sm = stringify((TextT.small, 'font-medium'))
 
 # %% ../nbs/02_franken.ipynb
 def PParagraph(*c, # Contents of P tag (often text)
@@ -556,6 +557,8 @@ class AT(VEnum):
     muted = auto()
     text = auto()
     reset = auto()
+    primary = 'uk-link text-primary hover:text-primary-focus underline'
+
 
 # %% ../nbs/02_franken.ipynb
 class ListT(VEnum):

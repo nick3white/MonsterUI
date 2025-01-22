@@ -14,31 +14,29 @@ def playground_navbar():
         P("This will save the current playground state as a preset which you can access later or share with others.",cls=("mt-1.5", TextFont.muted_sm)),
         LabelInput("Name",        id="name"), 
         LabelInput("Description", id="description"),
-        ModalCloseButton("Save", cls=(ButtonT.primary)),
+        ModalCloseButton("Save", cls=ButtonT.primary),
         id="save")
     
     share_dd = Div(cls="space-y-6 p-4")(
         H3("Share preset"),
         P("Anyone who has this link and an OpenAI account will be able to view this.", cls=TextFont.muted_sm),
-        Div(Input(value="https://platform.openai.com/playground/p/7bbKYQvsVkNmVb8NGcdUOLae?model=text-davinci-003", readonly=True, cls="flex-1"),
+        Div(Input(value="https://platform.openai.com/playground/p/7bbKYQvsVkNmVb8NGcdUOLae?model=text-davinci-003", readonly=True),
             Button(UkIcon('copy'), cls=(ButtonT.primary, "uk-drop-close",'mt-4'))))
 
-    rnav = NavBarNav(
-        Li(UkSelect(*Options(*preset_options), name='preset', optgroup_label="Examples",
-                 placeholder='Load a preset', searchable=True, cls='h-9 w-[200px] lg:w-[300px]')),
-        Li(Button("Save",         cls=ButtonT.secondary, uk_toggle="#save"),save_modal),
-        Li(Button("View Code",    cls=ButtonT.secondary)),
-        Li(Button("Share",        cls=ButtonT.secondary),DropDownNavContainer(share_dd)),
-        Li(Button(UkIcon(icon="ellipsis"), cls=ButtonT.secondary),DropDownNavContainer(
+    rnav = Div(
+        UkSelect(*Options(*preset_options), name='preset', optgroup_label="Examples",
+                 placeholder='Load a preset', searchable=True, cls='h-9 w-[200px] lg:w-[300px]'),
+        Button("Save",         cls=ButtonT.secondary, uk_toggle="#save"),save_modal,
+        Button("View Code",    cls=ButtonT.secondary),
+        Button("Share",        cls=ButtonT.secondary),DropDownNavContainer(share_dd),
+        Button(UkIcon(icon="ellipsis"), cls=ButtonT.secondary),
+        DropDownNavContainer(
             Li(A("Content filter preferences")),
             NavDividerLi(),
             Li(A("Delete preset", cls="text-destructive")),
-        uk_dropdown="mode: click")))
+        uk_dropdown="mode: click"))
     
-    return NavBarContainer(
-                NavBarLSide(NavBarNav(Li(H4('Playground')))),
-                NavBarRSide(rnav),
-                cls='mt-2')
+    return NavBar(title=H4('Playground'),nav_links=rnav)
 
 rsidebar = NavContainer(
     UkSelect(
@@ -49,8 +47,7 @@ rsidebar = NavContainer(
     LabelRange(label='Temperature'),
     LabelRange(label='Maximum Length'),
     LabelRange(label='Top P'),
-    cls='space-y-6 mt-8'
-)
+    cls='space-y-6 mt-8')
 
 def page():
     navbar = playground_navbar()

@@ -42,9 +42,6 @@ ReportIssue = Card(
     header=(H3('Report Issue'),P(cls=TextFont.muted_sm)('What area are you having problems with?')),
     footer = DivFullySpaced(Button('Cancel'), Button(cls=ButtonT.primary)('Submit')))
 
-
-FlexBlockCentered = (FlexT.block,FlexT.center)
-
 monster_desc ="Python-first beautifully designed components because you deserve to focus on features that matter and your app deserves to be beautiful from day one."
 MonsterUI = Card(H4("Monster UI"),
               P(monster_desc, cls=TextFont.muted_sm),
@@ -65,14 +62,14 @@ CookieSettings = Card(
         CookieTableRow('Functional Cookies', 'These cookies allow the website to provide personalized functionality.'),
         CookieTableRow('Performance Cookies', 'These cookies help to improve the performance of the website.'))),
     header=(H4('Cookie Settings'),P(cls=(TextFont.muted_sm, 'mt-1.5'))('Manage your cookie settings here.')),
-    footer=Button(cls=(ButtonT.primary, 'w-full'))('Save Preferences'))
+    footer=Button('Save Preferences', cls=(ButtonT.primary, 'w-full')))
 
 team_members = [("Sofia Davis", "m@example.com", "Owner"),("Jackson Lee", "p@example.com", "Member"),]
 def TeamMemberRow(name, email, role):
     return DivFullySpaced(
         DivLAligned(
             DiceBearAvatar(name, 10,10),
-            Div(P(name, cls=(TextT.small, 'font-medium')),
+            Div(P(name, cls=TextFont.md_weight_sm),
                 P(email, cls=TextFont.muted_sm))),
         Button(role, UkIcon('chevron-down', cls='ml-4')),
         DropDownNavContainer(map(NavCloseLi, [
@@ -92,7 +89,7 @@ team_members = [("Olivia Martin", "m@example.com", "Read and write access"),
 def TeamMemberRow(name, email, role):
     return DivFullySpaced(
         DivLAligned(DiceBearAvatar(name, 10,10),
-                    Div(P(name, cls=(TextT.small, 'font-medium')),
+                    Div(P(name, cls=TextFont.md_weight_sm),
                         P(email, cls=TextFont.muted_sm))),
         UkSelect(*Options(*access_roles, selected_idx=access_roles.index(role))))
 
@@ -107,23 +104,24 @@ DateCard = Card(Button('Jan 20, 2024 - Feb 09, 2024'))
 
 section_content =(('bell','Everything',"Email digest, mentions & all activity."), 
                   ('user',"Available","Only mentions and comments"),
-                  ('ban',"Ignoring","Turn of all notifications"))
+                  ('ban', "Ignoring","Turn of all notifications"))
+
+def NotificationRow(icon, name, desc):
+    return Li(cls='-mx-1')(A(DivLAligned(UkIcon(icon),Div(P(name),P(desc, cls=TextFont.muted_sm)))))
 
 Notifications = Card(
     NavContainer(
-    *[Li(cls='-mx-1')(A(Div(cls="flex gap-x-4")(UkIcon(icon),Div(cls='flex-1')(P(name),P(cls=TextFont.muted_sm)(desc)))))
-            for icon, name, desc in section_content],
+        *[NotificationRow(*row) for row in section_content],
         cls=NavT.secondary),
     header = (H4('Notification'),Div('Choose what you want to be notified about.', cls=('mt-1.5', TextFont.muted_sm))),
     body_cls='pt-0')
 
 def page():
     return Title("Custom"),Grid(
-            *map(lambda x: Div(x, cls='space-y-4'),(
+            *map(DivVStacked,(
                       (PaymentMethod,CreateAccount),
                       (TeamMembers, ShareDocument,DateCard,Notifications),
                       (ReportIssue,MonsterUI,CookieSettings))),
-         cols_lg=3,
-       )
+         cols_md=1, cols_lg=2, cols_xl=3)
 
 cards_homepage = page()

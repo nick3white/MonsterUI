@@ -10,21 +10,24 @@ def page():
             Footer(cls=TextT.small)("Sofia Davis")))
 
     right = Div(cls="col-span-2 flex flex-col p-8 lg:col-span-1")(
-        DivRAligned(Button("Login", cls=ButtonT.ghost, uk_toggle="#demo")),
+        DivRAligned(Button("Login", cls=ButtonT.ghost)),
         DivCentered(cls='flex-1')(
-            Div(cls=f"space-y-6 w-[350px]")(
-                Div(cls="flex flex-col space-y-2 text-center")(
+            Container(
+                DivVStacked(
                     H3("Create an account"),
-                    P(cls=TextFont.muted_sm)("Enter your email below to create your account")),
-                Form(cls='space-y-6')(
-                        Input(placeholder="name@example.com"),
-                        Button(Span(cls="mr-2", uk_spinner="ratio: 0.54"), "Sign in with Email", cls=(ButtonT.primary, "w-full"), disabled=True),
-                        DividerSplit("Or continue with",cls=TextFont.muted_sm),
-                        Button(UkIcon('github',cls='mr-2'), "Github", cls=(ButtonT.default, "w-full"), uk_toggle="#demo")),
-                P(cls=(TextFont.muted_sm,"text-center"))(
-                "By clicking continue, you agree to our ",
-                A(cls="underline underline-offset-4 hover:text-primary", href="#demo", uk_toggle=True)("Terms of Service")," and ",
-                A(cls="underline underline-offset-4 hover:text-primary", href="#demo", uk_toggle=True)("Privacy Policy"),"."))))
+                    P("Enter your email below to create your account", cls=TextFont.muted_sm)),
+                Form(
+                    Input(placeholder="name@example.com"),
+                    Button(Span(cls="mr-2", uk_spinner="ratio: 0.54"), "Sign in with Email", cls=(ButtonT.primary, "w-full"), disabled=True),
+                    DividerSplit("Or continue with",cls=TextFont.muted_sm),
+                    Button(UkIcon('github',cls='mr-2'), "Github", cls=(ButtonT.default, "w-full")),
+                    cls='space-y-6'),
+                P(
+                    "By clicking continue, you agree to our ",
+                    A(cls=AT.muted, href="#demo")("Terms of Service")," and ",
+                    A(cls=AT.muted, href="#demo")("Privacy Policy"),".",
+                    cls=(TextFont.muted_sm,"text-center")),
+                cls="space-y-6")))
     
     return Grid(left,right,cols=2, gap=0,cls='h-screen')
 

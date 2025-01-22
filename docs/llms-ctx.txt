@@ -1,4184 +1,1240 @@
-<project title="MonsterUI Documentation" summary="MonsterUI is a python library which brings styling to python for FastHTML apps.">Things to remembers when using MonsterUI:
-- While Pico CSS is commonly used in FastHTML apps, that is *completely incompatible* with MonsterUI. 
-- MonsterUI is *not* compatible with FastAPI syntax and is not targeted at creating API services.<api reference><doc title="Button | Link"># Buttons & Links
+<project title="MonsterUI Documentation">> MonsterUI is a python library which brings styling to python for FastHTML apps.<api reference><doc title="API List"># monsterui Module Documentation
 
-#
+## monsterui.core
 
-# Buttons & Links
+- `class Theme`
+    Selector to choose theme and get all headers needed for app.  Includes frankenui + tailwind + daisyui + highlight.js options
 
-See Source
+    - `def headers(self, mode, daisy, highlightjs)`
+        Create frankenui and tailwind cdns
 
-See Output
+    - `def local_headers(self, mode, static_dir, daisy, highlightjs)`
+        Create headers using local files downloaded from CDNs
 
-DefaultPrimarySecondaryDangerTextLinkGhost
+    - `@property def name(self)`
 
-[code]
+## monsterui.daisy
 
-    def ex_buttons(): 
-        return Grid(
-            Button("Default"),
-            Button("Primary",   cls=ButtonT.primary),
-            Button("Secondary", cls=ButtonT.secondary),
-            Button("Danger",    cls=ButtonT.danger),
-            Button("Text",      cls=ButtonT.text),
-            Button("Link",      cls=ButtonT.link),
-            Button("Ghost",     cls=ButtonT.ghost),
-            )
+- `class AlertT`
+    Alert styles from DaisyUI
+
+    - `@property def name(self)`
+
+- `def Alert(*c, **kwargs)`
+    Alert informs users about important events.
+
+- `class StepsT`
+    Options for Steps
+
+    - `@property def name(self)`
+
+- `class StepT`
+    Step styles for LiStep
+
+    - `@property def name(self)`
+
+- `def Steps(*li, **kwargs)`
+    Creates a steps container
+
+- `def LiStep(*c, **kwargs)`
+    Creates a step list item
+
+- `class LoadingT`
+    - `@property def name(self)`
+
+- `def Loading(cls, htmx_indicator, **kwargs)`
+    Creates a loading animation component
+
+- `class ToastHT`
+    Horizontal position for Toast
+
+    - `@property def name(self)`
+
+- `class ToastVT`
+    Vertical position for Toast
+
+    - `@property def name(self)`
+
+- `def Toast(*c, **kwargs)`
+    Toasts are stacked announcements, positioned on the corner of page.
+
+## monsterui.foundations
+
+> Data Structures and Utilties
+
+- `def stringify(o)`
+    Converts input types into strings that can be passed to FT components
+
+- `class VEnum`
+    - `def __str__(self)`
+    - `def __add__(self, other)`
+    - `def __radd__(self, other)`
+    - `@property def name(self)`
+
+## monsterui.franken
+
+- `class TextT`
+    Text Styles from https://franken-ui.dev/docs/text
+
+    - `@property def name(self)`
+
+- `class TextFont`
+    Combinations of TextT that are particularly useful
+
+    - `def __add__(self, other)`
+    - `def __radd__(self, other)`
+    - `def __str__(self)`
+    - `@property def name(self)`
+
+- `def PParagraph(*c, **kwargs)`
+    P Tag with paragraph style applied
+
+- `def PLarge(*c, **kwargs)`
+    P Tag with large style applied
+
+- `def PLead(*c, **kwargs)`
+    P Tag with lead style applied
+
+- `def PSmall(*c, **kwargs)`
+    P Tag with small style applied
+
+- `def PMuted(*c, **kwargs)`
+    P Tag with muted style applied
+
+- `def CodeSpan(*c, **kwargs)`
+    A CodeSpan with Styling
+
+- `def Blockquote(*c, **kwargs)`
+    Blockquote with Styling
+
+- `def CodeBlock(*c, **kwargs)`
+    CodeBlock with Styling
+
+- `def H1(*c, **kwargs)`
+    H1 with styling and appropriate size
+
+- `def H2(*c, **kwargs)`
+    H2 with styling and appropriate size
+
+- `def H3(*c, **kwargs)`
+    H3 with styling and appropriate size
+
+- `def H4(*c, **kwargs)`
+    H4 with styling and appropriate size
+
+- `class ButtonT`
+    Options for styling Buttons
+
+    - `@property def name(self)`
+
+- `def Button(*c, **kwargs)`
+    Button with Styling (defaults to `submit` for form submission)
+
+- `class ContainerT`
+    Max width container sizes from https://franken-ui.dev/docs/container
+
+    - `@property def name(self)`
+
+- `class BackgroundT`
+    - `@property def name(self)`
+
+- `def Container(*c, **kwargs)`
+    Div to be used as a container that often wraps large sections or a page of content
+
+- `def Titled(title, *c, **kwargs)`
+    Creates a standard page structure for titled page.  Main(Container(title, content))
+
+- `class DividerT`
+    Divider Styles from https://franken-ui.dev/docs/divider
+
+    - `@property def name(self)`
+
+- `def Divider(*c, **kwargs)`
+    Divider with default styling and margin
+
+- `def DividerSplit(*c)`
+    Creates a simple horizontal line divider with configurable thickness and vertical spacing
+
+- `def Article(*c, **kwargs)`
+    A styled article container for blog posts or similar content
+
+- `def ArticleTitle(*c, **kwargs)`
+    A title component for use within an Article
+
+- `def ArticleMeta(*c, **kwargs)`
+    A metadata component for use within an Article showing things like date, author etc
+
+- `class SectionT`
+    Section styles from https://franken-ui.dev/docs/section
+
+    - `@property def name(self)`
+
+- `def Section(*c, **kwargs)`
+    Section with styling and margins
+
+- `def Form(*c, **kwargs)`
+    A Form with default spacing between form elements
+
+- `def Fieldset(*c, **kwargs)`
+    A Fieldset with default styling
+
+- `def Legend(*c, **kwargs)`
+    A Legend with default styling
+
+- `def Input(*c, **kwargs)`
+    An Input with default styling
+
+- `def Select(*option, **kwargs)`
+    A Select with default styling, though often `UkSelect` is a better choice
+
+- `def Radio(*c, **kwargs)`
+    A Radio with default styling
+
+- `def CheckboxX(*c, **kwargs)`
+    A Checkbox with default styling
+
+- `def Range(*c, **kwargs)`
+    A Range with default styling
+
+- `def TextArea(*c, **kwargs)`
+    A Textarea with default styling
+
+- `def Switch(*c, **kwargs)`
+    A Switch with default styling
+
+- `def FormLabel(*c, **kwargs)`
+    A Label with default styling
+
+- `class LabelT`
+    - `@property def name(self)`
+
+- `def Label(*c, **kwargs)`
+    FrankenUI labels, which look like pills
+
+- `def UkFormSection(title, description, *c)`
+    A form section with a title, description and optional button
+
+- `def GenericLabelInput(label, lbl_cls, input_cls, container, cls, id, input_fn, **kwargs)`
+    `Div(Label,Input)` component with Uk styling injected appropriately. Generally you should higher level API, such as `LabelInput` which is created for you in this library
+
+- `def LabelInput(label, lbl_cls, input_cls, cls, id, **kwargs)`
+    A `FormLabel` and `Input` pair that provides default spacing and links/names them based on id
+
+- `def LabelRange(label, lbl_cls, input_cls, cls, id, **kwargs)`
+    A `FormLabel` and `Range` pair that provides default spacing and links/names them based on id
+
+- `def LabelRadio(label, lbl_cls, input_cls, container, cls, id, **kwargs)`
+    A FormLabel and Radio pair that provides default spacing and links/names them based on id
+
+- `def LabelCheckboxX(label, lbl_cls, input_cls, container, cls, id, **kwargs)`
+    A FormLabel and CheckboxX pair that provides default spacing and links/names them based on id
+
+- `def LabelSelect(*option, **kwargs)`
+    A FormLabel and Select pair that provides default spacing and links/names them based on id (usually UkLabelSelect is a better choice)
+
+- `def Options(*c)`
+    Helper function to wrap things into `Option`s for use in `UkSelect`
+
+- `def UkSelect(*option, **kwargs)`
+    Creates a select dropdown with uk styling and option for adding a search box
+
+- `def LabelUkSelect(*option, **kwargs)`
+    A FormLabel and Select pair that provides default spacing and links/names them based on id
+
+- `class AT`
+    Link styles from https://franken-ui.dev/docs/link
+
+    - `@property def name(self)`
+
+- `class ListT`
+    List styles from https://franken-ui.dev/docs/list
+
+    - `@property def name(self)`
+
+- `def UkList(*li, **kwargs)`
+    Creates a list with styling
+
+- `def ModalContainer(*c, **kwargs)`
+    Creates a modal container that components go in
+
+- `def ModalDialog(*c, **kwargs)`
+    Creates a modal dialog
+
+- `def ModalHeader(*c, **kwargs)`
+    Creates a modal header
+
+- `def ModalBody(*c, **kwargs)`
+    Creates a modal body
+
+- `def ModalFooter(*c, **kwargs)`
+    Creates a modal footer
+
+- `def ModalTitle(*c, **kwargs)`
+    Creates a modal title
+
+- `def ModalCloseButton(*c, **kwargs)`
+    Creates a button that closes a modal with js
+
+- `def Modal(*c, **kwargs)`
+    Creates a modal with the appropriate classes to put the boilerplate in the appropriate places for you
+
+- `class PaddingT`
+    Padding Modifiers from https://franken-ui.dev/docs/padding
+
+    - `@property def name(self)`
+
+- `class PositionT`
+    Position modifiers from https://franken-ui.dev/docs/position
+
+    - `@property def name(self)`
+
+- `def Placeholder(*c, **kwargs)`
+    Creates a placeholder
+
+- `def Progress(*c, **kwargs)`
+    Creates a progress bar
+
+- `def UkIcon(icon, height, width, stroke_width, cls, **kwargs)`
+    Creates an icon using lucide icons
+
+- `def UkIconLink(icon, height, width, stroke_width, cls, button, **kwargs)`
+    Creates an icon link using lucide icons
+
+- `def DiceBearAvatar(seed_name, h, w)`
+    Creates an Avatar using https://dicebear.com/
+
+- `class FlexT`
+    Flexbox modifiers from UIkit
+
+    - `@property def name(self)`
+
+- `def Grid(*div, **kwargs)`
+    Creates a responsive grid layout with smart defaults based on content
+
+- `def DivFullySpaced(*c, **kwargs)`
+    Creates a flex div with it's components having as much space between them as possible
+
+- `def DivCentered(*c, **kwargs)`
+    Creates a flex div with it's components centered in it
+
+- `def DivLAligned(*c, **kwargs)`
+    Creates a flex div with it's components aligned to the left
+
+- `def DivRAligned(*c, **kwargs)`
+    Creates a flex div with it's components aligned to the right
+
+- `def DivVStacked(*c, **kwargs)`
+    Creates a flex div with it's components stacked vertically
+
+- `def DivHStacked(*c, **kwargs)`
+    Creates a flex div with it's components stacked horizontally
+
+- `class NavT`
+    - `@property def name(self)`
+
+- `def NavContainer(*li, **kwargs)`
+    Creates a navigation container (useful for creating a sidebar navigation).  A Nav is a list (NavBar is something different)
+
+- `def NavParentLi(*nav_container, **kwargs)`
+    Creates a navigation list item with a parent nav for nesting
+
+- `def NavDividerLi(*c, **kwargs)`
+    Creates a navigation list item with a divider
+
+- `def NavHeaderLi(*c, **kwargs)`
+    Creates a navigation list item with a header
+
+- `def NavSubtitle(*c, **kwargs)`
+    Creates a navigation subtitle
+
+- `def NavCloseLi(*c, **kwargs)`
+    Creates a navigation list item with a close button
+
+- `def NavBarContainer(*navbarside, **kwargs)`
+    Create a NavBarContainer to put NavBar sides in
+
+- `def NavBarLSide(*c, **kwargs)`
+    Creates a NavBar left side
+
+- `def NavBarRSide(*c, **kwargs)`
+    Creates a NavBar right side
+
+- `def NavBarCenter(*c, **kwargs)`
+    Creates a NavBar center
+
+- `def NavBarNav(*li, **kwargs)`
+    A Nav that is part of a NavBar that could go in a `NavBarLSide`, `NavBarRSide`, or `NavBarCenter`
+
+- `def NavBarSubtitle(title, subtitle, cls, subtitle_cls, **kwargs)`
+    Creates a NavBar subtitle
+
+- `def NavBarNavContainer(*li, **kwargs)`
+    Drop Down Nav
+
+- `def SliderContainer(*c, **kwargs)`
+    Creates a slider container
+
+- `def SliderItems(*c, **kwargs)`
+    Creates a slider items container
+
+- `def SliderNav(cls, prev_cls, next_cls, **kwargs)`
+    Navigation arrows for Slider component
+
+- `def Slider(*c, **kwargs)`
+    Creates a slider with optional navigation arrows
+
+- `def DropDownNavContainer(*li, **kwargs)`
+    A Nav that is part of a DropDown
+
+- `def TabContainer(*li, **kwargs)`
+    A TabContainer where children will be different tabs
+
+- `class CardT`
+    Card styles from UIkit
+
+    - `@property def name(self)`
+
+- `def CardTitle(*c, **kwargs)`
+    Creates a card title
+
+- `def CardHeader(*c, **kwargs)`
+    Creates a card header
+
+- `def CardBody(*c, **kwargs)`
+    Creates a card body
+
+- `def CardFooter(*c, **kwargs)`
+    Creates a card footer
+
+- `def CardContainer(*c, **kwargs)`
+    Creates a card container
+
+- `def Card(*c, **kwargs)`
+    Creates a Card with a header, body, and footer
+
+- `class TableT`
+    - `@property def name(self)`
+
+- `def Table(*c, **kwargs)`
+    Creates a table
+
+- `def TableFromLists(header_data, body_data, footer_data, header_cell_render, body_cell_render, footer_cell_render, cls, sortable, **kwargs)`
+    Creates a Table from a list of header data and a list of lists of body data
+
+- `def TableFromDicts(header_data, body_data, footer_data, header_cell_render, body_cell_render, footer_cell_render, cls, sortable, **kwargs)`
+    Creates a Table from a list of header data and a list of dicts of body data
+
+- `def apply_classes(html_str, class_map, class_map_mods)`
+    Apply classes to html string
+
+- `def render_md(md_content, class_map, class_map_mods)`
+    Renders markdown using mistletoe and lxml
+</doc></api reference><examples><doc title="Mail">"""FrankenUI Mail Example"""
+
+from fasthtml.common import *
+from monsterui.all import *
+from fasthtml.svg import *
+import pathlib, json
+from datetime import datetime
+
+sidebar_group1 = (('home', 'Inbox', '128'), ('file-text', 'Drafts', '9'), (' arrow-up-right', 'Sent', ''),
+    ('ban', 'Junk', '23'), ('trash', 'Trash', ''), ('folder', 'Archive', ''))
+
+sidebar_group2 = (('globe','Social','972'),('info','Updates','342'),('messages-square','Forums','128'),
+    ('shopping-cart','Shopping','8'),('shopping-bag','Promotions','21'),)
+
+def MailSbLi(icon, title, cnt): 
+    return Li(A(DivLAligned(Span(UkIcon(icon)),Span(title),P(cnt,cls=TextFont.muted_sm))))
+
+sidebar = Container(NavContainer(
+    NavHeaderLi(H3("Email")),
+    Li(UkSelect(map(Option, ('alicia@example.com','alicia@gmail.com', 'alicia@yahoo.com')))),
+    *[MailSbLi(i, t, c) for i, t, c in sidebar_group1],
+    Li(Hr()),
+    *[MailSbLi(i, t, c) for i, t, c in sidebar_group2],
+    cls='space-y-6'))
+
+mail_data = json.load(open(pathlib.Path('data/mail.json')))
+
+def format_date(date_str):
+    date_obj = datetime.fromisoformat(date_str)
+    return date_obj.strftime("%Y-%m-%d %I:%M %p")
+
+def MailItem(mail):
+    cls_base = 'relative rounded-lg border border-border p-3 text-sm hover:bg-primary'
+    cls = f"{cls_base} {'bg-muted' if mail == mail_data[0] else ''} {'tag-unread' if not mail['read'] else 'tag-mail'}"
     
-[/code]
-
-See Source
-
-See Output
-
-Default LinkMuted LinkText LinkReset Link
-
-[code]
-
-    def ex_links(): 
-        return Div(cls='space-x-4')(
-            A('Default Link'),
-            A('Muted Link', cls=AT.muted),
-            A('Text Link',  cls=AT.text),
-            A('Reset Link', cls=AT.reset))
-    
-[/code]
-
-### Button
-
-Source
-
-[code]
-
-    Button(*c: Union[str, fastcore.xml.FT], cls: Union[str, enum.Enum] = <ButtonT.default: 'uk-button-default'>, submit=True, **kwargs) -> fastcore.xml.FT
-[/code]
-
-> Button with Styling (defaults to `submit` for form submission)
-
-**Params**
-
-  * `c` Contents of `Button` tag (often text)
-
-  * `cls` Classes in addition to `Button` styling (use `ButtonT` for built in styles)
-
-  * `submit` Whether the button should submit a form
-
-  * `kwargs` Additional args for `Button` tag
-
-**Returns:** Button(..., cls='uk-button')
-
-* * *
-
-### ButtonT
-
-_Options for styling Buttons_
-
-Option | Value | Option | Value | Option | Value  
----|---|---|---|---|---  
-default | uk-button-default | primary | uk-button-primary | secondary | uk-button-secondary  
-danger | uk-button-danger | text | uk-button-text | link | uk-button-link  
-ghost | uk-button-ghost |  |  |  |   
-  
-* * *
-
-### AT
-
-_Link styles from https://franken-ui.dev/docs/link_
-
-Option | Value | Option | Value  
----|---|---|---  
-muted | uk-link-muted | text | uk-link-text  
-reset | uk-link-reset | primary | uk-link text-primary hover:text-primary-focus underline
-</doc><doc title="Cards"># Cards
-
-#
-
-# Cards
-
-### Example Usage
-
-See Source
-
-See Output
-
-Header
-
-A card with header and footer
-
-Input
-
-Range
-
-Footer Submit Button
-
-[code]
-
-    def ex_card():
-        return Card(
-            Form(LabelInput("Input"),
-                 LabelRange("Range")),
-            header=Div(
-                CardTitle("Header"),
-                P("A card with header and footer",cls=TextFont.muted_sm)),
-            footer=DivLAligned(Button("Footer Submit Button")))
-    
-[/code]
-
-See Source
-
-See Output
-
-#### Creating Custom FastHTML Tags for Markdown Rendering
-
-A step by step tutorial to rendering markdown in FastHTML using zero-md inside of DaisyUI chat bubbles
-
-Isaac Flath20-October-2024
-
-FastHTMLHTMXWeb Apps
-
-Read
-
-[code]
-
-    def ex_card2_wide():
-        def Tags(cats): return Div(cls='space-x-2')(map(Label, cats))
-    
-        return Card(
+    return Li(cls=cls)(
+        DivFullySpaced(
             DivLAligned(
-                A(Img(src="https://picsum.photos/200/200?random=12", style="width:200px"),href="#"),
-                Div(cls='space-y-3 uk-width-expand')(
-                    H4("Creating Custom FastHTML Tags for Markdown Rendering"),
-                    P("A step by step tutorial to rendering markdown in FastHTML using zero-md inside of DaisyUI chat bubbles"),
-                    DivFullySpaced(map(Span, ["Isaac Flath", "20-October-2024"]), cls=TextFont.muted_sm),
-                    DivFullySpaced(
-                        Tags(["FastHTML", "HTMX", "Web Apps"]),
-                        Button("Read", cls=(ButtonT.primary,'h-6'))))))
+                Div(mail['name'], cls='font-semibold'),
+                    Span(cls='flex h-2 w-2 rounded-full bg-blue-600') if not mail['read'] else ''),
+                Div(format_date(mail['date']), cls='text-xs')),
+            A(mail['subject'], cls=TextFont.bold_sm, href=f"#mail-{mail['id']}"),
+            Div(mail['text'][:100] + '...', cls=TextFont.muted_sm),
+            DivLAligned(
+                *[A(label, cls=f"uk-label relative z-10 {'uk-label-primary' if label == 'work' else ''}", href='#')
+                  for label in mail['labels']]))
+
+def MailList(mails): return Ul(cls='js-filter space-y-2 p-4 pt-0')(*[MailItem(mail) for mail in mails])
+
+def MailContent():
+    return Div(cls='flex flex-col',uk_filter="target: .js-filter")(
+        Div(cls='flex px-4 py-2 ')(
+            H3('Inbox'),
+            TabContainer(Li(A("All Mail",href='#', role='button'),cls='uk-active', uk_filter_control="filter: .tag-mail"), 
+                         Li(A("Unread",href='#', role='button'),                   uk_filter_control="filter: .tag-unread"), 
+                         alt=True, cls='ml-auto max-w-40', )),
+        Div(cls='flex flex-1 flex-col')(
+            Div(cls='p-4')(
+                Div(cls='uk-inline w-full')(
+                    Span(cls='uk-form-icon text-muted-foreground')(UkIcon('search')),
+                    Input(placeholder='Search'))),
+            Div(cls='flex-1 overflow-y-auto max-h-[600px]')(MailList(mail_data))))
+
+def IconNavItem(*d): return [Li(A(UkIcon(o[0],uk_tooltip=o[1]))) for o in d]  
+def IconNav(*c,cls=''): return Ul(cls=f'uk-iconnav {cls}')(*c)
+
+def MailDetailView(mail):
+    top_icons = [('folder','Archive'), ('ban','Move to junk'), ('trash','Move to trash')]
+    reply_icons = [('reply','Reply'), ('reply','Reply all'), ('forward','Forward')]
+    dropdown_items = ['Mark as unread', 'Star read', 'Add Label', 'Mute Thread']
     
-[/code]
-
-See Source
-
-See Output
-
-#### Creating Custom FastHTML Tags for Markdown Rendering
-
-A step by step tutorial to rendering markdown in FastHTML using zero-md inside of DaisyUI chat bubbles
-
-Isaac Flath20-October-2024
-
-FastHTMLHTMXWeb Apps
-
-Read
-
-[code]
-
-    def ex_card2_tall():
-        def Tags(cats): return Div(cls='space-x-2')(map(Label, cats))
-    
-        return Card(
-            Div(
-                A(Img(src="https://picsum.photos/200/200?random=14"),href="#"),
-                Div(cls='space-y-3 uk-width-expand')(
-                    H4("Creating Custom FastHTML Tags for Markdown Rendering"),
-                    P("A step by step tutorial to rendering markdown in FastHTML using zero-md inside of DaisyUI chat bubbles"),
-                    DivFullySpaced(map(Span, ["Isaac Flath", "20-October-2024"]), cls=TextFont.muted_sm),
-                    DivFullySpaced(
-                        Tags(["FastHTML", "HTMX", "Web Apps"]),
-                        Button("Read", cls=(ButtonT.primary,'h-6'))))))
-    
-[/code]
-
-See Source
-
-See Output
-
-### Sarah Chen
-
-Engineering Lead
-
-San Francisco
-
-### James Wilson
-
-Senior Developer
-
-New York
-
-### Maria Garcia
-
-UX Designer
-
-London
-
-### Alex Kumar
-
-Product Manager
-
-Singapore
-
-### Emma Brown
-
-DevOps Engineer
-
-Toronto
-
-### Marcus Johnson
-
-Frontend Developer
-
-Berlin
-
-[code]
-
-    def ex_card3():
-        def team_member(name, role, location="Remote"):
-            return Card(
+    return Div(cls='flex flex-col')(
+        Div(cls='flex h-14 flex-none items-center border-b border-border p-2')(
+            DivFullySpaced(
                 DivLAligned(
-                    DiceBearAvatar(name, h=24, w=24),
-                    Div(H3(name), P(role))),
-                footer=DivFullySpaced(
-                    DivHStacked(UkIcon("map-pin", height=16), P(location)),
-                    DivHStacked(*(UkIconLink(icon, height=16) for icon in ("mail", "linkedin", "github")))))
-        team = [
-            team_member("Sarah Chen", "Engineering Lead", "San Francisco"),
-            team_member("James Wilson", "Senior Developer", "New York"),
-            team_member("Maria Garcia", "UX Designer", "London"),
-            team_member("Alex Kumar", "Product Manager", "Singapore"),
-            team_member("Emma Brown", "DevOps Engineer", "Toronto"),
-            team_member("Marcus Johnson", "Frontend Developer", "Berlin")
-        ]
-        return Grid(*team, cols_sm=1, cols_md=1, cols_lg=2, cols_xl=3)
+                    IconNav(*IconNavItem(*top_icons)),
+                    IconNav(Li(A(UkIcon('clock'), uk_tooltip='Snooze')), cls='pl-2'),
+                    cls='gap-x-2 divide-x divide-border'),
+                IconNav(
+                    *IconNavItem(*reply_icons),
+                    Li(A(UkIcon('ellipsis-vertical',button=True))),
+                    DropDownNavContainer(*map(lambda x: Li(A(x)), dropdown_items))))),
+        Div(cls='flex-1')(
+            DivLAligned(
+                DivLAligned(
+                    Span(mail['name'][:2], cls='flex h-10 w-10 items-center justify-center rounded-full bg-muted'),
+                    Div(cls='grid gap-1')(
+                        Div(mail['name'], cls=TextT.bold),
+                        Div(mail['subject'], cls='text-xs'),
+                        DivLAligned('Reply-To:', mail['email'], cls=TextT.small)),
+                    cls='gap-4 text-sm'),
+                Div(format_date(mail['date']), cls=TextFont.muted_sm),
+                cls='p-4'),
+            Div(cls='flex-1 space-y-4 border-t border-border p-4 text-sm')(P(mail['text']))),
+        Div(cls='flex-none space-y-4 border-t border-border p-4')(
+            TextArea(id='message', placeholder=f"Reply {mail['name']}"),
+            DivFullySpaced(
+                LabelSwitch('Mute this thread',id='mute'),
+                Button('Send', cls=ButtonT.primary))))
+
+def mail_homepage():
+    return Div(cls='flex divide-x divide-border')(
+        sidebar,
+        Grid(MailContent(),
+             MailDetailView(mail_data[0]),
+             cols=2, gap=0, cls='flex-1 divide-x divide-border'))
+
+mail_homepage = mail_homepage()</doc><doc title="Auth">from fasthtml.common import *
+from monsterui.all import *
+from fasthtml.svg import *
+
+def page():    
+    left = Div(cls="col-span-1 hidden flex-col justify-between bg-zinc-900 p-8 text-white lg:flex")(
+        Div(cls=(TextT.bold,TextT.default))("Acme Inc"),
+        Blockquote(cls="space-y-2")(
+            P(cls=TextT.large)('"This library has saved me countless hours of work and helped me deliver stunning designs to my clients faster than ever before."'),
+            Footer(cls=TextT.small)("Sofia Davis")))
+
+    right = Div(cls="col-span-2 flex flex-col p-8 lg:col-span-1")(
+        DivRAligned(Button("Login", cls=ButtonT.ghost)),
+        DivCentered(cls='flex-1')(
+            Container(
+                DivVStacked(
+                    H3("Create an account"),
+                    P("Enter your email below to create your account", cls=TextFont.muted_sm)),
+                Form(
+                    Input(placeholder="name@example.com"),
+                    Button(Span(cls="mr-2", uk_spinner="ratio: 0.54"), "Sign in with Email", cls=(ButtonT.primary, "w-full"), disabled=True),
+                    DividerSplit("Or continue with",cls=TextFont.muted_sm),
+                    Button(UkIcon('github',cls='mr-2'), "Github", cls=(ButtonT.default, "w-full")),
+                    cls='space-y-6'),
+                P(
+                    "By clicking continue, you agree to our ",
+                    A(cls=AT.muted, href="#demo")("Terms of Service")," and ",
+                    A(cls=AT.muted, href="#demo")("Privacy Policy"),".",
+                    cls=(TextFont.muted_sm,"text-center")),
+                cls="space-y-6")))
     
-[/code]
-
-### API Reference
-
-### Card
-
-Source
-
-[code]
-
-    Card(*c, header=None, footer=None, body_cls='space-y-6', header_cls=(), footer_cls=(), cls=(), **kwargs) -> fastcore.xml.FT
-[/code]
-
-> Creates a Card with a header, body, and footer
-
-**Params**
-
-  * `c` Components that go in the body (Main content of the card such as a form, and image, a signin form, etc.)
-
-  * `header` A component that goes in the header (often a `ModalTitle` and description)
-
-  * `footer` A component that goes in the footer (often a `ModalCloseButton`)
-
-  * `body_cls` classes for the body
-
-  * `header_cls` classes for the header
-
-  * `footer_cls` classes for the footer
-
-  * `cls` class for outermost component
-
-  * `kwargs` additional arguments for the `CardContainer`
-
-**Returns:** Card component
-
-### CardTitle
-
-Source
-
-[code]
-
-    CardTitle(*c, cls=(), **kwargs)
-[/code]
-
-> Creates a card title
-
-**Params**
-
-  * `c` Components (often a string)
-
-  * `cls` Additional classes on the div
-
-  * `kwargs` Additional args for the div
-
-* * *
-
-### CardT
-
-_Card styles from UIkit_
-
-Option | Value | Option | Value  
----|---|---|---  
-default | uk-card-default | primary | uk-card-primary  
-secondary | uk-card-secondary | danger | uk-card-danger  
-  
-The remainder of these are only needed if you're doing something really special. They are used in the `Card` function to generate the boilerplate for you.
-
-### CardContainer
-
-Source
-
-[code]
-
-    CardContainer(*c, cls=<CardT.default: 'uk-card-default'>, **kwargs) -> fastcore.xml.FT
-[/code]
-
-> Creates a card container
-
-**Params**
-
-  * `c` Components (typically `CardHeader`, `CardBody`, `CardFooter`)
-
-  * `cls` Additional classes on the div
-
-  * `kwargs` Additional args for the div
-
-**Returns:** Container for a card
-
-### CardHeader
-
-Source
-
-[code]
-
-    CardHeader(*c, cls=(), **kwargs) -> fastcore.xml.FT
-[/code]
-
-> Creates a card header
-
-**Params**
-
-  * `c` Components that goes in the header (often a `ModalTitle` and description)
-
-  * `cls` Additional classes on the div
-
-  * `kwargs` Additional args for the div
-
-**Returns:** Container for the header of a card
-
-### CardBody
-
-Source
-
-[code]
-
-    CardBody(*c, cls=(), **kwargs) -> fastcore.xml.FT
-[/code]
-
-> Creates a card body
-
-**Params**
-
-  * `c` Components that go in the body (Main content of the card such as a form, and image, a signin form, etc.)
-
-  * `cls` Additional classes on the div
-
-  * `kwargs` Additional args for the div
-
-**Returns:** Container for the body of a card
-
-### CardFooter
-
-Source
-
-[code]
-
-    CardFooter(*c, cls=(), **kwargs) -> fastcore.xml.FT
-[/code]
-
-> Creates a card footer
-
-**Params**
-
-  * `c` Components that go in the footer (often a `ModalCloseButton`)
-
-  * `cls` Additional classes on the div
-
-  * `kwargs` Additional args for the div
-
-**Returns:** Container for the footer of a card
-</doc><doc title="Containers"># Articles, Containers & Sections
-
-#
-
-# Articles, Containers & Sections
-
-### ArticleMeta
-
-Source
-
-[code]
-
-    ArticleMeta(*c, cls=(), **kwargs) -> fastcore.xml.FT
-[/code]
-
-> A metadata component for use within an Article showing things like date, author etc
-
-**Params**
-
-  * `c` contents of ArticleMeta tag (often other tags)
-
-  * `cls` Classes in addition to ArticleMeta styling
-
-  * `kwargs` Additional args for ArticleMeta tag
-
-**Returns:** P(..., cls='uk-article-meta')
-
-### ArticleTitle
-
-Source
-
-[code]
-
-    ArticleTitle(*c, cls=(), **kwargs) -> fastcore.xml.FT
-[/code]
-
-> A title component for use within an Article
-
-**Params**
-
-  * `c` contents of ArticleTitle tag (often other tags)
-
-  * `cls` Classes in addition to ArticleTitle styling
-
-  * `kwargs` Additional args for ArticleTitle tag
-
-**Returns:** H1(..., cls='uk-article-title')
-
-### Article
-
-Source
-
-[code]
-
-    Article(*c, cls=(), **kwargs) -> fastcore.xml.FT
-[/code]
-
-> A styled article container for blog posts or similar content
-
-**Params**
-
-  * `c` contents of Article tag (often other tags)
-
-  * `cls` Classes in addition to Article styling
-
-  * `kwargs` Additional args for Article tag
-
-**Returns:** Article(..., cls='uk-article')
-
-See Source
-
-See Output
-
-# Sample Article Title
-
-By: John Doe
-
-lorem ipsum dolor sit amet consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-
-[code]
-
-    def ex_articles():
-        return Article(
-            ArticleTitle("Sample Article Title"), 
-            ArticleMeta("By: John Doe"),
-            P('lorem ipsum dolor sit amet consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'))
+    return Grid(left,right,cols=2, gap=0,cls='h-screen')
+
+auth_homepage = page()</doc><doc title="Playground">"""FrankenUI Playground Example"""
+
+from fasthtml.common import *
+from monsterui.all import *
+from fasthtml.svg import *
+
+preset_options = ["Grammatical Standard English", "Summarize for a 2nd grader",
+        "Text to command","Q&A","English to other languages","Parse unstructured data",
+        "Classification","Natural language to Python","Explain code","Chat","More examples"]
+
+def playground_navbar():
+    save_modal = Modal(
+        ModalTitle("Save preset"),
+        P("This will save the current playground state as a preset which you can access later or share with others.",cls=("mt-1.5", TextFont.muted_sm)),
+        LabelInput("Name",        id="name"), 
+        LabelInput("Description", id="description"),
+        ModalCloseButton("Save", cls=ButtonT.primary),
+        id="save")
     
-[/code]
+    share_dd = Div(cls="space-y-6 p-4")(
+        H3("Share preset"),
+        P("Anyone who has this link and an OpenAI account will be able to view this.", cls=TextFont.muted_sm),
+        Div(Input(value="https://platform.openai.com/playground/p/7bbKYQvsVkNmVb8NGcdUOLae?model=text-davinci-003", readonly=True),
+            Button(UkIcon('copy'), cls=(ButtonT.primary, "uk-drop-close",'mt-4'))))
 
-### Container
-
-Source
-
-[code]
-
-    Container(*c, cls=('mt-5', <ContainerT.xlarge: 'uk-container-xlarge'>), **kwargs) -> fastcore.xml.FT
-[/code]
-
-> Div to be used as a container that often wraps large sections or a page of content
-
-**Params**
-
-  * `c` Contents of Container tag (often other FT Components)
-
-  * `cls` Classes in addition to Container styling
-
-  * `kwargs` Additional args for Container (`Div` tag)
-
-**Returns:** Container(..., cls='uk-container')
-
-* * *
-
-### ContainerT
-
-_Max width container sizes from https://franken-ui.dev/docs/container_
-
-Option | Value | Option | Value  
----|---|---|---  
-xsmall | uk-container-xsmall | small | uk-container-small  
-large | uk-container-large | xlarge | uk-container-xlarge  
-expand | uk-container-expand |  |   
-  
-See Source
-
-See Output
-
-This is a sample container with custom styling.
-
-[code]
-
-    def ex_containers():
-        return Container(
-            "This is a sample container with custom styling.",
-            cls=ContainerT.xsmall,
-            style="background-color: #FFA500; color: #000000")
+    rnav = Div(
+        UkSelect(*Options(*preset_options), name='preset', optgroup_label="Examples",
+                 placeholder='Load a preset', searchable=True, cls='h-9 w-[200px] lg:w-[300px]'),
+        Button("Save",         cls=ButtonT.secondary, uk_toggle="#save"),save_modal,
+        Button("View Code",    cls=ButtonT.secondary),
+        Button("Share",        cls=ButtonT.secondary),DropDownNavContainer(share_dd),
+        Button(UkIcon(icon="ellipsis"), cls=ButtonT.secondary),
+        DropDownNavContainer(
+            Li(A("Content filter preferences")),
+            NavDividerLi(),
+            Li(A("Delete preset", cls="text-destructive")),
+        uk_dropdown="mode: click"))
     
-[/code]
+    return NavBar(title=H4('Playground'),nav_links=rnav)
 
-### Section
+rsidebar = NavContainer(
+    UkSelect(
+        Optgroup(map(Option,("text-davinci-003", "text-curie-001", "text-babbage-001", "text-ada-001")),label='GPT-3'),
+        Optgroup(map(Option,("code-davinci-002", "code-cushman-001")),label='Codex'),
+        label="Model",
+        searchable=True),
+    LabelRange(label='Temperature'),
+    LabelRange(label='Maximum Length'),
+    LabelRange(label='Top P'),
+    cls='space-y-6 mt-8')
 
-Source
-
-[code]
-
-    Section(*c, cls=(), **kwargs) -> fastcore.xml.FT
-[/code]
-
-> Section with styling and margins
-
-**Params**
-
-  * `c` contents of Section tag (often other tags)
-
-  * `cls` Classes in addition to Section styling
-
-  * `kwargs` Additional args for Section tag
-
-**Returns:** Div(..., cls='uk-section')
-
-* * *
-
-### SectionT
-
-_Section styles from https://franken-ui.dev/docs/section_
-
-Option | Value | Option | Value | Option | Value  
----|---|---|---|---|---  
-default | uk-section-default | muted | uk-section-muted | primary | uk-section-primary  
-secondary | uk-section-secondary | xsmall | uk-section-xsmall | small | uk-section-small  
-large | uk-section-large | xlarge | uk-section-xlarge | remove_vertical | uk-section-remove-vertical
-</doc><doc title="Dividers"># Dividers
-
-#
-
-# Dividers
-
-### Divider
-
-Source
-
-[code]
-
-    Divider(*c, cls=('my-4', <DividerT.icon: 'uk-divider-icon'>), **kwargs) -> fastcore.xml.FT
-[/code]
-
-> Divider with default styling and margin
-
-**Params**
-
-  * `c` contents of Divider tag (often nothing)
-
-  * `cls` Classes in addition to Divider styling
-
-  * `kwargs` Additional args for Divider tag
-
-**Returns:** Hr(..., cls='uk-divider-icon') or Div(..., cls='uk-divider-vertical')
-
-* * *
-
-### DividerT
-
-_Divider Styles from https://franken-ui.dev/docs/divider_
-
-Option | Value | Option | Value  
----|---|---|---  
-icon | uk-divider-icon | small | uk-divider-small  
-vertical | uk-divider-vertical |  |   
-  
-See Source
-
-See Output
-
-Small Divider
-
-* * *
-
-Vertical Divider
-
-Icon Divider
-
-* * *
-[code]
-
-    def ex_dividers():
-        return Div(
-            P("Small Divider"),
-            Divider(cls=DividerT.small),
-            DivCentered(
-                P("Vertical Divider"),
-                Divider(cls=DividerT.vertical)),
-            DivCentered("Icon Divider"),
-            Divider(cls=DividerT.icon))
+def page():
+    navbar = playground_navbar()
+    main_content = Div(
+        Div(cls="flex-1")(
+            Textarea(cls="uk-textarea h-full p-4", placeholder="Write a tagline for an ice cream shop")),
+            cls="flex h-[700px] p-8 w-4/5")
     
-[/code]
-
-### DividerSplit
-
-Source
-
-[code]
-
-    DividerSplit(*c, cls=(), line_cls=(), text_cls=())
-[/code]
-
-> Creates a simple horizontal line divider with configurable thickness and vertical spacing
-
-**Params**
-
-  * `c`
-
-  * `cls`
-
-  * `line_cls`
-
-  * `text_cls`
-
-See Source
-
-See Output
-
-Or continue with
-
-[code]
-
-    def ex_dividersplit():
-        return DividerSplit(P("Or continue with", cls=TextFont.muted_sm))
+    bottom_buttons = Div(
+        Button("Submit", cls=ButtonT.primary),
+        Button(UkIcon(icon="history"), cls=ButtonT.secondary),
+        cls="flex gap-x-2")
     
-[/code]
+    return Div(navbar, Div(cls="flex w-full")(main_content, rsidebar), bottom_buttons)
 
-### DividerLine
+playground_homepage = page()</doc><doc title="Tasks">"""FrankenUI Tasks Example"""
 
-Source
+from fasthtml.common import *
+from monsterui.all import *
+from fasthtml.svg import *
+import json
 
-[code]
+def LAlignedCheckTxt(txt): return DivLAligned(UkIcon(icon='check'), P(txt, cls=TextFont.muted_sm))
 
-    DividerLine(lwidth=2, y_space=4)
-[/code]
+with open('data/status_list.json', 'r') as f: data     = json.load(f)
+with open('data/statuses.json',    'r') as f: statuses = json.load(f)
 
-> **Params**
-
-  * `lwidth`
-
-  * `y_space`
-
-See Source
-
-See Output
-
-* * *
-[code]
-
-    def ex_dividerline(): 
-        return DividerLine()
+def _create_tbl_data(d):
+    return {'Done': d['selected'], 'Task': d['id'], 'Title': d['title'], 
+            'Status'  : d['status'], 'Priority': d['priority'] }
     
-[/code]
-</doc><doc title="Forms"># Forms
-
-#
-
-# Forms
-
-### Example Form
-
-This form was live coded in a 5 minute video here
-
-See Source
-
-See Output
-
-### Emergency Contact Form
-
-Please fill out the form completely
-
-First Name
-
-Last Name
-
-Email
-
-Phone
-
-### Relationship to patient
-
-Parent
-
-Sibling
-
-Friend
-
-Spouse
-
-Significant Other
-
-Relative
-
-Child
-
-Other
-
-Address
-
-Address Line 2
-
-City
-
-State
-
-Zip
-
-Submit Form
-
-[code]
-
-    def ex_form():
-        relationship = ["Parent",'Sibling', "Friend", "Spouse", "Significant Other", "Relative", "Child", "Other"]
-        return Div(cls='space-y-4')(
-            DivCentered(
-                H3("Emergency Contact Form"),
-                P("Please fill out the form completely", cls=TextFont.muted_sm)),
-            Form(cls='space-y-4')(
-                Grid(LabelInput("First Name",id='fn'), LabelInput("Last Name",id='ln')),
-                Grid(LabelInput("Email",     id='em'), LabelInput("Phone",    id='ph')),
-                H3("Relationship to patient"),
-                Grid(*[LabelCheckboxX(o) for o in relationship], cols=4, cls='space-y-3'),
-                LabelInput("Address",        id='ad'),
-                LabelInput("Address Line 2", id='ad2'),
-                Grid(LabelInput("City",      id='ct'), LabelInput("State",    id='st')),
-                LabelInput("Zip",            id='zp'),
-                DivCentered(Button("Submit Form", cls=ButtonT.primary))))
-    
-[/code]
-
-### FormLabel
-
-Source
-
-[code]
-
-    FormLabel(*c, cls=(), **kwargs) -> fastcore.xml.FT
-[/code]
-
-> A Label with default styling
-
-**Params**
-
-  * `c` contents of FormLabel tag (often text)
-
-  * `cls` Classes in addition to FormLabel styling
-
-  * `kwargs` Additional args for FormLabel tag
-
-**Returns:** Label(..., cls='uk-form-label')
-
-See Source
-
-See Output
-
-Form Label
-
-[code]
-
-    def ex_formlabel(): 
-        return FormLabel("Form Label")
-    
-[/code]
-
-### Input
-
-Source
-
-[code]
-
-    Input(*c, cls=(), **kwargs) -> fastcore.xml.FT
-[/code]
-
-> An Input with default styling
-
-**Params**
-
-  * `c` contents of Input tag (often nothing)
-
-  * `cls` Classes in addition to Input styling
-
-  * `kwargs` Additional args for Input tag
-
-**Returns:** Input(..., cls='uk-input')
-
-See Source
-
-See Output
-
-Input
-
-[code]
-
-    def ex_input(): 
-        return Div(
-            Input(placeholder="Enter text"), 
-            LabelInput(label="Input", id='myid'))
-    
-[/code]
-
-### LabelInput
-
-Source
-
-[code]
-
-    LabelInput(label: str | fastcore.xml.FT, lbl_cls='', input_cls='', cls='space-y-2', id='', **kwargs) -> fastcore.xml.FT
-[/code]
-
-> A `FormLabel` and `Input` pair that provides default spacing and links/names them based on id
-
-**Params**
-
-  * `label` FormLabel content (often text)
-
-  * `lbl_cls` Additional classes for `FormLabel`
-
-  * `input_cls` Additional classes for `Input`
-
-  * `cls` Classes on container (default is `'space-y-2'` to prevent scrunched up form elements)
-
-  * `id` id for `FormLabel` and `Input` (`id`, `name` and `for` attributes are set to this value)
-
-  * `kwargs` Additional args for `Input`
-
-**Returns:** Div(cls='space-y-2')(`FormLabel`, `Input`)
-
-### LabelCheckboxX
-
-Source
-
-[code]
-
-    LabelCheckboxX(label: str | fastcore.xml.FT, lbl_cls='', input_cls='', container=functools.partial(<function ft at 0x7f5bb8b344a0>, 'div', void_=False), cls='flex items-center space-x-2', id='', **kwargs) -> fastcore.xml.FT
-[/code]
-
-> A FormLabel and CheckboxX pair that provides default spacing and links/names them based on id
-
-**Params**
-
-  * `label` FormLabel content (often text)
-
-  * `lbl_cls` Additional classes for `FormLabel`
-
-  * `input_cls` Additional classes for `CheckboxX`
-
-  * `container` Container to wrap label and input in (default is Div)
-
-  * `cls` Classes on container (default is 'flex items-center space-x-2')
-
-  * `id` id for `FormLabel` and `CheckboxX` (`id`, `name` and `for` attributes are set to this value)
-
-  * `kwargs` Additional args for `CheckboxX`
-
-**Returns:** Div(cls='flex items-center space-x-2')(`FormLabel`, `CheckboxX`)
-
-### LabelSwitch
-
-Source
-
-[code]
-
-    LabelSwitch(label: str | fastcore.xml.FT, lbl_cls='', input_cls='', cls='space-x-2', id='', *, container=functools.partial(<function ft at 0x7f5bb8b344a0>, 'div', void_=False)) -> fastcore.xml.FT
-[/code]
-
-> **Params**
-
-  * `label` FormLabel content (often text)
-
-  * `lbl_cls` Additional classes for `FormLabel`
-
-  * `input_cls` Additional classes for `Switch`
-
-  * `container` Container to wrap label and input in (default is Div)
-
-  * `cls` Classes on container (default is `'space-x-2'` to prevent scrunched up form elements)
-
-  * `id` id for `FormLabel` and `Switch` (`id`, `name` and `for` attributes are set to this value)
-
-**Returns:** Div(cls='space-y-2')(`FormLabel`, `Switch`)
-
-### LabelRange
-
-Source
-
-[code]
-
-    LabelRange(label: str | fastcore.xml.FT, lbl_cls='', input_cls='', cls='space-y-2', id='', **kwargs) -> fastcore.xml.FT
-[/code]
-
-> A `FormLabel` and `Range` pair that provides default spacing and links/names them based on id
-
-**Params**
-
-  * `label` FormLabel content (often text)
-
-  * `lbl_cls` Additional classes for `FormLabel`
-
-  * `input_cls` Additional classes for `Range`
-
-  * `cls` Classes on container (default is `'space-y-2'` to prevent scrunched up form elements)
-
-  * `id` id for `FormLabel` and `Range` (`id`, `name` and `for` attributes are set to this value)
-
-  * `kwargs` Additional args for `Range`
-
-**Returns:** Div(cls='space-y-2')(`FormLabel`, `Range`)
-
-### LabelTextArea
-
-Source
-
-[code]
-
-    LabelTextArea(label: str | fastcore.xml.FT, value='', lbl_cls='', input_cls='', cls='space-y-2', id='', **kwargs) -> fastcore.xml.FT
-[/code]
-
-> **Params**
-
-  * `label` FormLabel content (often text)
-
-  * `value` Value for the textarea
-
-  * `lbl_cls` Additional classes for `FormLabel`
-
-  * `input_cls` Additional classes for `TextArea`
-
-  * `cls` Classes on container (default is `'space-y-2'` to prevent scrunched up form elements)
-
-  * `id` id for `FormLabel` and `TextArea` (`id`, `name` and `for` attributes are set to this value)
-
-  * `kwargs` Additional args for `TextArea`
-
-**Returns:** Div(cls='space-y-2')(`FormLabel`, `TextArea`)
-
-### LabelRadio
-
-Source
-
-[code]
-
-    LabelRadio(label: str | fastcore.xml.FT, lbl_cls='', input_cls='', container=functools.partial(<function ft at 0x7f5bb8b344a0>, 'div', void_=False), cls='flex items-center space-x-2', id='', **kwargs) -> fastcore.xml.FT
-[/code]
-
-> A FormLabel and Radio pair that provides default spacing and links/names them based on id
-
-**Params**
-
-  * `label` FormLabel content (often text)
-
-  * `lbl_cls` Additional classes for `FormLabel`
-
-  * `input_cls` Additional classes for `Radio`
-
-  * `container` Container to wrap label and input in (default is Div)
-
-  * `cls` Classes on container (default is 'flex items-center space-x-2')
-
-  * `id` id for `FormLabel` and `Radio` (`id`, `name` and `for` attributes are set to this value)
-
-  * `kwargs` Additional args for `Radio`
-
-**Returns:** Div(cls='flex items-center space-x-2')(`FormLabel`, `Radio`)
-
-### LabelSelect
-
-Source
-
-[code]
-
-    LabelSelect(*option, label: str | fastcore.xml.FT, lbl_cls='', input_cls='', container=functools.partial(<function ft at 0x7f5bb8b344a0>, 'div', void_=False), cls='space-y-2', id='', **kwargs)
-[/code]
-
-> A FormLabel and Select pair that provides default spacing and links/names them based on id (usually UkLabelSelect is a better choice)
-
-**Params**
-
-  * `option` Options for the select dropdown (can use `Options` helper function to create)
-
-  * `label` FormLabel content (often text)
-
-  * `lbl_cls` Additional classes for `FormLabel`
-
-  * `input_cls` Additional classes for `Select`
-
-  * `container` Container to wrap label and input in (default is Div)
-
-  * `cls` Classes on container (default is 'space-y-2')
-
-  * `id` id for `FormLabel` and `Select` (`id`, `name` and `for` attributes are set to this value)
-
-  * `kwargs` Additional args for `Select`
-
-### LabelUkSelect
-
-Source
-
-[code]
-
-    LabelUkSelect(*option, label=(), lbl_cls=(), inp_cls=(), cls=('space-y-2',), id='', name='', placeholder='', searchable=False, **kwargs)
-[/code]
-
-> A FormLabel and Select pair that provides default spacing and links/names them based on id
-
-**Params**
-
-  * `option` Options for the select dropdown (can use `Options` helper function to create)
-
-  * `label` String or FT component for the label
-
-  * `lbl_cls` Additional classes for the label
-
-  * `inp_cls` Additional classes for the select input
-
-  * `cls` Classes for the outer div
-
-  * `id` ID for the select input
-
-  * `name` Name attribute for the select input
-
-  * `placeholder` Placeholder text for the select input
-
-  * `searchable` Whether the select should be searchable
-
-  * `kwargs` Additional arguments passed to Uk_select
-
-### Progress
-
-Source
-
-[code]
-
-    Progress(*c, cls=(), value='', max='100', **kwargs) -> fastcore.xml.FT
-[/code]
-
-> Creates a progress bar
-
-**Params**
-
-  * `c` Components to put in the progress bar (often nothing)
-
-  * `cls` Additional classes on the progress bar
-
-  * `value` Value of the progress bar
-
-  * `max` Max value of the progress bar (defaults to 100 for percentage)
-
-  * `kwargs` Additional args for `Progress` tag
-
-**Returns:** Progress(..., cls='uk-progress')
-
-See Source
-
-See Output
-
-[code]
-
-    def ex_progress(): 
-        return Progress(value=20, max=100)
-    
-[/code]
-
-### Radio
-
-Source
-
-[code]
-
-    Radio(*c, cls=(), **kwargs) -> fastcore.xml.FT
-[/code]
-
-> A Radio with default styling
-
-**Params**
-
-  * `c` contents of Radio tag (often nothing)
-
-  * `cls` Classes in addition to Radio styling
-
-  * `kwargs` Additional args for Radio tag
-
-**Returns:** Input(..., cls='uk-radio', type='radio')
-
-See Source
-
-See Output
-
-Radio
-
-[code]
-
-    def ex_radio(): 
-        return Div(
-            Radio(name="radio-group", id="radio1"), 
-            LabelRadio(label="Radio", id='radio1',cls='flex items-center space-x-4'))
-    
-[/code]
-
-### CheckboxX
-
-Source
-
-[code]
-
-    CheckboxX(*c, cls=(), **kwargs) -> fastcore.xml.FT
-[/code]
-
-> A Checkbox with default styling
-
-**Params**
-
-  * `c` contents of CheckboxX tag (often nothing)
-
-  * `cls` Classes in addition to CheckboxX styling
-
-  * `kwargs` Additional args for CheckboxX tag
-
-**Returns:** Input(..., cls='uk-checkbox', type='checkbox')
-
-See Source
-
-See Output
-
-Checkbox
-
-[code]
-
-    def ex_checkbox(): 
-        return Div(
-            CheckboxX(), 
-            LabelCheckboxX(label="Checkbox", id='checkbox1'))
-    
-[/code]
-
-### Range
-
-Source
-
-[code]
-
-    Range(*c, cls=(), **kwargs) -> fastcore.xml.FT
-[/code]
-
-> A Range with default styling
-
-**Params**
-
-  * `c` contents of Range tag (often nothing)
-
-  * `cls` Classes in addition to Range styling
-
-  * `kwargs` Additional args for Range tag
-
-**Returns:** Input(..., cls='uk-range', type='range')
-
-See Source
-
-See Output
-
-Range
-
-[code]
-
-    def ex_range(): 
-        return Div(
-            Range(), 
-            LabelRange(label="Range", id='range1'))
-    
-[/code]
-
-### Switch
-
-Source
-
-[code]
-
-    Switch(*c, cls=(), **kwargs) -> fastcore.xml.FT
-[/code]
-
-> A Switch with default styling
-
-**Params**
-
-  * `c` contents of Switch tag (often nothing)
-
-  * `cls` Classes in addition to Switch styling
-
-  * `kwargs` Additional args for Switch tag
-
-**Returns:** Input(..., cls='uk-toggle-switch uk-toggle-switch-primary min-w-9', type='checkbox')
-
-See Source
-
-See Output
-
-Switch
-
-[code]
-
-    def ex_switch(): 
-        return Div(
-            Switch(id="switch"), 
-            LabelSwitch(label="Switch", id='switch'))
-    
-[/code]
-
-### TextArea
-
-Source
-
-[code]
-
-    TextArea(*c, cls=(), **kwargs) -> fastcore.xml.FT
-[/code]
-
-> A Textarea with default styling
-
-**Params**
-
-  * `c` contents of TextArea tag (often text)
-
-  * `cls` Classes in addition to TextArea styling
-
-  * `kwargs` Additional args for TextArea tag
-
-**Returns:** TextArea(..., cls='uk-textarea')
-
-See Source
-
-See Output
-
-TextArea
-
-[code]
-
-    def ex_textarea(): 
-        return Div(
-            TextArea(placeholder="Enter multiple lines of text"), 
-            LabelTextArea(label="TextArea", id='myid'))
-    
-[/code]
-
-### Select
-
-Source
-
-[code]
-
-    Select(*option, cls=(), **kwargs) -> fastcore.xml.FT
-[/code]
-
-> A Select with default styling, though often `UkSelect` is a better choice
-
-**Params**
-
-  * `option` options for the select dropdown
-
-  * `cls` Classes in addition to Select styling
-
-  * `kwargs` Additional args for Select tag
-
-**Returns:** Select(..., cls='uk-select')
-
-See Source
-
-See Output
-
-Option 1Option 2Option 3
-
-SelectOption 1Option 2Option 3
-
-[code]
-
-    def ex_select(): 
-        return Div(
-            Select(map(Option, ["Option 1", "Option 2", "Option 3"])),
-            LabelSelect(map(Option, ["Option 1", "Option 2", "Option 3"]), label="Select", id='myid'))
-    
-[/code]
-
-### UkSelect
-
-Source
-
-[code]
-
-    UkSelect(*option, inp_cls=(), cls=('space-y-2',), id='', name='', placeholder='', searchable=False, **kwargs)
-[/code]
-
-> Creates a select dropdown with uk styling and option for adding a search box
-
-**Params**
-
-  * `option` Options for the select dropdown (can use `Options` helper function to create)
-
-  * `inp_cls` Additional classes for the select input
-
-  * `cls` Classes for the outer div
-
-  * `id` ID for the select input
-
-  * `name` Name attribute for the select input
-
-  * `placeholder` Placeholder text for the select input
-
-  * `searchable` Whether the select should be searchable
-
-  * `kwargs` Additional arguments passed to Uk_select
-
-See Source
-
-See Output
-
-Option 1Option 2Option 3
-
-UkSelectOption 1Option 2Option 3
-
-[code]
-
-    def ex_ukselect(): 
-        return Div(
-            UkSelect(map(Option, ["Option 1", "Option 2", "Option 3"])),
-            LabelUkSelect(map(Option, ["Option 1", "Option 2", "Option 3"]), label="UkSelect", id='myid'))
-    
-[/code]
-
-### Legend
-
-Source
-
-[code]
-
-    Legend(*c, cls=(), **kwargs) -> fastcore.xml.FT
-[/code]
-
-> A Legend with default styling
-
-**Params**
-
-  * `c` contents of Legend tag (often other tags)
-
-  * `cls` Classes in addition to Legend styling
-
-  * `kwargs` Additional args for Legend tag
-
-**Returns:** Legend(..., cls='uk-legend')
-
-### Fieldset
-
-Source
-
-[code]
-
-    Fieldset(*c, cls=(), **kwargs) -> fastcore.xml.FT
-[/code]
-
-> A Fieldset with default styling
-
-**Params**
-
-  * `c` contents of Fieldset tag (often other tags)
-
-  * `cls` Classes in addition to Fieldset styling
-
-  * `kwargs` Additional args for Fieldset tag
-
-**Returns:** Fieldset(..., cls='uk-fieldset')
-</doc><doc title="Icons"># Icons
-
-#
-
-# Icons
-
-# Avatars
-
-See Source
-
-See Output
-
-[code]
-
-    def ex_dicebear():
-        return DivLAligned(
-            DiceBearAvatar('Isaac Flath',10,10),
-            DiceBearAvatar('Aaliyah',10,10),
-            DiceBearAvatar('Alyssa',10,10))
-    
-[/code]
-
-### DiceBearAvatar
-
-Source
-
-[code]
-
-    DiceBearAvatar(seed_name: str, h: int = 20, w: int = 20)
-[/code]
-
-> Creates an Avatar using https://dicebear.com/
-
-**Params**
-
-  * `seed_name` Seed name (ie 'Isaac Flath')
-
-  * `h` Height
-
-  * `w` Width
-
-# Icons
-
-Icons use Lucide icons - you can find a full list of icons in their docs.
-
-See Source
-
-See Output
-
-[code]
-
-    def ex_icon():
-        return Grid(
-            UkIcon('chevrons-right', height=15, width=15),
-            UkIcon('bug',            height=15, width=15),
-            UkIcon('phone-call',     height=15, width=15),
-            UkIcon('maximize-2',     height=15, width=15),
-            UkIcon('thumbs-up',      height=15, width=15),)        
-    
-[/code]
-
-### UkIcon
-
-Source
-
-[code]
-
-    UkIcon(icon: str, height: int = None, width: int = None, stroke_width: int = None, cls=(), **kwargs) -> fastcore.xml.FT
-[/code]
-
-> Creates an icon using lucide icons
-
-**Params**
-
-  * `icon` Icon name from lucide icons
-
-  * `height`
-
-  * `width`
-
-  * `stroke_width` Thickness of lines
-
-  * `cls` Additional classes on the `Uk_icon` tag
-
-  * `kwargs` Additional args for `Uk_icon` tag
-
-**Returns:** a lucide icon of the specified size
-
-See Source
-
-See Output
-
-[code]
-
-    def ex_iconlink():
-        return DivLAligned(
-            UkIconLink('chevrons-right'),
-            UkIconLink('chevrons-right', button=True, cls=ButtonT.primary))
-    
-[/code]
-
-### UkIconLink
-
-Source
-
-[code]
-
-    UkIconLink(icon: str, height: int = None, width: int = None, stroke_width: int = None, cls=(), button: bool = False, **kwargs) -> fastcore.xml.FT
-[/code]
-
-> Creates an icon link using lucide icons
-
-**Params**
-
-  * `icon` Icon name from lucide icons
-
-  * `height`
-
-  * `width`
-
-  * `stroke_width` Thickness of lines
-
-  * `cls` Additional classes on the icon
-
-  * `button` Whether to use a button (defaults to a link)
-
-  * `kwargs` Additional args for `A` or `Button` tag
-
-**Returns:** a lucide icon button or link of the specified size
-</doc><doc title="Layout"># Layout
-
-#
-
-# Layout
-
-This page covers `Grid`s, which are often used for general structure, `Flex` which is often used for layout of components that are not grid based, padding and positioning that can help you make your layout look good, and dividers that can help break up the page
-
-## Grid
-
-See Source
-
-See Output
-
-Column 1 Item 1
-
-Column 1 Item 2
-
-Column 1 Item 3
-
-Column 2 Item 1
-
-Column 2 Item 2
-
-Column 2 Item 3
-
-Column 3 Item 1
-
-Column 3 Item 2
-
-Column 3 Item 3
-
-[code]
-
-    def ex_grid():
-        return Grid(
-            Div(
-                P("Column 1 Item 1"), 
-                P("Column 1 Item 2"), 
-                P("Column 1 Item 3")),
-            Div(
-                P("Column 2 Item 1"), 
-                P("Column 2 Item 2"), 
-                P("Column 2 Item 3")),
-            Div(
-                P("Column 3 Item 1"), 
-                P("Column 3 Item 2"), 
-                P("Column 3 Item 3")))
-    
-[/code]
-
-### Grid
-
-Source
-
-[code]
-
-    Grid(*div, cols_min: int = 1, cols_max: int = 4, cols_sm: int = None, cols_md: int = None, cols_lg: int = None, cols_xl: int = None, cols: int = None, cls='gap-4', **kwargs) -> fastcore.xml.FT
-[/code]
-
-> Creates a responsive grid layout with smart defaults based on content
-
-**Params**
-
-  * `div` `Div` components to put in the grid
-
-  * `cols_min` Minimum number of columns at any screen size
-
-  * `cols_max` Maximum number of columns allowed at any screen size
-
-  * `cols_sm` Number of columns on small screens
-
-  * `cols_md` Number of columns on medium screens
-
-  * `cols_lg` Number of columns on large screens
-
-  * `cols_xl` Number of columns on extra large screens
-
-  * `cols` Number of columns on all screens
-
-  * `cls` Additional classes on the grid (tip: `gap` provides spacing for grids)
-
-  * `kwargs` Additional args for `Div` tag
-
-**Returns:** Responsive grid component
-
-#### Practical Grid Example
-
-See Source
-
-See Output
-
-#### Laptop
-
-$999
-
-Add to Cart
-
-#### Smartphone
-
-$599
-
-Add to Cart
-
-#### Headphones
-
-$199
-
-Add to Cart
-
-#### Smartwatch
-
-$299
-
-Add to Cart
-
-#### Tablet
-
-$449
-
-Add to Cart
-
-#### Camera
-
-$799
-
-Add to Cart
-
-[code]
-
-    def ex_product_grid():
-        products = [
-            {"name": "Laptop", "price": "$999", "img": "https://picsum.photos/200/100?random=1"},
-            {"name": "Smartphone", "price": "$599", "img": "https://picsum.photos/200/100?random=2"},
-            {"name": "Headphones", "price": "$199", "img": "https://picsum.photos/200/100?random=3"},
-            {"name": "Smartwatch", "price": "$299", "img": "https://picsum.photos/200/100?random=4"},
-            {"name": "Tablet", "price": "$449", "img": "https://picsum.photos/200/100?random=5"},
-            {"name": "Camera", "price": "$799", "img": "https://picsum.photos/200/100?random=6"},
-        ]
+data = [_create_tbl_data(d)  for d in data]
+page_size = 15
+current_page = 0
+paginated_data = data[current_page*page_size:(current_page+1)*page_size]
+
+priority_dd = [{'priority': "low", 'count': 36 }, {'priority': "medium", 'count': 33 }, {'priority': "high", 'count': 31 }]
+
+status_dd = [{'status': "backlog", 'count': 21 },{'status': "todo", 'count': 21 },{'status': "progress", 'count': 20 },{'status': "done",'count': 19 },{'status': "cancelled", 'count': 19 }]
+
+def create_hotkey_li(hotkey): return NavCloseLi(A(DivFullySpaced(hotkey[0], Span(hotkey[1], cls=TextFont.muted_sm))))
+
+hotkeys_a = (('Profile','⇧⌘P'),('Billing','⌘B'),('Settings','⌘S'),('New Team',''))
+hotkeys_b = (('Logout',''), )
+
+avatar_opts = DropDownNavContainer(
+    NavHeaderLi(P('sveltecult'),NavSubtitle('leader@sveltecult.com')),
+    NavDividerLi(),
+    *map(create_hotkey_li, hotkeys_a),
+    NavDividerLi(),
+    *map(create_hotkey_li, hotkeys_b),)
+
+def CreateTaskModal():
+    return Modal(
+        Div(cls='p-6')(
+            ModalTitle('Create Task'),
+            P('Fill out the information below to create a new task', cls=TextFont.muted_sm),
+            Br(),
+            Form(cls='space-y-6')(
+                Grid(Div(Select(*map(Option,('Documentation', 'Bug', 'Feature')), label='Task Type', id='task_type')),
+                     Div(Select(*map(Option,('In Progress', 'Backlog', 'Todo', 'Cancelled', 'Done')), label='Status', id='task_status')),
+                     Div(Select(*map(Option, ('Low', 'Medium', 'High')), label='Priority', id='task_priority'))),
+                TextArea(label='Title', placeholder='Please describe the task that needs to be completed'),
+                DivRAligned(
+                    ModalCloseButton('Cancel', cls=ButtonT.ghost),
+                    ModalCloseButton('Submit', cls=ButtonT.primary),
+                    cls='space-x-5'))),
+        id='TaskForm')
+
+page_heading = DivFullySpaced(cls='space-y-2')(
+            Div(cls='space-y-2')(
+                H2('Welcome back!'),P("Here's a list of your tasks for this month!", cls=TextFont.muted_sm)),
+            Div(DiceBearAvatar("sveltcult",8,8),avatar_opts))
+
+table_controls =(Input(cls='w-[250px]',placeholder='Filter task'),
+     Button("Status"),
+     DropDownNavContainer(map(NavCloseLi,[A(DivFullySpaced(P(a['status']), P(a['count'])),cls=TextT.capitalize) for a in status_dd])), 
+     Button("Priority"),
+     DropDownNavContainer(map(NavCloseLi,[A(DivFullySpaced(LAlignedCheckTxt(a['priority']), a['count']),cls=TextT.capitalize) for a in priority_dd])),
+     Button("View"),
+     DropDownNavContainer(map(NavCloseLi,[A(LAlignedCheckTxt(o)) for o in ['Title','Status','Priority']])),
+     Button('Create Task',cls=(ButtonT.primary, TextFont.bold_sm), uk_toggle="target: #TaskForm"))
+
+def task_dropdown():
+    return Div(Button(UkIcon('ellipsis')),
+               DropDownNavContainer(
+                   map(NavCloseLi,[
+                       *map(A,('Edit', 'Make a copy', 'Favorite')),
+                        A(DivFullySpaced(*[P(o, cls=TextFont.muted_sm) for o in ('Delete', '⌘⌫')]))])))
+
+def header_render(col):
+    match col:
+        case "Done":    return Th(CheckboxX(), shrink=True)
+        case 'Actions': return Th("",          shrink=True)
+        case _:         return Th(col,         )
+
+def cell_render(col, val):
+    def _Td(*args,cls='', **kwargs): return Td(*args, cls=f'p-2 {cls}',**kwargs)
+    match col:
+        case "Done": return _Td(shrink=True)(CheckboxX(selected=val))
+        case "Task":  return _Td(val)
+        case "Title": return _Td(cls='max-w-[500px] truncate', expand=True)(val, cls='font-medium')
+        case "Status" | "Priority": return _Td(cls='uk-text-nowrap uk-text-capitalize')(Span(val))
+        case "Actions": return _Td(task_dropdown(), shrink=True)
+        case _: raise ValueError(f"Unknown column: {col}")
+
+task_columns = ["Done", 'Task', 'Title', 'Status', 'Priority', 'Actions']
+
+tasks_table = Div(cls='uk-overflow-auto mt-4 rounded-md border border-border')(
+    TableFromDicts(
+        header_data=task_columns,
+        body_data=paginated_data,
+        body_cell_render=cell_render,
+        header_cell_render=header_render,
+        sortable=True))
+
+
+def footer():
+    total_pages = (len(data) + page_size - 1) // page_size
+    return DivFullySpaced(
+        Div('1 of 100 row(s) selected.', cls=TextFont.muted_sm),
+        DivLAligned(
+            DivCentered(f'Page {current_page + 1} of {total_pages}', cls=TextT.small),
+            DivLAligned(
+                UkIconLink(icon='chevrons-left',  button=True),
+                UkIconLink(icon='chevron-left',   button=True),
+                UkIconLink(icon='chevron-right',  button=True),
+                UkIconLink(icon='chevrons-right', button=True))))
+
+tasks_ui = Div(DivFullySpaced(DivLAligned(table_controls), cls='mt-8'), tasks_table, footer())
+
+tasks_homepage = Container(page_heading, tasks_ui, CreateTaskModal())</doc><doc title="Cards">"""FrankenUI Cards Example built with MonsterUI (original design by ShadCN)"""
+
+from fasthtml.common import *
+from fasthtml.components import Uk_input_tag
+from fasthtml.svg import *
+from monsterui.all import *
+import calendar
+from datetime import datetime
+
+CreateAccount = Card(
+    Grid(Button(DivLAligned(UkIcon('github'),Div('Github'))),Button('Google')),
+            DividerSplit("OR CONTINUE WITH", text_cls=TextFont.muted_sm),
+            LabelInput('Email',    id='email',   placeholder='m@example.com'),
+            LabelInput('Password', id='password',placeholder='Password', type='Password'),
+            header=(H3('Create an Account'),P(cls=TextFont.muted_sm)('Enter your email below to create your account')),
+            footer=Button(cls=(ButtonT.primary,'w-full'))('Create Account'))
+
+Card1Svg = Svg(viewBox="0 0 24 24", fill="none", stroke="currentColor", stroke_linecap="round", stroke_linejoin="round", stroke_width="2", cls="h-6 w-6 mr-1")(Rect(width="20", height="14", x="2", y="5", rx="2"),Path(d="M2 10h20"))
+PaypalSvg = Svg(role="img", viewBox="0 0 24 24", cls="h-6 w-6 mr-1")(Path(d="M7.076 21.337H2.47a.641.641 0 0 1-.633-.74L4.944.901C5.026.382 5.474 0 5.998 0h7.46c2.57 0 4.578.543 5.69 1.81 1.01 1.15 1.304 2.42 1.012 4.287-.023.143-.047.288-.077.437-.983 5.05-4.349 6.797-8.647 6.797h-2.19c-.524 0-.968.382-1.05.9l-1.12 7.106zm14.146-14.42a3.35 3.35 0 0 0-.607-.541c-.013.076-.026.175-.041.254-.93 4.778-4.005 7.201-9.138 7.201h-2.19a.563.563 0 0 0-.556.479l-1.187 7.527h-.506l-.24 1.516a.56.56 0 0 0 .554.647h3.882c.46 0 .85-.334.922-.788.06-.26.76-4.852.816-5.09a.932.932 0 0 1 .923-.788h.58c3.76 0 6.705-1.528 7.565-5.946.36-1.847.174-3.388-.777-4.471z", fill="currentColor")),
+AppleSvg = Svg(role="img", viewBox="0 0 24 24", cls="h-6 w-6 mr-1")(Path(d="M12.152 6.896c-.948 0-2.415-1.078-3.96-1.04-2.04.027-3.91 1.183-4.961 3.014-2.117 3.675-.546 9.103 1.519 12.09 1.013 1.454 2.208 3.09 3.792 3.039 1.52-.065 2.09-.987 3.935-.987 1.831 0 2.35.987 3.96.948 1.637-.026 2.676-1.48 3.676-2.948 1.156-1.688 1.636-3.325 1.662-3.415-.039-.013-3.182-1.221-3.22-4.857-.026-3.04 2.48-4.494 2.597-4.559-1.429-2.09-3.623-2.324-4.39-2.376-2-.156-3.675 1.09-4.61 1.09zM15.53 3.83c.843-1.012 1.4-2.427 1.245-3.83-1.207.052-2.662.805-3.532 1.818-.78.896-1.454 2.338-1.273 3.714 1.338.104 2.715-.688 3.559-1.701", fill="currentColor"))
+
+PaymentMethod = Card(
+    Grid(Button(DivCentered(Card1Svg,  "Card"),   cls='h-20 border-2 border-primary'),
+         Button(DivCentered(PaypalSvg, "PayPal"), cls='h-20'),
+         Button(DivCentered(AppleSvg,  "Apple"),  cls='h-20')),
+    Form(LabelInput('Name',        id='name',        placeholder='John Doe'),
+         LabelInput('Card Number', id='card_number', placeholder='m@example.com'),
+         Grid(LabelUkSelect(*Options(*calendar.month_name[1:],selected_idx=0),label='Expires',id='expire_month'),
+              LabelUkSelect(*Options(*range(2024,2030),selected_idx=0),       label='Year',   id='expire_year'),
+              LabelInput('CVV', id='cvv',placeholder='CVV', cls='mt-0'))),
+        header=(H3('Payment Method'),P(cls=TextFont.muted_sm)('Add a new payment method to your account.')))
+
+area_opts = ('Team','Billing','Account','Deployment','Support')
+severity_opts = ('Severity 1 (Highest)', 'Severity 2', 'Severity 3', 'Severity 4 (Lowest)')
+ReportIssue = Card(
+    Grid(Div(LabelUkSelect(*Options(*area_opts),    label='Area',    id='area')),
+         Div(LabelUkSelect(*Options(*severity_opts),label='Severity',id='area'))),
+    LabelInput(    label='Subject',     id='subject',    placeholder='I need help with'),
+    LabelTextArea( label='Description', id='description',placeholder='Please include all information relevant to your issue'),
+    Div(FormLabel('Tags', fr='#tags'),
+        Uk_input_tag(name="Tags",state="danger", value="Spam,Invalid", uk_cloak=True, id='tags')),
+    header=(H3('Report Issue'),P(cls=TextFont.muted_sm)('What area are you having problems with?')),
+    footer = DivFullySpaced(Button('Cancel'), Button(cls=ButtonT.primary)('Submit')))
+
+monster_desc ="Python-first beautifully designed components because you deserve to focus on features that matter and your app deserves to be beautiful from day one."
+MonsterUI = Card(H4("Monster UI"),
+              P(monster_desc, cls=TextFont.muted_sm),
+              DivLAligned(
+                    Div("Python"),
+                    DivLAligned(UkIcon('star'),Div("20k"), cls='space-x-1'),
+                    Div(datetime.now().strftime("%B %d, %Y")),
+                    cls=('space-x-4',TextFont.muted_sm)))
+
+def CookieTableRow(heading, description, active=False):
+    return Tr(Td(H5(heading)),
+              Td(P(description, cls=TextFont.muted_sm)),
+              Td(Switch(checked=active)))
+
+CookieSettings = Card(
+    Table(Tbody(
+        CookieTableRow('Strictly Necessary', 'These cookies are essential in order to use the website and use its features.', True),
+        CookieTableRow('Functional Cookies', 'These cookies allow the website to provide personalized functionality.'),
+        CookieTableRow('Performance Cookies', 'These cookies help to improve the performance of the website.'))),
+    header=(H4('Cookie Settings'),P(cls=(TextFont.muted_sm, 'mt-1.5'))('Manage your cookie settings here.')),
+    footer=Button('Save Preferences', cls=(ButtonT.primary, 'w-full')))
+
+team_members = [("Sofia Davis", "m@example.com", "Owner"),("Jackson Lee", "p@example.com", "Member"),]
+def TeamMemberRow(name, email, role):
+    return DivFullySpaced(
+        DivLAligned(
+            DiceBearAvatar(name, 10,10),
+            Div(P(name, cls=TextFont.md_weight_sm),
+                P(email, cls=TextFont.muted_sm))),
+        Button(role, UkIcon('chevron-down', cls='ml-4')),
+        DropDownNavContainer(map(NavCloseLi, [
+            A(Div('Viewer',    NavSubtitle('Can view and comment.'))),
+            A(Div('Developer', NavSubtitle('Can view, comment and edit.'))),
+            A(Div('Billing',   NavSubtitle('Can view, comment and manage billing.'))),
+            A(Div('Owner',     NavSubtitle('Admin-level access to all resources.')))])))
+
+TeamMembers = Card(*[TeamMemberRow(*member) for member in team_members],
+        header = (H4('Team Members'),Div('Invite your team members to collaborate.', cls=('mt-1.5', TextFont.muted_sm))),)
+
+access_roles = ("Read and write access", "Read-only access")
+team_members = [("Olivia Martin", "m@example.com", "Read and write access"),
+                ("Isabella Nguyen", "b@example.com", "Read-only access"),
+                ("Sofia Davis", "p@example.com", "Read-only access")]
+
+def TeamMemberRow(name, email, role):
+    return DivFullySpaced(
+        DivLAligned(DiceBearAvatar(name, 10,10),
+                    Div(P(name, cls=TextFont.md_weight_sm),
+                        P(email, cls=TextFont.muted_sm))),
+        UkSelect(*Options(*access_roles, selected_idx=access_roles.index(role))))
+
+ShareDocument = Card(
+    DivLAligned(Input(value='http://example.com/link/to/document'),Button('Copy link', cls='whitespace-nowrap')),
+    Divider(),
+    H4('People with access', cls=TextFont.bold_sm),
+    *[TeamMemberRow(*member) for member in team_members],
+    header = (H4('Share this document'),Div('Anyone with the link can view this document.', cls=('mt-1.5',TextFont.muted_sm))))
+
+DateCard = Card(Button('Jan 20, 2024 - Feb 09, 2024'))
+
+section_content =(('bell','Everything',"Email digest, mentions & all activity."), 
+                  ('user',"Available","Only mentions and comments"),
+                  ('ban', "Ignoring","Turn of all notifications"))
+
+def NotificationRow(icon, name, desc):
+    return Li(cls='-mx-1')(A(DivLAligned(UkIcon(icon),Div(P(name),P(desc, cls=TextFont.muted_sm)))))
+
+Notifications = Card(
+    NavContainer(
+        *[NotificationRow(*row) for row in section_content],
+        cls=NavT.secondary),
+    header = (H4('Notification'),Div('Choose what you want to be notified about.', cls=('mt-1.5', TextFont.muted_sm))),
+    body_cls='pt-0')
+
+def page():
+    return Title("Custom"),Grid(
+            *map(DivVStacked,(
+                      (PaymentMethod,CreateAccount),
+                      (TeamMembers, ShareDocument,DateCard,Notifications),
+                      (ReportIssue,MonsterUI,CookieSettings))),
+         cols_md=1, cols_lg=2, cols_xl=3)
+
+cards_homepage = page()</doc><doc title="Music">"""FrankenUI Music Example build with MonsterUI (Original design by ShadCN)"""
+
+from fasthtml.common import *
+from monsterui.all import *
+ 
+def MusicLi(t,hk=''): return Li(A(DivFullySpaced(t,P(hk,cls=TextFont.muted_sm))))
+
+music_items = [("About Music", ""   ),
+               ("Preferences", "⌘"  ),
+               ("Hide Music" , "⌘H" ),
+               ("Hide Others", "⇧⌘H"),
+               ("Quit Music" , "⌘Q" )]
+
+file_dd_items = [("New",                   ""),
+                 ("Open Stream URL",       "⌘U"),
+                 ("Close Window",          "⌘W"),
+                 ("Library",               ""),
+                 ("Import",                "⌘O"),
+                 ("Burn Playlist to Disc", ""),
+                 ("Show in Finder",        "⇧⌘R"),
+                 ("Convert",               ""),
+                 ("Page Setup",            "Print")]
+
+edit_actions = [("Undo",         "⌘Z"),
+                ("Redo",         "⇧⌘Z"),
+                ("Cut",          "⌘X"),
+                ("Copy",         "⌘C"),
+                ("Paste",        "⌘V"),
+                ("Select All",   "⌘A"),
+                ("Deselect All", "⇧⌘A")]
+
+view_dd_data = ["Show Playing Next", "Show Lyrics", "Show Status Bar", "Hide Sidebar", "Enter Full Screen"]
+
+music_headers = NavBarContainer(
+            NavBarLSide(
+                NavBarNav(
+                Li(A("Music"),NavBarNavContainer(map(lambda x: MusicLi(*x), music_items))),
+                Li(A("File"), NavBarNavContainer(map(lambda x: MusicLi(*x), file_dd_items))),
+                Li(A("Edit")),
+                    NavBarNavContainer(
+                        *map(lambda x: MusicLi(*x), edit_actions),
+                        Li(A(DivFullySpaced("Smart Dictation",UkIcon("mic")))),
+                        Li(A(DivFullySpaced("Emojis & Symbols",UkIcon("globe"))))),
+                Li(A("View"),
+                NavBarNavContainer(map(lambda x: MusicLi(x), view_dd_data))),
+                Li(A("Account"),
+                    NavBarNavContainer(
+                        NavHeaderLi("Switch Account"),
+                        *map(MusicLi, ("Andy", "Benoit", "Luis", "Manage Family", "Add Account")))))))
+
+
+def Album(title,artist):
+    img_url = 'https://ucarecdn.com/e5607eaf-2b2a-43b9-ada9-330824b6afd7/music1.webp'
+    return Div(
+        Div(cls="overflow-hidden rounded-md")(Img(cls="transition-transform duration-200 hover:scale-105", src=img_url)),
+        Div(cls='space-y-1')(P(title,cls=TextT.bold),P(artist,cls=TextT.muted)))
         
-        product_cards = [
-            Card(
-                Img(src=p["img"], alt=p["name"], style="width:100%; height:100px; object-fit:cover;"),
-                H4(p["name"], cls="mt-2"),
-                P(p["price"], cls=TextFont.bold_sm),
-                Button("Add to Cart", cls=(ButtonT.primary, "mt-2"))
-            ) for p in products
-        ]
-        
-        return Grid(*product_cards, cols_lg=3)
+listen_now_albums = (("Roar", "Catty Perry"), ("Feline on a Prayer", "Cat Jovi"),("Fur Elise", "Ludwig van Beethovpurr"),("Purrple Rain", "Prince's Cat"))
+
+made_for_you_albums = [("Like a Feline",         "Catdonna"),
+                       ("Livin' La Vida Purrda", "Ricky Catin"),
+                       ("Meow Meow Rocket",      "Elton Cat"),
+                       ("Rolling in the Purr",   "Catdelle"),
+                       ("Purrs of Silence",      "Cat Garfunkel"),
+                       ("Meow Me Maybe",         "Carly Rae Purrsen"),]
+
+music_content = (Div(H3("Listen Now"), cls="mt-6 space-y-1"),
+                    P("Top picks for you. Updated daily.",cls=TextFont.muted_sm),
+                    DividerLine(),
+                    Grid(*[Album(t,a) for t,a in listen_now_albums], cls='gap-8'),
+                    Div(H3("Made for You"), cls="mt-6 space-y-1"),
+                    P("Your personal playlists. Updated daily.", cls=TextFont.muted_sm),
+                    DividerLine(),
+                    Grid(*[Album(t,a) for t,a in made_for_you_albums], cols_xl=6))
+
+tabs = TabContainer(
+    Li(A('Music',    href='#'),    cls='uk-active'),
+    Li(A('Podcasts', href='#')),
+    Li(A('Live', cls='opacity-50'), cls='uk-disabled'),
+    uk_switcher='connect: #component-nav; animation: uk-animation-fade',
+    alt=True)
+
+def podcast_tab():
+    return Div(
+        Div(cls='space-y-3 mt-6')(
+            H3("New Episodes"),
+            P("Your favorite podcasts. Updated daily.", cls=TextFont.muted_sm)),
+        Div(cls="uk-placeholder flex h-[450px] items-center justify-center rounded-md",uk_placeholder=True)(
+            DivVStacked(cls="space-y-6")(
+                UkIcon("microphone", 3),
+                H4("No episodes added"),
+                P("You have not added any podcasts. Add one below.", cls=TextFont.muted_sm),
+                Button("Add Podcast", cls=ButtonT.primary))))
+
+discoved_data =  [("play-circle","Listen Now"), ("binoculars", "Browse"), ("rss","Radio")]
+library_data =   [("play-circle", "Playlists"), ("music", "Songs"), ("user", "Made for You"), ("users", "Artists"), ("bookmark", "Albums")]
+playlists_data = [("library","Recently Added"), ("library","Recently Played")]
+
+def MusicSidebarLi(icon, text): return Li(A(DivLAligned(UkIcon(icon), P(text))))
+sidebar = NavContainer(
+    NavHeaderLi(H3("Discover")), *[MusicSidebarLi(*o) for o in discoved_data],
+    NavHeaderLi(H3("Library")),  *[MusicSidebarLi(*o) for o in library_data],
+    NavHeaderLi(H3("Playlists")),*[MusicSidebarLi(*o) for o in playlists_data],
+    cls=(NavT.primary,'space-y-3','pl-8'))
+
+def page():
+    return Div(Container(music_headers,cls='py-8'), DividerSplit(),
+        Grid(sidebar,
+            Div(cls="col-span-4 border-l border-border")(
+                Div(cls="px-8 py-6")(
+                    DivFullySpaced(
+                        Div(cls="max-w-80")(tabs),
+                        Button(cls=ButtonT.primary)(DivLAligned(UkIcon('circle-plus')),Div("Add music"))),
+                    Ul(id="component-nav", cls="uk-switcher")(
+                        Li(*music_content),
+                        Li(podcast_tab())))),
+            cols=5))
+
+music_homepage = page()</doc><doc title="Forms">"""FrankenUI Forms Example"""
+
+from fasthtml.common import *
+from monsterui.all import *
+from fasthtml.svg import *
+
+def HelpText(c):
+    return P(c,cls=TextFont.muted_sm)
+
+def heading():
+    return Div(cls="space-y-5")(
+            H2("Settings"),
+            P("Manage your account settings and set e-mail preferences.", cls=TextFont.muted_lg),
+            DividerSplit())
+
+sidebar_items = ["Profile", "Account", "Appearance", "Notifications", "Display"]
+
+sidebar = NavContainer(*map(lambda x: Li(A(x)),sidebar_items),
+                uk_switcher="connect: #component-nav; animation: uk-animation-fade",
+                cls=(NavT.secondary,"space-y-4 p-4 w-1/5"))
+
+
+def FormSectionDiv(*c, cls='space-y-2', **kwargs): return Div(*c, cls=cls, **kwargs)
+def profile_form():
+    content = (FormSectionDiv(
+            LabelInput("Username", placeholder='sveltecult', id='username'),
+            HelpText("This is your public display name. It can be your real name or a pseudonym. You can only change this once every 30 days.")),
+        FormSectionDiv(
+            LabelUkSelect(Option("Select a verified email to display", value="", selected=True, disabled=True),
+                     *map(Option,('m@example.com', 'm@yahoo.com', 'm@cloud.com')),  
+                     label="Email", id="email"),
+            HelpText("You can manage verified email addresses in your email settings.")),
+        FormSectionDiv(
+            LabelTextArea("Bio", id="bio", placeholder="Tell us a little bit about yourself"),
+            HelpText("You can @mention other users and organizations to link to them."),
+            Div("String must contain at least 4 character(s)", cls="text-destructive")),
+        FormSectionDiv(
+            FormLabel("URLs"),
+            HelpText("Add links to your website, blog, or social media profiles."),
+            Input(value="https://www.franken-ui.dev"),
+            Input(value="https://github.com/sveltecult/franken-ui"),
+            Button("Add URL")))
     
-[/code]
+    return UkFormSection('Profile', 'This is how others will see you on the site.', button_txt='Update profile', *content)
 
-## Flex
+def account_form():
+    content = (
+        FormSectionDiv(
+            LabelInput("Name", placeholder="Your name", id="name"),
+            HelpText("This is the name that will be displayed on your profile and in emails.")),
+        FormSectionDiv(
+            LabelInput("Date of Birth", type="date", placeholder="Pick a date", id="date_of_birth"),
+            HelpText("Your date of birth is used to calculate your age.")),
+        FormSectionDiv(
+            LabelUkSelect(*Options("Select a language", "English", "French", "German", "Spanish", "Portuguese", selected_idx=1, disabled_idxs={0}),
+                          label='Language', id="language"),
+            HelpText("This is the language that will be used in the dashboard.")))
+    
+    return UkFormSection('Account', 'Update your account settings. Set your preferred language and timezone.', button_txt='Update profile', *content)
 
-Play Flex Box Froggy to get an understanding of flex box.
+def appearance_form():
+    content = (
+        FormSectionDiv(
+            LabelUkSelect(*Options('Select a font family', 'Inter', 'Geist', 'Open Sans', selected_idx=2, disabled_idxs={0}),
+            label='Font Family', id='font_family'), 
+            HelpText("Set the font you want to use in the dashboard.")),
+        FormSectionDiv(
+            FormLabel("Theme"),
+            HelpText("Select the theme for the dashboard."),
+            Grid(A(id="theme-toggle-light", cls="block cursor-pointer items-center rounded-md border-2 border-muted p-1 ring-ring")(
+                    Div(cls="space-y-2 rounded-sm bg-[#ecedef] p-2")(
+                        Div(cls="space-y-2 rounded-md bg-white p-2 shadow-sm")(
+                            Div(cls="h-2 w-[80px] rounded-lg bg-[#ecedef]"),
+                            Div(cls="h-2 w-[100px] rounded-lg bg-[#ecedef]")),
+                        Div(cls="flex items-center space-x-2 rounded-md bg-white p-2 shadow-sm")(
+                            Div(cls="h-4 w-4 rounded-full bg-[#ecedef]"),
+                            Div(cls="h-2 w-[100px] rounded-lg bg-[#ecedef]")),
+                        Div(cls="flex items-center space-x-2 rounded-md bg-white p-2 shadow-sm")(
+                            Div(cls="h-4 w-4 rounded-full bg-[#ecedef]"),
+                            Div(cls="h-2 w-[100px] rounded-lg bg-[#ecedef]")))),
+                A(id="theme-toggle-dark", cls="block cursor-pointer items-center rounded-md border-2 border-muted bg-popover p-1 ring-ring")(
+                    Div(cls="space-y-2 rounded-sm bg-slate-950 p-2")(
+                        Div(cls="space-y-2 rounded-md bg-slate-800 p-2 shadow-sm")(
+                            Div(cls="h-2 w-[80px] rounded-lg bg-slate-400"),
+                            Div(cls="h-2 w-[100px] rounded-lg bg-slate-400")),
+                        Div(cls="flex items-center space-x-2 rounded-md bg-slate-800 p-2 shadow-sm")(
+                            Div(cls="h-4 w-4 rounded-full bg-slate-400"),
+                            Div(cls="h-2 w-[100px] rounded-lg bg-slate-400")),
+                        Div(cls="flex items-center space-x-2 rounded-md bg-slate-800 p-2 shadow-sm")(
+                            Div(cls="h-4 w-4 rounded-full bg-slate-400"),
+                            Div(cls="h-2 w-[100px] rounded-lg bg-slate-400")))),
+            cols_max=2,cls=('max-w-md','gap-8'))))
+    
+    return UkFormSection('Appearance', 'Customize the appearance of the app. Automatically switch between day and night themes.', button_txt='Update preferences', *content)
 
-### DivFullySpaced
 
-Source
+notification_items = [
+    {"title": "Communication emails", "description": "Receive emails about your account activity.", "checked": False, "disabled": False},
+    {"title": "Marketing emails", "description": "Receive emails about new products, features, and more.", "checked": False, "disabled": False},
+    {"title": "Social emails", "description": "Receive emails for friend requests, follows, and more.", "checked": True, "disabled": False},
+    {"title": "Security emails", "description": "Receive emails about your account activity and security.", "checked": True, "disabled": True}]
 
-[code]
+def notifications_form():
+    def RadioLabel(label): return DivLAligned(Radio(name="notification", checked=(label=="Nothing")), FormLabel(label))
 
-    DivFullySpaced(*c, cls='uk-width-1-1', **kwargs)
-[/code]
-
-> Creates a flex div with it's components having as much space between them as possible
-
-**Params**
-
-  * `c` Components
-
-  * `cls` Classes for outer div (`uk-width-1-1` makes it use all available width)
-
-  * `kwargs` Additional args for outer div
-
-See Source
-
-See Output
-
-LeftCenterRight
-
-[code]
-
-    def ex_fully_spaced_div():
-        return DivFullySpaced(
-            Button("Left", cls=ButtonT.primary),
-            Button("Center", cls=ButtonT.secondary),
-            Button("Right", cls=ButtonT.danger)
+    def NotificationCard(item):
+        return Card(
+            Div(cls="space-y-0.5")(
+                FormLabel(item['title'], cls=TextFont.bold_sm),
+                HelpText(item['description'])),
         )
+    content = Div(
+        FormSectionDiv(
+            FormLabel("Notify me about"),
+            *map(RadioLabel, ["All new messages", "Direct messages and mentions", "Nothing"])),
+        Div(
+            H4("Email Notifications", cls="mb-4"),
+            Grid(*map(NotificationCard, notification_items), cols=1)),
+            LabelCheckboxX("Use different settings for my mobile devices", id="notification_mobile"),
+            HelpText("You can manage your mobile notifications in the mobile settings page."))
     
-[/code]
+    return UkFormSection('Notifications', 'Configure how you receive notifications.', 
+                         *content, button_txt="Update notifications")
 
-### DivCentered
+def display_form():
+    content = (
+        Div(cls="space-y-2")(
+            Div(cls="mb-4")(
+                Span("Sidebar", cls="text-base font-medium"),
+                HelpText("Select the items you want to display in the sidebar.")),
+            *[Div(CheckboxX(id=f"display_{i}", checked=i in [0, 1, 2]),FormLabel(label))
+              for i, label in enumerate(["Recents", "Home", "Applications", "Desktop", "Downloads", "Documents"])]))
+    return UkFormSection('Display', 'Turn items on or off to control what\'s displayed in the app.', button_txt='Update display', *content)
 
-Source
+def page():
+    return Div(
+        heading(),
+        Div(cls="flex gap-x-12")(
+            sidebar,
+                Ul(id="component-nav", cls="uk-switcher max-w-2xl")(
+                    Li(cls="uk-active")(profile_form(),
+                    *map(Li, [account_form(), appearance_form(), notifications_form(), display_form()])))))
 
-[code]
+forms_homepage = page()</doc><doc title="Dashboard">"""FrankenUI Dashboard Example"""
 
-    DivCentered(*c, cls='space--4', vstack=True, **kwargs) -> fastcore.xml.FT
-[/code]
+from fasthtml.common import *
+from monsterui.all import *
+from fasthtml.svg import *
+import numpy as np
+import plotly.express as px
+import pandas as pd
+import numpy as np
 
-> Creates a flex div with it's components centered in it
-
-**Params**
-
-  * `c` Components
-
-  * `cls` Classes for outer div (`space-y-4` provides spacing between components)
-
-  * `vstack` Whether to stack the components vertically
-
-  * `kwargs` Additional args for outer div
-
-**Returns:** Div with components centered in it
-
-See Source
-
-See Output
-
-### Centered Title
-
-This content is centered both horizontally and vertically.
-
-[code]
-
-    def ex_centered_div():
-        return DivCentered(
-            H3("Centered Title"),
-            P("This content is centered both horizontally and vertically.")
-        )
+def generate_chart(num_points=30):
+    df = pd.DataFrame({
+        'Date': pd.date_range('2024-01-01', periods=num_points),
+        'Revenue': np.random.normal(100, 10, num_points).cumsum(),
+        'Users': np.random.normal(80, 8, num_points).cumsum(), 
+        'Growth': np.random.normal(60, 6, num_points).cumsum()})
     
-[/code]
-
-### DivLAligned
-
-Source
-
-[code]
-
-    DivLAligned(*c, cls='space-x-4', **kwargs) -> fastcore.xml.FT
-[/code]
-
-> Creates a flex div with it's components aligned to the left
-
-**Params**
-
-  * `c` Components
-
-  * `cls` Classes for outer div
-
-  * `kwargs` Additional args for outer div
-
-**Returns:** Div with components aligned to the left
-
-See Source
-
-See Output
-
-#### Left Aligned Title
-
-Some text that's left-aligned with the title and image.
-
-[code]
-
-    def ex_l_aligned_div():
-        return DivLAligned(
-            Img(src="https://picsum.photos/100/100?random=1", style="max-width: 100px;"),
-            H4("Left Aligned Title"),
-            P("Some text that's left-aligned with the title and image.")
-        )
+    fig = px.line(df, x='Date', y=['Revenue', 'Users', 'Growth'],  template='plotly_white', line_shape='spline')
     
-[/code]
-
-### DivRAligned
-
-Source
-
-[code]
-
-    DivRAligned(*c, cls='space-x-4', **kwargs) -> fastcore.xml.FT
-[/code]
-
-> Creates a flex div with it's components aligned to the right
-
-**Params**
-
-  * `c` Components
-
-  * `cls` Classes for outer div
-
-  * `kwargs` Additional args for outer div
-
-**Returns:** Div with components aligned to the right
-
-See Source
-
-See Output
-
-Action
-
-Right-aligned text
-
-[code]
-
-    def ex_r_aligned_div():
-        return DivRAligned(
-            Button("Action", cls=ButtonT.primary),
-            P("Right-aligned text"),
-            Img(src="https://picsum.photos/100/100?random=3", style="max-width: 100px;")
-        )
+    fig.update_traces(mode='lines+markers')
+    fig.update_layout(
+        margin=dict(l=20, r=20, t=20, b=20), hovermode='x unified',
+        showlegend=True, legend=dict(orientation='h', yanchor='bottom', y=1.02,  xanchor='right', x=1),
+        plot_bgcolor='rgba(0,0,0,0)', paper_bgcolor='rgba(0,0,0,0)',
+        xaxis=dict(showgrid=True, gridwidth=1, gridcolor='rgba(0,0,0,0.1)'),
+        yaxis=dict(showgrid=True, gridwidth=1, gridcolor='rgba(0,0,0,0.1)'))
     
-[/code]
-
-### DivVStacked
-
-Source
-
-[code]
-
-    DivVStacked(*c, cls='space-y-4', **kwargs) -> fastcore.xml.FT
-[/code]
-
-> Creates a flex div with it's components stacked vertically
-
-**Params**
-
-  * `c` Components
-
-  * `cls` Additional classes on the div (tip: `space-y-4` provides spacing between components)
-
-  * `kwargs` Additional args for the div
-
-**Returns:** Div with components stacked vertically
-
-See Source
-
-See Output
-
-## Vertical Stack
-
-First paragraph in the stack
-
-Second paragraph in the stack
-
-Action Button
-
-[code]
-
-    def ex_v_stacked_div():
-        return DivVStacked(
-            H2("Vertical Stack"),
-            P("First paragraph in the stack"),
-            P("Second paragraph in the stack"),
-            Button("Action Button", cls=ButtonT.secondary)
-        )
-    
-[/code]
-
-### DivHStacked
-
-Source
-
-[code]
-
-    DivHStacked(*c, cls='space-x-4', **kwargs) -> fastcore.xml.FT
-[/code]
-
-> Creates a flex div with it's components stacked horizontally
-
-**Params**
-
-  * `c` Components
-
-  * `cls` Additional classes on the div (`space-x-4` provides spacing between components)
-
-  * `kwargs` Additional args for the div
-
-**Returns:** Div with components stacked horizontally
-
-See Source
-
-See Output
-
-#### Column 1
-
-Content for column 1
-
-#### Column 2
-
-Content for column 2
-
-#### Column 3
-
-Content for column 3
-
-[code]
-
-    def ex_h_stacked_div():
-        return DivHStacked(
-            Div(H4("Column 1"), P("Content for column 1")),
-            Div(H4("Column 2"), P("Content for column 2")),
-            Div(H4("Column 3"), P("Content for column 3"))
-        )
-    
-[/code]
-
-* * *
-
-### FlexT
-
-_Flexbox modifiers from UIkit_
-
-Option | Value | Option | Value | Option | Value | Option | Value  
----|---|---|---|---|---|---|---  
-block | uk-flex | inline | uk-flex-inline | left | uk-flex-left | center | uk-flex-center  
-right | uk-flex-right | between | uk-flex-between | around | uk-flex-around | stretch | uk-flex-stretch  
-top | uk-flex-top | middle | uk-flex-middle | bottom | uk-flex-bottom | row | uk-flex-row  
-row_reverse | uk-flex-row-reverse | column | uk-flex-column | column_reverse | uk-flex-column-reverse | nowrap | uk-flex-nowrap  
-wrap | uk-flex-wrap | wrap_reverse | uk-flex-wrap-reverse |  |  |  |   
-  
-## Padding and Positioning
-
-* * *
-
-### PaddingT
-
-_Padding Modifiers from https://franken-ui.dev/docs/padding_
-
-Option | Value | Option | Value | Option | Value | Option | Value  
----|---|---|---|---|---|---|---  
-xsmall | uk-padding-xsmall | small | uk-padding-small | default |  | medium | uk-padding-medium  
-large | uk-padding-large | xlarge | uk-padding-xlarge | remove | uk-padding-remove | remove_top | uk-padding-remove-top  
-remove_bottom | uk-padding-remove-bottom | remove_left | uk-padding-remove-left | remove_right | uk-padding-remove-right | remove_vertical | uk-padding-remove-vertical  
-remove_horizontal | uk-padding-remove-horizontal |  |  |  |  |  |   
-  
-* * *
-
-### PositionT
-
-_Position modifiers from https://franken-ui.dev/docs/position_
-
-Option | Value | Option | Value | Option | Value | Option | Value  
----|---|---|---|---|---|---|---  
-top | uk-position-top | bottom | uk-position-bottom | left | uk-position-left | right | uk-position-right  
-top_left | uk-position-top-left | top_center | uk-position-top-center | top_right | uk-position-top-right | center | uk-position-center  
-center_left | uk-position-center-left | center_right | uk-position-center-right | bottom_left | uk-position-bottom-left | bottom_center | uk-position-bottom-center  
-bottom_right | uk-position-bottom-right | center_horizontal | uk-position-center-horizontal | center_vertical | uk-position-center-vertical |  | 
-</doc><doc title="Lists"># Lists
-
-#
-
-# Lists
-
-### UkList
-
-Source
-
-[code]
-
-    UkList(*li, cls=(), **kwargs) -> fastcore.xml.FT
-[/code]
-
-> Creates a list with styling
-
-**Params**
-
-  * `li` `Li` tags to put in the list
-
-  * `cls` Additional classes on the list
-
-  * `kwargs` Additional args for `Ul` tag
-
-**Returns:** Ul(..., cls='uk-list')
-
-See Source
-
-See Output
-
-#### disc List:
-
-  * Item 1
-  * Item 2
-
-#### circle List:
-
-  * Item 1
-  * Item 2
-
-#### square List:
-
-  * Item 1
-  * Item 2
-
-#### decimal List:
-
-  * Item 1
-  * Item 2
-
-#### hyphen List:
-
-  * Item 1
-  * Item 2
-
-#### muted List:
-
-  * Item 1
-  * Item 2
-
-#### primary List:
-
-  * Item 1
-  * Item 2
-
-#### secondary List:
-
-  * Item 1
-  * Item 2
-
-#### bullet List:
-
-  * Item 1
-  * Item 2
-
-#### divider List:
-
-  * Item 1
-  * Item 2
-
-#### striped List:
-
-  * Item 1
-  * Item 2
-
-[code]
-
-    def ex_lists():
-        list_options = [(style,str(cls)) for style,cls in ListT.__members__.items()]
-        lists = [Div(H4(f"{style} List:"), UkList(Li("Item 1"), Li("Item 2"), cls=cls)) for style, cls in list_options]
-        return Grid(*lists)
-    
-[/code]
-
-* * *
-
-### ListT
-
-_List styles from https://franken-ui.dev/docs/list_
-
-Option | Value | Option | Value | Option | Value  
----|---|---|---|---|---  
-disc | uk-list-disc | circle | uk-list-circle | square | uk-list-square  
-decimal | uk-list-decimal | hyphen | uk-list-hyphen | muted | uk-list-muted  
-primary | uk-list-primary | secondary | uk-list-secondary | bullet | uk-list-bullet  
-divider | uk-list-divider | striped | uk-list-striped |  | 
-</doc><doc title="Loading"># Loading
-
-#
-
-# Loading
-
-See Source
-
-See Output
-
-[code]
-
-    def ex_loading1():
-        return Loading()
-    
-[/code]
-
-See Source
-
-See Output
-
-[code]
-
-    def ex_loading2():
-        types = [LoadingT.spinner, LoadingT.dots, LoadingT.ring, LoadingT.ball, LoadingT.bars, LoadingT.infinity]
-        sizes = [LoadingT.xs, LoadingT.sm, LoadingT.md, LoadingT.lg]
-        rows = [Div(*[Loading((t,s)) for s in sizes], cls='flex gap-4') for t in types]
-        return Div(*rows, cls='flex flex-col gap-4')
-    
-[/code]
-
-### Loading
-
-Source
-
-[code]
-
-    Loading(cls=(<LoadingT.bars: 'loading-bars'>, <LoadingT.lg: 'loading-lg'>), htmx_indicator=False, **kwargs) -> fastcore.xml.FT
-[/code]
-
-> Creates a loading animation component
-
-**Params**
-
-  * `cls` Classes for indicator (generally `LoadingT` options)
-
-  * `htmx_indicator` Add htmx-indicator class
-
-  * `kwargs` additional args for outer conainter (`Span`)
-
-**Returns:** Span(cls=...)
-
-* * *
-
-### LoadingT
-
-__
-
-Option | Value | Option | Value | Option | Value  
----|---|---|---|---|---  
-spinner | loading-spinner | dots | loading-dots | ring | loading-ring  
-ball | loading-ball | bars | loading-bars | infinity | loading-infinity  
-xs | loading-xs | sm | loading-sm | md | loading-md  
-lg | loading-lg |  |  |  | 
-</doc><doc title="Markdown"># Markdown + HTML Frankification
-
-#
-
-# Markdown + HTML Frankification
-
-See Source
-
-See Output
-
-# Example Markdown
-
-  * With **bold** and _italics_
-  * With a link
-
-### And a subheading
-
-> This is a blockquote
-[code]
-
-    def ex_markdown():
-        md = '''# Example Markdown
-    
-    + With **bold** and *italics*
-    + With a [link](https://github.com)
-    
-    ### And a subheading
-    
-    > This is a blockquote
-    '''
-        return render_md(md)
-    
-[/code]
-
-This uses the `apply_classes` function, which can be used to apply classes to html strings
-
-### apply_classes
-
-Source
-
-[code]
-
-    apply_classes(html_str: str, class_map=None, class_map_mods=None) -> str
-[/code]
-
-> Apply classes to html string
-
-**Params**
-
-  * `html_str` Html string
-
-  * `class_map` Class map
-
-  * `class_map_mods` Class map that will modify the class map map (useful for small changes to a base class map)
-
-**Returns:** Html string with classes applied
-
-See Source
-
-See Output
-
-<div><h1 class="uk-h1 text-4xl font-bold mt-12 mb-6">Hello, World!</h1><p class="text-lg leading-relaxed mb-6">This is a paragraph</p></div>
-
-[code]
-
-    def ex_applyclasses():
-        return apply_classes('<h1>Hello, World!</h1><p>This is a paragraph</p>')
-    
-[/code]
-</doc><doc title="Modals"># Modals
-
-#
-
-# Modals
-
-### Example Modal
-
-See Source
-
-See Output
-
-Open Modal
-
-## Simple Test Modal
-
-With some somewhat brief content to show that it works!
-
-Close
-
-[code]
-
-    def ex_modal():
-        return Div(
-            Button("Open Modal",uk_toggle="target: #my-modal" ),
-            Modal(ModalTitle("Simple Test Modal"), 
-                  P("With some somewhat brief content to show that it works!", cls=TextFont.muted_sm),
-                  footer=ModalCloseButton("Close", cls=ButtonT.primary),id='my-modal'))
-    
-[/code]
-
-### Modal
-
-Source
-
-[code]
-
-    Modal(*c, header=None, footer=None, cls=(), dialog_cls=(), header_cls='p-6', body_cls='space-y-6', footer_cls=(), id='', open=False, **kwargs) -> fastcore.xml.FT
-[/code]
-
-> Creates a modal with the appropriate classes to put the boilerplate in the appropriate places for you
-
-**Params**
-
-  * `c` Components to put in the `ModalBody` (often forms, sign in buttons, images, etc.)
-
-  * `header` Components that go in the `ModalHeader` (often a `ModalTitle`)
-
-  * `footer` Components that go in the `ModalFooter` (often a `ModalCloseButton`)
-
-  * `cls` Additional classes on the outermost `ModalContainer`
-
-  * `dialog_cls` Additional classes on the `ModalDialog`
-
-  * `header_cls` Additional classes on the `ModalHeader`
-
-  * `body_cls` Additional classes on the `ModalBody`
-
-  * `footer_cls` Additional classes on the `ModalFooter`
-
-  * `id` id for the outermost container
-
-  * `open` Whether the modal is open (typically used for HTMX controlled modals)
-
-  * `kwargs` Additional args for the outermost `Div` tag
-
-**Returns:** Fully styled modal FT Component
-
-### ModalCloseButton
-
-Source
-
-[code]
-
-    ModalCloseButton(*c, cls=(), htmx=False, **kwargs) -> fastcore.xml.FT
-[/code]
-
-> Creates a button that closes a modal with js
-
-**Params**
-
-  * `c` Components to put in the button (often text and/or an icon)
-
-  * `cls` Additional classes on the button
-
-  * `htmx` Whether to use HTMX to close the modal (must add hx_get to a route that closes the modal)
-
-  * `kwargs` Additional args for `Button` tag
-
-**Returns:** Button(..., cls='uk-modal-close') + `hx_target` and `hx_swap` if htmx is True
-
-The remainder of the Modal functions below are used internally by the `Modal` function for you. You shouldn't need to use them unless you're doing something really special.
-
-### ModalTitle
-
-Source
-
-[code]
-
-    ModalTitle(*c, cls=(), **kwargs) -> fastcore.xml.FT
-[/code]
-
-> Creates a modal title
-
-**Params**
-
-  * `c` Components to put in the `ModalTitle` (often text)
-
-  * `cls` Additional classes on the `ModalTitle`
-
-  * `kwargs` Additional args for `H2` tag
-
-**Returns:** H2(..., cls='uk-modal-title')
-
-### ModalFooter
-
-Source
-
-[code]
-
-    ModalFooter(*c, cls=(), **kwargs) -> fastcore.xml.FT
-[/code]
-
-> Creates a modal footer
-
-**Params**
-
-  * `c` Components to put in the `ModalFooter` (often buttons)
-
-  * `cls` Additional classes on the `ModalFooter`
-
-  * `kwargs` Additional args for `Div` tag
-
-**Returns:** Div(..., cls='uk-modal-footer')
-
-### ModalBody
-
-Source
-
-[code]
-
-    ModalBody(*c, cls=(), **kwargs) -> fastcore.xml.FT
-[/code]
-
-> Creates a modal body
-
-**Params**
-
-  * `c` Components to put in the `ModalBody` (often forms, sign in buttons, images, etc.)
-
-  * `cls` Additional classes on the `ModalBody`
-
-  * `kwargs` Additional args for `Div` tag
-
-**Returns:** Div(..., cls='uk-modal-body')
-
-### ModalHeader
-
-Source
-
-[code]
-
-    ModalHeader(*c, cls=(), **kwargs) -> fastcore.xml.FT
-[/code]
-
-> Creates a modal header
-
-**Params**
-
-  * `c` Components to put in the `ModalHeader`
-
-  * `cls` Additional classes on the `ModalHeader`
-
-  * `kwargs` Additional args for `Div` tag
-
-**Returns:** Div(..., cls='uk-modal-header')
-
-### ModalDialog
-
-Source
-
-[code]
-
-    ModalDialog(*c, cls=(), **kwargs) -> fastcore.xml.FT
-[/code]
-
-> Creates a modal dialog
-
-**Params**
-
-  * `c` Components to put in the `ModalDialog` (often `ModalBody`, `ModalHeader`, etc)
-
-  * `cls` Additional classes on the `ModalDialog`
-
-  * `kwargs` Additional args for `Div` tag
-
-**Returns:** Div(..., cls='uk-modal-dialog')
-
-### ModalContainer
-
-Source
-
-[code]
-
-    ModalContainer(*c, cls=(), **kwargs) -> fastcore.xml.FT
-[/code]
-
-> Creates a modal container that components go in
-
-**Params**
-
-  * `c` Components to put in the modal (often `ModalDialog`)
-
-  * `cls` Additional classes on the `ModalContainer`
-
-  * `kwargs` Additional args for `Div` tag
-
-**Returns:** Div(..., cls='uk-modal uk-modal-container')
-</doc><doc title="Navigation"> <!doctype html>
- <html>
-   <head>
-     <title>MonsterUI</title>
-     <meta charset="utf-8">
-     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<script src="https://unpkg.com/htmx.org@2.0.4/dist/htmx.min.js"></script><script src="https://cdn.jsdelivr.net/gh/answerdotai/fasthtml-js@1.0.12/fasthtml.js"></script><script src="https://cdn.jsdelivr.net/gh/answerdotai/surreal@main/surreal.js"></script><script src="https://cdn.jsdelivr.net/gh/gnat/css-scope-inline@main/script.js"></script>     <link rel="stylesheet" href="https://unpkg.com/franken-ui@1.1.0/dist/css/core.min.css">
-<script type="module" src="https://unpkg.com/franken-ui@1.1.0/dist/js/core.iife.js"></script><script type="module" src="https://cdn.jsdelivr.net/gh/answerdotai/monsterui@main/monsterui/icon.iife.js"></script><script src="https://cdn.tailwindcss.com"></script><script>
-        const htmlElement = document.documentElement;
-        
-            if (
-                localStorage.getItem("mode") === "dark" ||
-                (!("mode" in localStorage) &&
-                window.matchMedia("(prefers-color-scheme: dark)").matches)
-            ) {
-                htmlElement.classList.add("dark");
-            } else {
-                htmlElement.classList.remove("dark");
-            }
-        
-        htmlElement.classList.add(localStorage.getItem("theme") || "uk-theme-blue");
-    </script>     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/daisyui@4.12.22/dist/full.min.css">
-     <style>
-:root {
-  --p: from hsl(var(--primary)) l c h;
-  --pc: from hsl(var(--primary-foreground)) l c h;
-  --s: from hsl(var(--secondary)) l c h;
-  --sc: from hsl(var(--secondary-foreground)) l c h;
-  --b2: from hsl(var(--card-background)) l c h;
-  --b1: from hsl(var(--background)) l c h;
-  --bc: from hsl(var(--foreground)) l c h;
-  --b3: from hsl(var(--ring)) l c h;
-  --er: from hsl(var(--destructive)) l c h;
-  --erc: from hsl(var(--destructive-foreground)) l c h;
-}
-</style>
-<script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/highlight.min.js"></script><script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/languages/python.min.js"></script>     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/styles/atom-one-light.css" id="hljs-light">
-     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/styles/atom-one-dark.css" id="hljs-dark">
-<script src="https://cdn.jsdelivr.net/gh/arronhunt/highlightjs-copy/dist/highlightjs-copy.min.js"></script>     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/arronhunt/highlightjs-copy/dist/highlightjs-copy.min.css">
-<script type="module">
-                    hljs.addPlugin(new CopyButtonPlugin());
-                    hljs.configure({
-                        cssSelector: 'pre code',
-                        languages: ['python'],
-                        ignoreUnescapedHTML: true
-                    });
-                    function updateTheme() {
-                        const isDark = document.documentElement.classList.contains('dark');
-                        document.getElementById('hljs-dark').disabled = !isDark;
-                        document.getElementById('hljs-light').disabled = isDark;
-                    }
-                    new MutationObserver(mutations =>
-                        mutations.forEach(m => m.target.tagName === 'HTML' &&
-                            m.attributeName === 'class' && updateTheme())
-                    ).observe(document.documentElement, { attributes: true });
-                    updateTheme();
-                    htmx.onLoad(hljs.highlightAll);
-                </script>     <link rel="icon" type="image/x-icon" href="/favicon.ico">
-   </head>
-   <body class=" bg-background text-foreground">
-     <div class="flex flex-col md:flex-row w-full">
-<button uk-toggle="target: #mobile-sidebar" type="submit" class="uk-button md:hidden mb-4"><uk-icon icon="menu" height="50" width="50" class="mt-4"></uk-icon></button>       <div hidden id="mobile-sidebar">
-         <ul uk-nav class="uk-nav uk-nav-primary space-y-4 p-4 w-full md:w-full">
-           <li class="uk-parent ">
-<a href="#">               <div class="uk-flex uk-flex-between uk-flex-middle uk-width-1-1">
-Getting Started<span uk-navbar-parent-icon></span>               </div>
-</a>             <ul class="uk-nav-sub uk-nav-primary">
-               <li>
-<a href="#" hx-get="/getting_started" hx-push-url="true" hx-target="#content">Getting Started</a>               </li>
-               <li>
-<a href="#" hx-get="/tutorial_app" hx-push-url="true" hx-target="#content">Tutorial App</a>               </li>
-             </ul>
-           </li>
-           <li class="uk-parent ">
-<a href="#">               <div class="uk-flex uk-flex-between uk-flex-middle uk-width-1-1">
-API Reference<span uk-navbar-parent-icon></span>               </div>
-</a>             <ul class="uk-nav-sub uk-nav-primary">
-               <li>
-<a href="#" hx-get="/api_ref/docs_button_link" hx-push-url="true" hx-target="#content">Button | Link</a>               </li>
-               <li>
-<a href="#" hx-get="/api_ref/docs_cards" hx-push-url="true" hx-target="#content">Cards</a>               </li>
-               <li>
-<a href="#" hx-get="/api_ref/docs_containers" hx-push-url="true" hx-target="#content">Containers</a>               </li>
-               <li>
-<a href="#" hx-get="/api_ref/docs_dividers" hx-push-url="true" hx-target="#content">Dividers</a>               </li>
-               <li>
-<a href="#" hx-get="/api_ref/docs_forms" hx-push-url="true" hx-target="#content">Forms</a>               </li>
-               <li>
-<a href="#" hx-get="/api_ref/docs_icons" hx-push-url="true" hx-target="#content">Icons</a>               </li>
-               <li>
-<a href="#" hx-get="/api_ref/docs_layout" hx-push-url="true" hx-target="#content">Layout</a>               </li>
-               <li>
-<a href="#" hx-get="/api_ref/docs_lists" hx-push-url="true" hx-target="#content">Lists</a>               </li>
-               <li>
-<a href="#" hx-get="/api_ref/docs_loading" hx-push-url="true" hx-target="#content">Loading</a>               </li>
-               <li>
-<a href="#" hx-get="/api_ref/docs_markdown" hx-push-url="true" hx-target="#content">Markdown</a>               </li>
-               <li>
-<a href="#" hx-get="/api_ref/docs_modals" hx-push-url="true" hx-target="#content">Modals</a>               </li>
-               <li>
-<a href="#" hx-get="/api_ref/docs_navigation" hx-push-url="true" hx-target="#content">Navigation</a>               </li>
-               <li>
-<a href="#" hx-get="/api_ref/docs_notifications" hx-push-url="true" hx-target="#content">Notifications</a>               </li>
-               <li>
-<a href="#" hx-get="/api_ref/docs_sliders" hx-push-url="true" hx-target="#content">Sliders</a>               </li>
-               <li>
-<a href="#" hx-get="/api_ref/docs_steps" hx-push-url="true" hx-target="#content">Steps</a>               </li>
-               <li>
-<a href="#" hx-get="/api_ref/docs_tables" hx-push-url="true" hx-target="#content">Tables</a>               </li>
-               <li>
-<a href="#" hx-get="/api_ref/docs_theme_headers" hx-push-url="true" hx-target="#content">Theme | Headers</a>               </li>
-               <li>
-<a href="#" hx-get="/api_ref/docs_typography" hx-push-url="true" hx-target="#content">Typography</a>               </li>
-             </ul>
-           </li>
-           <li class="uk-parent ">
-<a href="#">               <div class="uk-flex uk-flex-between uk-flex-middle uk-width-1-1">
-Guides<span uk-navbar-parent-icon></span>               </div>
-</a>             <ul class="uk-nav-sub uk-nav-primary">
-               <li>
-<a href="#" hx-get="/tutorial_spacing" hx-push-url="true" hx-target="#content">Spacing</a>               </li>
-               <li>
-<a href="#" hx-get="/tutorial_layout" hx-push-url="true" hx-target="#content">Layout</a>               </li>
-             </ul>
-           </li>
-           <li class="uk-parent ">
-<a href="#">               <div class="uk-flex uk-flex-between uk-flex-middle uk-width-1-1">
-Examples<span uk-navbar-parent-icon></span>               </div>
-</a>             <ul class="uk-nav-sub uk-nav-primary">
-               <li>
-<a href="#" hx-get="/tasks/" hx-push-url="true" hx-target="#content">Task</a>               </li>
-               <li>
-<a href="#" hx-get="/cards/" hx-push-url="true" hx-target="#content">Card</a>               </li>
-               <li>
-<a href="#" hx-get="/dashboard/" hx-push-url="true" hx-target="#content">Dashboard</a>               </li>
-               <li>
-<a href="#" hx-get="/forms/" hx-push-url="true" hx-target="#content">Form</a>               </li>
-               <li>
-<a href="#" hx-get="/music/" hx-push-url="true" hx-target="#content">Music</a>               </li>
-               <li>
-<a href="#" hx-get="/auth/" hx-push-url="true" hx-target="#content">Auth</a>               </li>
-               <li>
-<a href="#" hx-get="/playground/" hx-push-url="true" hx-target="#content">Playground</a>               </li>
-               <li>
-<a href="#" hx-get="/mail/" hx-push-url="true" hx-target="#content">Mail</a>               </li>
-             </ul>
-           </li>
-           <li>
-<a href="#" hx-get="/theme_switcher" hx-push-url="true" hx-target="#content">Theme</a>           </li>
-         </ul>
-       </div>
-       <div class="md:flex w-full">
-         <div class="hidden md:block w-1/5">
-           <ul uk-nav class="uk-nav uk-nav-primary space-y-4 p-4 w-full md:w-full">
-             <li class="uk-parent ">
-<a href="#">                 <div class="uk-flex uk-flex-between uk-flex-middle uk-width-1-1">
-Getting Started<span uk-navbar-parent-icon></span>                 </div>
-</a>               <ul class="uk-nav-sub uk-nav-primary">
-                 <li>
-<a href="#" hx-get="/getting_started" hx-push-url="true" hx-target="#content">Getting Started</a>                 </li>
-                 <li>
-<a href="#" hx-get="/tutorial_app" hx-push-url="true" hx-target="#content">Tutorial App</a>                 </li>
-               </ul>
-             </li>
-             <li class="uk-parent ">
-<a href="#">                 <div class="uk-flex uk-flex-between uk-flex-middle uk-width-1-1">
-API Reference<span uk-navbar-parent-icon></span>                 </div>
-</a>               <ul class="uk-nav-sub uk-nav-primary">
-                 <li>
-<a href="#" hx-get="/api_ref/docs_button_link" hx-push-url="true" hx-target="#content">Button | Link</a>                 </li>
-                 <li>
-<a href="#" hx-get="/api_ref/docs_cards" hx-push-url="true" hx-target="#content">Cards</a>                 </li>
-                 <li>
-<a href="#" hx-get="/api_ref/docs_containers" hx-push-url="true" hx-target="#content">Containers</a>                 </li>
-                 <li>
-<a href="#" hx-get="/api_ref/docs_dividers" hx-push-url="true" hx-target="#content">Dividers</a>                 </li>
-                 <li>
-<a href="#" hx-get="/api_ref/docs_forms" hx-push-url="true" hx-target="#content">Forms</a>                 </li>
-                 <li>
-<a href="#" hx-get="/api_ref/docs_icons" hx-push-url="true" hx-target="#content">Icons</a>                 </li>
-                 <li>
-<a href="#" hx-get="/api_ref/docs_layout" hx-push-url="true" hx-target="#content">Layout</a>                 </li>
-                 <li>
-<a href="#" hx-get="/api_ref/docs_lists" hx-push-url="true" hx-target="#content">Lists</a>                 </li>
-                 <li>
-<a href="#" hx-get="/api_ref/docs_loading" hx-push-url="true" hx-target="#content">Loading</a>                 </li>
-                 <li>
-<a href="#" hx-get="/api_ref/docs_markdown" hx-push-url="true" hx-target="#content">Markdown</a>                 </li>
-                 <li>
-<a href="#" hx-get="/api_ref/docs_modals" hx-push-url="true" hx-target="#content">Modals</a>                 </li>
-                 <li>
-<a href="#" hx-get="/api_ref/docs_navigation" hx-push-url="true" hx-target="#content">Navigation</a>                 </li>
-                 <li>
-<a href="#" hx-get="/api_ref/docs_notifications" hx-push-url="true" hx-target="#content">Notifications</a>                 </li>
-                 <li>
-<a href="#" hx-get="/api_ref/docs_sliders" hx-push-url="true" hx-target="#content">Sliders</a>                 </li>
-                 <li>
-<a href="#" hx-get="/api_ref/docs_steps" hx-push-url="true" hx-target="#content">Steps</a>                 </li>
-                 <li>
-<a href="#" hx-get="/api_ref/docs_tables" hx-push-url="true" hx-target="#content">Tables</a>                 </li>
-                 <li>
-<a href="#" hx-get="/api_ref/docs_theme_headers" hx-push-url="true" hx-target="#content">Theme | Headers</a>                 </li>
-                 <li>
-<a href="#" hx-get="/api_ref/docs_typography" hx-push-url="true" hx-target="#content">Typography</a>                 </li>
-               </ul>
-             </li>
-             <li class="uk-parent ">
-<a href="#">                 <div class="uk-flex uk-flex-between uk-flex-middle uk-width-1-1">
-Guides<span uk-navbar-parent-icon></span>                 </div>
-</a>               <ul class="uk-nav-sub uk-nav-primary">
-                 <li>
-<a href="#" hx-get="/tutorial_spacing" hx-push-url="true" hx-target="#content">Spacing</a>                 </li>
-                 <li>
-<a href="#" hx-get="/tutorial_layout" hx-push-url="true" hx-target="#content">Layout</a>                 </li>
-               </ul>
-             </li>
-             <li class="uk-parent ">
-<a href="#">                 <div class="uk-flex uk-flex-between uk-flex-middle uk-width-1-1">
-Examples<span uk-navbar-parent-icon></span>                 </div>
-</a>               <ul class="uk-nav-sub uk-nav-primary">
-                 <li>
-<a href="#" hx-get="/tasks/" hx-push-url="true" hx-target="#content">Task</a>                 </li>
-                 <li>
-<a href="#" hx-get="/cards/" hx-push-url="true" hx-target="#content">Card</a>                 </li>
-                 <li>
-<a href="#" hx-get="/dashboard/" hx-push-url="true" hx-target="#content">Dashboard</a>                 </li>
-                 <li>
-<a href="#" hx-get="/forms/" hx-push-url="true" hx-target="#content">Form</a>                 </li>
-                 <li>
-<a href="#" hx-get="/music/" hx-push-url="true" hx-target="#content">Music</a>                 </li>
-                 <li>
-<a href="#" hx-get="/auth/" hx-push-url="true" hx-target="#content">Auth</a>                 </li>
-                 <li>
-<a href="#" hx-get="/playground/" hx-push-url="true" hx-target="#content">Playground</a>                 </li>
-                 <li>
-<a href="#" hx-get="/mail/" hx-push-url="true" hx-target="#content">Mail</a>                 </li>
-               </ul>
-             </li>
-             <li>
-<a href="#" hx-get="/theme_switcher" hx-push-url="true" hx-target="#content">Theme</a>             </li>
-           </ul>
-         </div>
-         <div id="content" class="md:w-4/5 w-full mr-5">
-           <div class="uk-container mt-5 uk-container-xlarge">
-             <div class="uk-card ">
-               <div class="uk-card-body space-y-6">
-                 <div class="uk-card-body ">
-                   <h1 class="uk-h1 ">404 - Page Not Found</h1>
-                   <p>The page you&#x27;re looking for doesn&#x27;t exist.</p>
-                 </div>
-               </div>
-             </div>
-           </div>
-         </div>
-       </div>
-     </div>
-   </body>
- </html></doc><doc title="Notifications"># Alerts & Toasts
-
-#
-
-# Alerts & Toasts
-
-### Alerts
-
-The simplest alert is a div wrapped with a span:
-
-See Source
-
-See Output
-
-This is a plain alert
-
-[code]
-
-    def ex_alerts1(): return Alert("This is a plain alert")
-    
-[/code]
-
-Alert colors are defined by the alert styles:
-
-See Source
-
-See Output
-
-Your purchase has been confirmed!
-
-[code]
-
-    def ex_alerts2():
-        return Alert("Your purchase has been confirmed!",
-                     cls=AlertT.success)
-    
-[/code]
-
-It often looks nice to use icons in alerts:
-
-See Source
-
-See Output
-
-Please enter a valid email.
-
-[code]
-
-    def ex_alerts3():
-        return Alert(
-            DivLAligned(UkIcon('triangle-alert'), 
-                        P("Please enter a valid email.")),
-            cls=AlertT.error)
-    
-[/code]
-
-### Alert
-
-Source
-
-[code]
-
-    Alert(*c, cls='', **kwargs) -> fastcore.xml.FT
-[/code]
-
-> Alert informs users about important events.
-
-**Params**
-
-  * `c` Content for Alert (often text and/or icon)
-
-  * `cls` Class for the alert (often an `AlertT` option)
-
-  * `kwargs` Additional arguments for outer Div
-
-**Returns:** Div(Span(...), cls='alert', role='alert')
-
-* * *
-
-### AlertT
-
-_Alert styles from DaisyUI_
-
-Option | Value | Option | Value  
----|---|---|---  
-info | alert-info | success | alert-success  
-warning | alert-warning | error | alert-error  
-  
-* * *
-
-### Toasts
-
-To define a toast with a particular location, add horizontal or vertical toast type classes:
-
-See Source
-
-See Output
-
-First Example Toast
-
-[code]
-
-    def ex_toasts1():
-        return Toast("First Example Toast", cls=(ToastHT.start, ToastVT.bottom))
-    
-[/code]
-
-To define toast colors, set the class of the alert wrapped by the toast:
-
-See Source
-
-See Output
-
-Second Example Toast
-
-[code]
-
-    def ex_toasts2():
-        return Toast("Second Example Toast", alert_cls=AlertT.info)
-    
-[/code]
-
-### Toast
-
-Source
-
-[code]
-
-    Toast(*c, cls='', alert_cls='', **kwargs) -> fastcore.xml.FT
-[/code]
-
-> Toasts are stacked announcements, positioned on the corner of page.
-
-**Params**
-
-  * `c` Content for toast (often test)
-
-  * `cls` Classes for toast (often `ToastHT` and `ToastVT` options)
-
-  * `alert_cls` classes for altert (often `AlertT` options)
-
-  * `kwargs` Additional args for outer container (`Div` tag)
-
-**Returns:** Div(Alert(...), cls='toast')
-
-* * *
-
-### ToastHT
-
-_Horizontal position for Toast_
-
-Option | Value | Option | Value  
----|---|---|---  
-start | toast-start | center | toast-center  
-end | toast-end |  |   
-  
-* * *
-
-### ToastVT
-
-_Vertical position for Toast_
-
-Option | Value | Option | Value  
----|---|---|---  
-top | toast-top | middle | toast-middle  
-bottom | toast-bottom |  | 
-</doc><doc title="Sliders"># Sliders
-
-#
-
-# Sliders
-
-Here is a simple example of a slider:
-
-See Source
-
-See Output
-
-[code]
-
-    def ex_sliders_1():
-        return Slider(*[Img(src=f'https://picsum.photos/200/200?random={i}') for i in range(10)])
-    
-[/code]
-
-Here is a slider with cards:
-
-See Source
-
-See Output
-
-### Card 0
-
-Card 0 content
-
-### Card 1
-
-Card 1 content
-
-### Card 2
-
-Card 2 content
-
-### Card 3
-
-Card 3 content
-
-### Card 4
-
-Card 4 content
-
-### Card 5
-
-Card 5 content
-
-### Card 6
-
-Card 6 content
-
-### Card 7
-
-Card 7 content
-
-### Card 8
-
-Card 8 content
-
-### Card 9
-
-Card 9 content
-
-[code]
-
-    def ex_sliders_2():
-        def _card(i): return Card(H3(f'Card {i}'), P(f'Card {i} content'))
-        return Slider(*[_card(i) for i in range(10)])
-    
-[/code]
-
-Here is a slider with cards and autoplay:
-
-See Source
-
-See Output
-
-### Card 0
-
-Card 0 content
-
-### Card 1
-
-Card 1 content
-
-### Card 2
-
-Card 2 content
-
-### Card 3
-
-Card 3 content
-
-### Card 4
-
-Card 4 content
-
-### Card 5
-
-Card 5 content
-
-### Card 6
-
-Card 6 content
-
-### Card 7
-
-Card 7 content
-
-### Card 8
-
-Card 8 content
-
-### Card 9
-
-Card 9 content
-
-[code]
-
-    def ex_sliders_3():
-        def _card(i): return Card(H3(f'Card {i}'), P(f'Card {i} content'))
-        return Slider(*[_card(i) for i in range(10)], items_cls='gap-10', uk_slider='autoplay: true; autoplay-interval: 1000')
-    
-[/code]
-
-Typically you want to use the `Slider` component, but if you need more control you can use the `SliderContainer`, `SliderItems`, and `SliderNav` components.
-
-### Slider
-
-Source
-
-[code]
-
-    Slider(*c, cls='', items_cls='gap-4', nav=True, nav_cls='', **kwargs) -> fastcore.xml.FT
-[/code]
-
-> Creates a slider with optional navigation arrows
-
-**Params**
-
-  * `c` Items to show in slider
-
-  * `cls` Classes for slider container
-
-  * `items_cls` Classes for items container
-
-  * `nav` Whether to show navigation arrows
-
-  * `nav_cls` Classes for navigation arrows
-
-  * `kwargs` Additional args for slider container
-
-**Returns:** SliderContainer(SliderItems(..., cls='gap-4'), SliderNav?)
-
-### SliderContainer
-
-Source
-
-[code]
-
-    SliderContainer(*c, cls='', uk_slider=True, **kwargs) -> fastcore.xml.FT
-[/code]
-
-> Creates a slider container
-
-**Params**
-
-  * `c` Components
-
-  * `cls` Additional classes on the container
-
-  * `uk_slider` See FrankenUI Slider docs for more options
-
-  * `kwargs` Additional args for the container
-
-**Returns:** Div(..., cls='relative', uk_slider=True, ...)
-
-### SliderItems
-
-Source
-
-[code]
-
-    SliderItems(*c, cls='', **kwargs) -> fastcore.xml.FT
-[/code]
-
-> Creates a slider items container
-
-**Params**
-
-  * `c` Components
-
-  * `cls` Additional classes for the items
-
-  * `kwargs` Additional args for the items
-
-**Returns:** Div(..., cls='uk-slider-items uk-grid', ...)
-
-### SliderNav
-
-Source
-
-[code]
-
-    SliderNav(cls='uk-position-small uk-hidden-hover', prev_cls='absolute left-0 top-1/2 -translate-y-1/2', next_cls='absolute right-0 top-1/2 -translate-y-1/2', **kwargs) -> fastcore.xml.FT
-[/code]
-
-> Navigation arrows for Slider component
-
-**Params**
-
-  * `cls` Additional classes for the navigation
-
-  * `prev_cls` Additional classes for the previous navigation
-
-  * `next_cls` Additional classes for the next navigation
-
-  * `kwargs` Additional args for the navigation
-
-**Returns:** Left and right navigation arrows for Slider component
-</doc><doc title="Steps"># Steps
-
-#
-
-# Steps
-
-See Source
-
-See Output
-
-  * Account Created
-  * Profile Setup
-  * Verification
-
-[code]
-
-    def ex_steps2():
-        return Steps(
-            LiStep("Account Created", cls=StepT.primary),
-            LiStep("Profile Setup", cls=StepT.neutral),
-            LiStep("Verification", cls=StepT.neutral),
-            cls="w-full")
-    
-[/code]
-
-See Source
-
-See Output
-
-  * Project Planning
-  * Design Phase
-  * Development
-  * Testing
-  * Deployment
-
-[code]
-
-    def ex_steps3():
-        return Steps(
-        LiStep("Project Planning", cls=StepT.success, data_content="📝"),
-        LiStep("Design Phase", cls=StepT.success, data_content="💡"),
-        LiStep("Development", cls=StepT.primary, data_content="🛠️"),
-        LiStep("Testing", cls=StepT.neutral, data_content="🔎"),
-        LiStep("Deployment", cls=StepT.neutral, data_content="🚀"),
-        cls=(StepsT.vertical, "min-h-[400px]"))
-    
-[/code]
-
-# API Docs
-
-### Steps
-
-Source
-
-[code]
-
-    Steps(*li, cls='', **kwargs) -> fastcore.xml.FT
-[/code]
-
-> Creates a steps container
-
-**Params**
-
-  * `li` Each `Li` represent a step (generally use `LiStep`)
-
-  * `cls` class for Steps (generally a `StepsT` option)
-
-  * `kwargs` Additional args for outer wrapper (`Ul` component)
-
-**Returns:** Ul(..., cls='steps')
-
-* * *
-
-### StepsT
-
-_Options for Steps_
-
-Option | Value | Option | Value  
----|---|---|---  
-vertical | steps-vertical | horizonal | steps-horizonal  
-  
-### LiStep
-
-Source
-
-[code]
-
-    LiStep(*c, cls='', data_content=None, **kwargs) -> fastcore.xml.FT
-[/code]
-
-> Creates a step list item
-
-**Params**
-
-  * `c` Description for Step that goes next to bubble (often text)
-
-  * `cls` Additional step classes (generally a `StepT` component)
-
-  * `data_content` Content for inside bubble (defaults to number, often an emoji)
-
-  * `kwargs` Aditional arguments for the step (`Li` component)
-
-**Returns:** Li(..., cls='step')
-
-* * *
-
-### StepT
-
-_Step styles for LiStep_
-
-Option | Value | Option | Value | Option | Value  
----|---|---|---|---|---  
-primary | step-primary | secondary | step-secondary | accent | step-accent  
-info | step-info | success | step-success | warning | step-warning  
-error | step-error | neutral | step-neutral |  | 
-</doc><doc title="Tables"># Tables
-
-#
-
-# Tables
-
-See Source
-
-See Output
-
-Name | Age | City  
----|---|---  
-Alice | 25 | New York  
-Bob | 30 | San Francisco  
-Charlie | 35 | London  
-Total | 90
-[code]
-
-    def ex_tables0():
-        return Table(
-            Thead(Tr(Th('Name'),    Th('Age'), Th('City'))),
-            Tbody(Tr(Td('Alice'),   Td('25'),  Td('New York')),
-                  Tr(Td('Bob'),     Td('30'),  Td('San Francisco')),
-                  Tr(Td('Charlie'), Td('35'),  Td('London'))),
-            Tfoot(Tr(Td('Total'),   Td('90'))))
-    
-[/code]  
-  
-See Source
-
-See Output
-
-Name | Age | City  
----|---|---  
-Alice | 25 | New York  
-Bob | 30 | San Francisco  
-Charlie | 35 | London  
-Total | 90
-[code]
-
-    def ex_tables1():
-        header =  ['Name',    'Age', 'City']
-        body   = [['Alice',   '25',  'New York'],
-                  ['Bob',     '30',  'San Francisco'],
-                  ['Charlie', '35',  'London']]
-        footer =  ['Total',   '90']
-        return TableFromLists(header, body, footer)
-    
-[/code]  
-  
-See Source
-
-See Output
-
-NAME | AGE | CITY  
----|---|---  
-Alice | 30 years | New York  
-Bob | 25 years | London
-[code]
-
-    def ex_tables2():
-        def body_render(k, v):
-            match k.lower():
-                case 'name': return Td(v, cls='font-bold')
-                case 'age':  return Td(f"{v} years")
-                case _:      return Td(v)
-    
-        header_data = ['Name',          'Age',     'City']
-        body_data   =[{'Name': 'Alice', 'Age': 30, 'City': 'New York'},
-                      {'Name': 'Bob',   'Age': 25, 'City': 'London'}]
-    
-        return TableFromDicts(header_data, body_data, 
-            header_cell_render=lambda v: Th(v.upper()), 
-            body_cell_render=body_render)
-    
-[/code]  
-  
-### Table
-
-Source
-
-[code]
-
-    Table(*c, cls=(<TableT.middle: 'uk-table-middle'>, <TableT.divider: 'uk-table-divider'>, <TableT.hover: 'uk-table-hover'>, <TableT.small: 'uk-table-small'>), **kwargs) -> fastcore.xml.FT
-[/code]
-
-> Creates a table
-
-**Params**
-
-  * `c` Components (typically `Thead`, `Tbody`, `Tfoot`)
-
-  * `cls` Additional classes on the table
-
-  * `kwargs` Additional args for the table
-
-**Returns:** Table component
-
-### TableFromLists
-
-Source
-
-[code]
-
-    TableFromLists(header_data: Sequence, body_data: Sequence[Sequence], footer_data=None, header_cell_render=<function Th at 0x7f5b6305d080>, body_cell_render=<function Td at 0x7f5b6305cfe0>, footer_cell_render=<function Td at 0x7f5b6305cfe0>, cls=(<TableT.middle: 'uk-table-middle'>, <TableT.divider: 'uk-table-divider'>, <TableT.hover: 'uk-table-hover'>, <TableT.small: 'uk-table-small'>), sortable=False, **kwargs) -> fastcore.xml.FT
-[/code]
-
-> Creates a Table from a list of header data and a list of lists of body data
-
-**Params**
-
-  * `header_data` List of header data
-
-  * `body_data` List of lists of body data
-
-  * `footer_data` List of footer data
-
-  * `header_cell_render` Function(content) -> FT that renders header cells
-
-  * `body_cell_render` Function(key, content) -> FT that renders body cells
-
-  * `footer_cell_render` Function(key, content) -> FT that renders footer cells
-
-  * `cls` Additional classes on the table
-
-  * `sortable` Whether to use sortable table
-
-  * `kwargs` Additional args for the table
-
-**Returns:** Table from lists
-
-### TableFromDicts
-
-Source
-
-[code]
-
-    TableFromDicts(header_data: Sequence, body_data: Sequence[dict], footer_data=None, header_cell_render=<function Th at 0x7f5b6305d080>, body_cell_render=<function <lambda> at 0x7f5b6305d1c0>, footer_cell_render=<function <lambda> at 0x7f5b6305d260>, cls=(<TableT.middle: 'uk-table-middle'>, <TableT.divider: 'uk-table-divider'>, <TableT.hover: 'uk-table-hover'>, <TableT.small: 'uk-table-small'>), sortable=False, **kwargs) -> fastcore.xml.FT
-[/code]
-
-> Creates a Table from a list of header data and a list of dicts of body data
-
-**Params**
-
-  * `header_data` List of header data
-
-  * `body_data` List of dicts of body data
-
-  * `footer_data` List of footer data
-
-  * `header_cell_render` Function(content) -> FT that renders header cells
-
-  * `body_cell_render` Function(key, content) -> FT that renders body cells
-
-  * `footer_cell_render` Function(key, content) -> FT that renders footer cells
-
-  * `cls` Additional classes on the table
-
-  * `sortable` Whether to use sortable table
-
-  * `kwargs` Additional args for the table
-
-**Returns:** Styled Table
-
-* * *
-
-### TableT
-
-__
-
-Option | Value | Option | Value | Option | Value  
----|---|---|---|---|---  
-divider | uk-table-divider | striped | uk-table-striped | hover | uk-table-hover  
-small | uk-table-small | large | uk-table-large | justify | uk-table-justify  
-middle | uk-table-middle | responsive | uk-table-responsive |  |   
-  
-### Tbody
-
-Source
-
-[code]
-
-    Tbody(*rows, cls=(), sortable=False, **kwargs)
-[/code]
-
-> **Params**
-
-  * `rows`
-
-  * `cls`
-
-  * `sortable`
-
-  * `kwargs`
-
-### Th
-
-Source
-
-[code]
-
-    Th(*c, cls=(), shrink=False, expand=False, small=False)
-[/code]
-
-> **Params**
-
-  * `c` Components that go in the cell
-
-  * `cls` Additional classes on the cell container
-
-  * `shrink` Whether to shrink the cell
-
-  * `expand` Whether to expand the cell
-
-  * `small` Whether to use a small table
-
-**Returns:** Table cell
-
-### Td
-
-Source
-
-[code]
-
-    Td(*c, cls=(), shrink=False, expand=False, small=False)
-[/code]
-
-> **Params**
-
-  * `c` Components that go in the cell
-
-  * `cls` Additional classes on the cell container
-
-  * `shrink` Whether to shrink the cell
-
-  * `expand` Whether to expand the cell
-
-  * `small` Whether to use a small table
-
-**Returns:** Table cell
-</doc><doc title="Theme | Headers"># Headers
-
-#
-
-# Headers
-
-To get headers with a default theme use `hdrs=Theme.<color>.headers()`. For example for the blue theme you would use `hdrs=Theme.blue.headers()`. The theme integrated together different frameworks and allows tailwind, FrankenUI, HighlighJS, and DaisyUI components to work well together.
-
-Tailwind, FrankenUI and DaisyUI are imported by default. You must use DaisyUI headers to use anything in the `daisy` module, and FrankenUI headers to use anything in the `franken` module.
-
-HighlightJS is not added by default, but you can add it by setting `highlightjs=True` in the headers function. The `render_md` function will use HighlightJS for code blocks.
-
-Theme options are:
-
-Theme.slate
-
-Theme.stone
-
-Theme.gray
-
-Theme.neutral
-
-Theme.red
-
-Theme.rose
-
-Theme.orange
-
-Theme.green
-
-Theme.blue
-
-Theme.yellow
-
-Theme.violet
-
-Theme.zinc
-
-### Theme Picker
-
-See Source
-
-See Output
-
-[code]
-
-    def ex_theme_switcher():
-        from fasthtml.components import Uk_theme_switcher
-        return Uk_theme_switcher()
-    
-[/code]
-
-Themes are controlled with `bg-background text-foreground` classes on the `Body` tag. `fast_app` and `FastHTML` will do this for you automatically so you typically do not have to do anything
-
-### fast_app
-
-Source
-
-[code]
-
-    fast_app(*args, pico=False, db_file: Optional[str] = None, render: Optional[<built-in function callable>] = None, hdrs: Optional[tuple] = None, ftrs: Optional[tuple] = None, tbls: Optional[dict] = None, before: Union[tuple, NoneType, fasthtml.core.Beforeware] = None, middleware: Optional[tuple] = None, live: bool = False, debug: bool = False, routes: Optional[tuple] = None, exception_handlers: Optional[dict] = None, on_startup: Optional[<built-in function callable>] = None, on_shutdown: Optional[<built-in function callable>] = None, lifespan: Optional[<built-in function callable>] = None, default_hdrs=True, surreal: Optional[bool] = True, htmx: Optional[bool] = True, exts: Union[list, str, NoneType] = None, secret_key: Optional[str] = None, key_fname: str = '.sesskey', session_cookie: str = 'session_', max_age: int = 31536000, sess_path: str = '/', same_site: str = 'lax', sess_https_only: bool = False, sess_domain: Optional[str] = None, htmlkw: Optional[dict] = None, bodykw: Optional[dict] = None, reload_attempts: Optional[int] = 1, reload_interval: Optional[int] = 1000, static_path: str = '.', body_wrap: <built-in function callable> = <function noop_body at 0x7f5bb86e44a0>, nb_hdrs: bool = False)
-[/code]
-
-> Create a FastHTML or FastHTMLWithLiveReload app with `bg-background text-foreground` to bodykw for frankenui themes
-
-**Params**
-
-  * `db_file` Database file name, if needed
-
-  * `render` Function used to render default database class
-
-  * `hdrs` Additional FT elements to add to 
-
-  * `ftrs` Additional FT elements to add to end of 
-
-  * `tbls` Experimental mapping from DB table names to dict table definitions
-
-  * `before` Functions to call prior to calling handler
-
-  * `middleware` Standard Starlette middleware
-
-  * `live` Enable live reloading
-
-  * `debug` Passed to Starlette, indicating if debug tracebacks should be returned on errors
-
-  * `routes` Passed to Starlette
-
-  * `exception_handlers` Passed to Starlette
-
-  * `on_startup` Passed to Starlette
-
-  * `on_shutdown` Passed to Starlette
-
-  * `lifespan` Passed to Starlette
-
-  * `default_hdrs` Include default FastHTML headers such as HTMX script?
-
-  * `pico` Include PicoCSS header?
-
-  * `surreal` Include surreal.js/scope headers?
-
-  * `htmx` Include HTMX header?
-
-  * `exts` HTMX extension names to include
-
-  * `secret_key` Signing key for sessions
-
-  * `key_fname` Session cookie signing key file name
-
-  * `session_cookie` Session cookie name
-
-  * `max_age` Session cookie expiry time
-
-  * `sess_path` Session cookie path
-
-  * `same_site` Session cookie same site policy
-
-  * `sess_https_only` Session cookie HTTPS only?
-
-  * `sess_domain` Session cookie domain
-
-  * `htmlkw` Attrs to add to the HTML tag
-
-  * `bodykw` Attrs to add to the Body tag
-
-  * `reload_attempts` Number of reload attempts when live reloading
-
-  * `reload_interval` Time between reload attempts in ms
-
-  * `static_path` Where the static file route points to, defaults to root dir
-
-  * `body_wrap` FT wrapper for body contents
-
-  * `nb_hdrs` If in notebook include headers inject headers in notebook DOM?
-
-  * `args`
-
-### FastHTML
-
-Source
-
-[code]
-
-    FastHTML(*args, pico=False, debug=False, routes=None, middleware=None, title: str = 'FastHTML page', exception_handlers=None, on_startup=None, on_shutdown=None, lifespan=None, hdrs=None, ftrs=None, exts=None, before=None, after=None, surreal=True, htmx=True, default_hdrs=True, sess_cls=<class 'starlette.middleware.sessions.SessionMiddleware'>, secret_key=None, session_cookie='session_', max_age=31536000, sess_path='/', same_site='lax', sess_https_only=False, sess_domain=None, key_fname='.sesskey', body_wrap=<function noop_body at 0x7f5bb86e44a0>, htmlkw=None, nb_hdrs=False)
-[/code]
-
-> Create a FastHTML app and adds `bg-background text-foreground` to bodykw for frankenui themes
-
-**Params**
-
-  * `debug`
-
-  * `routes`
-
-  * `middleware`
-
-  * `title`
-
-  * `exception_handlers`
-
-  * `on_startup`
-
-  * `on_shutdown`
-
-  * `lifespan`
-
-  * `hdrs`
-
-  * `ftrs`
-
-  * `exts`
-
-  * `before`
-
-  * `after`
-
-  * `surreal`
-
-  * `htmx`
-
-  * `default_hdrs`
-
-  * `sess_cls`
-
-  * `secret_key`
-
-  * `session_cookie`
-
-  * `max_age`
-
-  * `sess_path`
-
-  * `same_site`
-
-  * `sess_https_only`
-
-  * `sess_domain`
-
-  * `key_fname`
-
-  * `body_wrap`
-
-  * `htmlkw`
-
-  * `nb_hdrs`
-
-  * `args`
-
-  * `pico`
-</doc><doc title="Typography"># Text Style
-
-#
-
-# Text Style
-
-High Level Options
-
-Ready to go typographic options that cover most of what you need
-
-See Source
-
-See Output
-
-Titled
-
-# Titled
-
-# Level 1 Heading (H1)
-
-## Level 2 Heading (H2)
-
-### Level 3 Heading (H3)
-
-#### Level 4 Heading (H4)
-
-[code]
-
-    def ex_headings():
-        return Div(
-            Titled("Titled"),
-            H1("Level 1 Heading (H1)"), 
-            H2("Level 2 Heading (H2)"), 
-            H3("Level 3 Heading (H3)"), 
-            H4("Level 4 Heading (H4)")
-            )
-    
-[/code]
-
-See Source
-
-See Output
-
-This is a plain P element
-
-This is a PParagraph which adds space between paragraphs
-
-This is a PLarge element
-
-This is a PLead element
-
-This is a PSmall element
-
-This is a PMuted element
-
-[code]
-
-    def ex_ps():
-        return Div(
-            P("This is a plain P element"),
-            PParagraph("This is a PParagraph which adds space between paragraphs"),
-            PLarge("This is a PLarge element"),
-            PLead("This is a PLead element"),
-            PSmall("This is a PSmall element"),
-            PMuted("This is a PMuted element"))
-    
-[/code]
-
-See Source
-
-See Output
-
-`This is a CodeSpan element`
-
-> This is a blockquote element
-[code]
-
-    #This is a CodeBlock element
-    
-    def add(a,b): return a+b
-[/code]
-
-[code]
-
-    def ex_other():
-        return Div(
-            CodeSpan("This is a CodeSpan element"),
-            Blockquote("This is a blockquote element"),
-            CodeBlock("#This is a CodeBlock element\n\ndef add(a,b): return a+b"))
-    
-[/code]
-
-Lower Level Options (enums)
-
-Styling text is possibly the most common style thing to do, so we have a couple of helpers for discoverability inside python. `TextFont` is intended to be combinations are are widely applicable and used often, where `TextT` is intended to be more flexible options for you to combine together yourself.
-
-See Source
-
-See Output
-
-muted_sm
-
-muted_lg
-
-bold_sm
-
-[code]
-
-    def ex_textfont():
-        return Div(
-        P('muted_sm', cls=TextFont.muted_sm),
-        P('muted_lg', cls=TextFont.muted_lg), 
-        P('bold_sm', cls=TextFont.bold_sm),
-        )
-    
-[/code]
-
-See Source
-
-See Output
-
-lead
-
-meta
-
-italic
-
-small
-
-default
-
-large
-
-light
-
-normal
-
-bold
-
-lighter
-
-bolder
-
-capitalize
-
-uppercase
-
-lowercase
-
-decoration_none
-
-muted
-
-primary
-
-secondary
-
-success
-
-warning
-
-danger
-
-left
-
-right
-
-center
-
-justify
-
-top
-
-middle
-
-bottom
-
-baseline
-
-truncate
-
-break_
-
-nowrap
-
-[code]
-
-    def ex_textt():
-        return Grid(
-            P('lead',           cls=TextT.lead),
-            P('meta',           cls=TextT.meta),
-            P('italic',         cls=TextT.italic),
-            P('small',          cls=TextT.small),
-            P('default',        cls=TextT.default),
-            P('large',          cls=TextT.large),
-            P('light',          cls=TextT.light),
-            P('normal',         cls=TextT.normal),
-            P('bold',           cls=TextT.bold),
-            P('lighter',        cls=TextT.lighter),
-            P('bolder',         cls=TextT.bolder),
-            P('capitalize',     cls=TextT.capitalize),
-            P('uppercase',      cls=TextT.uppercase),
-            P('lowercase',      cls=TextT.lowercase),
-            P('decoration_none',cls=TextT.decoration_none),
-            P('muted',          cls=TextT.muted),
-            P('primary',        cls=TextT.primary),
-            P('secondary',      cls=TextT.secondary),
-            P('success',        cls=TextT.success),
-            P('warning',        cls=TextT.warning),
-            P('danger',         cls=TextT.danger),
-            P('left',           cls=TextT.left),
-            P('right',          cls=TextT.right),
-            P('center',         cls=TextT.center),
-            P('justify',        cls=TextT.justify),
-            P('top',            cls=TextT.top),
-            P('middle',         cls=TextT.middle),
-            P('bottom',         cls=TextT.bottom),
-            P('baseline',       cls=TextT.baseline),
-            P('truncate',       cls=TextT.truncate),
-            P('break_',         cls=TextT.break_),
-            P('nowrap',         cls=TextT.nowrap),
-            )
-    
-[/code]
-
-* * *
-
-### TextFont
-
-_Combinations of TextT that are particularly useful_
-
-Option | Value | Option | Value  
----|---|---|---  
-muted_sm | uk-text-muted uk-text-small | muted_lg | uk-text-muted uk-text-large  
-bold_sm | uk-text-bold uk-text-small | md_weight_sm | uk-text-small font-medium  
-  
-* * *
-
-### TextT
-
-_Text Styles from https://franken-ui.dev/docs/text_
-
-Option | Value | Option | Value | Option | Value | Option | Value  
----|---|---|---|---|---|---|---  
-lead | uk-text-lead | meta | uk-text-meta | italic | uk-text-italic | small | uk-text-small  
-default | uk-text | large | uk-text-large | light | uk-text-light | normal | uk-text-normal  
-bold | uk-text-bold | lighter | uk-text-lighter | bolder | uk-text-bolder | capitalize | uk-text-capitalize  
-uppercase | uk-text-uppercase | lowercase | uk-text-lowercase | decoration_none | uk-text-decoration-none | muted | uk-text-muted  
-primary | uk-text-primary | secondary | uk-text-secondary | success | uk-text-success | warning | uk-text-warning  
-danger | uk-text-danger | left | uk-text-left | right | uk-text-right | center | uk-text-center  
-justify | uk-text-justify | top | uk-text-top | middle | uk-text-middle | bottom | uk-text-bottom  
-baseline | uk-text-baseline | truncate | uk-text-truncate | break_ | uk-text-break | nowrap | uk-text-nowrap  
-  
-### H1
-
-Source
-
-[code]
-
-    H1(*c: fastcore.xml.FT | str, cls: enum.Enum | str | tuple = (), **kwargs) -> fastcore.xml.FT
-[/code]
-
-> H1 with styling and appropriate size
-
-**Params**
-
-  * `c` Contents of H1 tag (often text)
-
-  * `cls` Classes in addition to H1 styling
-
-  * `kwargs` Additional args for H1 tag
-
-**Returns:** H1(..., cls='uk-h1')
-
-### H2
-
-Source
-
-[code]
-
-    H2(*c: fastcore.xml.FT | str, cls: enum.Enum | str | tuple = (), **kwargs) -> fastcore.xml.FT
-[/code]
-
-> H2 with styling and appropriate size
-
-**Params**
-
-  * `c` Contents of H2 tag (often text)
-
-  * `cls` Classes in addition to H2 styling
-
-  * `kwargs` Additional args for H2 tag
-
-**Returns:** H2(..., cls='uk-h2')
-
-### H3
-
-Source
-
-[code]
-
-    H3(*c: fastcore.xml.FT | str, cls: enum.Enum | str | tuple = (), **kwargs) -> fastcore.xml.FT
-[/code]
-
-> H3 with styling and appropriate size
-
-**Params**
-
-  * `c` Contents of H3 tag (often text)
-
-  * `cls` Classes in addition to H3 styling
-
-  * `kwargs` Additional args for H3 tag
-
-**Returns:** H3(..., cls='uk-h3')
-
-### H4
-
-Source
-
-[code]
-
-    H4(*c: fastcore.xml.FT | str, cls: enum.Enum | str | tuple = (), **kwargs) -> fastcore.xml.FT
-[/code]
-
-> H4 with styling and appropriate size
-
-**Params**
-
-  * `c` Contents of H4 tag (often text)
-
-  * `cls` Classes in addition to H4 styling
-
-  * `kwargs` Additional args for H4 tag
-
-**Returns:** H4(..., cls='uk-h4')
-
-### Titled
-
-Source
-
-[code]
-
-    Titled(title: str = 'FastHTML app', *c, cls=<ContainerT.xlarge: 'uk-container-xlarge'>, **kwargs) -> fastcore.xml.FT
-[/code]
-
-> Creates a standard page structure for titled page. Main(Container(title, content))
-
-**Params**
-
-  * `title` Title of the page
-
-  * `c` Contents of the page (often other tags)
-
-  * `cls` Classes in addition to Container styling
-
-  * `kwargs` Additional args for Container (`Div` tag)
-
-**Returns:** Title, Main(Container(H1(title), content))
-
-### PParagraph
-
-Source
-
-[code]
-
-    PParagraph(*c, cls='', **kwargs) -> fastcore.xml.FT
-[/code]
-
-> P Tag with paragraph style applied
-
-**Params**
-
-  * `c` Contents of P tag (often text)
-
-  * `cls` Classes in addition to paragraph styling
-
-  * `kwargs` Additional args for P tag
-
-**Returns:** P(..., cls='uk-paragraph')
-
-### PLarge
-
-Source
-
-[code]
-
-    PLarge(*c, cls='', **kwargs) -> fastcore.xml.FT
-[/code]
-
-> P Tag with large style applied
-
-**Params**
-
-  * `c` Contents of P tag (often text)
-
-  * `cls` Classes in addition to paragraph styling
-
-  * `kwargs` Additional args for P tag
-
-**Returns:** P(..., cls='uk-text-large')
-
-### PLead
-
-Source
-
-[code]
-
-    PLead(*c, cls='', **kwargs) -> fastcore.xml.FT
-[/code]
-
-> P Tag with lead style applied
-
-**Params**
-
-  * `c` Contents of P tag (often text)
-
-  * `cls` Classes in addition to paragraph styling
-
-  * `kwargs` Additional args for P tag
-
-**Returns:** P(..., cls='uk-text-lead')
-
-### PSmall
-
-Source
-
-[code]
-
-    PSmall(*c, cls='', **kwargs) -> fastcore.xml.FT
-[/code]
-
-> P Tag with small style applied
-
-**Params**
-
-  * `c` Contents of P tag (often text)
-
-  * `cls` Classes in addition to paragraph styling
-
-  * `kwargs` Additional args for P tag
-
-**Returns:** P(..., cls='uk-text-small')
-
-### PMuted
-
-Source
-
-[code]
-
-    PMuted(*c, cls='', **kwargs) -> fastcore.xml.FT
-[/code]
-
-> P Tag with muted style applied
-
-**Params**
-
-  * `c` Contents of P tag (often text)
-
-  * `cls` Classes in addition to paragraph styling
-
-  * `kwargs` Additional args for P tag
-
-**Returns:** P(..., cls='uk-text-muted')
-
-### CodeSpan
-
-Source
-
-[code]
-
-    CodeSpan(*c, cls=(), **kwargs) -> fastcore.xml.FT
-[/code]
-
-> A CodeSpan with Styling
-
-**Params**
-
-  * `c` Contents of CodeSpan tag (inline text code snippets)
-
-  * `cls` Classes in addition to CodeSpan styling
-
-  * `kwargs` Additional args for CodeSpan tag
-
-**Returns:** Code(..., cls='uk-codespan')
-
-### Blockquote
-
-Source
-
-[code]
-
-    Blockquote(*c: fastcore.xml.FT | str, cls: enum.Enum | str | tuple = (), **kwargs) -> fastcore.xml.FT
-[/code]
-
-> Blockquote with Styling
-
-**Params**
-
-  * `c` Contents of Blockquote tag (often text)
-
-  * `cls` Classes in addition to Blockquote styling
-
-  * `kwargs` Additional args for Blockquote tag
-
-**Returns:** Blockquote(..., cls='uk-blockquote')
-
-### CodeBlock
-
-Source
-
-[code]
-
-    CodeBlock(*c: str, cls: enum.Enum | str | tuple = (), code_cls: enum.Enum | str | tuple = (), **kwargs) -> fastcore.xml.FT
-[/code]
-
-> CodeBlock with Styling
-
-**Params**
-
-  * `c` Contents of Code tag (often text)
-
-  * `cls` Classes for the outer container
-
-  * `code_cls` Classes for the code tag
-
-  * `kwargs` Additional args for Code tag
-
-**Returns:** Div(Pre(Code(..., cls='uk-codeblock), cls='multiple tailwind styles'), cls='uk-block')
-</doc></api reference></project>
+    return fig.to_html(include_plotlyjs=True, full_html=False, config={'displayModeBar': False})
+
+def InfoCard(title, value, change): return Card(H3(value),P(change, cls=TextFont.muted_sm), header = H4(title))
+
+rev = InfoCard("Total Revenue", "$45,231.89", "+20.1% from last month")
+sub = InfoCard("Subscriptions", "+2350", "+180.1% from last month")
+sal = InfoCard("Sales", "+12,234", "+19% from last month")
+act = InfoCard("Active Now", "+573", "+201 since last hour")
+
+info_card_data = [("Total Revenue", "$45,231.89", "+20.1% from last month"),
+                   ("Subscriptions", "+2350", "+180.1% from last month"),
+                   ("Sales", "+12,234", "+19% from last month"),
+                   ("Active Now", "+573", "+201 since last hour")]
+
+top_info_row = Grid(*[InfoCard(*row) for row in info_card_data])
+
+def AvatarItem(name, email, amount):
+    return DivFullySpaced(
+        DivLAligned(
+            DiceBearAvatar(name, 9,9),
+            Div(P(name, cls=TextFont.bold_sm), 
+                P(email, cls=TextFont.muted_sm))),
+        Div(amount, cls="ml-auto font-medium"))
+
+recent_sales = Card(
+    Div(cls="space-y-8")(
+        *[AvatarItem(n,e,d) for (n,e,d) in (
+            ("Olivia Martin",   "olivia.martin@email.com",   "+$1,999.00"),
+            ("Jackson Lee",     "jackson.lee@email.com",     "+$39.00"),
+            ("Isabella Nguyen", "isabella.nguyen@email.com", "+$299.00"),
+            ("William Kim",     "will@email.com",            "+$99.00"),
+            ("Sofia Davis",     "sofia.davis@email.com",     "+$39.00"))]),
+    header=Div(H3("Recent Sales"),P("You made 265 sales this month.", cls=TextFont.muted_sm)),
+    cls='col-span-3')
+
+teams = [["Alicia Koch"],['Acme Inc', 'Monster Inc.'],['Create a Team']]
+
+opt_hdrs = ["Personal", "Team", ""]
+
+team_dropdown = UkSelect(
+    Optgroup(Option(A("Alicia Koch")), label="Personal Account"),
+    Optgroup(Option(A("Acme Inc")), Option(A("Monster Inc.")), label="Teams"),
+    Option(A("Create a Team")),
+    cls='flex items-center')
+
+hotkeys = [('Profile','⇧⌘P'),('Billing','⌘B'),('Settings','⌘S'),('New Team', ''), ('Logout', '')]
+
+def NavSpacedLi(t,s): return NavCloseLi(A(DivFullySpaced(P(t),P(s,cls=TextFont.muted_sm))))
+
+avatar_dropdown = Div(
+      DiceBearAvatar('Alicia Koch',8,8),
+      DropDownNavContainer(
+          NavHeaderLi('sveltecult',NavSubtitle("leader@sveltecult.com")),
+          *[NavSpacedLi(*hk) for hk in hotkeys],))
+
+top_nav = NavBar(
+    Div(team_dropdown, *map(lambda x: Li(A(x)), ["Overview", "Customers", "Products", "Settings"])),
+    DivLAligned(avatar_dropdown, Input(placeholder='Search')))
+
+def page():
+    return Div(cls="space-y-4")(
+        top_nav,
+        H2('Dashboard'),
+        TabContainer(
+            Li(A("Overview"),cls='uk-active'),
+            *map(lambda x: Li(A(x)), ["Analytics", "Reports", "Notifications"]),
+            alt=True),
+        top_info_row,
+        Grid(
+            Card(Safe(generate_chart(100)),cls='col-span-4'),
+            recent_sales,
+            gap=4,cols=7))
+
+dashboard_homepage = page()</doc></examples></project>

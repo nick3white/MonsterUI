@@ -54,5 +54,4 @@ you - but they are helpful productivity tools.
 
 - [llms.txt](https://raw.githubusercontent.com/AnswerDotAI/MonsterUI/refs/heads/main/docs/llms.txt): Links to what is included
 - [llms-ctx.txt](https://raw.githubusercontent.com/AnswerDotAI/MonsterUI/refs/heads/main/docs/llms-ctx.txt): MonsterUI Documentation Pages
-- [llm-ctx-full.txt](https://raw.githubusercontent.com/AnswerDotAI/MonsterUI/refs/heads/main/docs/llms-ctx-full.txt): Documentation pages + examples
-- [API list](https://raw.githubusercontent.com/AnswerDotAI/MonsterUI/refs/heads/main/docs/apilist.txt): API list for MonsterUI
+- [API list](https://raw.githubusercontent.com/AnswerDotAI/MonsterUI/refs/heads/main/docs/apilist.txt): API list for MonsterUI (included in llms-ctx.txt)

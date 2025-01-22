@@ -66,7 +66,7 @@ from examples.mail import index as mail_homepage
 
 def _example_route(name, homepage, o:str, request=None):
     match o:
-        case 'code': return Div(render_md(f'''```python\n\n{open(f'examples/{name}.py').read()}\n\n```'''))
+        case 'code' | 'rmd': return Div(render_md(f'''```python\n\n{open(f'examples/{name}.py').read()}\n\n```'''))
         case 'md': return PlainTextResponse(open(f'examples/{name}.py').read())
         case _: return _create_example_page(homepage, request)
 

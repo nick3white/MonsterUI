@@ -11,6 +11,57 @@ To install this library, uses
 
 ## Getting Started
 
+### TLDR
+
+Run `python file.py` on this to start:
+
+``` python
+from fasthtml.common import *
+from monsterui.all import *
+
+# Choose a theme color (blue, green, red, etc)
+hdrs = Theme.blue.headers()
+
+# Create your app with the theme
+app, rt = fast_app(hdrs=hdrs)
+
+@rt
+def index():
+    socials = (('github','https://github.com/AnswerDotAI/MonsterUI'),
+               ('twitter','https://twitter.com/isaac_flath/'),
+               ('linkedin','https://www.linkedin.com/in/isaacflath/'))
+    return Titled("Your First App",
+        Card(
+            H1("Welcome!"),
+            P("Your first MonsterUI app", cls=TextFont.muted_sm),
+            P("I'm excited to see what you build with MonsterUI!"),
+            footer=DivLAligned(*[UkIconLink(icon,href=url) for icon,url in socials])))
+
+serve()
+```
+
+## LLM context files
+
+Using LLMs for development is a best practice way to get started and
+explore. While LLMs cannot code for you, they can be helpful assistants.
+You must check, refactor, test, and vet any code any LLM generates for
+you - but they are helpful productivity tools. Take a look inside the
+`llms.txt` file to see links to particularly useful context files!
+
+- [llms.txt](https://raw.githubusercontent.com/AnswerDotAI/MonsterUI/refs/heads/main/docs/llms.txt):
+  Links to what is included
+- [llms-ctx.txt](https://raw.githubusercontent.com/AnswerDotAI/MonsterUI/refs/heads/main/docs/llms-ctx.txt):
+  MonsterUI Documentation Pages
+- [API
+  list](https://raw.githubusercontent.com/AnswerDotAI/MonsterUI/refs/heads/main/docs/apilist.txt):
+  API list for MonsterUI (included in llms-ctx.txt)
+
+In addition you can add `/md` (for markdown) to a url to get a markdown
+representation and `/rmd` for rendered markdown representation (nice for
+looking to see what would be put into context.
+
+### Step by Step
+
 To get started, check out:
 
 1.  Start by importing the modules as follows:
@@ -38,26 +89,10 @@ a quick start guide:
 
 - MonsterUI [documentation page and Tutorial
   app](https://monsterui.answer.ai/tutorial_app)
-- This
-  [video](https://www.loom.com/share/0916e8a95d524c43a4d100ee85157624?sid=9be07e55-c962-4dbd-978c-aa6a0bcee7b3)
-  where Isaac iteratively builds a form in 5 minutes with the framework
+- Isaac & Hamel : [Building his website’s team
+  page](https://youtu.be/22Jn46-mmM0)
+- Isaac & Audrey : [Building a blog](https://youtu.be/gVWAsywxLXE)
+- Isaac : [Building a blog](https://youtu.be/22NJgfAqgko)
 
 More resources and improvements to the documentation will be added here
 soon!
-
-## LLM context files
-
-Using LLMs for development is a best practice way to get started and
-explore. While LLMs cannot code for you, they can be helpful assistants.
-You must check, refactor, test, and vet any code any LLM generates for
-you - but they are helpful productivity tools.
-
-- [llms.txt](https://raw.githubusercontent.com/AnswerDotAI/monsterui/refs/heads/main/nbs/llms.txt):
-  Links to the neccesary reference documents to use the MonsterUI
-  library effectively. Contains very little information directly in the
-  document.
-- [llms-ctx.txt](https://raw.githubusercontent.com/AnswerDotAI/monsterui/refs/heads/main/nbs/llms-ctx.txt):
-  MonsterUI specific context only (does not include FastHTML specific
-  context)
-- [llm-ctx-full.txt](https://raw.githubusercontent.com/AnswerDotAI/monsterui/refs/heads/main/nbs/llms-ctx-full.txt):
-  All inclusive FastHTML + MonsterUI context

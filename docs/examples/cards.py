@@ -118,11 +118,20 @@ Notifications = Card(
     header = (H4('Notification'),Div('Choose what you want to be notified about.', cls=('mt-1.5', TextFont.muted_sm))),
     body_cls='pt-0')
 
+TeamCard = Card(
+    DivLAligned(
+        DiceBearAvatar("Isaac Flath", h=24, w=24),
+        Div(H3("Isaac Flath"), P("Library Creator"))),
+    footer=DivFullySpaced(
+        DivHStacked(UkIcon("map-pin", height=16), P("Alexandria, VA")),
+        DivHStacked(*(UkIconLink(icon, height=16) for icon in ("mail", "linkedin", "github")))),
+    cls=CardT.hover)
+
 @rt
 def index():
     return Title("Cards Example"),Container(Grid(
             *map(Div,(
-                      Div(PaymentMethod,CreateAccount, cls='space-y-4'),
+                      Div(PaymentMethod,CreateAccount, TeamCard, cls='space-y-4'),
                       Div(TeamMembers, ShareDocument,DateCard,Notifications, cls='space-y-4'),
                       Div(ReportIssue,MonsterUI,CookieSettings, cls='space-y-4'))),
          cols_md=1, cols_lg=2, cols_xl=3))

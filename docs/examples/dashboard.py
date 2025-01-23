@@ -100,6 +100,6 @@ def index():
             Card(Safe(generate_chart(100)),cls='col-span-4'),
             recent_sales,
             gap=4,cols=7),
-        cls=('space-y-4', ContainerT.xlarge))
+        cls=('space-y-4', ContainerT.xl))
 
 serve()

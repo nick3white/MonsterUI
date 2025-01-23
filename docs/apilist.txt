@@ -2,36 +2,36 @@
 
 ## monsterui.core
 
-- `class Theme`
+- `class Theme(Enum)`
     Selector to choose theme and get all headers needed for app.  Includes frankenui + tailwind + daisyui + highlight.js options
+    Members: slate, stone, gray, neutral, red, rose, orange, green, blue, yellow, violet, zinc
 
-    - `def headers(self, mode, daisy, highlightjs)`
+    - `headers(self, mode, daisy, highlightjs)`
         Create frankenui and tailwind cdns
 
-    - `def local_headers(self, mode, static_dir, daisy, highlightjs)`
+    - `local_headers(self, mode, static_dir, daisy, highlightjs)`
         Create headers using local files downloaded from CDNs
 
-    - `@property def name(self)`
 
 ## monsterui.daisy
 
-- `class AlertT`
+- `class AlertT(Enum)`
     Alert styles from DaisyUI
+    Members: info, success, warning, error
 
-    - `@property def name(self)`
 
 - `def Alert(*c, **kwargs)`
     Alert informs users about important events.
 
-- `class StepsT`
+- `class StepsT(Enum)`
     Options for Steps
+    Members: vertical, horizonal
 
-    - `@property def name(self)`
 
-- `class StepT`
+- `class StepT(Enum)`
     Step styles for LiStep
+    Members: primary, secondary, accent, info, success, warning, error, neutral
 
-    - `@property def name(self)`
 
 - `def Steps(*li, **kwargs)`
     Creates a steps container
@@ -39,21 +39,22 @@
 - `def LiStep(*c, **kwargs)`
     Creates a step list item
 
-- `class LoadingT`
-    - `@property def name(self)`
+- `class LoadingT(Enum)`
+    Members: spinner, dots, ring, ball, bars, infinity, xs, sm, md, lg
+
 
 - `def Loading(cls, htmx_indicator, **kwargs)`
     Creates a loading animation component
 
-- `class ToastHT`
+- `class ToastHT(Enum)`
     Horizontal position for Toast
+    Members: start, center, end
 
-    - `@property def name(self)`
 
-- `class ToastVT`
+- `class ToastVT(Enum)`
     Vertical position for Toast
+    Members: top, middle, bottom
 
-    - `@property def name(self)`
 
 - `def Toast(*c, **kwargs)`
     Toasts are stacked announcements, positioned on the corner of page.
@@ -65,26 +66,27 @@
 - `def stringify(o)`
     Converts input types into strings that can be passed to FT components
 
-- `class VEnum`
-    - `def __str__(self)`
-    - `def __add__(self, other)`
-    - `def __radd__(self, other)`
-    - `@property def name(self)`
+- `class VEnum(Enum)`
+    Members: 
+
+    - `__str__(self)`
+    - `__add__(self, other)`
+    - `__radd__(self, other)`
 
 ## monsterui.franken
 
-- `class TextT`
+- `class TextT(Enum)`
     Text Styles from https://franken-ui.dev/docs/text
+    Members: lead, meta, italic, sm, default, lg, light, normal, bold, lighter, bolder, capitalize, uppercase, lowercase, decoration_none, muted, primary, secondary, success, warning, danger, left, right, center, justify, top, middle, bottom, baseline, truncate, break_, nowrap
 
-    - `@property def name(self)`
 
-- `class TextFont`
+- `class TextFont(Enum)`
     Combinations of TextT that are particularly useful
+    Members: muted_sm, muted_lg, bold_sm, bold_lg, md_weight_sm
 
-    - `def __add__(self, other)`
-    - `def __radd__(self, other)`
-    - `def __str__(self)`
-    - `@property def name(self)`
+    - `__add__(self, other)`
+    - `__radd__(self, other)`
+    - `__str__(self)`
 
 - `def PParagraph(*c, **kwargs)`
     P Tag with paragraph style applied
@@ -122,21 +124,22 @@
 - `def H4(*c, **kwargs)`
     H4 with styling and appropriate size
 
-- `class ButtonT`
+- `class ButtonT(Enum)`
     Options for styling Buttons
+    Members: default, primary, secondary, danger, text, link, ghost
 
-    - `@property def name(self)`
 
 - `def Button(*c, **kwargs)`
     Button with Styling (defaults to `submit` for form submission)
 
-- `class ContainerT`
+- `class ContainerT(Enum)`
     Max width container sizes from https://franken-ui.dev/docs/container
+    Members: xs, sm, lg, xl, expand
 
-    - `@property def name(self)`
 
-- `class BackgroundT`
-    - `@property def name(self)`
+- `class BackgroundT(Enum)`
+    Members: muted, primary, secondary, default
+
 
 - `def Container(*c, **kwargs)`
     Div to be used as a container that often wraps large sections or a page of content
@@ -144,10 +147,10 @@
 - `def Titled(title, *c, **kwargs)`
     Creates a standard page structure for titled page.  Main(Container(title, content))
 
-- `class DividerT`
+- `class DividerT(Enum)`
     Divider Styles from https://franken-ui.dev/docs/divider
+    Members: icon, sm, vertical
 
-    - `@property def name(self)`
 
 - `def Divider(*c, **kwargs)`
     Divider with default styling and margin
@@ -164,10 +167,10 @@
 - `def ArticleMeta(*c, **kwargs)`
     A metadata component for use within an Article showing things like date, author etc
 
-- `class SectionT`
+- `class SectionT(Enum)`
     Section styles from https://franken-ui.dev/docs/section
+    Members: default, muted, primary, secondary, xs, sm, lg, xl, remove_vertical
 
-    - `@property def name(self)`
 
 - `def Section(*c, **kwargs)`
     Section with styling and margins
@@ -205,8 +208,9 @@
 - `def FormLabel(*c, **kwargs)`
     A Label with default styling
 
-- `class LabelT`
-    - `@property def name(self)`
+- `class LabelT(Enum)`
+    Members: primary, secondary, danger
+
 
 - `def Label(*c, **kwargs)`
     FrankenUI labels, which look like pills
@@ -241,15 +245,15 @@
 - `def LabelUkSelect(*option, **kwargs)`
     A FormLabel and Select pair that provides default spacing and links/names them based on id
 
-- `class AT`
+- `class AT(Enum)`
     Link styles from https://franken-ui.dev/docs/link
+    Members: muted, text, reset, primary
 
-    - `@property def name(self)`
 
-- `class ListT`
+- `class ListT(Enum)`
     List styles from https://franken-ui.dev/docs/list
+    Members: disc, circle, square, decimal, hyphen, muted, primary, secondary, bullet, divider, striped
 
-    - `@property def name(self)`
 
 - `def UkList(*li, **kwargs)`
     Creates a list with styling
@@ -278,15 +282,15 @@
 - `def Modal(*c, **kwargs)`
     Creates a modal with the appropriate classes to put the boilerplate in the appropriate places for you
 
-- `class PaddingT`
+- `class PaddingT(Enum)`
     Padding Modifiers from https://franken-ui.dev/docs/padding
+    Members: xs, sm, default, md, lg, xl, remove, remove_top, remove_bottom, remove_left, remove_right, remove_vertical, remove_horizontal
 
-    - `@property def name(self)`
 
-- `class PositionT`
+- `class PositionT(Enum)`
     Position modifiers from https://franken-ui.dev/docs/position
+    Members: top, bottom, left, right, top_left, top_center, top_right, center, center_left, center_right, bottom_left, bottom_center, bottom_right, center_horizontal, center_vertical
 
-    - `@property def name(self)`
 
 - `def Placeholder(*c, **kwargs)`
     Creates a placeholder
@@ -303,10 +307,10 @@
 - `def DiceBearAvatar(seed_name, h, w)`
     Creates an Avatar using https://dicebear.com/
 
-- `class FlexT`
+- `class FlexT(Enum)`
     Flexbox modifiers from UIkit
+    Members: block, inline, left, center, right, between, around, stretch, top, middle, bottom, row, row_reverse, column, column_reverse, nowrap, wrap, wrap_reverse
 
-    - `@property def name(self)`
 
 - `def Grid(*div, **kwargs)`
     Creates a responsive grid layout with smart defaults based on content
@@ -329,8 +333,9 @@
 - `def DivHStacked(*c, **kwargs)`
     Creates a flex div with it's components stacked horizontally
 
-- `class NavT`
-    - `@property def name(self)`
+- `class NavT(Enum)`
+    Members: default, primary, secondary
+
 
 - `def NavContainer(*li, **kwargs)`
     Creates a navigation container (useful for creating a sidebar navigation).  A Nav is a list (NavBar is something different)
@@ -389,10 +394,10 @@
 - `def TabContainer(*li, **kwargs)`
     A TabContainer where children will be different tabs
 
-- `class CardT`
+- `class CardT(Enum)`
     Card styles from UIkit
+    Members: default, primary, secondary, danger
 
-    - `@property def name(self)`
 
 - `def CardTitle(*c, **kwargs)`
     Creates a card title
@@ -412,8 +417,9 @@
 - `def Card(*c, **kwargs)`
     Creates a Card with a header, body, and footer
 
-- `class TableT`
-    - `@property def name(self)`
+- `class TableT(Enum)`
+    Members: divider, striped, hover, sm, lg, justify, middle, responsive
+
 
 - `def Table(*c, **kwargs)`
     Creates a table

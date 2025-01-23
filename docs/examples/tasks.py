@@ -99,7 +99,7 @@ tasks_table = Div(cls='mt-4')(
         body_cell_render=cell_render,
         header_cell_render=header_render,
         sortable=True,
-        cls=(TableT.responsive, TableT.small, TableT.divider)))
+        cls=(TableT.responsive, TableT.sm, TableT.divider)))
 
 
 def footer():
@@ -107,7 +107,7 @@ def footer():
     return DivFullySpaced(
         Div('1 of 100 row(s) selected.', cls=TextFont.muted_sm),
         DivLAligned(
-            DivCentered(f'Page {current_page + 1} of {total_pages}', cls=TextT.small),
+            DivCentered(f'Page {current_page + 1} of {total_pages}', cls=TextT.sm),
             DivLAligned(*[UkIconLink(icon=i,  button=True) for i in ('chevrons-left', 'chevron-left', 'chevron-right', 'chevrons-right')])))
 
 tasks_ui = Div(DivFullySpaced(DivLAligned(table_controls), cls='mt-8'), tasks_table, footer())

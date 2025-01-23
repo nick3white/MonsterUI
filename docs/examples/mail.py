@@ -89,7 +89,7 @@ def MailDetailView(mail):
                     Div(cls='grid gap-1')(
                         Div(mail['name'], cls=TextT.bold),
                         Div(mail['subject'], cls='text-xs'),
-                        DivLAligned('Reply-To:', mail['email'], cls=TextT.small)),
+                        DivLAligned('Reply-To:', mail['email'], cls=TextT.sm)),
                     cls='gap-4 text-sm'),
                 Div(format_date(mail['date']), cls=TextFont.muted_sm),
                 cls='p-4'),
@@ -108,6 +108,6 @@ def index():
              Div(MailDetailView(mail_data[0]), cls='col-span-2'),
              cols_sm=1, cols_md=1, cols_lg=5, cols_xl=5, 
              gap=0, cls='flex-1'),
-        cls=('flex', ContainerT.xlarge))
+        cls=('flex', ContainerT.xl))
 
 serve()

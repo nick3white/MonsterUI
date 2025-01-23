@@ -207,9 +207,9 @@ def ex_textt():
         P('lead',           cls=TextT.lead),
         P('meta',           cls=TextT.meta),
         P('italic',         cls=TextT.italic),
-        P('small',          cls=TextT.small),
+        P('sm',             cls=TextT.sm),
         P('default',        cls=TextT.default),
-        P('large',          cls=TextT.large),
+        P('lg',             cls=TextT.lg),
         P('light',          cls=TextT.light),
         P('normal',         cls=TextT.normal),
         P('bold',           cls=TextT.bold),
@@ -320,7 +320,7 @@ def ex_articles():
 def ex_containers():
     return Container(
         "This is a sample container with custom styling.",
-        cls=ContainerT.xsmall,
+        cls=ContainerT.xs,
         style="background-color: #FFA500; color: #000000")
 
 
@@ -670,7 +670,7 @@ docs_layout = create_doc_section(
 def ex_dividers():
     return Div(
         P("Small Divider"),
-        Divider(cls=DividerT.small),
+        Divider(cls=DividerT.sm),
         DivCentered(
             P("Vertical Divider"),
             Divider(cls=DividerT.vertical)),

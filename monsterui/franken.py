@@ -21,17 +21,11 @@ __all__ = ['franken_class_map', 'TextT', 'TextFont', 'PParagraph', 'PLarge', 'PL
 # %% ../nbs/02_franken.ipynb
 import fasthtml.common as fh
 from .foundations import *
-from fasthtml.common import is_listy, Div, P, Span, Script, FastHTML, FT, to_xml, show,fast_app
-from fasthtml.svg import Svg
-from fasthtml.components import Uk_theme_switcher, Main
+from fasthtml.common import Div, P, Span, FT
 from enum import Enum, auto
-from fasthtml.components import Uk_select,Uk_input_tag,Uk_icon
-from functools import partial
-from itertools import zip_longest
-from typing import Union, Tuple, Optional
+from fasthtml.components import Uk_select,Uk_icon
+from typing import Union
 from fastcore.all import *
-import copy, re, httpx
-from pathlib import Path
 
 # %% ../nbs/02_franken.ipynb
 class TextT(VEnum):
@@ -42,7 +36,7 @@ class TextT(VEnum):
     # Text Style
     lead,meta, italic = auto(), auto(), auto()
     # Text Size
-    small, default, large = auto(), 'uk-text', auto()
+    sm, default, lg = 'uk-text-small', 'uk-text', 'uk-text-large'
     # Text Weight
     light, normal, bold, lighter, bolder = auto(),auto(),auto(),auto(),auto()
     # Text Transform
@@ -65,10 +59,10 @@ class TextFont(Enum):
     def __add__(self, other):   return stringify((self, other))
     def __radd__(self, other):  return stringify((other, self)) 
     def __str__(self): return self.value
-    muted_sm = stringify((TextT.muted, TextT.small))
-    muted_lg = stringify((TextT.muted, TextT.large))
-    bold_sm = stringify((TextT.bold, TextT.small))
-    md_weight_sm = stringify((TextT.small, 'font-medium'))
+    muted_sm = stringify((TextT.muted, TextT.sm))
+    muted_lg = stringify((TextT.muted, TextT.lg))
+    bold_sm = stringify((TextT.bold, TextT.sm))
+    md_weight_sm = stringify((TextT.sm, 'font-medium'))
 
 # %% ../nbs/02_franken.ipynb
 def PParagraph(*c, # Contents of P tag (often text)
@@ -187,12 +181,11 @@ def Button(*c: Union[str, FT], # Contents of `Button` tag (often text)
 # %% ../nbs/02_franken.ipynb
 class ContainerT(VEnum):
     'Max width container sizes from https://franken-ui.dev/docs/container'
-    def _generate_next_value_(name, start, count, last_values): return str2ukcls('container', name)
-    xsmall = auto()
-    small = auto()
-    large = auto()
-    xlarge = auto()
-    expand = auto()
+    xs = 'uk-container-xsmall'
+    sm = 'uk-container-small'
+    lg = 'uk-container-large'
+    xl = 'uk-container-xlarge'
+    expand = 'uk-container-expand'
 
 # %% ../nbs/02_franken.ipynb
 class BackgroundT(VEnum):
@@ -204,7 +197,7 @@ class BackgroundT(VEnum):
 
 # %% ../nbs/02_franken.ipynb
 def Container(*c, # Contents of Container tag (often other FT Components)
-              cls=('mt-5', ContainerT.xlarge), # Classes in addition to Container styling
+              cls=('mt-5', ContainerT.xl), # Classes in addition to Container styling
               **kwargs # Additional args for Container (`Div` tag)
               )->FT: # Container(..., cls='uk-container')
     "Div to be used as a container that often wraps large sections or a page of content"
@@ -213,7 +206,7 @@ def Container(*c, # Contents of Container tag (often other FT Components)
 # %% ../nbs/02_franken.ipynb
 def Titled(title:str="FastHTML app", # Title of the page
            *c, # Contents of the page (often other tags)
-           cls=ContainerT.xlarge, # Classes in addition to Container styling
+           cls=ContainerT.xl, # Classes in addition to Container styling
            **kwargs # Additional args for Container (`Div` tag)
            )->FT: # Title, Main(Container(H1(title), content))
     "Creates a standard page structure for titled page.  Main(Container(title, content))"
@@ -224,7 +217,7 @@ class DividerT(VEnum):
     "Divider Styles from https://franken-ui.dev/docs/divider"
     def _generate_next_value_(name, start, count, last_values): return str2ukcls('divider', name)
     icon=auto()
-    small=auto()
+    sm='uk-divider-small'
     vertical=auto()
 
 # %% ../nbs/02_franken.ipynb
@@ -278,10 +271,10 @@ class SectionT(VEnum):
     muted = auto()
     primary = auto()
     secondary = auto()
-    xsmall = auto()
-    small = auto()
-    large = auto()
-    xlarge = auto()
+    xs = 'uk-section-xsmall'
+    sm = 'uk-section-small'
+    lg = 'uk-section-large'
+    xl = 'uk-section-xlarge'
     remove_vertical = auto()
 
 # %% ../nbs/02_franken.ipynb
@@ -660,12 +653,12 @@ def Modal(*c,                 # Components to put in the `ModalBody` (often form
 class PaddingT(VEnum):
     'Padding Modifiers from https://franken-ui.dev/docs/padding'
     def _generate_next_value_(name, start, count, last_values): return str2ukcls('padding', name)
-    xsmall = auto()
-    small = auto()
+    xs = 'uk-padding-xs'
+    sm = 'uk-padding-sm'
     default = ''
-    medium = auto()
-    large = auto()
-    xlarge = auto()
+    md = 'uk-padding-md'
+    lg = 'uk-padding-lg'
+    xl = 'uk-padding-xl'
     remove = auto()
     remove_top = auto()
     remove_bottom = auto()
@@ -1115,15 +1108,15 @@ class TableT(VEnum):
     divider = auto()
     striped = auto()
     hover = auto()
-    small = auto()
-    large = auto()
+    sm = 'uk-table-small'
+    lg = 'uk-table-large'
     justify = auto()
     middle = auto()
     responsive = auto()
 
 # %% ../nbs/02_franken.ipynb
 def Table(*c, # Components (typically `Thead`, `Tbody`, `Tfoot`)
-          cls=(TableT.middle, TableT.divider, TableT.hover, TableT.small), # Additional classes on the table
+          cls=(TableT.middle, TableT.divider, TableT.hover, TableT.sm), # Additional classes on the table
           **kwargs # Additional args for the table
          )->FT: # Table component
     "Creates a table"
@@ -1159,7 +1152,7 @@ def TableFromLists(header_data:Sequence, # List of header data
                    header_cell_render=Th, # Function(content) -> FT that renders header cells
                    body_cell_render=Td, # Function(key, content) -> FT that renders body cells
                    footer_cell_render=Td, #  Function(key, content) -> FT that renders footer cells
-                   cls=(TableT.middle, TableT.divider, TableT.hover, TableT.small), # Additional classes on the table
+                   cls=(TableT.middle, TableT.divider, TableT.hover, TableT.sm), # Additional classes on the table
                    sortable=False, # Whether to use sortable table
                    **kwargs # Additional args for the table
                   )->FT: # Table from lists
@@ -1178,7 +1171,7 @@ def TableFromDicts(header_data:Sequence, # List of header data
                    header_cell_render=Th, # Function(content) -> FT that renders header cells
                    body_cell_render=lambda k,v : Td(v), # Function(key, content) -> FT that renders body cells
                    footer_cell_render=lambda k,v : Td(v), #  Function(key, content) -> FT that renders footer cells
-                   cls=(TableT.middle, TableT.divider, TableT.hover, TableT.small), # Additional classes on the table
+                   cls=(TableT.middle, TableT.divider, TableT.hover, TableT.sm), # Additional classes on the table
                    sortable=False, # Whether to use sortable table
                    **kwargs # Additional args for the table
                   )->FT: # Styled Table

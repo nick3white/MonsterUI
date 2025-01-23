@@ -82,7 +82,7 @@
 
 - `class TextFont(Enum)`
     Combinations of TextT that are particularly useful
-    Members: muted_sm, muted_lg, bold_sm, bold_lg, md_weight_sm
+    Members: muted_sm, muted_lg, bold_sm, md_weight_sm
 
     - `__add__(self, other)`
     - `__radd__(self, other)`

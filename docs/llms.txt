@@ -7,6 +7,7 @@
 
 ## Examples
 - [Dashboard](https://monsterui.answer.ai/dashboard/md)
+- [Ticket](https://monsterui.answer.ai/ticket/md)
 - [Music](https://monsterui.answer.ai/music/md)
 - [Playground](https://monsterui.answer.ai/playground/md)
 - [Tasks](https://monsterui.answer.ai/tasks/md)

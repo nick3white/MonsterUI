@@ -396,7 +396,7 @@
 
 - `class CardT(Enum)`
     Card styles from UIkit
-    Members: default, primary, secondary, danger
+    Members: default, primary, secondary, danger, hover
 
 
 - `def CardTitle(*c, **kwargs)`
@@ -539,7 +539,10 @@ def index():
             gap=4,cols=7),
         cls=('space-y-4', ContainerT.xl))
 
-serve()</doc><doc title="Music">"""FrankenUI Music Example build with MonsterUI (Original design by ShadCN)"""
+serve()</doc><doc title="Ticket"># 404 - Page Not Found
+
+The page you're looking for doesn't exist.
+</doc><doc title="Music">"""FrankenUI Music Example build with MonsterUI (Original design by ShadCN)"""
 
 from fasthtml.common import *
 from monsterui.all import *

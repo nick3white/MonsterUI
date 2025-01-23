@@ -348,6 +348,8 @@ def ex_card():
             P("A card with header and footer",cls=TextFont.muted_sm)),
         footer=DivLAligned(Button("Footer Submit Button")))
 
+
+
 def Tags(cats): return Div(cls='space-x-2')(map(Label, cats))
 
 def ex_card2_wide():
@@ -362,7 +364,8 @@ def ex_card2_wide():
                 DivFullySpaced(map(Span, ["Isaac Flath", "20-October-2024"]), cls=TextFont.muted_sm),
                 DivFullySpaced(
                     Tags(["FastHTML", "HTMX", "Web Apps"]),
-                    Button("Read", cls=(ButtonT.primary,'h-6'))))))
+                    Button("Read", cls=(ButtonT.primary,'h-6'))))),
+        cls=CardT.hover)
 
 def ex_card2_tall():
     def Tags(cats): return Div(cls='space-x-2')(map(Label, cats))
@@ -376,7 +379,8 @@ def ex_card2_tall():
                 DivFullySpaced(map(Span, ["Isaac Flath", "20-October-2024"]), cls=TextFont.muted_sm),
                 DivFullySpaced(
                     Tags(["FastHTML", "HTMX", "Web Apps"]),
-                    Button("Read", cls=(ButtonT.primary,'h-6'))))))
+                    Button("Read", cls=(ButtonT.primary,'h-6'))))),
+        cls=CardT.hover)
 
 def ex_card3():
     def team_member(name, role, location="Remote"):

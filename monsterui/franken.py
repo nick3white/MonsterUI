@@ -1047,6 +1047,7 @@ class CardT(VEnum):
     primary = auto()
     secondary = auto()
     danger = auto()
+    hover = 'uk-card hover:shadow-lg hover:-translate-y-1 transition-all duration-200'
 
 # %% ../nbs/02_franken.ipynb
 def CardTitle(*c, # Components (often a string)

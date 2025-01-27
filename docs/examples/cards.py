@@ -11,10 +11,10 @@ app, rt = fast_app(hdrs=Theme.blue.headers())
 
 CreateAccount = Card(
     Grid(Button(DivLAligned(UkIcon('github'),Div('Github'))),Button('Google')),
-            DividerSplit("OR CONTINUE WITH", text_cls=TextFont.muted_sm),
+            DividerSplit("OR CONTINUE WITH", text_cls=TextPresetsT.caption),
             LabelInput('Email',    id='email',   placeholder='m@example.com'),
             LabelInput('Password', id='password',placeholder='Password', type='Password'),
-            header=(H3('Create an Account'),P(cls=TextFont.muted_sm)('Enter your email below to create your account')),
+            header=(H3('Create an Account'),P(cls=TextPresetsT.caption)('Enter your email below to create your account')),
             footer=Button(cls=(ButtonT.primary,'w-full'))('Create Account'))
 
 Card1Svg = Svg(viewBox="0 0 24 24", fill="none", stroke="currentColor", stroke_linecap="round", stroke_linejoin="round", stroke_width="2", cls="h-6 w-6 mr-1")(Rect(width="20", height="14", x="2", y="5", rx="2"),Path(d="M2 10h20"))
@@ -30,7 +30,7 @@ PaymentMethod = Card(
          Grid(LabelUkSelect(*Options(*calendar.month_name[1:],selected_idx=0),label='Expires',id='expire_month'),
               LabelUkSelect(*Options(*range(2024,2030),selected_idx=0),       label='Year',   id='expire_year'),
               LabelInput('CVV', id='cvv',placeholder='CVV', cls='mt-0'))),
-        header=(H3('Payment Method'),P(cls=TextFont.muted_sm)('Add a new payment method to your account.')))
+        header=(H3('Payment Method'),P(cls=TextPresetsT.caption)('Add a new payment method to your account.')))
 
 area_opts = ('Team','Billing','Account','Deployment','Support')
 severity_opts = ('Severity 1 (Highest)', 'Severity 2', 'Severity 3', 'Severity 4 (Lowest)')
@@ -41,21 +41,21 @@ ReportIssue = Card(
     LabelTextArea( label='Description', id='description',placeholder='Please include all information relevant to your issue'),
     Div(FormLabel('Tags', fr='#tags'),
         Uk_input_tag(name="Tags",state="danger", value="Spam,Invalid", uk_cloak=True, id='tags')),
-    header=(H3('Report Issue'),P(cls=TextFont.muted_sm)('What area are you having problems with?')),
+    header=(H3('Report Issue'),P(cls=TextPresetsT.caption)('What area are you having problems with?')),
     footer = DivFullySpaced(Button('Cancel'), Button(cls=ButtonT.primary)('Submit')))
 
 monster_desc ="Python-first beautifully designed components because you deserve to focus on features that matter and your app deserves to be beautiful from day one."
 MonsterUI = Card(H4("Monster UI"),
-              P(monster_desc, cls=TextFont.muted_sm),
+              P(monster_desc, cls=TextPresetsT.caption),
               DivLAligned(
                     Div("Python"),
                     DivLAligned(UkIcon('star'),Div("20k"), cls='space-x-1'),
                     Div(datetime.now().strftime("%B %d, %Y")),
-                    cls=('space-x-4',TextFont.muted_sm)))
+                    cls=('space-x-4',TextPresetsT.caption)))
 
 def CookieTableRow(heading, description, active=False):
     return Tr(Td(H5(heading)),
-              Td(P(description, cls=TextFont.muted_sm)),
+              Td(P(description, cls=TextPresetsT.caption)),
               Td(Switch(checked=active)))
 
 CookieSettings = Card(
@@ -63,7 +63,7 @@ CookieSettings = Card(
         CookieTableRow('Strictly Necessary', 'These cookies are essential in order to use the website and use its features.', True),
         CookieTableRow('Functional Cookies', 'These cookies allow the website to provide personalized functionality.'),
         CookieTableRow('Performance Cookies', 'These cookies help to improve the performance of the website.'))),
-    header=(H4('Cookie Settings'),P(cls=(TextFont.muted_sm, 'mt-1.5'))('Manage your cookie settings here.')),
+    header=(H4('Cookie Settings'),P(cls=(TextPresetsT.caption, 'mt-1.5'))('Manage your cookie settings here.')),
     footer=Button('Save Preferences', cls=(ButtonT.primary, 'w-full')))
 
 team_members = [("Sofia Davis", "m@example.com", "Owner"),("Jackson Lee", "p@example.com", "Member"),]
@@ -71,8 +71,8 @@ def TeamMemberRow(name, email, role):
     return DivFullySpaced(
         DivLAligned(
             DiceBearAvatar(name, 10,10),
-            Div(P(name, cls=TextFont.md_weight_sm),
-                P(email, cls=TextFont.muted_sm))),
+            Div(P(name, cls=TextPresetsT.emphasis),
+                P(email, cls=TextPresetsT.caption))),
         Button(role, UkIcon('chevron-down', cls='ml-4')),
         DropDownNavContainer(map(NavCloseLi, [
             A(Div('Viewer',    NavSubtitle('Can view and comment.'))),
@@ -81,7 +81,7 @@ def TeamMemberRow(name, email, role):
             A(Div('Owner',     NavSubtitle('Admin-level access to all resources.')))])))
 
 TeamMembers = Card(*[TeamMemberRow(*member) for member in team_members],
-        header = (H4('Team Members'),Div('Invite your team members to collaborate.', cls=('mt-1.5', TextFont.muted_sm))),)
+        header = (H4('Team Members'),Div('Invite your team members to collaborate.', cls=('mt-1.5', TextPresetsT.caption))),)
 
 access_roles = ("Read and write access", "Read-only access")
 team_members = [("Olivia Martin", "m@example.com", "Read and write access"),
@@ -91,16 +91,16 @@ team_members = [("Olivia Martin", "m@example.com", "Read and write access"),
 def TeamMemberRow(name, email, role):
     return DivFullySpaced(
         DivLAligned(DiceBearAvatar(name, 10,10),
-                    Div(P(name, cls=TextFont.md_weight_sm),
-                        P(email, cls=TextFont.muted_sm))),
+                    Div(P(name, cls=TextPresetsT.emphasis),
+                        P(email, cls=TextPresetsT.caption))),
         UkSelect(*Options(*access_roles, selected_idx=access_roles.index(role))))
 
 ShareDocument = Card(
     DivLAligned(Input(value='http://example.com/link/to/document'),Button('Copy link', cls='whitespace-nowrap')),
     Divider(),
-    H4('People with access', cls=TextFont.bold_sm),
+    H4('People with access', cls=TextPresetsT.subheading),
     *[TeamMemberRow(*member) for member in team_members],
-    header = (H4('Share this document'),Div('Anyone with the link can view this document.', cls=('mt-1.5',TextFont.muted_sm))))
+    header = (H4('Share this document'),Div('Anyone with the link can view this document.', cls=('mt-1.5',TextPresetsT.caption))))
 
 DateCard = Card(Button('Jan 20, 2024 - Feb 09, 2024'))
 
@@ -109,13 +109,13 @@ section_content =(('bell','Everything',"Email digest, mentions & all activity.")
                   ('ban', "Ignoring","Turn of all notifications"))
 
 def NotificationRow(icon, name, desc):
-    return Li(cls='-mx-1')(A(DivLAligned(UkIcon(icon),Div(P(name),P(desc, cls=TextFont.muted_sm)))))
+    return Li(cls='-mx-1')(A(DivLAligned(UkIcon(icon),Div(P(name),P(desc, cls=TextPresetsT.caption)))))
 
 Notifications = Card(
     NavContainer(
         *[NotificationRow(*row) for row in section_content],
         cls=NavT.secondary),
-    header = (H4('Notification'),Div('Choose what you want to be notified about.', cls=('mt-1.5', TextFont.muted_sm))),
+    header = (H4('Notification'),Div('Choose what you want to be notified about.', cls=('mt-1.5', TextPresetsT.caption))),
     body_cls='pt-0')
 
 TeamCard = Card(

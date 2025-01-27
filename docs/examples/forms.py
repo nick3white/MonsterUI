@@ -8,12 +8,12 @@ from fasthtml.svg import *
 app, rt = fast_app(hdrs=Theme.blue.headers())
 
 def HelpText(c):
-    return P(c,cls=TextFont.muted_sm)
+    return P(c,cls=TextPresetsT.caption)
 
 def heading():
     return Div(cls="space-y-5")(
             H2("Settings"),
-            P("Manage your account settings and set e-mail preferences.", cls=TextFont.muted_lg),
+            P("Manage your account settings and set e-mail preferences.", cls=TextT.muted + TextT.lg),
             DividerSplit())
 
 sidebar_items = ["Profile", "Account", "Appearance", "Notifications", "Display"]
@@ -109,7 +109,7 @@ def notifications_form():
     def NotificationCard(item):
         return Card(
             Div(cls="space-y-0.5")(
-                FormLabel(item['title'], cls=TextFont.bold_sm),
+                FormLabel(item['title'], cls=TextPresetsT.subheading),
                 HelpText(item['description'])),
         )
     content = Div(

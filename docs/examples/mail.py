@@ -15,7 +15,7 @@ sidebar_group2 = (('globe','Social','972'),('info','Updates','342'),('messages-s
     ('shopping-cart','Shopping','8'),('shopping-bag','Promotions','21'),)
 
 def MailSbLi(icon, title, cnt): 
-    return Li(A(DivLAligned(Span(UkIcon(icon)),Span(title),P(cnt,cls=TextFont.muted_sm))))
+    return Li(A(DivLAligned(Span(UkIcon(icon)),Span(title),P(cnt,cls=TextPresetsT.caption))))
 
 sidebar = NavContainer(
     NavHeaderLi(H3("Email")),
@@ -41,8 +41,8 @@ def MailItem(mail):
                 Div(mail['name'], cls='font-semibold'),
                     Span(cls='flex h-2 w-2 rounded-full bg-blue-600') if not mail['read'] else ''),
                 Div(format_date(mail['date']), cls='text-xs')),
-            A(mail['subject'], cls=TextFont.bold_sm, href=f"#mail-{mail['id']}"),
-            Div(mail['text'][:100] + '...', cls=TextFont.muted_sm),
+            A(mail['subject'], cls=TextPresetsT.subheading, href=f"#mail-{mail['id']}"),
+            Div(mail['text'][:100] + '...', cls=TextPresetsT.caption),
             DivLAligned(
                 *[A(label, cls=f"uk-label relative z-10 {'uk-label-primary' if label == 'work' else ''}", href='#')
                   for label in mail['labels']]))
@@ -91,7 +91,7 @@ def MailDetailView(mail):
                         Div(mail['subject'], cls='text-xs'),
                         DivLAligned('Reply-To:', mail['email'], cls=TextT.sm)),
                     cls='gap-4 text-sm'),
-                Div(format_date(mail['date']), cls=TextFont.muted_sm),
+                Div(format_date(mail['date']), cls=TextPresetsT.caption),
                 cls='p-4'),
             Div(cls='flex-1 space-y-4 border-t border-border p-4 text-sm')(P(mail['text']))),
         Div(cls='flex-none space-y-4 border-t border-border p-4')(

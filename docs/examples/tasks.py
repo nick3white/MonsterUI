@@ -7,7 +7,7 @@ import json
 
 app, rt = fast_app(hdrs=Theme.blue.headers())
 
-def LAlignedCheckTxt(txt): return DivLAligned(UkIcon(icon='check'), P(txt, cls=TextFont.muted_sm))
+def LAlignedCheckTxt(txt): return DivLAligned(UkIcon(icon='check'), P(txt, cls=TextPresetsT.caption))
 
 with open('data/status_list.json', 'r') as f: data     = json.load(f)
 with open('data/statuses.json',    'r') as f: statuses = json.load(f)
@@ -25,7 +25,7 @@ priority_dd = [{'priority': "low", 'count': 36 }, {'priority': "medium", 'count'
 
 status_dd = [{'status': "backlog", 'count': 21 },{'status': "todo", 'count': 21 },{'status': "progress", 'count': 20 },{'status': "done",'count': 19 },{'status': "cancelled", 'count': 19 }]
 
-def create_hotkey_li(hotkey): return NavCloseLi(A(DivFullySpaced(hotkey[0], Span(hotkey[1], cls=TextFont.muted_sm))))
+def create_hotkey_li(hotkey): return NavCloseLi(A(DivFullySpaced(hotkey[0], Span(hotkey[1], cls=TextPresetsT.caption))))
 
 hotkeys_a = (('Profile','⇧⌘P'),('Billing','⌘B'),('Settings','⌘S'),('New Team',''))
 hotkeys_b = (('Logout',''), )
@@ -41,7 +41,7 @@ def CreateTaskModal():
     return Modal(
         Div(cls='p-6')(
             ModalTitle('Create Task'),
-            P('Fill out the information below to create a new task', cls=TextFont.muted_sm),
+            P('Fill out the information below to create a new task', cls=TextPresetsT.caption),
             Br(),
             Form(cls='space-y-6')(
                 Grid(Div(Select(*map(Option,('Documentation', 'Bug', 'Feature')), label='Task Type', id='task_type')),
@@ -56,7 +56,7 @@ def CreateTaskModal():
 
 page_heading = DivFullySpaced(cls='space-y-2')(
             Div(cls='space-y-2')(
-                H2('Welcome back!'),P("Here's a list of your tasks for this month!", cls=TextFont.muted_sm)),
+                H2('Welcome back!'),P("Here's a list of your tasks for this month!", cls=TextPresetsT.caption)),
             Div(DiceBearAvatar("sveltcult",8,8),avatar_opts))
 
 table_controls =(Input(cls='w-[250px]',placeholder='Filter task'),
@@ -66,14 +66,14 @@ table_controls =(Input(cls='w-[250px]',placeholder='Filter task'),
      DropDownNavContainer(map(NavCloseLi,[A(DivFullySpaced(LAlignedCheckTxt(a['priority']), a['count']),cls=TextT.capitalize) for a in priority_dd])),
      Button("View"),
      DropDownNavContainer(map(NavCloseLi,[A(LAlignedCheckTxt(o)) for o in ['Title','Status','Priority']])),
-     Button('Create Task',cls=(ButtonT.primary, TextFont.bold_sm), uk_toggle="target: #TaskForm"))
+     Button('Create Task',cls=(ButtonT.primary, TextPresetsT.subheading), uk_toggle="target: #TaskForm"))
 
 def task_dropdown():
     return Div(Button(UkIcon('ellipsis')),
                DropDownNavContainer(
                    map(NavCloseLi,[
                        *map(A,('Edit', 'Make a copy', 'Favorite')),
-                        A(DivFullySpaced(*[P(o, cls=TextFont.muted_sm) for o in ('Delete', '⌘⌫')]))])))
+                        A(DivFullySpaced(*[P(o, cls=TextPresetsT.caption) for o in ('Delete', '⌘⌫')]))])))
 def header_render(col):
     match col:
         case "Done":    return Th(CheckboxX(), shrink=True)
@@ -105,7 +105,7 @@ tasks_table = Div(cls='mt-4')(
 def footer():
     total_pages = (len(data) + page_size - 1) // page_size
     return DivFullySpaced(
-        Div('1 of 100 row(s) selected.', cls=TextFont.muted_sm),
+        Div('1 of 100 row(s) selected.', cls=TextPresetsT.caption),
         DivLAligned(
             DivCentered(f'Page {current_page + 1} of {total_pages}', cls=TextT.sm),
             DivLAligned(*[UkIconLink(icon=i,  button=True) for i in ('chevrons-left', 'chevron-left', 'chevron-right', 'chevrons-right')])))

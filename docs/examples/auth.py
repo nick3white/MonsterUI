@@ -20,18 +20,18 @@ def index():
             Container(
                 DivVStacked(
                     H3("Create an account"),
-                    P("Enter your email below to create your account", cls=TextFont.muted_sm)),
+                    P("Enter your email below to create your account", cls=TextPresetsT.caption)),
                 Form(
                     Input(placeholder="name@example.com"),
                     Button(Span(cls="mr-2", uk_spinner="ratio: 0.54"), "Sign in with Email", cls=(ButtonT.primary, "w-full"), disabled=True),
-                    DividerSplit("Or continue with",cls=TextFont.muted_sm),
+                    DividerSplit("Or continue with",cls=TextPresetsT.caption),
                     Button(UkIcon('github',cls='mr-2'), "Github", cls=(ButtonT.default, "w-full")),
                     cls='space-y-6'),
                 P(
                     "By clicking continue, you agree to our ",
                     A(cls=AT.muted, href="#demo")("Terms of Service")," and ",
                     A(cls=AT.muted, href="#demo")("Privacy Policy"),".",
-                    cls=(TextFont.muted_sm,"text-center")),
+                    cls=(TextPresetsT.caption,"text-center")),
                 cls="space-y-6")))
     
     return Title("Auth Example"),Grid(left,right,cols=2, gap=0,cls='h-screen')

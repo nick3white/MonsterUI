@@ -38,7 +38,7 @@ class TextT(VEnum):
     # Text Size
     sm, default, lg = 'uk-text-small', 'uk-text', 'uk-text-large'
     # Text Weight
-    light, normal, bold, lighter, bolder = auto(),auto(),auto(),auto(),auto()
+    light, normal, medium, bold, lighter, bolder = auto(),auto(),'font-medium', auto(),auto(),auto()
     # Text Transform
     capitalize,uppercase, lowercase = auto(),auto(),auto()
     # Text Decoration
@@ -61,8 +61,11 @@ class TextFont(Enum):
     def __str__(self): return self.value
     muted_sm = stringify((TextT.muted, TextT.sm))
     muted_lg = stringify((TextT.muted, TextT.lg))
+
     bold_sm = stringify((TextT.bold, TextT.sm))
-    md_weight_sm = stringify((TextT.sm, 'font-medium'))
+    bold_lg = stringify((TextT.bold, TextT.lg))
+    md_weight_sm = stringify((TextT.sm, TextT.medium))
+    md_weight_muted = stringify((TextT.medium, TextT.muted))
 
 # %% ../nbs/02_franken.ipynb
 def PParagraph(*c, # Contents of P tag (often text)
@@ -391,11 +394,12 @@ def GenericLabelInput(
                input_cls='', # Additional classes for user input (Input, Select, etc)
                container=Div, # Container to wrap label and input in (default is Div)
                cls='', # Classes on container (default is '')
-               id='', # id for label and input (`id`, `name` and `for` attributes are set to this value)
+               id=None, # id for label and input (`id`, `name` and `for` attributes are set to this value).  If `label` is str, this defaults to `label.lower()`
                input_fn=noop, # User input FT component 
                 **kwargs # Additional args for user input
                 ): 
     "`Div(Label,Input)` component with Uk styling injected appropriately. Generally you should higher level API, such as `LabelInput` which is created for you in this library"
+    if not id and isinstance(label, str): id = label.lower()
     if isinstance(label, str) or label.tag != 'label': 
         label = FormLabel(cls=stringify(lbl_cls), fr=id)(label)
     inp = input_fn(id=id, cls=stringify(input_cls), **kwargs)        
@@ -1225,9 +1229,7 @@ def apply_classes(html_str:str, # Html string
     "Apply classes to html string"
     if not html_str: return html_str
     try:
-        from lxml import html, etree
         class_map = ifnone(class_map, franken_class_map)
-
         if class_map_mods: class_map = {**class_map, **class_map_mods}
         html_str = html.fromstring(html_str)
         for selector, classes in class_map.items():
@@ -1237,9 +1239,6 @@ def apply_classes(html_str:str, # Html string
                 existing_class = element.get('class', '')
                 new_class = f"{existing_class} {classes}".strip()
                 element.set('class', new_class)
-        return etree.tostring(html_str, encoding='unicode', method='html')
-    except ImportError:
-        raise ImportError("Install 'lxml' to use the apply_classes function")
     except etree.ParserError:
         return html_str
 
@@ -1250,15 +1249,6 @@ def render_md(md_content:str, # Markdown content
               )->FT: # Rendered markdown
     "Renders markdown using mistletoe and lxml"
     if md_content=='': return md_content
-    # Check for required dependencies
-    missing = []
-    try: import mistletoe
-    except ImportError: missing.append('mistletoe')
-    try: import lxml
-    except ImportError: missing.append('lxml')
-    if missing:
-        pkgs = ' and '.join(missing)
-        raise ImportError(f"Please install {pkgs} to use the render_md function")
-        
+    # Check for required dependencies        
     html_content = mistletoe.markdown(md_content) #, mcp.PygmentsRenderer)
     return NotStr(apply_classes(html_content, class_map, class_map_mods))

@@ -77,31 +77,13 @@
 
 - `class TextT(Enum)`
     Text Styles from https://franken-ui.dev/docs/text
-    Members: lead, meta, italic, sm, default, lg, light, normal, medium, bold, lighter, bolder, capitalize, uppercase, lowercase, decoration_none, muted, primary, secondary, success, warning, danger, left, right, center, justify, top, middle, bottom, baseline, truncate, break_, nowrap
+    Members: paragraph, lead, meta, italic, sm, default, lg, light, normal, medium, bold, lighter, bolder, capitalize, uppercase, lowercase, decoration_none, muted, primary, secondary, success, warning, error, info, left, right, center, justify, top, middle, bottom, baseline, truncate, break_, nowrap
 
 
-- `class TextFont(Enum)`
-    Combinations of TextT that are particularly useful
-    Members: muted_sm, muted_lg, bold_sm, bold_lg, md_weight_sm, md_weight_muted
+- `class TextPresetsT(Enum)`
+    Common Typography Presets
+    Members: caption, meta_text, helper_text, label, quote, info, success, warning, error, subtitle, subheading, emphasis, primary
 
-    - `__add__(self, other)`
-    - `__radd__(self, other)`
-    - `__str__(self)`
-
-- `def PParagraph(*c, **kwargs)`
-    P Tag with paragraph style applied
-
-- `def PLarge(*c, **kwargs)`
-    P Tag with large style applied
-
-- `def PLead(*c, **kwargs)`
-    P Tag with lead style applied
-
-- `def PSmall(*c, **kwargs)`
-    P Tag with small style applied
-
-- `def PMuted(*c, **kwargs)`
-    P Tag with muted style applied
 
 - `def CodeSpan(*c, **kwargs)`
     A CodeSpan with Styling

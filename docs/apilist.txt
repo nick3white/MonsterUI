@@ -77,12 +77,12 @@
 
 - `class TextT(Enum)`
     Text Styles from https://franken-ui.dev/docs/text
-    Members: lead, meta, italic, sm, default, lg, light, normal, bold, lighter, bolder, capitalize, uppercase, lowercase, decoration_none, muted, primary, secondary, success, warning, danger, left, right, center, justify, top, middle, bottom, baseline, truncate, break_, nowrap
+    Members: lead, meta, italic, sm, default, lg, light, normal, medium, bold, lighter, bolder, capitalize, uppercase, lowercase, decoration_none, muted, primary, secondary, success, warning, danger, left, right, center, justify, top, middle, bottom, baseline, truncate, break_, nowrap
 
 
 - `class TextFont(Enum)`
     Combinations of TextT that are particularly useful
-    Members: muted_sm, muted_lg, bold_sm, md_weight_sm
+    Members: muted_sm, muted_lg, bold_sm, bold_lg, md_weight_sm, md_weight_muted
 
     - `__add__(self, other)`
     - `__radd__(self, other)`

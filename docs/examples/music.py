@@ -3,7 +3,9 @@
 from fasthtml.common import *
 from monsterui.all import *
  
-def MusicLi(t,hk=''): return Li(A(DivFullySpaced(t,P(hk,cls=TextFont.muted_sm))))
+app, rt = fast_app(hdrs=Theme.blue.headers())
+
+def MusicLi(t,hk=''): return Li(A(DivFullySpaced(t,P(hk,cls=TextPresetsT.caption))))
 
 music_items = [("About Music", ""   ),
                ("Preferences", "⌘"  ),
@@ -65,11 +67,11 @@ made_for_you_albums = [("Like a Feline",         "Catdonna"),
                        ("Meow Me Maybe",         "Carly Rae Purrsen"),]
 
 music_content = (Div(H3("Listen Now"), cls="mt-6 space-y-1"),
-                    P("Top picks for you. Updated daily.",cls=TextFont.muted_sm),
+                    P("Top picks for you. Updated daily.",cls=TextPresetsT.caption),
                     DividerLine(),
                     Grid(*[Album(t,a) for t,a in listen_now_albums], cls='gap-8'),
                     Div(H3("Made for You"), cls="mt-6 space-y-1"),
-                    P("Your personal playlists. Updated daily.", cls=TextFont.muted_sm),
+                    P("Your personal playlists. Updated daily.", cls=TextPresetsT.caption),
                     DividerLine(),
                     Grid(*[Album(t,a) for t,a in made_for_you_albums], cols_xl=6))
 
@@ -84,12 +86,12 @@ def podcast_tab():
     return Div(
         Div(cls='space-y-3 mt-6')(
             H3("New Episodes"),
-            P("Your favorite podcasts. Updated daily.", cls=TextFont.muted_sm)),
+            P("Your favorite podcasts. Updated daily.", cls=TextPresetsT.caption)),
         Div(cls="uk-placeholder flex h-[450px] items-center justify-center rounded-md",uk_placeholder=True)(
             DivVStacked(cls="space-y-6")(
                 UkIcon("microphone", 3),
                 H4("No episodes added"),
-                P("You have not added any podcasts. Add one below.", cls=TextFont.muted_sm),
+                P("You have not added any podcasts. Add one below.", cls=TextPresetsT.caption),
                 Button("Add Podcast", cls=ButtonT.primary))))
 
 discoved_data =  [("play-circle","Listen Now"), ("binoculars", "Browse"), ("rss","Radio")]
@@ -103,8 +105,9 @@ sidebar = NavContainer(
     NavHeaderLi(H3("Playlists")),*[MusicSidebarLi(*o) for o in playlists_data],
     cls=(NavT.primary,'space-y-3','pl-8'))
 
-def page():
-    return Div(Container(music_headers,cls='py-8'), DividerSplit(),
+@rt
+def index():
+    return Title("Music Example"),Container(music_headers, DividerSplit(),
         Grid(sidebar,
             Div(cls="col-span-4 border-l border-border")(
                 Div(cls="px-8 py-6")(
@@ -114,6 +117,6 @@ def page():
                     Ul(id="component-nav", cls="uk-switcher")(
                         Li(*music_content),
                         Li(podcast_tab())))),
-            cols=5))
+            cols_sm=1, cols_md=1, cols_lg=5, cols_xl=5))
 
-music_homepage = page()
+serve()

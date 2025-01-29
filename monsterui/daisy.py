@@ -6,17 +6,11 @@ __all__ = ['AlertT', 'Alert', 'StepsT', 'StepT', 'Steps', 'LiStep', 'LoadingT', 
 # %% ../nbs/03_daisy.ipynb
 import fasthtml.common as fh
 from .foundations import *
-from fasthtml.common import is_listy, Div, P, Span, Script, FastHTML, FT, to_xml, show,fast_app
+from fasthtml.common import Div, Span, FT
 from fasthtml.svg import *
-from fasthtml.components import Uk_theme_switcher, Main
-from enum import Enum, auto
-from fasthtml.components import Uk_select,Uk_input_tag,Uk_icon
-from functools import partial
-from itertools import zip_longest
-from typing import Union, Tuple, Optional
+from enum import auto
 from fastcore.all import *
-import copy, re, httpx
-from pathlib import Path
+
 
 # %% ../nbs/03_daisy.ipynb
 class AlertT(VEnum):
@@ -81,10 +75,10 @@ class LoadingT(VEnum):
     bars = auto()
     infinity = auto()
     
-    xs = auto()
-    sm = auto()
-    md = auto()
-    lg = auto()
+    xs = 'loading-xsmall'
+    sm = 'loading-small'
+    md = 'loading-medium'
+    lg = 'loading-large'
 
 # %% ../nbs/03_daisy.ipynb
 def Loading(cls=(LoadingT.bars, LoadingT.lg), # Classes for indicator (generally `LoadingT` options)

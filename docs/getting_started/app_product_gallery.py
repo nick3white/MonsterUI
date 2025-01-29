@@ -36,11 +36,11 @@ def ProductCard(p):
         # Often adding space makes a site look more put together - usually the 2 - 5 range is a
         # good choice
         H4(p["name"], cls="mt-2"), 
-        # There are helpful Enums, such as TextFont, ButtonT, ContainerT, etc that allow for easy
+        # There are helpful Enums, such as TextPresetsT, ButtonT, ContainerT, etc that allow for easy
         # discoverability of class options.
         # bold_sm is helpful for things that you want to look like regular text, but stand out
         # visually for emphasis.
-        P(p["price"], cls=TextFont.bold_sm), 
+        P(p["price"], cls=TextPresetsT.subheading), 
         # ButtonT.primary is useful for actions you really want the user to take (like adding
         # something to the card) - these stand out visually. For dangerous actions (like
         # deleting something) you generally would want to use ButtonT.danger. For UX actions

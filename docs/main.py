@@ -6,16 +6,28 @@ from utils import render_nb
 from pathlib import Path
 from toolslm.download import read_html
 from starlette.responses import PlainTextResponse
+import httpx
 
-def before(req, sess):
-    path = req.url.path
-    print(f"Checking path: {path}")  # Added more descriptive print to help debug
-    if path.endswith('.md') or path.endswith('.md/'):
-        html = read_html(f'https://monsterui.answer.ai{path.rstrip("/")[:-3].rstrip("/")}', sel='#content')
-        return PlainTextResponse(html)
-bware = Beforeware(before)
+def _not_found(req, exc):
+    _path = req.url.path.rstrip('/')
+    print(_path)
+    if _path.endswith('.md') or _path.endswith('/md') or _path.endswith('/rmd') or _path.endswith('.rmd'):
+        url = f'https://monsterui.answer.ai{_path[:-3].rstrip("/")}'
+        try:
+            r = httpx.head(url, follow_redirects=True, timeout=1.0)
+            if r.status_code < 400:  # Accept 2xx and 3xx status codes
+                if _path.endswith('.rmd') or _path.endswith('/rmd'):
+                    return Container(render_md(read_html(url, sel='#content')))
+                elif _path.endswith('.md') or _path.endswith('/md'):
+                    return PlainTextResponse(read_html(url, sel='#content'))
+        except (httpx.TimeoutException, httpx.NetworkError):
+            pass    
+    return _create_page(
+        Container(Card(CardBody(H1("404 - Page Not Found"), P("The page you're looking for doesn't exist.")))),
+        req,
+        None)
 
-app,rt = fast_app(before=bware, pico=False, hdrs=(*Theme.blue.headers(highlightjs=True), Link(rel="icon", type="image/x-icon", href="/favicon.ico")))
+app,rt = fast_app(exception_handlers={404:_not_found}, pico=False, hdrs=(*Theme.blue.headers(highlightjs=True), Link(rel="icon", type="image/x-icon", href="/favicon.ico")))
 
 def is_htmx(request=None): 
     "Check if the request is an HTMX request"
@@ -43,18 +55,18 @@ def with_layout(sidebar_section, content):
 # Build the Example Pages
 ###
  
-from examples.tasks import tasks_homepage
-from examples.cards import cards_homepage
-from examples.dashboard import dashboard_homepage
-from examples.forms import forms_homepage
-from examples.music import music_homepage
-from examples.auth import auth_homepage
-from examples.playground import playground_homepage
-from examples.mail import mail_homepage
+from examples.tasks import index as tasks_homepage
+from examples.cards import index as cards_homepage
+from examples.dashboard import index as dashboard_homepage
+from examples.forms import index as forms_homepage
+from examples.music import index as music_homepage
+from examples.auth import index as auth_homepage
+from examples.playground import index as playground_homepage
+from examples.mail import index as mail_homepage
 
 def _example_route(name, homepage, o:str, request=None):
     match o:
-        case 'code': return Div(render_md(f'''```python\n\n{open(f'examples/{name}.py').read()}\n\n```'''))
+        case 'code' | 'rmd': return Div(render_md(f'''```python\n\n{open(f'examples/{name}.py').read()}\n\n```'''))
         case 'md': return PlainTextResponse(open(f'examples/{name}.py').read())
         case _: return _create_example_page(homepage, request)
 
@@ -62,35 +74,35 @@ _create_example_page = partial(_create_page, sidebar_section='Examples')
 
 @rt('/tasks')
 @rt('/tasks/{o}')
-def tasks(o:str='', request=None): return _example_route('tasks', tasks_homepage, o, request)
+def tasks(o:str='', request=None): return _example_route('tasks', tasks_homepage(), o, request)
 
 @rt('/cards')
 @rt('/cards/{o}')
-def cards(o:str, request=None): return _example_route('cards', cards_homepage, o, request)
+def cards(o:str, request=None): return _example_route('cards', cards_homepage(), o, request)
 
 @rt('/dashboard')
 @rt('/dashboard/{o}')
-def dashboard(o:str, request=None): return _example_route('dashboard', dashboard_homepage, o, request)
+def dashboard(o:str, request=None): return _example_route('dashboard', dashboard_homepage(), o, request)
 
 @rt('/forms')
 @rt('/forms/{o}')
-def forms(o:str, request=None): return _example_route('forms', forms_homepage, o, request)
+def forms(o:str, request=None): return _example_route('forms', forms_homepage(), o, request)
 
 @rt('/music')
 @rt('/music/{o}')
-def music(o:str, request=None): return _example_route('music', music_homepage, o, request)
+def music(o:str, request=None): return _example_route('music', music_homepage(), o, request)
 
 @rt('/auth')
 @rt('/auth/{o}')
-def auth(o:str, request=None): return _example_route('auth', auth_homepage, o, request)
+def auth(o:str, request=None): return _example_route('auth', auth_homepage(), o, request)
 
 @rt('/playground')
 @rt('/playground/{o}')
-def playground(o:str, request=None): return _example_route('playground', playground_homepage, o, request)
+def playground(o:str, request=None): return _example_route('playground', playground_homepage(), o, request)
 
 @rt('/mail')
-@rt('/mail/{o}')
-def mail(o:str, request=None): return _example_route('mail', mail_homepage, o, request)
+@rt('/mail/{o}')    
+def mail(o:str, request=None): return _example_route('mail', mail_homepage(), o, request)
 
 ###
 # Build the API Reference Pages
@@ -102,28 +114,21 @@ def fname2title(ref_fn_name): return ref_fn_name[5:].replace('_',' | ').title()
 reference_fns = L([o for o in dir(api_reference) if o.startswith('docs_')])
 
 @rt('/api_ref/{o}')
-@rt('/api_ref/{o}/{o2}')
-def api_route(request, o:str, o2:str):
-    if o2=='md': return PlainTextResponse(read_html(f'https://monsterui.answer.ai/api_ref/{o}/', sel='#content'))
+def api_route(request, o:str):
     if o not in reference_fns: raise HTTPException(404)
     content = getattr(api_reference, o)()
-    return _create_page(Container(content), 
-                        request=request, 
-                        sidebar_section='API Reference')
+    return _create_page(Container(content), request=request, sidebar_section='API Reference')
 
 ###
 # Build the Guides Pages
 ###
-@rt('/tutorial_spacing')
-@rt('/tutorial_spacing/{o}')
-def tutorial_spacing(o:str, request=None): 
-    if o=='md': return PlainTextResponse(read_html(f'https://monsterui.answer.ai/tutorial_spacing/', sel='#content'))
+@rt
+def tutorial_spacing(request=None): 
+    # if o=='md': return PlainTextResponse(read_html(f'https://monsterui.answer.ai/tutorial_spacing/', sel='#content'))
     return _create_page(render_nb('guides/Spacing.ipynb'), request, 'Guides')
-
-@rt('/tutorial_layout')
-@rt('/tutorial_layout/{o}')
-def tutorial_layout(o:str, request=None): 
-    if o=='md': return PlainTextResponse(read_html(f'https://monsterui.answer.ai/tutorial_layout/', sel='#content'))
+@rt
+def tutorial_layout(request=None): 
+    # if o=='md': return PlainTextResponse(read_html(f'https://monsterui.answer.ai/tutorial_layout/', sel='#content'))
     return _create_page(render_nb('guides/Layout.ipynb'), request,  'Guides',)
 
 ###
@@ -139,24 +144,19 @@ def theme_switcher(request):
 ###
 
 gs_path = Path('getting_started')
-@rt('/getting_started')
-@rt('/getting_started/{o}')
-def getting_started(o:str, request=None):
-    if o=='md': return PlainTextResponse(read_html(f'https://monsterui.answer.ai/getting_started/', sel='#content'))
+
+@rt
+def getting_started(request=None):
     content = Container(render_md(open(gs_path/'GettingStarted.md').read()))
     return _create_page(content, 
                        request, 
                        'Getting Started')
 @rt
-@rt('/{o}')
-def index(o:str): 
-    if o=='md': return PlainTextResponse(read_html(f'https://monsterui.answer.ai/', sel='#content'))
+def index(): 
     return getting_started('')
 
-@rt('/tutorial_app')
-@rt('/tutorial_app/{o}')
-def tutorial_app(o:str, request=None):
-    if o=='md': return PlainTextResponse(read_html(f'https://monsterui.answer.ai/tutorial_app/', sel='#content'))
+@rt
+def tutorial_app(request=None):
     app_code = open(gs_path/'app_product_gallery.py').read()
     app_rendered = Div(Pre(Code(app_code)))
     content = Container(cls='space-y-4')(
@@ -184,13 +184,13 @@ For example, try replacing `H4` with `fh.H4` or `Button` with `fh.Button`."""),
 
 def sidebar(open_section):
     def create_li(title, href):
-        return Li(A(title,hx_target="#content", href=href))
+        return Li(A(title,hx_target="#content", hx_get=href, hx_push_url='true'))
 
     return NavContainer(
         NavParentLi(
             A(DivFullySpaced("Getting Started", NavBarParentIcon())),
-            NavContainer(create_li("Getting Started", '/getting_started/'),
-                         create_li("Tutorial App", '/tutorial_app/'),
+            NavContainer(create_li("Getting Started", getting_started),
+                         create_li("Tutorial App", tutorial_app),
                          parent=False),
             cls='uk-open' if open_section=='Getting Started' else ''
         ),
@@ -206,8 +206,8 @@ def sidebar(open_section):
             A(DivFullySpaced('Guides', NavBarParentIcon())),
             NavContainer(
                 *[create_li(title, href) for title, href in [
-                    ('Spacing', '/tutorial_spacing/'),
-                    ('Layout', '/tutorial_layout/'),
+                    ('Spacing', tutorial_spacing),
+                    ('Layout', tutorial_layout),
                 ]],
                 parent=False
             ),

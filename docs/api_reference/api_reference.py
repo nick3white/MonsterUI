@@ -195,57 +195,28 @@ def ex_headings():
         H4("Level 4 Heading (H4)")
         )
 
-def ex_textfont():
+# def ex_textfont():
+#     return Div(
+#     P('muted_sm', cls=TextPresetsT.caption),
+#     P('muted_lg', cls=TextFont.muted_lg), 
+#     P('bold_sm', cls=TextPresetsT.subheading),
+#     )
+
+def ex_textpresetst():
     return Div(
-    P('muted_sm', cls=TextFont.muted_sm),
-    P('muted_lg', cls=TextFont.muted_lg), 
-    P('bold_sm', cls=TextFont.bold_sm),
+        *(Div(
+            P(f"{preset.name}: This is an example of {preset.name} text style", cls=preset.value),
+            cls="uk-margin"
+        ) for preset in TextPresetsT)
     )
 
 def ex_textt():
-    return Grid(
-        P('lead',           cls=TextT.lead),
-        P('meta',           cls=TextT.meta),
-        P('italic',         cls=TextT.italic),
-        P('small',          cls=TextT.small),
-        P('default',        cls=TextT.default),
-        P('large',          cls=TextT.large),
-        P('light',          cls=TextT.light),
-        P('normal',         cls=TextT.normal),
-        P('bold',           cls=TextT.bold),
-        P('lighter',        cls=TextT.lighter),
-        P('bolder',         cls=TextT.bolder),
-        P('capitalize',     cls=TextT.capitalize),
-        P('uppercase',      cls=TextT.uppercase),
-        P('lowercase',      cls=TextT.lowercase),
-        P('decoration_none',cls=TextT.decoration_none),
-        P('muted',          cls=TextT.muted),
-        P('primary',        cls=TextT.primary),
-        P('secondary',      cls=TextT.secondary),
-        P('success',        cls=TextT.success),
-        P('warning',        cls=TextT.warning),
-        P('danger',         cls=TextT.danger),
-        P('left',           cls=TextT.left),
-        P('right',          cls=TextT.right),
-        P('center',         cls=TextT.center),
-        P('justify',        cls=TextT.justify),
-        P('top',            cls=TextT.top),
-        P('middle',         cls=TextT.middle),
-        P('bottom',         cls=TextT.bottom),
-        P('baseline',       cls=TextT.baseline),
-        P('truncate',       cls=TextT.truncate),
-        P('break_',         cls=TextT.break_),
-        P('nowrap',         cls=TextT.nowrap),
-        )
-
-def ex_ps():
     return Div(
-        P("This is a plain P element"),
-        PParagraph("This is a PParagraph which adds space between paragraphs"),
-        PLarge("This is a PLarge element"),
-        PLead("This is a PLead element"),
-        PSmall("This is a PSmall element"),
-        PMuted("This is a PMuted element"))
+        *(Div(
+            P(f"{s.name}: This is an example of {s.name} text style", cls=s.value),
+            cls="uk-margin"
+        ) for s in TextT)
+    )
 
 def ex_other():
     return Div(
@@ -254,19 +225,16 @@ def ex_other():
         CodeBlock("#This is a CodeBlock element\n\ndef add(a,b): return a+b"))
 
 docs_typography = create_doc_section(
-    PLarge("High Level Options"),
-    P("Ready to go typographic options that cover most of what you need",cls=TextFont.muted_sm),
+    H3("High Level Options"),
+    P("Ready to go typographic options that cover most of what you need",cls=TextPresetsT.caption),
     fn2code_string(ex_headings),
-    fn2code_string(ex_ps),
     fn2code_string(ex_other),
-    PLarge("Lower Level Options (enums)"),
-    "Styling text is possibly the most common style thing to do, so we have a couple of helpers for discoverability inside python.  `TextFont` is intended to be combinations are are widely applicable and used often, where `TextT` is intended to be more flexible options for you to combine together yourself.",
-    fn2code_string(ex_textfont),
+    "Styling text is possibly the most common style thing to do, so we have a couple of helpers for discoverability inside python.  `TextPresetsT` is intended to be combinations are are widely applicable and used often, where `TextT` is intended to be more flexible options for you to combine together yourself.",
+    fn2code_string(ex_textpresetst),
     fn2code_string(ex_textt),
-    TextFont,
+    TextPresetsT,
     TextT,
     H1, H2, H3, H4, Titled,
-    PParagraph, PLarge, PLead, PSmall, PMuted,
     CodeSpan, Blockquote, CodeBlock,
     title="Text Style")
 
@@ -274,16 +242,13 @@ docs_typography = create_doc_section(
 # Notifications
 def ex_alerts1(): return Alert("This is a plain alert")
 
-def ex_alerts2():
-    return Alert("Your purchase has been confirmed!",
-                 cls=AlertT.success)
+def ex_alerts2(): return Alert("Your purchase has been confirmed!", cls=AlertT.success)
 
 def ex_alerts3():
     return Alert(
         DivLAligned(UkIcon('triangle-alert'), 
                     P("Please enter a valid email.")),
         cls=AlertT.error)
-
 
 def ex_toasts1():
     return Toast("First Example Toast", cls=(ToastHT.start, ToastVT.bottom))
@@ -320,7 +285,7 @@ def ex_articles():
 def ex_containers():
     return Container(
         "This is a sample container with custom styling.",
-        cls=ContainerT.xsmall,
+        cls=ContainerT.xs,
         style="background-color: #FFA500; color: #000000")
 
 
@@ -345,8 +310,10 @@ def ex_card():
              LabelRange("Range")),
         header=Div(
             CardTitle("Header"),
-            P("A card with header and footer",cls=TextFont.muted_sm)),
+            P("A card with header and footer",cls=TextPresetsT.caption)),
         footer=DivLAligned(Button("Footer Submit Button")))
+
+
 
 def Tags(cats): return Div(cls='space-x-2')(map(Label, cats))
 
@@ -359,10 +326,11 @@ def ex_card2_wide():
             Div(cls='space-y-3 uk-width-expand')(
                 H4("Creating Custom FastHTML Tags for Markdown Rendering"),
                 P("A step by step tutorial to rendering markdown in FastHTML using zero-md inside of DaisyUI chat bubbles"),
-                DivFullySpaced(map(Span, ["Isaac Flath", "20-October-2024"]), cls=TextFont.muted_sm),
+                DivFullySpaced(map(Span, ["Isaac Flath", "20-October-2024"]), cls=TextPresetsT.caption),
                 DivFullySpaced(
                     Tags(["FastHTML", "HTMX", "Web Apps"]),
-                    Button("Read", cls=(ButtonT.primary,'h-6'))))))
+                    Button("Read", cls=(ButtonT.primary,'h-6'))))),
+        cls=CardT.hover)
 
 def ex_card2_tall():
     def Tags(cats): return Div(cls='space-x-2')(map(Label, cats))
@@ -373,10 +341,11 @@ def ex_card2_tall():
             Div(cls='space-y-3 uk-width-expand')(
                 H4("Creating Custom FastHTML Tags for Markdown Rendering"),
                 P("A step by step tutorial to rendering markdown in FastHTML using zero-md inside of DaisyUI chat bubbles"),
-                DivFullySpaced(map(Span, ["Isaac Flath", "20-October-2024"]), cls=TextFont.muted_sm),
+                DivFullySpaced(map(Span, ["Isaac Flath", "20-October-2024"]), cls=TextPresetsT.caption),
                 DivFullySpaced(
                     Tags(["FastHTML", "HTMX", "Web Apps"]),
-                    Button("Read", cls=(ButtonT.primary,'h-6'))))))
+                    Button("Read", cls=(ButtonT.primary,'h-6'))))),
+        cls=CardT.hover)
 
 def ex_card3():
     def team_member(name, role, location="Remote"):
@@ -481,7 +450,7 @@ def ex_form():
     return Div(cls='space-y-4')(
         DivCentered(
             H3("Emergency Contact Form"),
-            P("Please fill out the form completely", cls=TextFont.muted_sm)),
+            P("Please fill out the form completely", cls=TextPresetsT.caption)),
         Form(cls='space-y-4')(
             Grid(LabelInput("First Name",id='fn'), LabelInput("Last Name",id='ln')),
             Grid(LabelInput("Email",     id='em'), LabelInput("Phone",    id='ph')),
@@ -497,7 +466,7 @@ docs_forms = create_doc_section(
     H3("Example Form"),
     P(f"This form was live coded in a 5 minute video ",
           A("here",href="https://www.loom.com/share/0916e8a95d524c43a4d100ee85157624?start_and_pause=1", 
-            cls=AT.muted), cls=TextFont.muted_sm),
+            cls=AT.muted), cls=TextPresetsT.caption),
     fn2code_string(ex_form),
     FormLabel,
     fn2code_string(ex_formlabel),
@@ -537,7 +506,7 @@ def ex_modal():
     return Div(
         Button("Open Modal",uk_toggle="target: #my-modal" ),
         Modal(ModalTitle("Simple Test Modal"), 
-              P("With some somewhat brief content to show that it works!", cls=TextFont.muted_sm),
+              P("With some somewhat brief content to show that it works!", cls=TextPresetsT.caption),
               footer=ModalCloseButton("Close", cls=ButtonT.primary),id='my-modal'))
 
 docs_modals = create_doc_section(
@@ -585,7 +554,7 @@ def ex_product_grid():
         Card(
             Img(src=p["img"], alt=p["name"], style="width:100%; height:100px; object-fit:cover;"),
             H4(p["name"], cls="mt-2"),
-            P(p["price"], cls=TextFont.bold_sm),
+            P(p["price"], cls=TextPresetsT.subheading),
             Button("Add to Cart", cls=(ButtonT.primary, "mt-2"))
         ) for p in products
     ]
@@ -635,7 +604,7 @@ def ex_h_stacked_div():
     )
 
 docs_layout = create_doc_section(
-    P("This page covers `Grid`s, which are often used for general structure, `Flex` which is often used for layout of components that are not grid based, padding and positioning that can help you make your layout look good, and dividers that can help break up the page", cls=TextFont.muted_sm),
+    P("This page covers `Grid`s, which are often used for general structure, `Flex` which is often used for layout of components that are not grid based, padding and positioning that can help you make your layout look good, and dividers that can help break up the page", cls=TextPresetsT.caption),
     H2("Grid"),
     fn2code_string(ex_grid),
     Grid,
@@ -645,7 +614,7 @@ docs_layout = create_doc_section(
     P("Play ", 
       A("Flex Box Froggy", href="https://flexboxfroggy.com/", cls=AT.muted), 
       " to get an understanding of flex box.",
-      cls=TextFont.muted_sm),
+      cls=TextPresetsT.caption),
     DivFullySpaced,
     fn2code_string(ex_fully_spaced_div),
     DivCentered,
@@ -670,7 +639,7 @@ docs_layout = create_doc_section(
 def ex_dividers():
     return Div(
         P("Small Divider"),
-        Divider(cls=DividerT.small),
+        Divider(cls=DividerT.sm),
         DivCentered(
             P("Vertical Divider"),
             Divider(cls=DividerT.vertical)),
@@ -678,7 +647,7 @@ def ex_dividers():
         Divider(cls=DividerT.icon))
 
 def ex_dividersplit():
-    return DividerSplit(P("Or continue with", cls=TextFont.muted_sm))
+    return DividerSplit(P("Or continue with", cls=TextPresetsT.caption))
 
 def ex_dividerline(): 
     return DividerLine()
@@ -801,7 +770,7 @@ docs_navigation = create_doc_section(
     fn2code_string(ex_navdrop),
     H2("Tabs"),
     fn2code_string(ex_tabs2),
-    P("A tabs can use any method of navigation (htmx, or href).  However, often these are use in conjunction with switchers do to this client side", cls=TextFont.muted_sm),
+    P("A tabs can use any method of navigation (htmx, or href).  However, often these are use in conjunction with switchers do to this client side", cls=TextPresetsT.caption),
     fn2code_string(ex_tabs1),
     H1("API Docs"),
     NavContainer,
@@ -923,7 +892,7 @@ docs_icons = create_doc_section(
     fn2code_string(ex_dicebear),
     DiceBearAvatar,
     H1("Icons"),
-    P("Icons use Lucide icons - you can find a full list of icons in their docs.", cls=TextFont.muted_sm),
+    P("Icons use Lucide icons - you can find a full list of icons in their docs.", cls=TextPresetsT.caption),
     fn2code_string(ex_icon),
     UkIcon,
     fn2code_string(ex_iconlink),

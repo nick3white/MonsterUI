@@ -22,11 +22,13 @@ import fasthtml.common as fh
 from .foundations import *
 from fasthtml.common import Div, P, Span, FT
 from enum import Enum, auto
-from fasthtml.components import Uk_select,Uk_icon
-from typing import Union
+from fasthtml.components import Uk_select,Uk_input_tag,Uk_icon
+from functools import partial
+from itertools import zip_longest
+from typing import Union, Tuple, Optional, Sequence
 from fastcore.all import *
-import mistletoe
-from lxml import html, etree
+import copy, re, httpx, os
+from pathlib import Path
 
 # %% ../nbs/02_franken.ipynb
 class TextT(VEnum):
@@ -824,10 +826,17 @@ def NavContainer(*li, # List items are navigation elements (Special `Li` such as
                  cls=NavT.primary, # Additional classes on the nav
                  parent=True, # Whether this nav is a *parent* or *sub* nav
                  uk_nav=False, #True for default collapsible behavior, see [frankenui docs](https://franken-ui.dev/docs/nav#component-options) for more advanced options
+                 uk_scrollspy_nav=False, # Activates scrollspy linking each item `A` tags `href` to content's `id` attribute
+                 sticky=False, # Whether to stick to the top of the page while scrolling
                  **kwargs # Additional args
                  )->FT: # FT Component that is a list of `Li` styled for a sidebar navigation menu
     "Creates a navigation container (useful for creating a sidebar navigation).  A Nav is a list (NavBar is something different)"
-    return fh.Ul(*li, uk_nav=uk_nav, cls=(f"uk-nav{'' if parent else '-sub'}", stringify(cls)),**kwargs)
+    _uk_scrollspy_nav = False
+    if uk_scrollspy_nav:
+        if isinstance(uk_scrollspy_nav, bool):  _uk_scrollspy_nav = 'closest: li; scroll: true' if uk_scrollspy_nav else False
+        else:  _uk_scrollspy_nav = uk_scrollspy_nav
+    _sticky = 'float-left sticky top-4 hidden md:block' if sticky else ''
+    return fh.Ul(*li, uk_nav=uk_nav, cls=(f"uk-nav{'' if parent else '-sub'}", stringify(cls), _sticky), uk_scrollspy_nav=_uk_scrollspy_nav, **kwargs)
 
 # %% ../nbs/02_franken.ipynb
 def NavParentLi(*nav_container, # `NavContainer` container for a nested nav with `parent=False`)
@@ -922,15 +931,24 @@ def NavBarNavContainer(*li, # Components
 def NavBarParentIcon(): return Span(uk_navbar_parent_icon=True)
 
 # %% ../nbs/02_franken.ipynb
-def NavBar(nav_links:dict|List[FT]={}, # List of Li(A(...)) components or dict of {"name":"href value"}
+def NavBar(nav_links:dict|List[FT], # List of Li(A(...)) components or dict of {"name":"href value"}
            title:str|FT='Title', # `H1(title)` if string else any FT component on left of navbar (Often a logo)
-           active:str="" # if `nav_links` is a dict shows an indicator of which page you are on
+           active:str="", # if `nav_links` is a dict shows an indicator of which page you are on
+           sticky:bool=False, # Whether to stick to the top of the page while scrolling
+           uk_scrollspy_nav=False, # Activates scrollspy linking each item `A` tags `href` to content's `id` attribute
+           **kwargs,
           )->FT: # Navigation bar
     _id = fh.unqid()
     "Creates a fully responsive navigation bar.  This will collapse to hamburger menu when on mobile."
     _click = f"htmx.find('#{_id}').classList.toggle('hidden')"
     menu_icon = UkIcon("menu", width=30, height=30, cls="md:hidden", hx_on_click=_click)
     
+    _cls = 'sticky top-4 bg-base-100/80 backdrop-blur-sm z-50' if sticky else ''
+    _uk_scrollspy_nav = False
+    if uk_scrollspy_nav:
+        if isinstance(uk_scrollspy_nav, bool):  _uk_scrollspy_nav = 'closest: li; scroll: true' if uk_scrollspy_nav else False
+        else:  _uk_scrollspy_nav = uk_scrollspy_nav
+
     if isinstance(nav_links, dict):
         def _item(link):
             name, target = link
@@ -943,7 +961,8 @@ def NavBar(nav_links:dict|List[FT]={}, # List of Li(A(...)) components or dict o
                 NavBarLSide(H1(title), menu_icon),
                 NavBarRSide(
                     NavBarNav(*nav_links, cls='w-full flex-col md:flex-row'),
-                    cls='hidden md:flex md:justify-between',  id=_id))))
+                    cls='hidden md:flex md:justify-between ',  id=_id, uk_scrollspy_nav=_uk_scrollspy_nav, **kwargs))),
+                    cls=_cls)
 
 # %% ../nbs/02_franken.ipynb
 def SliderContainer(

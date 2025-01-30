@@ -40,7 +40,7 @@ def ProductCard(p):
         # discoverability of class options.
         # bold_sm is helpful for things that you want to look like regular text, but stand out
         # visually for emphasis.
-        P(p["price"], cls=TextPresetsT.subheading), 
+        P(p["price"], cls=TextPresets.bold_sm), 
         # ButtonT.primary is useful for actions you really want the user to take (like adding
         # something to the card) - these stand out visually. For dangerous actions (like
         # deleting something) you generally would want to use ButtonT.danger. For UX actions

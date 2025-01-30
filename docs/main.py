@@ -60,7 +60,7 @@ from examples.auth import index as auth_homepage
 from examples.playground import index as playground_homepage
 from examples.mail import index as mail_homepage
 from examples.scrollspy import index as scrollspy_homepage
-
+from examples.ticket import index as ticket_homepage
 def _example_route(name, homepage, o:str, request=None):
     match o:
         case 'code' | 'rmd': return Div(render_md(f'''```python\n\n{open(f'examples/{name}.py').read()}\n\n```'''))
@@ -72,6 +72,10 @@ _create_example_page = partial(_create_page, sidebar_section='Examples')
 @rt('/scrollspy')
 @rt('/scrollspy/{o}')
 def scrollspy(o:str='', request=None): return _example_route('scrollspy', scrollspy_homepage(), o, request)
+
+@rt('/ticket')
+@rt('/ticket/{o}')
+def ticket(o:str='', request=None): return _example_route('ticket', ticket_homepage(), o, request)
 
 @rt('/tasks')
 @rt('/tasks/{o}')
@@ -227,6 +231,8 @@ def sidebar(open_section):
                     ('Auth', '/auth/'),
                     ('Playground', '/playground/'),
                     ('Mail', '/mail/'),
+                    ('Ticket', '/ticket/'),
+                    ('Scrollspy', '/scrollspy/'),
                 ]],
                 parent=False
             ),

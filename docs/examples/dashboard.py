@@ -29,7 +29,7 @@ def generate_chart(num_points=30):
     
     return fig.to_html(include_plotlyjs=True, full_html=False, config={'displayModeBar': False})
 
-def InfoCard(title, value, change): return Card(H3(value),P(change, cls=TextPresetsT.caption), header = H4(title))
+def InfoCard(title, value, change): return Card(H3(value),P(change, cls=TextPresets.muted_sm), header = H4(title))
 
 rev = InfoCard("Total Revenue", "$45,231.89", "+20.1% from last month")
 sub = InfoCard("Subscriptions", "+2350", "+180.1% from last month")
@@ -47,8 +47,8 @@ def AvatarItem(name, email, amount):
     return DivFullySpaced(
         DivLAligned(
             DiceBearAvatar(name, 9,9),
-            Div(P(name, cls=TextPresetsT.subheading), 
-                P(email, cls=TextPresetsT.caption))),
+            Div(P(name, cls=TextPresets.bold_sm), 
+                P(email, cls=TextPresets.muted_sm))),
         Div(amount, cls="ml-auto font-medium"))
 
 recent_sales = Card(
@@ -59,7 +59,7 @@ recent_sales = Card(
             ("Isabella Nguyen", "isabella.nguyen@email.com", "+$299.00"),
             ("William Kim",     "will@email.com",            "+$99.00"),
             ("Sofia Davis",     "sofia.davis@email.com",     "+$39.00"))]),
-    header=Div(H3("Recent Sales"),P("You made 265 sales this month.", cls=TextPresetsT.caption)),
+    header=Div(H3("Recent Sales"),P("You made 265 sales this month.", cls=TextPresets.muted_sm)),
     cls='col-span-3')
 
 teams = [["Alicia Koch"],['Acme Inc', 'Monster Inc.'],['Create a Team']]
@@ -74,7 +74,7 @@ team_dropdown = UkSelect(
 
 hotkeys = [('Profile','⇧⌘P'),('Billing','⌘B'),('Settings','⌘S'),('New Team', ''), ('Logout', '')]
 
-def NavSpacedLi(t,s): return NavCloseLi(A(DivFullySpaced(P(t),P(s,cls=TextPresetsT.caption))))
+def NavSpacedLi(t,s): return NavCloseLi(A(DivFullySpaced(P(t),P(s,cls=TextPresets.muted_sm))))
 
 avatar_dropdown = Div(
       DiceBearAvatar('Alicia Koch',8,8),

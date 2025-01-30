@@ -150,7 +150,9 @@ def ex_links():
         A('Default Link'),
         A('Muted Link', cls=AT.muted),
         A('Text Link',  cls=AT.text),
-        A('Reset Link', cls=AT.reset))
+        A('Reset Link', cls=AT.reset),
+        A('Primary Link', cls=AT.primary),
+        A('Classic Link', cls=AT.classic),)
 
 docs_button_link = create_doc_section(
     Div(id='button'), # for linking to in release post
@@ -202,46 +204,46 @@ def ex_semantic_elements():
     return Div(
         H2("Semantic HTML Elements Demo"),
         # Text formatting examples
-        P("Here's an example of ", Em("emphasized"), " and ", Strong("strong"), " text."),
-        P("Some ", I("italic text"), " and ", Small("smaller text"), " in a paragraph."),
-        P("You can ", Mark("mark (highlight)"), " text, show ", Del("deleted"), " and ", 
-          Ins("inserted"), " content."),
-        P("Chemical formulas use ", Sub("subscripts"), " and ", Sup("superscripts"), 
+        P("Here's an example of ", Em("emphasized (Em)"), " and ", Strong("strong (Strong)"), " text."),
+        P("Some ", I("italic text (I)"), " and ", Small("smaller text (Small)"), " in a paragraph."),
+        P("You can ", Mark("highlight (Mark)"), " text, show ", Del("deleted (Del)"), " and ", 
+          Ins("inserted (Ins)"), " content."),
+        P("Chemical formulas use ", Sub("subscripts (Sub)"), " and ", Sup("superscripts (Sup)"), 
           " like H", Sub("2"), "O."),
         # Quote examples
         Blockquote(
             P("The only way to do great work is to love what you do."),
-            Cite("Steve Jobs")),
-        P("As Shakespeare wrote, ", Q("All the world's a stage"), "."),
+            Cite("Steve Jobs (Cite)")),
+        P("As Shakespeare wrote, ", Q("All the world's a stage (Q)"), "."),
         # Time and Address
         P("Posted on ", Time("2024-01-29", datetime="2024-01-29")),
         Address(
-            "Mozilla Foundation",
+            "Mozilla Foundation (Address)",
             Br(),
-            "331 E Evelyn Ave",
+            "331 E Evelyn Ave (Address)",
             Br(),
-            "Mountain View, CA 94041",
+            "Mountain View, CA 94041 (Address)",
             Br(),
-            "USA"),
+            "USA (Address)"),
         # Technical and definition examples
         P(
-            Dfn("HTML"), " (", 
-            Abbr("HyperText Markup Language", title="HyperText Markup Language"), 
+            Dfn("HTML (Dfn)"), " (", 
+            Abbr("HyperText Markup Language (Abbr)", title="HyperText Markup Language"), 
             ") is the standard markup language for documents designed to be displayed in a web browser."),
-        P("Press ", Kbd("Ctrl"), " + ", Kbd("C"), " to copy."),
-        P("The command returned: ", Samp("Hello, World!")),
-        P("Let ", Var("x"), " be the variable in the equation."),
+        P("Press ", Kbd("Ctrl (Kbd)"), " + ", Kbd("C (Kbd)"), " to copy."),
+        P("The command returned: ", Samp("Hello, World! (Samp)")),
+        P("Let ", Var("x (Var)"), " be the variable in the equation."),
         # Figure with caption
         Figure(
             PicSumImg(),
-            Caption("Figure 1: An example image with caption")),
+            Caption("Figure 1: An example image with caption (Caption)")),
         # Interactive elements
         Details(
-            Summary("Click to show more information"),
-            P("This is the detailed content that is initially hidden.")),
+            Summary("Click to show more information (Summary)"),
+            P("This is the detailed content that is initially hidden (P)")),
         # Data representation
         P(
-            Data("123", value="123"), " is a number, and here's a meter showing progress: ",
+            Data("123 (Data)", value="123"), " is a number, and here's a Meter showing progress: ",
             Meter(value=0.6, min=0, max=1)),
         P(
             "Temperature: ",
@@ -251,39 +253,23 @@ def ex_semantic_elements():
             Data("€42.00", value="42"), 
             " - price example with semantic value"),
         # Output example
-        P("Form calculation result: ", Output("The sum is 42", form="calc-form", for_="num1 num2")),
+        P("Form calculation result: ", Output("The sum is 42 (Output)", form="calc-form", for_="num1 num2")),
         # Meta information example
         Section(
-            H3("Blog Post Title"),
-            Meta("By John Doe • 5 min read"),
+            H3("Blog Post Title (H3)"),
+            Meta("By John Doe • 5 min read (Meta)"),
             P("Article content here...")),
         # Text decoration examples
-        P("This text has ",U("proper name annotation"), " and this is ",S("outdated information"), " that's been superseded.")
+        P("This text has ",U("proper name annotation (U)"), " and this is ",S("outdated information (S)"), " that's been superseded."),
+        cls='space-y-4'
     )
 
-
-# def ex_textfont():
-#     return Div(
-#     P('muted_sm', cls=TextPresetsT.caption),
-#     P('muted_lg', cls=TextFont.muted_lg), 
-#     P('bold_sm', cls=TextPresetsT.subheading),
-#     )
 
 def ex_textpresets():
-    return Div(
-        *(Div(
-            P(f"{preset.name}: This is an example of {preset.name} text style", cls=preset.value),
-            cls="uk-margin"
-        ) for preset in TextPresets)
-    )
+    return Grid(*[Div(P(f"This is {preset.name} text", cls=preset.value)) for preset in TextPresets])
 
 def ex_textt():
-    return Div(
-        *(Div(
-            P(f"{s.name}: This is an example of {s.name} text style", cls=s.value),
-            cls="uk-margin"
-        ) for s in TextT)
-    )
+    return Grid(*[Div(P(f"This is {s.name} text", cls=s.value)) for s in TextT])
 
 def ex_other():
     return Div(
@@ -304,8 +290,8 @@ docs_typography = create_doc_section(
     TextPresets,
     TextT,
     H1, H2, H3, H4, H5, H6, 
-    CodeSpan, Blockquote, CodeBlock,
-    Em, Strong, I, Small, Mark, Del, Ins, Sub, Sup,
+    CodeSpan, Blockquote, CodeBlock, 
+    Em, Strong, I, Small, Mark, Sub, Sup, Del, Ins,
     Dfn, Abbr, Q, Kbd, Samp, Var,
     Figure, Caption,
     Details, Summary,
@@ -385,7 +371,7 @@ def ex_card():
              LabelRange("Range")),
         header=Div(
             CardTitle("Header"),
-            P("A card with header and footer",cls=TextPresetsT.caption)),
+            P("A card with header and footer",cls=TextPresets.muted_sm)),
         footer=DivLAligned(Button("Footer Submit Button")))
 
 
@@ -401,7 +387,7 @@ def ex_card2_wide():
             Div(cls='space-y-3 uk-width-expand')(
                 H4("Creating Custom FastHTML Tags for Markdown Rendering"),
                 P("A step by step tutorial to rendering markdown in FastHTML using zero-md inside of DaisyUI chat bubbles"),
-                DivFullySpaced(map(Span, ["Isaac Flath", "20-October-2024"]), cls=TextPresetsT.caption),
+                DivFullySpaced(map(Span, ["Isaac Flath", "20-October-2024"]), cls=TextPresets.muted_sm),
                 DivFullySpaced(
                     Tags(["FastHTML", "HTMX", "Web Apps"]),
                     Button("Read", cls=(ButtonT.primary,'h-6'))))),
@@ -416,7 +402,7 @@ def ex_card2_tall():
             Div(cls='space-y-3 uk-width-expand')(
                 H4("Creating Custom FastHTML Tags for Markdown Rendering"),
                 P("A step by step tutorial to rendering markdown in FastHTML using zero-md inside of DaisyUI chat bubbles"),
-                DivFullySpaced(map(Span, ["Isaac Flath", "20-October-2024"]), cls=TextPresetsT.caption),
+                DivFullySpaced(map(Span, ["Isaac Flath", "20-October-2024"]), cls=TextPresets.muted_sm),
                 DivFullySpaced(
                     Tags(["FastHTML", "HTMX", "Web Apps"]),
                     Button("Read", cls=(ButtonT.primary,'h-6'))))),
@@ -524,7 +510,7 @@ def ex_form():
     return Div(cls='space-y-4')(
         DivCentered(
             H3("Emergency Contact Form"),
-            P("Please fill out the form completely", cls=TextPresetsT.caption)),
+            P("Please fill out the form completely", cls=TextPresets.muted_sm)),
         Form(cls='space-y-4')(
             Grid(LabelInput("First Name",id='fn'), LabelInput("Last Name",id='ln')),
             Grid(LabelInput("Email",     id='em'), LabelInput("Phone",    id='ph')),
@@ -540,7 +526,7 @@ docs_forms = create_doc_section(
     H3("Example Form"),
     P(f"This form was live coded in a 5 minute video ",
           A("here",href="https://www.loom.com/share/0916e8a95d524c43a4d100ee85157624?start_and_pause=1", 
-            cls=AT.muted), cls=TextPresetsT.caption),
+            cls=AT.muted), cls=TextPresets.muted_sm),
     fn2code_string(ex_form),
     FormLabel,
     fn2code_string(ex_formlabel),
@@ -580,7 +566,7 @@ def ex_modal():
     return Div(
         Button("Open Modal",uk_toggle="target: #my-modal" ),
         Modal(ModalTitle("Simple Test Modal"), 
-              P("With some somewhat brief content to show that it works!", cls=TextPresetsT.caption),
+              P("With some somewhat brief content to show that it works!", cls=TextPresets.muted_sm),
               footer=ModalCloseButton("Close", cls=ButtonT.primary),id='my-modal'))
 
 docs_modals = create_doc_section(
@@ -628,7 +614,7 @@ def ex_product_grid():
         Card(
             Img(src=p["img"], alt=p["name"], style="width:100%; height:100px; object-fit:cover;"),
             H4(p["name"], cls="mt-2"),
-            P(p["price"], cls=TextPresetsT.subheading),
+            P(p["price"], cls=TextPresets.bold_sm),
             Button("Add to Cart", cls=(ButtonT.primary, "mt-2"))
         ) for p in products
     ]
@@ -678,7 +664,7 @@ def ex_h_stacked_div():
     )
 
 docs_layout = create_doc_section(
-    P("This page covers `Grid`s, which are often used for general structure, `Flex` which is often used for layout of components that are not grid based, padding and positioning that can help you make your layout look good, and dividers that can help break up the page", cls=TextPresetsT.caption),
+    P("This page covers `Grid`s, which are often used for general structure, `Flex` which is often used for layout of components that are not grid based, padding and positioning that can help you make your layout look good, and dividers that can help break up the page", cls=TextPresets.muted_sm),
     H2("Grid"),
     fn2code_string(ex_grid),
     Grid,
@@ -688,7 +674,7 @@ docs_layout = create_doc_section(
     P("Play ", 
       A("Flex Box Froggy", href="https://flexboxfroggy.com/", cls=AT.muted), 
       " to get an understanding of flex box.",
-      cls=TextPresetsT.caption),
+      cls=TextPresets.muted_sm),
     DivFullySpaced,
     fn2code_string(ex_fully_spaced_div),
     DivCentered,
@@ -721,7 +707,7 @@ def ex_dividers():
         Divider(cls=DividerT.icon))
 
 def ex_dividersplit():
-    return DividerSplit(P("Or continue with", cls=TextPresetsT.caption))
+    return DividerSplit(P("Or continue with", cls=TextPresets.muted_sm))
 
 def ex_dividerline(): 
     return DividerLine()
@@ -844,9 +830,11 @@ docs_navigation = create_doc_section(
     fn2code_string(ex_navdrop),
     H2("Tabs"),
     fn2code_string(ex_tabs2),
-    P("A tabs can use any method of navigation (htmx, or href).  However, often these are use in conjunction with switchers do to this client side", cls=TextPresetsT.caption),
+    P("A tabs can use any method of navigation (htmx, or href).  However, often these are use in conjunction with switchers do to this client side", cls=TextPresets.muted_sm),
     fn2code_string(ex_tabs1),
     H1("API Docs"),
+    NavBar,
+    TabContainer,
     NavContainer,
     NavT,
     NavCloseLi,
@@ -854,7 +842,6 @@ docs_navigation = create_doc_section(
     NavHeaderLi,
     NavDividerLi,
     NavParentLi,
-    NavBar,
     NavBarCenter,
     NavBarRSide,
     NavBarLSide,
@@ -864,7 +851,6 @@ docs_navigation = create_doc_section(
     NavBarNavContainer,
     NavBarParentIcon,
     DropDownNavContainer,
-    TabContainer,
     title="Navigation")
 
 # Steps
@@ -972,7 +958,7 @@ docs_icons_images = create_doc_section(
     fn2code_string(ex_picsum),
     PicSumImg,
     H1("Icons"),
-    P("Icons use Lucide icons - you can find a full list of icons in their docs.", cls=TextPresetsT.caption),
+    P("Icons use Lucide icons - you can find a full list of icons in their docs.", cls=TextPresets.muted_sm),
     fn2code_string(ex_icon),
     UkIcon,
     fn2code_string(ex_iconlink),

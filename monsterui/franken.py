@@ -2,21 +2,22 @@
 
 # %% auto 0
 __all__ = ['franken_class_map', 'TextT', 'TextPresets', 'CodeSpan', 'Blockquote', 'CodeBlock', 'H1', 'H2', 'H3', 'H4', 'H5', 'H6',
-           'Q', 'Em', 'Strong', 'I', 'Small', 'Mark', 'Caption', 'Cite', 'Time', 'Address', 'S', 'U', 'Meta', 'Output',
-           'PicSumImg', 'ButtonT', 'Button', 'ContainerT', 'BackgroundT', 'Container', 'Titled', 'DividerT', 'Divider',
-           'DividerSplit', 'DividerLine', 'Article', 'ArticleTitle', 'ArticleMeta', 'SectionT', 'Section', 'Form',
-           'Fieldset', 'Legend', 'Input', 'Select', 'Radio', 'CheckboxX', 'Range', 'TextArea', 'Switch', 'FormLabel',
-           'LabelT', 'Label', 'UkFormSection', 'GenericLabelInput', 'LabelInput', 'LabelRange', 'LabelTextArea',
-           'LabelSwitch', 'LabelRadio', 'LabelCheckboxX', 'LabelSelect', 'Options', 'UkSelect', 'LabelUkSelect', 'AT',
-           'ListT', 'ModalContainer', 'ModalDialog', 'ModalHeader', 'ModalBody', 'ModalFooter', 'ModalTitle',
-           'ModalCloseButton', 'Modal', 'PaddingT', 'PositionT', 'Placeholder', 'Progress', 'UkIcon', 'UkIconLink',
-           'DiceBearAvatar', 'FlexT', 'Grid', 'DivFullySpaced', 'DivCentered', 'DivLAligned', 'DivRAligned',
-           'DivVStacked', 'DivHStacked', 'NavT', 'NavContainer', 'NavParentLi', 'NavDividerLi', 'NavHeaderLi',
-           'NavSubtitle', 'NavCloseLi', 'NavBarContainer', 'NavBarLSide', 'NavBarRSide', 'NavBarCenter', 'NavBarNav',
-           'NavBarSubtitle', 'NavBarNavContainer', 'NavBarParentIcon', 'NavBar', 'SliderContainer', 'SliderItems',
-           'SliderNav', 'Slider', 'DropDownNavContainer', 'TabContainer', 'CardT', 'CardTitle', 'CardHeader',
-           'CardBody', 'CardFooter', 'CardContainer', 'Card', 'TableT', 'Table', 'Td', 'Th', 'Tbody', 'TableFromLists',
-           'TableFromDicts', 'apply_classes', 'render_md', 'get_franken_renderer']
+           'Q', 'Em', 'Strong', 'I', 'Small', 'Mark', 'Del', 'Ins', 'Sub', 'Sup', 'Caption', 'Cite', 'Time', 'Address',
+           'Abbr', 'Dfn', 'Kbd', 'Samp', 'Var', 'Figure', 'Details', 'Summary', 'Data', 'Meter', 'S', 'U', 'Meta',
+           'Output', 'PicSumImg', 'ButtonT', 'Button', 'ContainerT', 'BackgroundT', 'Container', 'Titled', 'DividerT',
+           'Divider', 'DividerSplit', 'DividerLine', 'Article', 'ArticleTitle', 'ArticleMeta', 'SectionT', 'Section',
+           'Form', 'Fieldset', 'Legend', 'Input', 'Select', 'Radio', 'CheckboxX', 'Range', 'TextArea', 'Switch',
+           'FormLabel', 'LabelT', 'Label', 'UkFormSection', 'GenericLabelInput', 'LabelInput', 'LabelRange',
+           'LabelTextArea', 'LabelSwitch', 'LabelRadio', 'LabelCheckboxX', 'LabelSelect', 'Options', 'UkSelect',
+           'LabelUkSelect', 'AT', 'ListT', 'ModalContainer', 'ModalDialog', 'ModalHeader', 'ModalBody', 'ModalFooter',
+           'ModalTitle', 'ModalCloseButton', 'Modal', 'PaddingT', 'PositionT', 'Placeholder', 'Progress', 'UkIcon',
+           'UkIconLink', 'DiceBearAvatar', 'FlexT', 'Grid', 'DivFullySpaced', 'DivCentered', 'DivLAligned',
+           'DivRAligned', 'DivVStacked', 'DivHStacked', 'NavT', 'NavContainer', 'NavParentLi', 'NavDividerLi',
+           'NavHeaderLi', 'NavSubtitle', 'NavCloseLi', 'NavBarContainer', 'NavBarLSide', 'NavBarRSide', 'NavBarCenter',
+           'NavBarNav', 'NavBarSubtitle', 'NavBarNavContainer', 'NavBarParentIcon', 'NavBar', 'SliderContainer',
+           'SliderItems', 'SliderNav', 'Slider', 'DropDownNavContainer', 'TabContainer', 'CardT', 'CardTitle',
+           'CardHeader', 'CardBody', 'CardFooter', 'CardContainer', 'Card', 'TableT', 'Table', 'Td', 'Th', 'Tbody',
+           'TableFromLists', 'TableFromDicts', 'apply_classes', 'render_md', 'get_franken_renderer']
 
 # %% ../nbs/02_franken.ipynb
 import fasthtml.common as fh
@@ -194,6 +195,35 @@ def Mark(*c:FT|str, # Contents of Mark tag (highlighted text)
     return fh.Mark(*c, cls=(TextT.highlight, stringify(cls)), **kwargs)
 
 # %% ../nbs/02_franken.ipynb
+def Del(*c:FT|str, # Contents of Del tag (deleted text)
+       cls:Enum|str|tuple=(), # Additional classes
+       **kwargs # Additional args for Del tag
+       )->FT:
+    "Styled deleted text"
+    return fh.Del(*c, cls=('line-through text-gray-500', stringify(cls)), **kwargs)
+
+def Ins(*c:FT|str, # Contents of Ins tag (inserted text)
+        cls:Enum|str|tuple=(), # Additional classes
+        **kwargs # Additional args for Ins tag
+        )->FT:
+    "Styled inserted text"
+    return fh.Ins(*c, cls=(TextT.underline+' text-green-600', stringify(cls)), **kwargs)
+
+def Sub(*c:FT|str, # Contents of Sub tag (subscript)
+       cls:Enum|str|tuple=(), # Additional classes
+       **kwargs # Additional args for Sub tag
+       )->FT:
+    "Styled subscript text"
+    return fh.Sub(*c, cls=(TextT.sm+' -bottom-1 relative', stringify(cls)), **kwargs)
+
+def Sup(*c:FT|str, # Contents of Sup tag (superscript) 
+        cls:Enum|str|tuple=(), # Additional classes
+        **kwargs # Additional args for Sup tag
+        )->FT:
+    "Styled superscript text"
+    return fh.Sup(*c, cls=(TextT.sm+' -top-1 relative', stringify(cls)), **kwargs)
+
+# %% ../nbs/02_franken.ipynb
 def Caption(*c:FT|str, # Contents of Caption tag
            cls:Enum|str|tuple=(), # Additional classes
            **kwargs # Additional args for Caption tag
@@ -223,6 +253,90 @@ def Address(*c:FT|str, # Contents of Address tag
            )->FT:
     "Styled address element"
     return fh.Address(*c, cls=(TextT.italic, stringify(cls)), **kwargs)
+
+# %% ../nbs/02_franken.ipynb
+def Abbr(*c:FT|str, # Contents of Abbr tag
+         cls:Enum|str|tuple=(), # Additional classes
+         title:str=None, # Title attribute for abbreviation
+         **kwargs # Additional args for Abbr tag
+         )->FT:
+    "Styled abbreviation with dotted underline"
+    if title: kwargs['title'] = title
+    return fh.Abbr(*c, cls=('border-b border-dotted border-secondary hover:cursor-help', stringify(cls)), **kwargs)
+
+def Dfn(*c:FT|str, # Contents of Dfn tag (definition)
+        cls:Enum|str|tuple=(), # Additional classes
+        **kwargs # Additional args for Dfn tag
+        )->FT:
+    "Styled definition term with italic and medium weight"
+    return fh.Dfn(*c, cls=(TextT.medium + TextT.italic + TextT.muted, stringify(cls)), **kwargs)
+
+def Kbd(*c:FT|str, # Contents of Kbd tag (keyboard input)
+        cls:Enum|str|tuple=(), # Additional classes
+        **kwargs # Additional args for Kbd tag
+        )->FT:
+    "Styled keyboard input with subtle background"
+    return fh.Kbd(*c, cls=('font-mono px-1.5 py-0.5 text-sm bg-secondary border border-gray-300 dark:border-gray-600 rounded shadow-sm', stringify(cls)), **kwargs)
+
+# %% ../nbs/02_franken.ipynb
+def Samp(*c:FT|str, # Contents of Samp tag (sample output)
+         cls:Enum|str|tuple=(), # Additional classes
+         **kwargs # Additional args for Samp tag
+         )->FT:
+    "Styled sample output with subtle background"
+    return fh.Samp(*c, cls=('font-mono bg-secondary px-1 rounded', TextT.muted, stringify(cls)), **kwargs)
+
+def Var(*c:FT|str, # Contents of Var tag (variable)
+        cls:Enum|str|tuple=(), # Additional classes
+        **kwargs # Additional args for Var tag
+        )->FT:
+    "Styled variable with italic monospace"
+    return fh.Var(*c, cls=('font-mono',TextT.italic + TextT.muted, stringify(cls)), **kwargs)
+
+# %% ../nbs/02_franken.ipynb
+def Figure(*c:FT|str, # Contents of Figure tag
+          cls:Enum|str|tuple=(), # Additional classes 
+          **kwargs # Additional args for Figure tag
+          )->FT:
+    "Styled figure container with card-like appearance"
+    return fh.Figure(*c, cls=('p-4 my-4 border border-gray-200 dark:border-gray-800 rounded-lg shadow-sm bg-card', stringify(cls)), **kwargs)
+
+# %% ../nbs/02_franken.ipynb
+def Details(*c:FT|str, # Contents of Details tag
+           cls:Enum|str|tuple=(), # Additional classes
+           **kwargs # Additional args for Details tag
+           )->FT:
+    "Styled details element"
+    return fh.Details(*c, cls=('border border-secondary rounded-lg', stringify(cls)), **kwargs)
+
+def Summary(*c:FT|str, # Contents of Summary tag
+           cls:Enum|str|tuple=(), # Additional classes
+           **kwargs # Additional args for Summary tag
+           )->FT:
+    "Styled summary element"
+    return fh.Summary(*c, cls=(TextT.medium + ' p-3 hover:bg-secondary cursor-pointer', stringify(cls)), **kwargs)
+
+def Data(*c:FT|str, # Contents of Data tag
+         value:str=None, # Value attribute
+         cls:Enum|str|tuple=(), # Additional classes
+         **kwargs # Additional args for Data tag
+         )->FT:
+    "Styled data element"
+    if value: kwargs['value'] = value
+    return fh.Data(*c, cls=('font-mono text-sm bg-secondary px-1 rounded', stringify(cls)), **kwargs)
+
+def Meter(*c:FT|str, # Contents of Meter tag
+          value:float=None, # Current value
+          min:float=None, # Minimum value
+          max:float=None, # Maximum value
+          cls:Enum|str|tuple=(), # Additional classes
+          **kwargs # Additional args for Meter tag
+          )->FT:
+    "Styled meter element"
+    if value is not None: kwargs['value'] = value
+    if min is not None: kwargs['min'] = min
+    if max is not None: kwargs['max'] = max
+    return fh.Meter(*c, cls=('w-full h-2 bg-secondary rounded', stringify(cls)), **kwargs)
 
 # %% ../nbs/02_franken.ipynb
 def S(*c:FT|str, # Contents of S tag (strikethrough)
@@ -255,7 +369,7 @@ def Output(*c:FT|str, # Contents of Output tag
     "Styled output element for form results"
     if form: kwargs['form'] = form
     if for_: kwargs['for'] = for_  # Note: 'for' is reserved in Python
-    return fh.Output(*c, cls=('font-mono bg-gray-100 dark:bg-gray-800 px-2 py-1 rounded', 
+    return fh.Output(*c, cls=('font-mono bg-secondary px-2 py-1 rounded', 
                              stringify(cls)), **kwargs)
 
 # %% ../nbs/02_franken.ipynb
@@ -681,16 +795,9 @@ class ListT(VEnum):
     square = 'list-[square] list-inside'
     decimal = 'list-decimal list-inside'
     hyphen = 'list-none list-inside [&>li]:before:content-["-"] [&>li]:before:mr-2'
-    muted = 'list-disc list-inside text-gray-500'
-    primary = 'list-disc list-inside text-primary'
-    danger = 'list-disc list-inside text-error' 
-    warning = 'list-disc list-inside text-warning' 
-    success = 'list-disc list-inside text-success' 
-    info = 'list-disc list-inside text-info' 
-    secondary = 'list-disc list-inside text-secondary'
     bullet = 'list-disc list-inside'
     divider = 'space-y-2 divide-y divide-gray-200'
-    striped = 'space-y-1 [&>li:nth-child(odd)]:bg-gray-50'
+    striped = 'space-y-1 [&>li:nth-child(odd)]:bg-secondary'
 
 # %% ../nbs/02_franken.ipynb
 def ModalContainer(*c, # Components to put in the modal (often `ModalDialog`)

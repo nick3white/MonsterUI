@@ -13,7 +13,7 @@ preset_options = ["Grammatical Standard English", "Summarize for a 2nd grader",
 def playground_navbar():
     save_modal = Modal(
         ModalTitle("Save preset"),
-        P("This will save the current playground state as a preset which you can access later or share with others.",cls=("mt-1.5", TextPresetsT.caption)),
+        P("This will save the current playground state as a preset which you can access later or share with others.",cls=("mt-1.5", TextPresets.muted_sm)),
         LabelInput("Name",        id="name"), 
         LabelInput("Description", id="description"),
         ModalCloseButton("Save", cls=ButtonT.primary),
@@ -21,7 +21,7 @@ def playground_navbar():
     
     share_dd = Div(cls="space-y-6 p-4")(
         H3("Share preset"),
-        P("Anyone who has this link and an OpenAI account will be able to view this.", cls=TextPresetsT.caption),
+        P("Anyone who has this link and an OpenAI account will be able to view this.", cls=TextPresets.muted_sm),
         Div(Input(value="https://platform.openai.com/playground/p/7bbKYQvsVkNmVb8NGcdUOLae?model=text-davinci-003", readonly=True),
             Button(UkIcon('copy'), cls=(ButtonT.primary, "uk-drop-close",'mt-4'))))
 

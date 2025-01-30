@@ -85,7 +85,7 @@ def typography_section():
             ),
             Div(cls='space-y-3')(
                 H2("My First Section"),
-                P("A short description of what's in this section", cls=TextPresetsT.caption),
+                P("A short description of what's in this section", cls=TextPresets.muted_sm),
                 P("""Now I can write the main content of the page with a normal P tag.  
                 We can use this for longer text like paragraphs.
                 It's ideal because this text is highly readable.
@@ -101,7 +101,7 @@ def typography_section():
         Strong("What to do:"),
         List(
             Li("Use H1-4 for headings"),
-            Li("Use P with cls=TextPresetsT.caption subheadings like "),
+            Li("Use P with cls=TextPresets.muted_sm subheadings like "),
             Li("Use P for most body text"),
             cls=ListT.bullet),
         create_flippable_card(*fn2code_string(_ex_typography)),

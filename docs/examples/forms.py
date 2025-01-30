@@ -8,7 +8,7 @@ from fasthtml.svg import *
 app, rt = fast_app(hdrs=Theme.blue.headers())
 
 def HelpText(c):
-    return P(c,cls=TextPresetsT.caption)
+    return P(c,cls=TextPresets.muted_sm)
 
 def heading():
     return Div(cls="space-y-5")(
@@ -109,7 +109,7 @@ def notifications_form():
     def NotificationCard(item):
         return Card(
             Div(cls="space-y-0.5")(
-                FormLabel(item['title'], cls=TextPresetsT.subheading),
+                FormLabel(item['title'], cls=TextPresets.bold_sm),
                 HelpText(item['description'])),
         )
     content = Div(

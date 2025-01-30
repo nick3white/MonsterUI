@@ -192,8 +192,75 @@ def ex_headings():
         H1("Level 1 Heading (H1)"), 
         H2("Level 2 Heading (H2)"), 
         H3("Level 3 Heading (H3)"), 
-        H4("Level 4 Heading (H4)")
+        H4("Level 4 Heading (H4)"),
+        H5("Level 5 Heading (H5)"),
+        H6("Level 6 Heading (H6)"),
         )
+
+
+def ex_semantic_elements():
+    return Div(
+        H2("Semantic HTML Elements Demo"),
+        # Text formatting examples
+        P("Here's an example of ", Em("emphasized"), " and ", Strong("strong"), " text."),
+        P("Some ", I("italic text"), " and ", Small("smaller text"), " in a paragraph."),
+        P("You can ", Mark("mark (highlight)"), " text, show ", Del("deleted"), " and ", 
+          Ins("inserted"), " content."),
+        P("Chemical formulas use ", Sub("subscripts"), " and ", Sup("superscripts"), 
+          " like H", Sub("2"), "O."),
+        # Quote examples
+        Blockquote(
+            P("The only way to do great work is to love what you do."),
+            Cite("Steve Jobs")),
+        P("As Shakespeare wrote, ", Q("All the world's a stage"), "."),
+        # Time and Address
+        P("Posted on ", Time("2024-01-29", datetime="2024-01-29")),
+        Address(
+            "Mozilla Foundation",
+            Br(),
+            "331 E Evelyn Ave",
+            Br(),
+            "Mountain View, CA 94041",
+            Br(),
+            "USA"),
+        # Technical and definition examples
+        P(
+            Dfn("HTML"), " (", 
+            Abbr("HyperText Markup Language", title="HyperText Markup Language"), 
+            ") is the standard markup language for documents designed to be displayed in a web browser."),
+        P("Press ", Kbd("Ctrl"), " + ", Kbd("C"), " to copy."),
+        P("The command returned: ", Samp("Hello, World!")),
+        P("Let ", Var("x"), " be the variable in the equation."),
+        # Figure with caption
+        Figure(
+            PicSumImg(),
+            Caption("Figure 1: An example image with caption")),
+        # Interactive elements
+        Details(
+            Summary("Click to show more information"),
+            P("This is the detailed content that is initially hidden.")),
+        # Data representation
+        P(
+            Data("123", value="123"), " is a number, and here's a meter showing progress: ",
+            Meter(value=0.6, min=0, max=1)),
+        P(
+            "Temperature: ",
+            Meter(value=-1, min=-10, max=40, low=0, high=30, optimum=21),
+            " (with low/high/optimum values)"),
+        P(
+            Data("€42.00", value="42"), 
+            " - price example with semantic value"),
+        # Output example
+        P("Form calculation result: ", Output("The sum is 42", form="calc-form", for_="num1 num2")),
+        # Meta information example
+        Section(
+            H3("Blog Post Title"),
+            Meta("By John Doe • 5 min read"),
+            P("Article content here...")),
+        # Text decoration examples
+        P("This text has ",U("proper name annotation"), " and this is ",S("outdated information"), " that's been superseded.")
+    )
+
 
 # def ex_textfont():
 #     return Div(
@@ -202,12 +269,12 @@ def ex_headings():
 #     P('bold_sm', cls=TextPresetsT.subheading),
 #     )
 
-def ex_textpresetst():
+def ex_textpresets():
     return Div(
         *(Div(
             P(f"{preset.name}: This is an example of {preset.name} text style", cls=preset.value),
             cls="uk-margin"
-        ) for preset in TextPresetsT)
+        ) for preset in TextPresets)
     )
 
 def ex_textt():
@@ -226,16 +293,24 @@ def ex_other():
 
 docs_typography = create_doc_section(
     H3("High Level Options"),
-    P("Ready to go typographic options that cover most of what you need",cls=TextPresetsT.caption),
+    H5("Ready to go semantic options that cover most of what you need based on the HTML spec"),
     fn2code_string(ex_headings),
+    fn2code_string(ex_semantic_elements),
     fn2code_string(ex_other),
-    "Styling text is possibly the most common style thing to do, so we have a couple of helpers for discoverability inside python.  `TextPresetsT` is intended to be combinations are are widely applicable and used often, where `TextT` is intended to be more flexible options for you to combine together yourself.",
-    fn2code_string(ex_textpresetst),
+    H5("Styling text is possibly the most common style thing to do, so we have a couple of helpers for discoverability inside python.  `TextPresetsT` is intended to be combinations are are widely applicable and used often, where `TextT` is intended to be more flexible options for you to combine together yourself."),
+    fn2code_string(ex_textpresets),
     fn2code_string(ex_textt),
-    TextPresetsT,
+    H3("API Reference"),
+    TextPresets,
     TextT,
-    H1, H2, H3, H4, Titled,
+    H1, H2, H3, H4, H5, H6, 
     CodeSpan, Blockquote, CodeBlock,
+    Em, Strong, I, Small, Mark, Del, Ins, Sub, Sup,
+    Dfn, Abbr, Q, Kbd, Samp, Var,
+    Figure, Caption,
+    Details, Summary,
+    Meter, Data, Output,
+    Address, Time,
     title="Text Style")
 
 
@@ -388,11 +463,10 @@ docs_cards = create_doc_section(
 
 def ex_lists():
     list_options = [(style,str(cls)) for style,cls in ListT.__members__.items()]
-    lists = [Div(H4(f"{style} List:"), UkList(Li("Item 1"), Li("Item 2"), cls=cls)) for style, cls in list_options]
+    lists = [Div(H4(f"{style} List:"), Ul(Li("Item 1"), Li("Item 2"), cls=cls)) for style, cls in list_options]
     return Grid(*lists)
 
 docs_lists = create_doc_section(
-    UkList,
     fn2code_string(ex_lists),
     ListT,
     title="Lists")
@@ -874,6 +948,9 @@ def ex_dicebear():
         DiceBearAvatar('Aaliyah',10,10),
         DiceBearAvatar('Alyssa',10,10))
 
+def ex_picsum():
+    return Grid(PicSumImg(100,100), PicSumImg(100,100, blur=6),PicSumImg(100,100, grayscale=True))
+
 def ex_icon():
     return Grid(
         UkIcon('chevrons-right', height=15, width=15),
@@ -887,10 +964,13 @@ def ex_iconlink():
         UkIconLink('chevrons-right'),
         UkIconLink('chevrons-right', button=True, cls=ButtonT.primary))
 
-docs_icons = create_doc_section(
+docs_icons_images = create_doc_section(
     H1("Avatars"),
     fn2code_string(ex_dicebear),
     DiceBearAvatar,
+    H1("PlaceHolder Images"),
+    fn2code_string(ex_picsum),
+    PicSumImg,
     H1("Icons"),
     P("Icons use Lucide icons - you can find a full list of icons in their docs.", cls=TextPresetsT.caption),
     fn2code_string(ex_icon),

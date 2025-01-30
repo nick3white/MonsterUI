@@ -10,18 +10,14 @@ import httpx
 
 def _not_found(req, exc):
     _path = req.url.path.rstrip('/')
-    print(_path)
     if _path.endswith('.md') or _path.endswith('/md') or _path.endswith('/rmd') or _path.endswith('.rmd'):
-        url = f'https://monsterui.answer.ai{_path[:-3].rstrip("/")}'
+        url = f'https://monsterui.answer.ai{_path[:-3].rstrip("/").rstrip(".")}'.rstrip("/").rstrip(".")
         try:
             r = httpx.head(url, follow_redirects=True, timeout=1.0)
             if r.status_code < 400:  # Accept 2xx and 3xx status codes
-                if _path.endswith('.rmd') or _path.endswith('/rmd'):
-                    return Container(render_md(read_html(url, sel='#content')))
-                elif _path.endswith('.md') or _path.endswith('/md'):
-                    return PlainTextResponse(read_html(url, sel='#content'))
-        except (httpx.TimeoutException, httpx.NetworkError):
-            pass    
+                if _path.endswith('.rmd') or _path.endswith('/rmd'): return Container(render_md(read_html(url, sel='#content')))
+                elif _path.endswith('.md') or _path.endswith('/md'): return PlainTextResponse(read_html(url, sel='#content'))
+        except (httpx.TimeoutException, httpx.NetworkError): pass    
     return _create_page(
         Container(Card(CardBody(H1("404 - Page Not Found"), P("The page you're looking for doesn't exist.")))),
         req,
@@ -63,6 +59,7 @@ from examples.music import index as music_homepage
 from examples.auth import index as auth_homepage
 from examples.playground import index as playground_homepage
 from examples.mail import index as mail_homepage
+from examples.scrollspy import index as scrollspy_homepage
 
 def _example_route(name, homepage, o:str, request=None):
     match o:
@@ -71,6 +68,10 @@ def _example_route(name, homepage, o:str, request=None):
         case _: return _create_example_page(homepage, request)
 
 _create_example_page = partial(_create_page, sidebar_section='Examples')
+
+@rt('/scrollspy')
+@rt('/scrollspy/{o}')
+def scrollspy(o:str='', request=None): return _example_route('scrollspy', scrollspy_homepage(), o, request)
 
 @rt('/tasks')
 @rt('/tasks/{o}')

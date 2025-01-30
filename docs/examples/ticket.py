@@ -5,21 +5,7 @@ from datetime import datetime
 
 app, rt = fast_app(hdrs=Theme.blue.headers(daisy=True))
 
-def TopNav():
-    return NavBar(
-        H3("Help Desk", cls="text-xl font-bold"),
-        NavBarRSide(
-            Button(UkIcon("bell"), cls=ButtonT.ghost),
-            Button(UkIcon("settings"), cls=ButtonT.ghost),
-            DiceBearAvatar("admin", 8, 8)))
-
 def TicketSteps(step):
-    steps = [
-        ("Submitted", 0, "📝"), 
-        ("In Review", 1, "🔎"),
-        ("Processing", 2, "⚙️"),
-        ("Resolved", 3, "✅")
-    ]
     return Steps(
         LiStep("Submitted", data_content="📝",
                cls=StepT.success if step > 0 else StepT.primary if step == 0 else StepT.neutral),
@@ -93,7 +79,6 @@ def index():
     ]
 
     return Title("Help Desk Dashboard"), Container(
-        TopNav(),
         Section(
             DivFullySpaced(
                 H2("Active Tickets"),

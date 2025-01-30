@@ -278,13 +278,14 @@ def ex_other():
         CodeBlock("#This is a CodeBlock element\n\ndef add(a,b): return a+b"))
 
 docs_typography = create_doc_section(
-    H3("High Level Options"),
-    H5("Ready to go semantic options that cover most of what you need based on the HTML spec"),
+    P("Ready to go semantic options that cover most of what you need based on the HTML spec"),
     fn2code_string(ex_headings),
     fn2code_string(ex_semantic_elements),
     fn2code_string(ex_other),
-    H5("Styling text is possibly the most common style thing to do, so we have a couple of helpers for discoverability inside python.  `TextPresetsT` is intended to be combinations are are widely applicable and used often, where `TextT` is intended to be more flexible options for you to combine together yourself."),
+    P("Styling text is possibly the most common style thing to do, so we have a couple of helpers for discoverability inside python.  `TextPresetsT` is intended to be combinations are are widely applicable and used often, where `TextT` is intended to be more flexible options for you to combine together yourself."),
+    H5("TextPresets.*"),
     fn2code_string(ex_textpresets),
+    H5("TextT.*"),
     fn2code_string(ex_textt),
     H3("API Reference"),
     TextPresets,

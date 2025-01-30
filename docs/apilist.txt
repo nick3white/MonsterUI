@@ -77,12 +77,12 @@
 
 - `class TextT(Enum)`
     Text Styles from https://franken-ui.dev/docs/text
-    Members: paragraph, lead, meta, italic, sm, default, lg, light, normal, medium, bold, lighter, bolder, capitalize, uppercase, lowercase, decoration_none, muted, primary, secondary, success, warning, error, info, left, right, center, justify, top, middle, bottom, baseline, truncate, break_, nowrap
+    Members: paragraph, lead, meta, italic, sm, default, lg, light, normal, medium, bold, lighter, bolder, capitalize, uppercase, lowercase, decoration_none, muted, primary, secondary, success, warning, error, info, left, right, center, justify, top, middle, bottom, baseline, truncate, break_, nowrap, underline, highlight
 
 
-- `class TextPresetsT(Enum)`
+- `class TextPresets(Enum)`
     Common Typography Presets
-    Members: caption, meta_text, helper_text, label, quote, info, success, warning, error, subtitle, subheading, emphasis, primary
+    Members: muted_sm, muted_lg, bold_sm, bold_lg, md_weight_sm, md_weight_muted
 
 
 - `def CodeSpan(*c, **kwargs)`
@@ -105,6 +105,99 @@
 
 - `def H4(*c, **kwargs)`
     H4 with styling and appropriate size
+
+- `def H5(*c, **kwargs)`
+    H5 with styling and appropriate size
+
+- `def H6(*c, **kwargs)`
+    H6 with styling and appropriate size
+
+- `def Q(*c, **kwargs)`
+    Styled quotation mark
+
+- `def Em(*c, **kwargs)`
+    Styled emphasis text
+
+- `def Strong(*c, **kwargs)`
+    Styled strong text
+
+- `def I(*c, **kwargs)`
+    Styled italic text
+
+- `def Small(*c, **kwargs)`
+    Styled small text
+
+- `def Mark(*c, **kwargs)`
+    Styled highlighted text
+
+- `def Del(*c, **kwargs)`
+    Styled deleted text
+
+- `def Ins(*c, **kwargs)`
+    Styled inserted text
+
+- `def Sub(*c, **kwargs)`
+    Styled subscript text
+
+- `def Sup(*c, **kwargs)`
+    Styled superscript text
+
+- `def Caption(*c, **kwargs)`
+    Styled caption text
+
+- `def Cite(*c, **kwargs)`
+    Styled citation text
+
+- `def Time(*c, **kwargs)`
+    Styled time element
+
+- `def Address(*c, **kwargs)`
+    Styled address element
+
+- `def Abbr(*c, **kwargs)`
+    Styled abbreviation with dotted underline
+
+- `def Dfn(*c, **kwargs)`
+    Styled definition term with italic and medium weight
+
+- `def Kbd(*c, **kwargs)`
+    Styled keyboard input with subtle background
+
+- `def Samp(*c, **kwargs)`
+    Styled sample output with subtle background
+
+- `def Var(*c, **kwargs)`
+    Styled variable with italic monospace
+
+- `def Figure(*c, **kwargs)`
+    Styled figure container with card-like appearance
+
+- `def Details(*c, **kwargs)`
+    Styled details element
+
+- `def Summary(*c, **kwargs)`
+    Styled summary element
+
+- `def Data(*c, **kwargs)`
+    Styled data element
+
+- `def Meter(*c, **kwargs)`
+    Styled meter element
+
+- `def S(*c, **kwargs)`
+    Styled strikethrough text (different semantic meaning from Del)
+
+- `def U(*c, **kwargs)`
+    Styled underline (for proper names in Chinese, proper spelling etc)
+
+- `def Meta(*c, **kwargs)`
+    Styled meta information text
+
+- `def Output(*c, **kwargs)`
+    Styled output element for form results
+
+- `def PicSumImg(h, w, id, grayscale, blur, **kwargs)`
+    Creates a placeholder image using https://picsum.photos/
 
 - `class ButtonT(Enum)`
     Options for styling Buttons
@@ -229,16 +322,13 @@
 
 - `class AT(Enum)`
     Link styles from https://franken-ui.dev/docs/link
-    Members: muted, text, reset, primary
+    Members: muted, text, reset, primary, classic
 
 
 - `class ListT(Enum)`
-    List styles from https://franken-ui.dev/docs/list
-    Members: disc, circle, square, decimal, hyphen, muted, primary, secondary, bullet, divider, striped
+    List styles using Tailwind CSS
+    Members: disc, circle, square, decimal, hyphen, bullet, divider, striped
 
-
-- `def UkList(*li, **kwargs)`
-    Creates a list with styling
 
 - `def ModalContainer(*c, **kwargs)`
     Creates a modal container that components go in
@@ -417,4 +507,7 @@
 
 - `def render_md(md_content, class_map, class_map_mods)`
     Renders markdown using mistletoe and lxml
+
+- `def get_franken_renderer(img_dir)`
+    Create a renderer class with the specified img_dir
 

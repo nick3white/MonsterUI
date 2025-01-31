@@ -77,7 +77,7 @@
 
 - `class TextT(Enum)`
     Text Styles from https://franken-ui.dev/docs/text
-    Members: paragraph, lead, meta, italic, sm, default, lg, light, normal, medium, bold, lighter, bolder, capitalize, uppercase, lowercase, decoration_none, muted, primary, secondary, success, warning, error, info, left, right, center, justify, top, middle, bottom, baseline, truncate, break_, nowrap, underline, highlight
+    Members: paragraph, lead, meta, italic, gray, sm, default, lg, light, normal, medium, bold, lighter, bolder, capitalize, uppercase, lowercase, decoration_none, muted, primary, secondary, success, warning, error, info, left, right, center, justify, top, middle, bottom, baseline, truncate, break_, nowrap, underline, highlight
 
 
 - `class TextPresets(Enum)`
@@ -87,9 +87,6 @@
 
 - `def CodeSpan(*c, **kwargs)`
     A CodeSpan with Styling
-
-- `def Blockquote(*c, **kwargs)`
-    Blockquote with Styling
 
 - `def CodeBlock(*c, **kwargs)`
     CodeBlock with Styling
@@ -142,6 +139,9 @@
 - `def Sup(*c, **kwargs)`
     Styled superscript text
 
+- `def Blockquote(*c, **kwargs)`
+    Blockquote with Styling
+
 - `def Caption(*c, **kwargs)`
     Styled caption text
 
@@ -189,9 +189,6 @@
 
 - `def U(*c, **kwargs)`
     Styled underline (for proper names in Chinese, proper spelling etc)
-
-- `def Meta(*c, **kwargs)`
-    Styled meta information text
 
 - `def Output(*c, **kwargs)`
     Styled output element for form results

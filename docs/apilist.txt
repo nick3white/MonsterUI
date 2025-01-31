@@ -109,6 +109,9 @@
 - `def H6(*c, **kwargs)`
     H6 with styling and appropriate size
 
+- `def Subtitle(*c, **kwargs)`
+    Styled muted_sm text designed to go under Headings and Titles
+
 - `def Q(*c, **kwargs)`
     Styled quotation mark
 

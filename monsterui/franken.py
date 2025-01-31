@@ -1192,7 +1192,7 @@ def NavBar(nav_links:dict|List[FT], # List of Li(A(...)) components or dict of {
     return Div(
         Container(
             Div(cls='md:flex md:relative')(
-                NavBarLSide(H1(title), menu_icon),
+                NavBarLSide(H1(title) if isinstance(title, str) else title, menu_icon),
                 NavBarRSide(
                     NavBarNav(*nav_links, cls='w-full flex-col md:flex-row'),
                     cls='hidden md:flex md:justify-between ',  id=_id, uk_scrollspy_nav=_uk_scrollspy_nav, **kwargs))),
@@ -1318,8 +1318,8 @@ def CardContainer(*c, # Components (typically `CardHeader`, `CardBody`, `CardFoo
 
 # %% ../nbs/02_franken.ipynb
 def Card(*c, # Components that go in the body (Main content of the card such as a form, and image, a signin form, etc.)
-        header=None, # A component that goes in the header (often a `ModalTitle` and description)
-        footer=None,  # A component that goes in the footer (often a `ModalCloseButton`)
+        header:FT|Iterable[FT]=None, # Component(s) that goes in the header (often a `ModalTitle` and a subtitle)
+        footer:FT|Iterable[FT]=None,  # Component(s) that goes in the footer (often a `ModalCloseButton`)
         body_cls='space-y-6', # classes for the body
         header_cls=(), # classes for the header
         footer_cls=(), # classes for the footer

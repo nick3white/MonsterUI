@@ -55,7 +55,7 @@ def Album(title,artist):
     img_url = 'https://ucarecdn.com/e5607eaf-2b2a-43b9-ada9-330824b6afd7/music1.webp'
     return Div(
         Div(cls="overflow-hidden rounded-md")(Img(cls="transition-transform duration-200 hover:scale-105", src=img_url)),
-        Div(cls='space-y-1')(P(title,cls=TextT.bold),P(artist,cls=TextT.muted)))
+        Div(cls='space-y-1')(Strong(title),P(artist,cls=TextT.muted)))
         
 listen_now_albums = (("Roar", "Catty Perry"), ("Feline on a Prayer", "Cat Jovi"),("Fur Elise", "Ludwig van Beethovpurr"),("Purrple Rain", "Prince's Cat"))
 
@@ -67,11 +67,11 @@ made_for_you_albums = [("Like a Feline",         "Catdonna"),
                        ("Meow Me Maybe",         "Carly Rae Purrsen"),]
 
 music_content = (Div(H3("Listen Now"), cls="mt-6 space-y-1"),
-                    P("Top picks for you. Updated daily.",cls=TextPresets.muted_sm),
+                    Subtitle("Top picks for you. Updated daily."),
                     DividerLine(),
                     Grid(*[Album(t,a) for t,a in listen_now_albums], cls='gap-8'),
                     Div(H3("Made for You"), cls="mt-6 space-y-1"),
-                    P("Your personal playlists. Updated daily.", cls=TextPresets.muted_sm),
+                    Subtitle("Your personal playlists. Updated daily."),
                     DividerLine(),
                     Grid(*[Album(t,a) for t,a in made_for_you_albums], cols_xl=6))
 
@@ -86,12 +86,12 @@ def podcast_tab():
     return Div(
         Div(cls='space-y-3 mt-6')(
             H3("New Episodes"),
-            P("Your favorite podcasts. Updated daily.", cls=TextPresets.muted_sm)),
-        Div(cls="uk-placeholder flex h-[450px] items-center justify-center rounded-md",uk_placeholder=True)(
+            Subtitle("Your favorite podcasts. Updated daily.")),
+        Div(cls="uk-placeholder flex h-[450px] items-center justify-center rounded-md mt-4",uk_placeholder=True)(
             DivVStacked(cls="space-y-6")(
                 UkIcon("microphone", 3),
                 H4("No episodes added"),
-                P("You have not added any podcasts. Add one below.", cls=TextPresets.muted_sm),
+                Subtitle("You have not added any podcasts. Add one below."),
                 Button("Add Podcast", cls=ButtonT.primary))))
 
 discoved_data =  [("play-circle","Listen Now"), ("binoculars", "Browse"), ("rss","Radio")]

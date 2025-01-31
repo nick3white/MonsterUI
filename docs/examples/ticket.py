@@ -36,12 +36,12 @@ def TicketCard(id, title, description, status, step, department):
             TicketSteps(step),
             DividerSplit(cls="my-6"), 
             DivFullySpaced(
-                Div(P("Department", cls=TextPresets.muted_sm),
-                    P(department, cls=TextT.muted+TextT.sm),
-                    cls='space-y-3'),
-                Div(P("Last Updated", cls=TextPresets.muted_sm),
-                    P(datetime.now().strftime('%b %d, %H:%M'), cls=TextT.muted+TextT.sm),
-                    cls='space-y-3'),
+                Div(Strong("Department"),
+                    P(department),
+                    cls=('space-y-3', TextPresets.muted_sm)),
+                Div(Strong("Last Updated"),
+                    P(Time(datetime.now().strftime('%b %d, %H:%M'))),
+                    cls=('space-y-3', TextPresets.muted_sm)),
                 Button("View Details", cls=ButtonT.primary),
                 cls='mt-6')),
         cls=CardT.hover)

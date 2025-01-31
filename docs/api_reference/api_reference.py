@@ -257,7 +257,7 @@ def ex_semantic_elements():
         # Meta information example
         Section(
             H3("Blog Post Title (H3)"),
-            Meta("By John Doe • 5 min read (Meta)"),
+            Small("By John Doe • 5 min read (Small)"),
             P("Article content here...")),
         # Text decoration examples
         P("This text has ",U("proper name annotation (U)"), " and this is ",S("outdated information (S)"), " that's been superseded."),
@@ -282,7 +282,7 @@ docs_typography = create_doc_section(
     fn2code_string(ex_headings),
     fn2code_string(ex_semantic_elements),
     fn2code_string(ex_other),
-    P("Styling text is possibly the most common style thing to do, so we have a couple of helpers for discoverability inside python.  `TextPresetsT` is intended to be combinations are are widely applicable and used often, where `TextT` is intended to be more flexible options for you to combine together yourself."),
+    P("Styling text is possibly the most common style thing to do, so we have a couple of helpers for discoverability inside python.  `TextPresets` is intended to be combinations are are widely applicable and used often, where `TextT` is intended to be more flexible options for you to combine together yourself."),
     H5("TextPresets.*"),
     fn2code_string(ex_textpresets),
     H5("TextT.*"),
@@ -380,7 +380,7 @@ def ex_card():
 def Tags(cats): return Div(cls='space-x-2')(map(Label, cats))
 
 def ex_card2_wide():
-    def Tags(cats): return Div(cls='space-x-2')(map(Label, cats))
+    def Tags(cats): return DivLAligned(map(Label, cats))
 
     return Card(
         DivLAligned(
@@ -388,22 +388,22 @@ def ex_card2_wide():
             Div(cls='space-y-3 uk-width-expand')(
                 H4("Creating Custom FastHTML Tags for Markdown Rendering"),
                 P("A step by step tutorial to rendering markdown in FastHTML using zero-md inside of DaisyUI chat bubbles"),
-                DivFullySpaced(map(Span, ["Isaac Flath", "20-October-2024"]), cls=TextPresets.muted_sm),
+                DivFullySpaced(map(Small, ["Isaac Flath", "20-October-2024"]), cls=TextT.muted),
                 DivFullySpaced(
                     Tags(["FastHTML", "HTMX", "Web Apps"]),
                     Button("Read", cls=(ButtonT.primary,'h-6'))))),
         cls=CardT.hover)
 
 def ex_card2_tall():
-    def Tags(cats): return Div(cls='space-x-2')(map(Label, cats))
+    def Tags(cats): return DivLAligned(map(Label, cats))
 
     return Card(
         Div(
-            A(Img(src="https://picsum.photos/200/200?random=14"),href="#"),
+            A(Img(src="https://picsum.photos/400/200?random=14"), href="#"),
             Div(cls='space-y-3 uk-width-expand')(
                 H4("Creating Custom FastHTML Tags for Markdown Rendering"),
                 P("A step by step tutorial to rendering markdown in FastHTML using zero-md inside of DaisyUI chat bubbles"),
-                DivFullySpaced(map(Span, ["Isaac Flath", "20-October-2024"]), cls=TextPresets.muted_sm),
+                DivFullySpaced(map(Small, ["Isaac Flath", "20-October-2024"]), cls=TextT.muted),
                 DivFullySpaced(
                     Tags(["FastHTML", "HTMX", "Web Apps"]),
                     Button("Read", cls=(ButtonT.primary,'h-6'))))),

@@ -1,7 +1,8 @@
 """FrankenUI Dashboard Example built with MonsterUI (original design by ShadCN)"""
 
-from fasthtml.common import *
-from monsterui.all import *
+from fasthtml.common import * # Bring in all of fasthtml
+import fasthtml.common as fh # Used to get unstyled components
+from monsterui.all import * # Bring in all of monsterui, including shadowing fasthtml components with styled components
 from fasthtml.svg import *
 import numpy as np
 import plotly.express as px
@@ -47,9 +48,9 @@ def AvatarItem(name, email, amount):
     return DivFullySpaced(
         DivLAligned(
             DiceBearAvatar(name, 9,9),
-            Div(P(name, cls=TextPresets.bold_sm), 
-                P(email, cls=TextPresets.muted_sm))),
-        Div(amount, cls="ml-auto font-medium"))
+            Div(Strong(name, cls=TextT.sm), 
+                Address(A(email,href=f'mailto:{email}')))),
+        fh.Data(amount, cls="ml-auto font-medium", value=amount[2:]))
 
 recent_sales = Card(
     Div(cls="space-y-8")(
@@ -59,7 +60,7 @@ recent_sales = Card(
             ("Isabella Nguyen", "isabella.nguyen@email.com", "+$299.00"),
             ("William Kim",     "will@email.com",            "+$99.00"),
             ("Sofia Davis",     "sofia.davis@email.com",     "+$39.00"))]),
-    header=Div(H3("Recent Sales"),P("You made 265 sales this month.", cls=TextPresets.muted_sm)),
+    header=Div(H3("Recent Sales"),Subtitle("You made 265 sales this month.")),
     cls='col-span-3')
 
 teams = [["Alicia Koch"],['Acme Inc', 'Monster Inc.'],['Create a Team']]
@@ -83,8 +84,8 @@ avatar_dropdown = Div(
           *[NavSpacedLi(*hk) for hk in hotkeys],))
 
 top_nav = NavBar(
-    Div(team_dropdown, *map(lambda x: Li(A(x)), ["Overview", "Customers", "Products", "Settings"])),
-    DivLAligned(avatar_dropdown, Input(placeholder='Search')))
+    nav_links=Div(team_dropdown, *map(lambda x: Li(A(x)), ["Overview", "Customers", "Products", "Settings"])),
+    title=DivLAligned(avatar_dropdown, Input(placeholder='Search')))
 
 @rt
 def index():

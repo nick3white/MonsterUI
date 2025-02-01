@@ -3,7 +3,7 @@
 d = { 'settings': { 'branch': 'main',
                 'doc_baseurl': '/MonsterUI',
                 'doc_host': 'https://monsterui.answer.ai',
-                'git_url': 'https://github.com/Isaac-Flath/MonsterUI',
+                'git_url': 'https://github.com/AnswerDotAI/MonsterUI',
                 'lib_path': 'monsterui'},
   'syms': { 'monsterui.all': {},
             'monsterui.core': { 'monsterui.core.FastHTML': ('core.html#fasthtml', 'monsterui/core.py'),

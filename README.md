@@ -2,6 +2,10 @@
 
 > Combine the simplicity of FastHTML with the power of TailwindCSS
 
+## Why
+
+Because UI is too complex and too aggravating, people don't want to need to become a CSS expert to make professional-looking websites.
+
 ## Installation
 
 To install this library, uses

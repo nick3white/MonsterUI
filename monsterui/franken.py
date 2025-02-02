@@ -1178,6 +1178,7 @@ def NavBar(nav_links:dict|List[FT], # List of Li(A(...)) components or dict of {
            active:str="", # if `nav_links` is a dict shows an indicator of which page you are on
            sticky:bool=False, # Whether to stick to the top of the page while scrolling
            uk_scrollspy_nav=False, # Activates scrollspy linking each item `A` tags `href` to content's `id` attribute
+           cls='',
            **kwargs,
           )->FT: # Navigation bar
     _id = fh.unqid()
@@ -1204,7 +1205,7 @@ def NavBar(nav_links:dict|List[FT], # List of Li(A(...)) components or dict of {
                 NavBarRSide(
                     NavBarNav(*nav_links, cls='w-full flex-col md:flex-row'),
                     cls='hidden md:flex md:justify-between ',  id=_id, uk_scrollspy_nav=_uk_scrollspy_nav, **kwargs))),
-                    cls=_cls)
+                    cls=(stringify(cls),_cls))
 
 # %% ../nbs/02_franken.ipynb
 def SliderContainer(

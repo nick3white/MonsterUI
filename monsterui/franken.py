@@ -1437,7 +1437,7 @@ franken_class_map = {
     'a': 'uk-link text-primary hover:text-primary-focus underline',
     
     # Lists with proper spacing
-    'ul': 'uk-list uk-list-disc space-y-2 mb-6 ml-6',
+    'ul': 'uk-list uk-list-bullet space-y-2 mb-6 ml-6',
     'ol': 'uk-list uk-list-decimal space-y-2 mb-6 ml-6',
     'li': 'leading-relaxed',
     
@@ -1449,7 +1449,7 @@ franken_class_map = {
     
     # Tables
     'table': 'uk-table uk-table-divider uk-table-hover uk-table-small w-full mb-6',
-    'th': 'text-left p-2',
+    'th': '!text-left p-2 font-semibold',
     'td': 'p-2',
     
     # Other elements

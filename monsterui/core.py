@@ -57,8 +57,8 @@ def _headers_theme(color, mode='auto'):
 
 # %% ../nbs/01_core.ipynb
 HEADER_URLS = {
-        'franken_css': "https://unpkg.com/franken-ui@1.1.0/dist/css/core.min.css",
-        'franken_js': "https://unpkg.com/franken-ui@1.1.0/dist/js/core.iife.js",
+        'franken_css': "https://unpkg.com/franken-ui@2.0.0-internal.40/dist/css/core.min.css",
+        'franken_utils': "https://unpkg.com/franken-ui@2.0.0-internal.40/dist/css/utilities.min.css",
         'icon_js': "https://cdn.jsdelivr.net/gh/answerdotai/monsterui@main/monsterui/icon.iife.js",
         'tailwind': "https://cdn.tailwindcss.com",
         'daisyui': "https://cdn.jsdelivr.net/npm/daisyui@4.12.22/dist/full.min.css",
@@ -116,7 +116,7 @@ class Theme(Enum):
         "Create header elements with given URLs"
         hdrs = [
             fh.Link(rel="stylesheet", href=urls['franken_css']),
-            fh.Script(type="module", src=urls['franken_js']),
+            fh.Script(type="module", src=urls['franken_utils']),
             fh.Script(type="module", src=urls['icon_js']),
             fh.Script(src=urls['tailwind']),
             _headers_theme(self.value, mode=mode)]

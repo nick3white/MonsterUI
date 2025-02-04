@@ -394,7 +394,7 @@ def PicSumImg(h:int=200,           # Height in pixels
 # %% ../nbs/02_franken.ipynb
 class ButtonT(VEnum):
     "Options for styling Buttons"
-    def _generate_next_value_(name, start, count, last_values): return str2ukcls('button', name)
+    def _generate_next_value_(name, start, count, last_values): return str2ukcls('btn', name)
     default = auto()
     primary = auto()
     secondary = auto()
@@ -408,10 +408,10 @@ def Button(*c: Union[str, FT], # Contents of `Button` tag (often text)
            cls: Union[str, Enum]=ButtonT.default, # Classes in addition to `Button` styling (use `ButtonT` for built in styles)
            submit=True, # Whether the button should submit a form
            **kwargs # Additional args for `Button` tag
-           ) -> FT: # Button(..., cls='uk-button')
+           ) -> FT: # Button(..., cls='uk-btn')
     "Button with Styling (defaults to `submit` for form submission)"
     if 'type' not in kwargs: kwargs['type'] = 'submit' if submit else 'button'
-    return fh.Button(*c, cls=('uk-button', stringify(cls)), **kwargs)
+    return fh.Button(*c, cls=('uk-btn', stringify(cls)), **kwargs)
 
 # %% ../nbs/02_franken.ipynb
 class ContainerT(VEnum):

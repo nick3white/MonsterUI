@@ -40,7 +40,7 @@ def _create_page(content, # The content to display (without the layout/sidebar)
 def with_layout(sidebar_section, content):
     "Puts the sidebar and content into a layout"
     return Title(f"MonsterUI"), Div(cls="flex flex-col md:flex-row w-full")(
-            Button(UkIcon("menu",50,50,cls='mt-4'), cls="md:hidden mb-4", uk_toggle="target: #mobile-sidebar"),
+            Button(UkIcon("menu",50,50,cls='mt-4'), cls="md:hidden mb-4", data_uk_toggle="target: #mobile-sidebar"),
             Div(sidebar(sidebar_section), id='mobile-sidebar', hidden=True),
             Div(cls="md:flex w-full")(
                 Div(sidebar(sidebar_section), cls="hidden md:block w-1/5"),
@@ -71,43 +71,43 @@ _create_example_page = partial(_create_page, sidebar_section='Examples')
 
 @rt('/scrollspy')
 @rt('/scrollspy/{o}')
-def scrollspy(o:str='', request=None): return _example_route('scrollspy', Div(DivRAligned(A("See Code",href='/scrollspy/code',cls='m-4 uk-button'+ButtonT.default)),scrollspy_homepage()), o, request)
+def scrollspy(o:str='', request=None): return _example_route('scrollspy', Div(DivRAligned(A("See Code",href='/scrollspy/code',cls='m-4 uk-btn'+ButtonT.default)),scrollspy_homepage()), o, request)
 
 @rt('/ticket')
 @rt('/ticket/{o}')
-def ticket(o:str='', request=None): return _example_route('ticket', Div(DivRAligned(A("See Code",href='/ticket/code',cls='m-4 uk-button'+ButtonT.default)),ticket_homepage()), o, request)
+def ticket(o:str='', request=None): return _example_route('ticket', Div(DivRAligned(A("See Code",href='/ticket/code',cls='m-4 uk-btn'+ButtonT.default)),ticket_homepage()), o, request)
 
 @rt('/tasks')
 @rt('/tasks/{o}')
-def tasks(o:str='', request=None): return _example_route('tasks', Div(DivRAligned(A("See Code",href='/tasks/code',cls='m-4 uk-button'+ButtonT.default)),tasks_homepage()), o, request)
+def tasks(o:str='', request=None): return _example_route('tasks', Div(DivRAligned(A("See Code",href='/tasks/code',cls='m-4 uk-btn'+ButtonT.default)),tasks_homepage()), o, request)
 
 @rt('/cards')
 @rt('/cards/{o}')
-def cards(o:str, request=None): return _example_route('cards', Div(DivRAligned(A("See Code",href='/cards/code',cls='m-4 uk-button'+ButtonT.default)),cards_homepage()), o, request)
+def cards(o:str, request=None): return _example_route('cards', Div(DivRAligned(A("See Code",href='/cards/code',cls='m-4 uk-btn'+ButtonT.default)),cards_homepage()), o, request)
 
 @rt('/dashboard')
 @rt('/dashboard/{o}')
-def dashboard(o:str, request=None): return _example_route('dashboard', Div(DivRAligned(A("See Code",href='/dashboard/code',cls='m-4 uk-button'+ButtonT.default)),dashboard_homepage()), o, request)
+def dashboard(o:str, request=None): return _example_route('dashboard', Div(DivRAligned(A("See Code",href='/dashboard/code',cls='m-4 uk-btn'+ButtonT.default)),dashboard_homepage()), o, request)
 
 @rt('/forms')
 @rt('/forms/{o}')
-def forms(o:str, request=None): return _example_route('forms', Div(DivRAligned(A("See Code",href='/forms/code',cls='m-4 uk-button'+ButtonT.default)),forms_homepage()), o, request)
+def forms(o:str, request=None): return _example_route('forms', Div(DivRAligned(A("See Code",href='/forms/code',cls='m-4 uk-btn'+ButtonT.default)),forms_homepage()), o, request)
 
 @rt('/music')
 @rt('/music/{o}')
-def music(o:str, request=None): return _example_route('music', Div(DivRAligned(A("See Code",href='/music/code',cls='m-4 uk-button'+ButtonT.default)),music_homepage()), o, request)
+def music(o:str, request=None): return _example_route('music', Div(DivRAligned(A("See Code",href='/music/code',cls='m-4 uk-btn'+ButtonT.default)),music_homepage()), o, request)
 
 @rt('/auth')
 @rt('/auth/{o}')
-def auth(o:str, request=None): return _example_route('auth', Div(DivRAligned(A("See Code",href='/auth/code',cls='m-4 uk-button'+ButtonT.default)),auth_homepage()), o, request)
+def auth(o:str, request=None): return _example_route('auth', Div(DivRAligned(A("See Code",href='/auth/code',cls='m-4 uk-btn'+ButtonT.default)),auth_homepage()), o, request)
 
 @rt('/playground')
 @rt('/playground/{o}')
-def playground(o:str, request=None): return _example_route('playground', Div(DivRAligned(A("See Code",href='/playground/code',cls='m-4 uk-button'+ButtonT.default)),playground_homepage()), o, request)
+def playground(o:str, request=None): return _example_route('playground', Div(DivRAligned(A("See Code",href='/playground/code',cls='m-4 uk-btn'+ButtonT.default)),playground_homepage()), o, request)
 
 @rt('/mail')
 @rt('/mail/{o}')    
-def mail(o:str, request=None): return _example_route('mail', Div(DivRAligned(A("See Code",href='/mail/code',cls='m-4 uk-button'+ButtonT.default)),mail_homepage()), o, request)
+def mail(o:str, request=None): return _example_route('mail', Div(DivRAligned(A("See Code",href='/mail/code',cls='m-4 uk-btn'+ButtonT.default)),mail_homepage()), o, request)
 
 ###
 # Build the API Reference Pages

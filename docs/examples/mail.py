@@ -74,12 +74,12 @@ def MailDetailView(mail):
     return Container(
             DivFullySpaced(
                 DivLAligned(
-                    IconNav(*IconNavItem(*top_icons)),
-                    IconNav(Li(A(UkIcon('clock'), uk_tooltip='Snooze')), cls='pl-2'),
+                    DivLAligned(*[UkIcon(o[0],uk_tooltip=o[1]) for o in top_icons]),  
+                    Div(UkIcon('clock', uk_tooltip='Snooze'), cls='pl-2'),
                     cls='space-x-2 divide-x divide-border'),
-                IconNav(
-                    *IconNavItem(*reply_icons),
-                    Li(A(UkIcon('ellipsis-vertical',button=True))),
+                DivLAligned(
+                    *[UkIcon(o[0],uk_tooltip=o[1]) for o in reply_icons],
+                    Div(UkIcon('ellipsis-vertical',button=True)),
                     DropDownNavContainer(*map(lambda x: Li(A(x)), dropdown_items)))),
             DivLAligned(
                 Span(mail['name'][:2], cls='flex h-10 w-10 items-center justify-center rounded-full bg-muted'),

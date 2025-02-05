@@ -7,17 +7,17 @@ __all__ = ['franken_class_map', 'TextT', 'TextPresets', 'CodeSpan', 'CodeBlock',
            'U', 'Output', 'PicSumImg', 'ButtonT', 'Button', 'ContainerT', 'BackgroundT', 'Container', 'Titled',
            'DividerT', 'Divider', 'DividerSplit', 'DividerLine', 'Article', 'ArticleTitle', 'ArticleMeta', 'SectionT',
            'Section', 'Form', 'Fieldset', 'Legend', 'Input', 'Radio', 'CheckboxX', 'Range', 'TextArea', 'Switch',
-           'FormLabel', 'LabelT', 'Label', 'UkFormSection', 'GenericLabelInput', 'LabelInput', 'LabelRange',
-           'LabelTextArea', 'LabelSwitch', 'LabelRadio', 'LabelCheckboxX', 'LabelSelect', 'Options', 'Select', 'AT',
-           'ListT', 'ModalContainer', 'ModalDialog', 'ModalHeader', 'ModalBody', 'ModalFooter', 'ModalTitle',
-           'ModalCloseButton', 'Modal', 'PaddingT', 'PositionT', 'Placeholder', 'Progress', 'UkIcon', 'UkIconLink',
-           'DiceBearAvatar', 'Center', 'FlexT', 'Grid', 'DivFullySpaced', 'DivCentered', 'DivLAligned', 'DivRAligned',
-           'DivVStacked', 'DivHStacked', 'NavT', 'NavContainer', 'NavParentLi', 'NavDividerLi', 'NavHeaderLi',
-           'NavSubtitle', 'NavCloseLi', 'NavBarContainer', 'NavBarLSide', 'NavBarRSide', 'NavBarCenter', 'NavBarNav',
-           'NavBarSubtitle', 'NavBarNavContainer', 'NavBarParentIcon', 'NavBar', 'SliderContainer', 'SliderItems',
-           'SliderNav', 'Slider', 'DropDownNavContainer', 'TabContainer', 'CardT', 'CardTitle', 'CardHeader',
-           'CardBody', 'CardFooter', 'CardContainer', 'Card', 'TableT', 'Table', 'Td', 'Th', 'Tbody', 'TableFromLists',
-           'TableFromDicts', 'apply_classes', 'render_md', 'get_franken_renderer']
+           'Upload', 'UploadZone', 'FormLabel', 'LabelT', 'Label', 'UkFormSection', 'GenericLabelInput', 'LabelInput',
+           'LabelRange', 'LabelTextArea', 'LabelSwitch', 'LabelRadio', 'LabelCheckboxX', 'LabelSelect', 'Options',
+           'Select', 'AT', 'ListT', 'ModalContainer', 'ModalDialog', 'ModalHeader', 'ModalBody', 'ModalFooter',
+           'ModalTitle', 'ModalCloseButton', 'Modal', 'PaddingT', 'PositionT', 'Placeholder', 'Progress', 'UkIcon',
+           'UkIconLink', 'DiceBearAvatar', 'Center', 'FlexT', 'Grid', 'DivFullySpaced', 'DivCentered', 'DivLAligned',
+           'DivRAligned', 'DivVStacked', 'DivHStacked', 'NavT', 'NavContainer', 'NavParentLi', 'NavDividerLi',
+           'NavHeaderLi', 'NavSubtitle', 'NavCloseLi', 'NavBarContainer', 'NavBarLSide', 'NavBarRSide', 'NavBarCenter',
+           'NavBarNav', 'NavBarSubtitle', 'NavBarNavContainer', 'NavBarParentIcon', 'NavBar', 'SliderContainer',
+           'SliderItems', 'SliderNav', 'Slider', 'DropDownNavContainer', 'TabContainer', 'CardT', 'CardTitle',
+           'CardHeader', 'CardBody', 'CardFooter', 'CardContainer', 'Card', 'TableT', 'Table', 'Td', 'Th', 'Tbody',
+           'TableFromLists', 'TableFromDicts', 'apply_classes', 'render_md', 'get_franken_renderer']
 
 # %% ../nbs/02_franken.ipynb
 import fasthtml.common as fh
@@ -583,6 +583,48 @@ def Switch(*c, # contents of Switch tag (often nothing)
     return fh.Input(*c, cls=('uk-toggle-switch uk-toggle-switch-primary min-w-9',stringify(cls)), type='checkbox', **kwargs)
 
 # %% ../nbs/02_franken.ipynb
+def Upload(*c, # Contents of Upload tag button (often text)
+          cls=(), # Classes in addition to Upload styling
+          multiple=False, # Whether to allow multiple file selection
+          accept=None, # File types to accept (e.g. 'image/*')
+          button_cls=ButtonT.default, # Classes for the button
+          id=None, # ID for the file input
+          name=None, # Name for the file input
+          **kwargs # Additional args for the outer div
+          )->FT: # Div(Input(type='file'), Button(...))
+    "A file upload component with default styling"
+    input_kwargs = {'type': 'file', 'multiple': multiple}
+    if accept: input_kwargs['accept'] = accept
+    if id: input_kwargs['id'] = id
+    if name: input_kwargs['name'] = name
+    return Div(
+        fh.Input(**input_kwargs),
+        Button(*c, cls=button_cls, submit=False, tabindex="-1"),
+        cls=('w-full js-upload', stringify(cls)),
+        uk_form_custom=True)
+
+def UploadZone(*c, # Contents of UploadZone tag (often text or other tags)
+               cls=(), # Classes in addition to UploadZone styling
+               multiple=False, # Whether to allow multiple file selection
+               accept=None, # File types to accept (e.g. 'image/*')
+               id=None, # ID for the file input
+               name=None, # Name for the file input
+               **kwargs # Additional args for the outer div
+               )->FT:
+    "A file drop zone component with default styling"
+    input_kwargs = {'type': 'file', 'multiple': multiple}
+    if accept: input_kwargs['accept'] = accept 
+    if id: input_kwargs['id'] = id
+    if name: input_kwargs['name'] = name
+    return Div(
+        Div(fh.Input(**input_kwargs),
+            Span(*c),
+            uk_form_custom=True, 
+            cls='w-full'),
+        cls=('js-upload uk-placeholder uk-text-center', stringify(cls)),
+        **kwargs)
+
+# %% ../nbs/02_franken.ipynb
 def FormLabel(*c, # contents of FormLabel tag (often text)
                cls=(), # Classes in addition to FormLabel styling
                **kwargs # Additional args for FormLabel tag
@@ -1016,7 +1058,7 @@ def Grid(*div, # `Div` components to put in the grid
 
 # %% ../nbs/02_franken.ipynb
 def DivFullySpaced(*c,                # Components
-                   cls='uk-width-1-1',# Classes for outer div (`uk-width-1-1` makes it use all available width)
+                   cls='w-full',# Classes for outer div (`w-full` makes it use all available width)
                    **kwargs           # Additional args for outer div
                   ):                  # Div with spaced components via flex classes
     "Creates a flex div with it's components having as much space between them as possible"

@@ -523,12 +523,18 @@ def ex_form():
             LabelInput("Zip",            id='zp'),
             DivCentered(Button("Submit Form", cls=ButtonT.primary))))
 
+def ex_upload():
+    return Div(Upload("Upload Button!", id='upload1'),
+               UploadZone(DivCentered(Span("Upload Zone"), UkIcon("upload")), id='upload2'),
+               cls='space-y-4')
+
 docs_forms = create_doc_section(
     H3("Example Form"),
     P(f"This form was live coded in a 5 minute video ",
           A("here",href="https://www.loom.com/share/0916e8a95d524c43a4d100ee85157624?start_and_pause=1", 
             cls=AT.muted), cls=TextPresets.muted_sm),
     fn2code_string(ex_form),
+    fn2code_string(ex_upload),
     FormLabel,
     fn2code_string(ex_formlabel),
     Input,

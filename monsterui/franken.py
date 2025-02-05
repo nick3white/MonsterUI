@@ -1022,7 +1022,7 @@ def Grid(*div, # `Div` components to put in the grid
 
 # %% ../nbs/02_franken.ipynb
 def DivFullySpaced(*c,                # Components
-                   cls='uk-width-1-1',# Classes for outer div (`uk-width-1-1` makes it use all available width)
+                   cls='w-full',# Classes for outer div (`w-full` makes it use all available width)
                    **kwargs           # Additional args for outer div
                   ):                  # Div with spaced components via flex classes
     "Creates a flex div with it's components having as much space between them as possible"

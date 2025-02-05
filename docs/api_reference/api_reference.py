@@ -166,8 +166,7 @@ docs_button_link = create_doc_section(
 # Theme
 
 def ex_theme_switcher():
-    from fasthtml.components import Uk_theme_switcher
-    return Uk_theme_switcher()
+    return ThemePicker()
 
 docs_theme_headers = create_doc_section( 
    """
@@ -181,6 +180,7 @@ docs_theme_headers = create_doc_section(
     Card(Grid(map(P,Theme)),cls='mb-8'),
     H3("Theme Picker", id='theme'),
     fn2code_string(ex_theme_switcher),
+    ThemePicker,
     "Themes are controlled with `bg-background text-foreground` classes on the `Body` tag.  `fast_app` and `FastHTML` will do this for you automatically so you typically do not have to do anything",
     fast_app,
     FastHTML,

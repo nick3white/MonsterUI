@@ -142,7 +142,7 @@ def tutorial_layout(request=None):
 
 @rt
 def theme_switcher(request): 
-    return _create_page(Div(Uk_theme_switcher(),cls="p-12"), request, None)
+    return _create_page(Div(ThemePicker(),cls="p-12"), request, None)
 
 ###
 # Build the Getting Started Pages

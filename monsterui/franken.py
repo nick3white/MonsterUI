@@ -17,7 +17,7 @@ __all__ = ['franken_class_map', 'TextT', 'TextPresets', 'CodeSpan', 'CodeBlock',
            'NavBarNav', 'NavBarSubtitle', 'NavBarNavContainer', 'NavBarParentIcon', 'NavBar', 'SliderContainer',
            'SliderItems', 'SliderNav', 'Slider', 'DropDownNavContainer', 'TabContainer', 'CardT', 'CardTitle',
            'CardHeader', 'CardBody', 'CardFooter', 'CardContainer', 'Card', 'TableT', 'Table', 'Td', 'Th', 'Tbody',
-           'TableFromLists', 'TableFromDicts', 'apply_classes', 'render_md', 'get_franken_renderer']
+           'TableFromLists', 'TableFromDicts', 'apply_classes', 'render_md', 'get_franken_renderer', 'ThemePicker']
 
 # %% ../nbs/02_franken.ipynb
 import fasthtml.common as fh
@@ -1571,3 +1571,30 @@ def render_md(md_content:str, # Markdown content
     renderer = get_franken_renderer(img_dir)
     html_content = mistletoe.markdown(md_content, renderer)
     return NotStr(apply_classes(html_content, class_map, class_map_mods))
+
+# %% ../nbs/02_franken.ipynb
+def ThemePicker(color=True, radii=True, shadows=True, font=True, mode=True, cls='p-4'):
+    "Theme picker component with configurable sections"
+    def _opt(val, txt, **kwargs): return Option(txt, value=val, **kwargs)
+    def _optgrp(key, lbl, opts): return fh.Optgroup(data_key=key, label=lbl)(*opts)
+    
+    groups = []
+    if color: groups.append(_optgrp('theme', 'Theme', [
+        _opt('uk-theme-zinc', 'Zinc', data_hex='#52525b', selected=True),
+        *[_opt(f'uk-theme-{c.lower()}', c, data_hex=h) for c,h in 
+          [('Slate','#64748b'),('Stone','#78716c'),('Gray','#6b7280'),
+           ('Neutral','#737373'),('Red','#dc2626'),('Rose','#e11d48'),
+           ('Orange','#f97316'),('Green','#16a34a'),('Blue','#2563eb'),
+           ('Yellow','#facc15'),('Violet','#7c3aed')]]]))
+    if radii: groups.append(_optgrp('radii', 'Radii', [
+        _opt('uk-radii-none','None'), _opt('uk-radii-sm','Small'),
+        _opt('uk-radii-md','Medium',selected=True), _opt('uk-radii-lg','Large')]))
+    if shadows: groups.append(_optgrp('shadows', 'Shadows', [
+        _opt('uk-shadows-none','None'), _opt('uk-shadows-sm','Small',selected=True),
+        _opt('uk-shadows-md','Medium'), _opt('uk-shadows-lg','Large')]))
+    if font: groups.append(_optgrp('font', 'Font', [
+        _opt('uk-font-sm','Small',selected=True), _opt('uk-font-base','Default')]))
+    if mode: groups.append(_optgrp('mode', 'Mode', [
+        _opt('light','Light',data_icon='sun'), _opt('dark','Dark',data_icon='moon')]))
+    from fasthtml.components import Uk_theme_switcher
+    return Div(Uk_theme_switcher(fh.Select(*groups, hidden=True),  id="theme-switcher"), cls=stringify(cls))

@@ -35,15 +35,18 @@ def FastHTML(*args, pico=False, **kwargs):
 def _headers_theme(color, mode='auto'):
     mode_script = {
         'auto': '''
-            if (
-                localStorage.getItem("mode") === "dark" ||
-                (!("mode" in localStorage) &&
-                window.matchMedia("(prefers-color-scheme: dark)").matches)
-            ) {
-                htmlElement.classList.add("dark");
-            } else {
-                htmlElement.classList.remove("dark");
-            }
+          const __FRANKEN__ = JSON.parse(localStorage.getItem("__FRANKEN__") || "{}");
+
+          if (
+            __FRANKEN__.mode === "dark" ||
+            (!__FRANKEN__.mode &&
+              window.matchMedia("(prefers-color-scheme: dark)").matches)
+          ) {
+            htmlElement.classList.add("dark");
+          } else {
+            htmlElement.classList.remove("dark");
+          }
+
         ''',
         'light': 'htmlElement.classList.remove("dark");',
         'dark': 'htmlElement.classList.add("dark");'
@@ -53,6 +56,10 @@ def _headers_theme(color, mode='auto'):
         const htmlElement = document.documentElement;
         {mode_script[mode]}
         htmlElement.classList.add(localStorage.getItem("theme") || "uk-theme-{color}");
+          htmlElement.classList.add(__FRANKEN__.theme || "uk-theme-{color}");
+          htmlElement.classList.add(__FRANKEN__.radii || "uk-radii-md");
+          htmlElement.classList.add(__FRANKEN__.shadows || "uk-shadows-sm");
+          htmlElement.classList.add(__FRANKEN__.font || "uk-font-sm");
     ''')
 
 # %% ../nbs/01_core.ipynb

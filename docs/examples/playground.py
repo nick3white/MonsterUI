@@ -26,7 +26,7 @@ def playground_navbar():
             Button(UkIcon('copy'), cls=(ButtonT.primary, "uk-drop-close",'mt-4'))))
 
     rnav = Div(
-        UkSelect(*Options(*preset_options), name='preset', optgroup_label="Examples",
+        Select(*Options(*preset_options), name='preset', optgroup_label="Examples",
                  placeholder='Load a preset', searchable=True, cls='h-9 w-[200px] lg:w-[300px]'),
         Button("Save",         cls=ButtonT.secondary, data_uk_toggle="#save"),save_modal,
         Button("View Code",    cls=ButtonT.secondary),
@@ -41,7 +41,7 @@ def playground_navbar():
     return NavBar(title=H4('Playground'),nav_links=rnav)
 
 rsidebar = NavContainer(
-    UkSelect(
+    Select(
         Optgroup(map(Option,("text-davinci-003", "text-curie-001", "text-babbage-001", "text-ada-001")),label='GPT-3'),
         Optgroup(map(Option,("code-davinci-002", "code-cushman-001")),label='Codex'),
         label="Model",

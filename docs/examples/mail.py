@@ -19,7 +19,7 @@ def MailSbLi(icon, title, cnt):
 
 sidebar = NavContainer(
     NavHeaderLi(H3("Email"), cls='p-3'),
-    Li(UkSelect(map(Option, ('alicia@example.com','alicia@gmail.com', 'alicia@yahoo.com')))),
+    Li(Select(map(Option, ('alicia@example.com','alicia@gmail.com', 'alicia@yahoo.com')))),
     *[MailSbLi(i, t, c) for i, t, c in sidebar_group1],
     Li(Hr()),
     *[MailSbLi(i, t, c) for i, t, c in sidebar_group2],

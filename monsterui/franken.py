@@ -6,18 +6,18 @@ __all__ = ['franken_class_map', 'TextT', 'TextPresets', 'CodeSpan', 'CodeBlock',
            'Time', 'Address', 'Abbr', 'Dfn', 'Kbd', 'Samp', 'Var', 'Figure', 'Details', 'Summary', 'Data', 'Meter', 'S',
            'U', 'Output', 'PicSumImg', 'ButtonT', 'Button', 'ContainerT', 'BackgroundT', 'Container', 'Titled',
            'DividerT', 'Divider', 'DividerSplit', 'DividerLine', 'Article', 'ArticleTitle', 'ArticleMeta', 'SectionT',
-           'Section', 'Form', 'Fieldset', 'Legend', 'Input', 'Select', 'Radio', 'CheckboxX', 'Range', 'TextArea',
-           'Switch', 'FormLabel', 'LabelT', 'Label', 'UkFormSection', 'GenericLabelInput', 'LabelInput', 'LabelRange',
-           'LabelTextArea', 'LabelSwitch', 'LabelRadio', 'LabelCheckboxX', 'LabelSelect', 'Options', 'UkSelect',
-           'LabelUkSelect', 'AT', 'ListT', 'ModalContainer', 'ModalDialog', 'ModalHeader', 'ModalBody', 'ModalFooter',
-           'ModalTitle', 'ModalCloseButton', 'Modal', 'PaddingT', 'PositionT', 'Placeholder', 'Progress', 'UkIcon',
-           'UkIconLink', 'DiceBearAvatar', 'Center', 'FlexT', 'Grid', 'DivFullySpaced', 'DivCentered', 'DivLAligned',
-           'DivRAligned', 'DivVStacked', 'DivHStacked', 'NavT', 'NavContainer', 'NavParentLi', 'NavDividerLi',
-           'NavHeaderLi', 'NavSubtitle', 'NavCloseLi', 'NavBarContainer', 'NavBarLSide', 'NavBarRSide', 'NavBarCenter',
-           'NavBarNav', 'NavBarSubtitle', 'NavBarNavContainer', 'NavBarParentIcon', 'NavBar', 'SliderContainer',
-           'SliderItems', 'SliderNav', 'Slider', 'DropDownNavContainer', 'TabContainer', 'CardT', 'CardTitle',
-           'CardHeader', 'CardBody', 'CardFooter', 'CardContainer', 'Card', 'TableT', 'Table', 'Td', 'Th', 'Tbody',
-           'TableFromLists', 'TableFromDicts', 'apply_classes', 'render_md', 'get_franken_renderer']
+           'Section', 'Form', 'Fieldset', 'Legend', 'Input', 'Radio', 'CheckboxX', 'Range', 'TextArea', 'Switch',
+           'FormLabel', 'LabelT', 'Label', 'UkFormSection', 'GenericLabelInput', 'LabelInput', 'LabelRange',
+           'LabelTextArea', 'LabelSwitch', 'LabelRadio', 'LabelCheckboxX', 'LabelSelect', 'Options', 'Select', 'AT',
+           'ListT', 'ModalContainer', 'ModalDialog', 'ModalHeader', 'ModalBody', 'ModalFooter', 'ModalTitle',
+           'ModalCloseButton', 'Modal', 'PaddingT', 'PositionT', 'Placeholder', 'Progress', 'UkIcon', 'UkIconLink',
+           'DiceBearAvatar', 'Center', 'FlexT', 'Grid', 'DivFullySpaced', 'DivCentered', 'DivLAligned', 'DivRAligned',
+           'DivVStacked', 'DivHStacked', 'NavT', 'NavContainer', 'NavParentLi', 'NavDividerLi', 'NavHeaderLi',
+           'NavSubtitle', 'NavCloseLi', 'NavBarContainer', 'NavBarLSide', 'NavBarRSide', 'NavBarCenter', 'NavBarNav',
+           'NavBarSubtitle', 'NavBarNavContainer', 'NavBarParentIcon', 'NavBar', 'SliderContainer', 'SliderItems',
+           'SliderNav', 'Slider', 'DropDownNavContainer', 'TabContainer', 'CardT', 'CardTitle', 'CardHeader',
+           'CardBody', 'CardFooter', 'CardContainer', 'Card', 'TableT', 'Table', 'Td', 'Th', 'Tbody', 'TableFromLists',
+           'TableFromDicts', 'apply_classes', 'render_md', 'get_franken_renderer']
 
 # %% ../nbs/02_franken.ipynb
 import fasthtml.common as fh
@@ -551,12 +551,12 @@ def Input(*c, # contents of Input tag (often nothing)
     "An Input with default styling"
     return fh.Input(*c, cls=('uk-input',stringify(cls)), **kwargs)
 
-def Select(*option, # options for the select dropdown
-           cls=(), # Classes in addition to Select styling
-           **kwargs # Additional args for Select tag
-           )->FT: # Select(..., cls='uk-select')
-    "A Select with default styling, though often `UkSelect` is a better choice"
-    return fh.Select(*option, cls=('uk-select',stringify(cls)), **kwargs)
+# def Select(*option, # options for the select dropdown
+#            cls=(), # Classes in addition to Select styling
+#            **kwargs # Additional args for Select tag
+#            )->FT: # Select(..., cls='uk-select')
+#     "A Select with default styling, though often `UkSelect` is a better choice"
+#     return fh.Select(*option, cls=('uk-select',stringify(cls)), **kwargs)
 def Radio(*c, # contents of Radio tag (often nothing)
            cls=(), # Classes in addition to Radio styling
            **kwargs # Additional args for Radio tag
@@ -746,38 +746,27 @@ def Options(*c,                    # Content for an `Option`
     return [fh.Option(o,selected=i==selected_idx, disabled=disabled_idxs and i in disabled_idxs) for i,o in enumerate(c)]
 
 # %% ../nbs/02_franken.ipynb
-def UkSelect(*option,            # Options for the select dropdown (can use `Options` helper function to create)
-             inp_cls=(),         # Additional classes for the select input
-             cls=('space-y-2',), # Classes for the outer div
-             id="",              # ID for the select input
-             name="",            # Name attribute for the select input
-             placeholder="",     # Placeholder text for the select input
-             searchable=False,   # Whether the select should be searchable
-             **kwargs):          # Additional arguments passed to Uk_select
+def Select(*option,            # Options for the select dropdown (can use `Options` helper function to create)
+          inp_cls=(),         # Additional classes for the select input
+          cls=('h-10',),      # Classes for the outer div (default h-10 for consistent height)
+          cls_custom='button: uk-input-fake dropdown: w-full', # Classes for the Uk_Select web component
+          id="",              # ID for the select input
+          name="",            # Name attribute for the select input
+          placeholder="",     # Placeholder text for the select input
+          searchable=False,   # Whether the select should be searchable
+          **kwargs):          # Additional arguments passed to Uk_select
     "Creates a select dropdown with uk styling and option for adding a search box"
-    inp_cls, cls = map(stringify, (inp_cls, cls))
-    select = Uk_select(*option, cls=inp_cls, uk_cloak=True, id=id, 
-                       name=name, placeholder=placeholder, searchable=searchable, **kwargs)
-    return Div(cls=cls)(select)
-
-# %% ../nbs/02_franken.ipynb
-def LabelUkSelect(*option,            # Options for the select dropdown (can use `Options` helper function to create)
-             label=(),           # String or FT component for the label
-             lbl_cls=(),         # Additional classes for the label
-             inp_cls=(),         # Additional classes for the select input
-             cls=('space-y-2',), # Classes for the outer div
-             id="",              # ID for the select input
-             name="",            # Name attribute for the select input
-             placeholder="",     # Placeholder text for the select input
-             searchable=False,   # Whether the select should be searchable
-             **kwargs):          # Additional arguments passed to Uk_select
-    "A FormLabel and Select pair that provides default spacing and links/names them based on id"
-    lbl_cls, inp_cls, cls = map(stringify, (lbl_cls, inp_cls, cls))
-    if label: 
-        lbl = FormLabel(cls=f'{lbl_cls}', fr=id)(label) 
-    select = Uk_select(*option, cls=inp_cls, uk_cloak=True, id=id, 
-                       name=name if name else id, placeholder=placeholder, searchable=searchable, **kwargs)
-    return Div(cls=cls)(lbl, select) if label else Div(cls=cls)(select)
+    inp_cls, cls, cls_custom= map(stringify, (inp_cls, cls, cls_custom))
+    uk_select = Uk_select(fh.Select(*option, hidden=True, id=id, name=name),
+                         cls_custom=cls_custom,
+                         searchable=searchable,
+                         placeholder=placeholder,
+                         cls=inp_cls,
+                         id=id, 
+                         name=name,
+                         **kwargs)
+    
+    return Div(cls=cls)(uk_select)
 
 # %% ../nbs/02_franken.ipynb
 class AT(VEnum):
@@ -973,7 +962,7 @@ def Center(*c, # Components to center
     classes = ['flex']
     if vertical: classes.append('items-center min-h-full') 
     if horizontal: classes.append('justify-center min-w-full')
-    return Div(*c, cls=(stringify(classes), stringify(cls)), **kwargs)
+    return fh_comp.Center(*c, cls=(stringify(classes), stringify(cls)), **kwargs)
 
 # %% ../nbs/02_franken.ipynb
 class FlexT(VEnum):

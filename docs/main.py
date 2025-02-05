@@ -23,7 +23,7 @@ def _not_found(req, exc):
         req,
         None)
 
-app,rt = fast_app(exception_handlers={404:_not_found}, pico=False, hdrs=(*Theme.blue.headers(highlightjs=True), Link(rel="icon", type="image/x-icon", href="/favicon.ico")))
+app,rt = fast_app(exception_handlers={404:_not_found}, pico=False, hdrs=(*Theme.blue.headers(highlightjs=True), Link(rel="icon", type="image/x-icon", href="/favicon.ico")), live=True)
 
 def is_htmx(request=None): 
     "Check if the request is an HTMX request"
@@ -43,7 +43,7 @@ def with_layout(sidebar_section, content):
             Button(UkIcon("menu",50,50,cls='mt-4'), cls="md:hidden mb-4", data_uk_toggle="target: #mobile-sidebar"),
             Div(sidebar(sidebar_section), id='mobile-sidebar', hidden=True),
             Div(cls="md:flex w-full")(
-                Div(sidebar(sidebar_section), cls="hidden md:block w-1/5"),
+                Div(sidebar(sidebar_section), cls="hidden md:block w-1/5 max-w-52"),
                 Div(content, cls='md:w-4/5 w-full mr-5', id="content", )))
 
 

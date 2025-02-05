@@ -493,10 +493,10 @@ def ex_radio():
         Radio(name="radio-group", id="radio1"), 
         LabelRadio(label="Radio", id='radio1',cls='flex items-center space-x-4'))
 
-def ex_ukselect(): 
+def ex_Select(): 
     return Div(
-        UkSelect(map(Option, ["Option 1", "Option 2", "Option 3"])),
-        LabelUkSelect(map(Option, ["Option 1", "Option 2", "Option 3"]), label="UkSelect", id='myid'))
+        Select(map(Option, ["Option 1", "Option 2", "Option 3"])),
+        LabelSelect(map(Option, ["Option 1", "Option 2", "Option 3"]), label="Select", id='myid'))
 
 def ex_select(): 
     return Div(
@@ -540,7 +540,7 @@ docs_forms = create_doc_section(
     LabelTextArea,
     LabelRadio,
     LabelSelect,
-    LabelUkSelect,
+    LabelSelect,
     Progress,
     fn2code_string(ex_progress),
     Radio,
@@ -555,8 +555,8 @@ docs_forms = create_doc_section(
     fn2code_string(ex_textarea),
     Select,
     fn2code_string(ex_select),
-    UkSelect,
-    fn2code_string(ex_ukselect),
+    Select,
+    fn2code_string(ex_Select),
     Legend,
     Fieldset,
     title="Forms")

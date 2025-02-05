@@ -551,12 +551,6 @@ def Input(*c, # contents of Input tag (often nothing)
     "An Input with default styling"
     return fh.Input(*c, cls=('uk-input',stringify(cls)), **kwargs)
 
-# def Select(*option, # options for the select dropdown
-#            cls=(), # Classes in addition to Select styling
-#            **kwargs # Additional args for Select tag
-#            )->FT: # Select(..., cls='uk-select')
-#     "A Select with default styling, though often `UkSelect` is a better choice"
-#     return fh.Select(*option, cls=('uk-select',stringify(cls)), **kwargs)
 def Radio(*c, # contents of Radio tag (often nothing)
            cls=(), # Classes in addition to Radio styling
            **kwargs # Additional args for Radio tag
@@ -742,7 +736,7 @@ def Options(*c,                    # Content for an `Option`
             selected_idx:int=None, # Index location of selected `Option`
             disabled_idxs:set=None # Idex locations of disabled `Options`
            ):
-    "Helper function to wrap things into `Option`s for use in `UkSelect`"
+    "Helper function to wrap things into `Option`s for use in `Select`"
     return [fh.Option(o,selected=i==selected_idx, disabled=disabled_idxs and i in disabled_idxs) for i,o in enumerate(c)]
 
 # %% ../nbs/02_franken.ipynb
@@ -1022,7 +1016,7 @@ def Grid(*div, # `Div` components to put in the grid
 
 # %% ../nbs/02_franken.ipynb
 def DivFullySpaced(*c,                # Components
-                   cls='w-full',# Classes for outer div (`w-full` makes it use all available width)
+                   cls='uk-width-1-1',# Classes for outer div (`uk-width-1-1` makes it use all available width)
                    **kwargs           # Additional args for outer div
                   ):                  # Div with spaced components via flex classes
     "Creates a flex div with it's components having as much space between them as possible"

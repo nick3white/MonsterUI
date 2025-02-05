@@ -11,7 +11,7 @@ __all__ = ['franken_class_map', 'TextT', 'TextPresets', 'CodeSpan', 'CodeBlock',
            'LabelTextArea', 'LabelSwitch', 'LabelRadio', 'LabelCheckboxX', 'LabelSelect', 'Options', 'UkSelect',
            'LabelUkSelect', 'AT', 'ListT', 'ModalContainer', 'ModalDialog', 'ModalHeader', 'ModalBody', 'ModalFooter',
            'ModalTitle', 'ModalCloseButton', 'Modal', 'PaddingT', 'PositionT', 'Placeholder', 'Progress', 'UkIcon',
-           'UkIconLink', 'DiceBearAvatar', 'FlexT', 'Grid', 'DivFullySpaced', 'DivCentered', 'DivLAligned',
+           'UkIconLink', 'DiceBearAvatar', 'Center', 'FlexT', 'Grid', 'DivFullySpaced', 'DivCentered', 'DivLAligned',
            'DivRAligned', 'DivVStacked', 'DivHStacked', 'NavT', 'NavContainer', 'NavParentLi', 'NavDividerLi',
            'NavHeaderLi', 'NavSubtitle', 'NavCloseLi', 'NavBarContainer', 'NavBarLSide', 'NavBarRSide', 'NavBarCenter',
            'NavBarNav', 'NavBarSubtitle', 'NavBarNavContainer', 'NavBarParentIcon', 'NavBar', 'SliderContainer',
@@ -963,20 +963,50 @@ def DiceBearAvatar(seed_name:str, # Seed name (ie 'Isaac Flath')
             fh.Img(cls=f"aspect-square h-{h} w-{w}", alt="Avatar", loading="lazy", src=f"{url}{seed_name}"))
 
 # %% ../nbs/02_franken.ipynb
+def Center(*c, # Components to center
+          vertical:bool=True, # Whether to center vertically
+          horizontal:bool=True, # Whether to center horizontally 
+          cls=(), # Additional classes
+          **kwargs # Additional args for container div
+          )->FT: # Div with centered contents
+    "Centers contents both vertically and horizontally by default"
+    classes = ['flex']
+    if vertical: classes.append('items-center min-h-full') 
+    if horizontal: classes.append('justify-center min-w-full')
+    return Div(*c, cls=(stringify(classes), stringify(cls)), **kwargs)
+
+# %% ../nbs/02_franken.ipynb
 class FlexT(VEnum):
-    'Flexbox modifiers from UIkit'
-    def _generate_next_value_(name, start, count, last_values): return str2ukcls('flex', name)
+    'Flexbox modifiers using Tailwind CSS'
+    def _generate_next_value_(name, start, count, last_values): return name
     
     # Display
-    block, inline = 'uk-flex', auto()
+    block = 'flex'
+    inline = 'inline-flex'
+    
     # Horizontal Alignment
-    left, center, right, between, around = auto(), auto(), auto(), auto(), auto()
+    left = 'justify-start' 
+    center = 'justify-center'
+    right = 'justify-end'
+    between = 'justify-between'
+    around = 'justify-around'
+    
     # Vertical Alignment
-    stretch, top, middle, bottom = auto(), auto(), auto(), auto()
+    stretch = 'items-stretch'
+    top = 'items-start'
+    middle = 'items-center' 
+    bottom = 'items-end'
+    
     # Direction
-    row, row_reverse, column, column_reverse = auto(), auto(), auto(), auto()
+    row = 'flex-row'
+    row_reverse = 'flex-row-reverse'
+    column = 'flex-col'
+    column_reverse = 'flex-col-reverse'
+    
     # Wrap
-    nowrap, wrap, wrap_reverse = auto(), auto(), auto()
+    nowrap = 'flex-nowrap'
+    wrap = 'flex-wrap'
+    wrap_reverse = 'flex-wrap-reverse'
 
 # %% ../nbs/02_franken.ipynb
 def Grid(*div, # `Div` components to put in the grid
@@ -1012,7 +1042,7 @@ def DivFullySpaced(*c,                # Components
 
 # %% ../nbs/02_franken.ipynb
 def DivCentered(*c,      # Components
-                cls='space--4',  # Classes for outer div (`space-y-4` provides spacing between components)
+                cls='space-y-4',  # Classes for outer div (`space-y-4` provides spacing between components)
                 vstack=True, # Whether to stack the components vertically
                 **kwargs # Additional args for outer div
                )->FT: # Div with components centered in it

@@ -52,22 +52,22 @@ team = [
 ]
 
 
-def ProductCard(p):
+def ProductCard(p,img_id=1):
     return Card(
-        PicSumImg(w=500, height=100, id=random.randint(1, 20)),
+        PicSumImg(w=500, height=100, id=img_id),
         DivFullySpaced(H4(p["name"]), P(Strong(p["price"], cls=TextT.sm))), 
         Button("Details", cls=(ButtonT.primary, "w-full")))
 
-def TestimonialCard(t):
+def TestimonialCard(t,img_id=1):
     return Card(
-        DivLAligned(PicSumImg(w=50, h=50, cls='rounded-full', id=random.randint(1, 20)), H4(t["name"])), 
+        DivLAligned(PicSumImg(w=50, h=50, cls='rounded-full', id=img_id), H4(t["name"])), 
         P(Q((t["feedback"]))))
 
 
-def TeamCard(m): 
+def TeamCard(m,img_id=1): 
     return Card(
         DivLAligned(
-            PicSumImg(w=50, h=50, cls='rounded-full', id=random.randint(1, 20)), 
+            PicSumImg(w=50, h=50, cls='rounded-full', id=img_id), 
             Div(H4(m["name"]), P(m["role"]))),
         cls='p-3')
 
@@ -102,13 +102,13 @@ def index():
                 Subtitle("Explore our products and enjoy dynamic code examples."), 
                 id="welcome-section"),
             _Section(H2("Products"),
-                     Grid(*[ProductCard(p) for p in products], cols_lg=2),                   
+                     Grid(*[ProductCard(p,img_id=i) for i,p in enumerate(products)], cols_lg=2),                   
                      id="products-section"),
             _Section(H2("Testimonials"), 
-                     Slider(*[TestimonialCard(t) for t in testimonials]),       
+                     Slider(*[TestimonialCard(t,img_id=i) for i,t in enumerate(testimonials)]),       
                      id="testimonials-section"),
             _Section(H2("Our Team"), 
-                     Grid(*[TeamCard(m) for m in team], cols_lg=2, cols_max=3),                          
+                     Grid(*[TeamCard(m,img_id=i) for i,m in enumerate(team)], cols_lg=2, cols_max=3),                          
                      id="team-section"),
             _Section(H2("Code Example"), 
                      CodeBlock(code_example, lang="python"),                             

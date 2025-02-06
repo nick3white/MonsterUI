@@ -13,10 +13,10 @@ __all__ = ['franken_class_map', 'TextT', 'TextPresets', 'CodeSpan', 'CodeBlock',
            'ModalCloseButton', 'Modal', 'PaddingT', 'PositionT', 'Placeholder', 'Progress', 'UkIcon', 'UkIconLink',
            'DiceBearAvatar', 'Center', 'FlexT', 'Grid', 'DivFullySpaced', 'DivCentered', 'DivLAligned', 'DivRAligned',
            'DivVStacked', 'DivHStacked', 'NavT', 'NavContainer', 'NavParentLi', 'NavDividerLi', 'NavHeaderLi',
-           'NavSubtitle', 'NavCloseLi', 'SliderContainer', 'SliderItems', 'SliderNav', 'Slider', 'DropDownNavContainer',
-           'NavBar', 'TabContainer', 'CardT', 'CardTitle', 'CardHeader', 'CardBody', 'CardFooter', 'CardContainer',
-           'Card', 'TableT', 'Table', 'Td', 'Th', 'Tbody', 'TableFromLists', 'TableFromDicts', 'apply_classes',
-           'render_md', 'get_franken_renderer', 'ThemePicker']
+           'NavSubtitle', 'NavCloseLi', 'NavBar', 'SliderContainer', 'SliderItems', 'SliderNav', 'Slider',
+           'DropDownNavContainer', 'TabContainer', 'CardT', 'CardTitle', 'CardHeader', 'CardBody', 'CardFooter',
+           'CardContainer', 'Card', 'TableT', 'Table', 'Td', 'Th', 'Tbody', 'TableFromLists', 'TableFromDicts',
+           'apply_classes', 'render_md', 'get_franken_renderer', 'ThemePicker']
 
 # %% ../nbs/02_franken.ipynb
 import fasthtml.common as fh
@@ -1163,6 +1163,26 @@ def NavCloseLi(*c, # Components
               )->FT: # Navigation list item with a close button
     "Creates a navigation list item with a close button"
     return fh.Li(*c, cls=('uk-drop-close', stringify(cls)),**kwargs)
+
+# %% ../nbs/02_franken.ipynb
+def NavBar(*c,
+           brand='', # Brand/logo component for left side
+           sticky:bool=False, # Whether to stick to the top of the page while scrolling
+           cls='p-4', # Classes for navbar
+           links_cls='[&>*]:mb-4 md:[&>*]:mb-0 md:[&>*]:mr-4',
+           menu_id='nav-menu', # ID for menu container (used for mobile toggle)
+           **kwargs): # Additional args for outer Div
+    "Creates a responsive navigation bar with mobile menu support"
+    menu_icon = UkIcon("menu", width=30, height=30, cls="md:hidden", hx_on_click=f"htmx.find('#{menu_id}').classList.toggle('hidden')")
+
+    _cls = 'sticky top-4 bg-base-100/80 backdrop-blur-sm z-50' if sticky else ''
+    
+    menu_button = UkIcon('menu', width=30, height=30, cls='md:hidden', hx_on_click=f"htmx.find('#{menu_id}').classList.toggle('hidden')")
+    
+    menu = Div(menu_button, DivHStacked(*c, cls=('hidden md:flex flex-col md:flex-row',stringify(links_cls)), id=menu_id),
+               cls='flex flex-col md:flex-row items-end md:items-center')
+    
+    return Div(DivFullySpaced(brand, menu) if brand else DivFullySpaced(menu), cls=(stringify(cls),_cls),**kwargs)
 
 # %% ../nbs/02_franken.ipynb
 def SliderContainer(

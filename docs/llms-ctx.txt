@@ -1,4 +1,4 @@
-<project title="MonsterUI Documentation">> MonsterUI is a python library which brings styling to python for FastHTML apps.<api reference><doc title="API List"># monsterui Module Documentation
+<project title="MonsterUI Documentation">> MonsterUI is a python library which brings styling to python for FastHTML apps.<api reference><doc title="API List" desc="Complete API Reference"># monsterui Module Documentation
 
 ## monsterui.core
 
@@ -510,7 +510,7 @@
 
 - `def get_franken_renderer(img_dir)`
     Create a renderer class with the specified img_dir
-</doc></api reference><examples><doc title="Scrollspy">"Scrollspy Example" 
+</doc></api reference><examples><doc title="Scrollspy" desc="MonsterUI Scrollspy Example application">"MonsterUI Scrollspy Example application" 
 
 from fasthtml.common import *
 from monsterui.all import *
@@ -627,7 +627,7 @@ def index():
                      id="code-section")), 
             cls=(ContainerT.xl,'uk-container-expand'))
 
-serve()</doc><doc title="Dashboard">"""FrankenUI Dashboard Example built with MonsterUI (original design by ShadCN)"""
+serve()</doc><doc title="Dashboard" desc="FrankenUI Dashboard Example built with MonsterUI (original design by ShadCN)">"""FrankenUI Dashboard Example built with MonsterUI (original design by ShadCN)"""
 
 from fasthtml.common import * # Bring in all of fasthtml
 import fasthtml.common as fh # Used to get unstyled components
@@ -732,7 +732,7 @@ def index():
             gap=4,cols=7),
         cls=('space-y-4', ContainerT.xl))
 
-serve()</doc><doc title="Ticket">"""MonsterUI Help Desk Example - Professional Dashboard with DaisyUI components"""
+serve()</doc><doc title="Ticket" desc="MonsterUI Help Desk Example - Professional Dashboard with DaisyUI components">"""MonsterUI Help Desk Example - Professional Dashboard with DaisyUI components"""
 from fasthtml.common import *
 from monsterui.all import *
 from datetime import datetime
@@ -826,7 +826,7 @@ def index():
         cls="mx-auto max-w-7xl"
     )   
 
-serve()</doc><doc title="Music">"""FrankenUI Music Example build with MonsterUI (Original design by ShadCN)"""
+serve()</doc><doc title="Music" desc="FrankenUI Music Example build with MonsterUI (Original design by ShadCN)">"""FrankenUI Music Example build with MonsterUI (Original design by ShadCN)"""
 
 from fasthtml.common import *
 from monsterui.all import *
@@ -947,7 +947,7 @@ def index():
                         Li(podcast_tab())))),
             cols_sm=1, cols_md=1, cols_lg=5, cols_xl=5))
 
-serve()</doc><doc title="Playground">"""FrankenUI Playground Example built with MonsterUI (original design by ShadCN)"""
+serve()</doc><doc title="Playground" desc="FrankenUI Playground Example built with MonsterUI (original design by ShadCN)">"""FrankenUI Playground Example built with MonsterUI (original design by ShadCN)"""
 
 from fasthtml.common import *
 from monsterui.all import *
@@ -1015,7 +1015,7 @@ def index():
     
     return Title("Playground Example"),Div(navbar, Div(cls="flex w-full")(main_content, rsidebar), bottom_buttons)
 
-serve()</doc><doc title="Tasks">"""FrankenUI Tasks Example built with MonsterUI (original design by ShadCN)"""
+serve()</doc><doc title="Tasks" desc="FrankenUI Tasks Example built with MonsterUI (original design by ShadCN)">"""FrankenUI Tasks Example built with MonsterUI (original design by ShadCN)"""
 
 from fasthtml.common import *
 from monsterui.all import *
@@ -1132,7 +1132,7 @@ tasks_ui = Div(DivFullySpaced(DivLAligned(table_controls), cls='mt-8'), tasks_ta
 @rt
 def index(): return Container(page_heading, tasks_ui, CreateTaskModal())
 
-serve()</doc><doc title="Cards">"""FrankenUI Cards Example built with MonsterUI (original design by ShadCN)"""
+serve()</doc><doc title="Cards" desc="FrankenUI Cards Example built with MonsterUI (original design by ShadCN)">"""FrankenUI Cards Example built with MonsterUI (original design by ShadCN)"""
 
 from fasthtml.common import *
 from fasthtml.components import Uk_input_tag
@@ -1272,7 +1272,7 @@ def index():
                       Div(ReportIssue,MonsterUI,CookieSettings, cls='space-y-4'))),
          cols_md=1, cols_lg=2, cols_xl=3))
 
-serve()</doc><doc title="Mail">"""FrankenUI Mail Example built with MonsterUI (original design by ShadCN)"""
+serve()</doc><doc title="Mail" desc="FrankenUI Mail Example built with MonsterUI (original design by ShadCN)">"""FrankenUI Mail Example built with MonsterUI (original design by ShadCN)"""
 
 from fasthtml.common import *
 from monsterui.all import *
@@ -1382,7 +1382,7 @@ def index():
              gap=0, cls='flex-1'),
         cls=('flex', ContainerT.xl))
 
-serve()</doc><doc title="Forms">"""FrankenUI Forms Example built with MonsterUI (original design by ShadCN)"""
+serve()</doc><doc title="Forms" desc="FrankenUI Forms Example built with MonsterUI (original design by ShadCN)">"""FrankenUI Forms Example built with MonsterUI (original design by ShadCN)"""
 
 
 from fasthtml.common import *
@@ -1530,7 +1530,7 @@ def index():
                     Li(cls="uk-active")(profile_form(),
                     *map(Li, [account_form(), appearance_form(), notifications_form(), display_form()])))))
 
-serve()</doc><doc title="Auth">"""FrankenUI Auth Example built with MonsterUI (original design by ShadCN)"""
+serve()</doc><doc title="Auth" desc="FrankenUI Auth Example built with MonsterUI (original design by ShadCN)">"""FrankenUI Auth Example built with MonsterUI (original design by ShadCN)"""
 
 from fasthtml.common import *
 from monsterui.all import *

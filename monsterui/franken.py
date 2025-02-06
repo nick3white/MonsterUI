@@ -13,11 +13,10 @@ __all__ = ['franken_class_map', 'TextT', 'TextPresets', 'CodeSpan', 'CodeBlock',
            'ModalTitle', 'ModalCloseButton', 'Modal', 'PaddingT', 'PositionT', 'Placeholder', 'Progress', 'UkIcon',
            'UkIconLink', 'DiceBearAvatar', 'Center', 'FlexT', 'Grid', 'DivFullySpaced', 'DivCentered', 'DivLAligned',
            'DivRAligned', 'DivVStacked', 'DivHStacked', 'NavT', 'NavContainer', 'NavParentLi', 'NavDividerLi',
-           'NavHeaderLi', 'NavSubtitle', 'NavCloseLi', 'NavBarContainer', 'NavBarLSide', 'NavBarRSide', 'NavBarCenter',
-           'NavBarNav', 'NavBarSubtitle', 'NavBarNavContainer', 'NavBarParentIcon', 'NavBar', 'SliderContainer',
-           'SliderItems', 'SliderNav', 'Slider', 'DropDownNavContainer', 'TabContainer', 'CardT', 'CardTitle',
-           'CardHeader', 'CardBody', 'CardFooter', 'CardContainer', 'Card', 'TableT', 'Table', 'Td', 'Th', 'Tbody',
-           'TableFromLists', 'TableFromDicts', 'apply_classes', 'render_md', 'get_franken_renderer', 'ThemePicker']
+           'NavHeaderLi', 'NavSubtitle', 'NavCloseLi', 'SliderContainer', 'SliderItems', 'SliderNav', 'Slider',
+           'DropDownNavContainer', 'NavBar', 'TabContainer', 'CardT', 'CardTitle', 'CardHeader', 'CardBody',
+           'CardFooter', 'CardContainer', 'Card', 'TableT', 'Table', 'Td', 'Th', 'Tbody', 'TableFromLists',
+           'TableFromDicts', 'apply_classes', 'render_md', 'get_franken_renderer', 'ThemePicker']
 
 # %% ../nbs/02_franken.ipynb
 import fasthtml.common as fh
@@ -1168,101 +1167,6 @@ def NavCloseLi(*c, # Components
     return fh.Li(*c, cls=('uk-drop-close', stringify(cls)),**kwargs)
 
 # %% ../nbs/02_franken.ipynb
-def NavBarContainer(*navbarside, # Components (typically `NavBarLSide` or `NavBarRSide` or `NavBarCenter`)
-                    cls=(), # Additional classes on the container
-                    container_cls=ContainerT.expand, # Additional classes on the container
-                    uk_navbar=True, # Whether to use a navbar
-                    **kwargs # Additional args for the container
-                   )->FT: # NavBar container
-    "Create a NavBarContainer to put NavBar sides in"
-    return fh.Div(Container(Div(*navbarside, uk_navbar=uk_navbar),cls=stringify(container_cls)), cls=('',stringify(cls)), **kwargs) #uk-navbar-container
-
-def NavBarLSide(*c,  # Components
-                cls=(), # Additional classes on the div
-                **kwargs # Additional args for the div
-               )->FT: # NavBar left side
-    "Creates a NavBar left side"
-    return fh.Div(*c, cls=('uk-navbar-left',  stringify(cls)), **kwargs)
-def NavBarRSide(*c,  # Components
-                cls=(), # Additional classes on the div
-                **kwargs # Additional args for the div
-               )->FT: # NavBar right side
-    "Creates a NavBar right side"
-    return fh.Div(*c, cls=('uk-navbar-right', stringify(cls)), **kwargs)
-def NavBarCenter(*c, # Components
-                  cls=(), # Additional classes on the div
-                  **kwargs # Additional args for the div
-                 )->FT: # NavBar center
-    "Creates a NavBar center"
-    return fh.Div(*c, cls=('uk-navbar-center',stringify(cls)), **kwargs)
-
-# %% ../nbs/02_franken.ipynb
-def NavBarNav(*li, # Components
-              cls=(), # Additional classes on the nav
-              **kwargs # Additional args for the nav
-             )->FT: # Nav that is part of a NavBar
-    "A Nav that is part of a NavBar that could go in a `NavBarLSide`, `NavBarRSide`, or `NavBarCenter`"
-    return fh.Nav(*li, cls=('uk-navbar-nav',      stringify(cls)),                 **kwargs)
-
-# %% ../nbs/02_franken.ipynb
-def NavBarSubtitle(title, # Title
-                   subtitle, # Subtitle
-                   cls=(), # Additional classes on the div
-                   subtitle_cls=TextPresets.muted_sm, # Additional classes on the subtitle
-                   **kwargs # Additional args for the div
-                  )->FT: # NavBar subtitle
-    "Creates a NavBar subtitle"
-    return fh.Div(title,fh.Div(subtitle, cls=('uk-navbar-subtitle', stringify(subtitle_cls))), cls=stringify(cls), **kwargs)
-
-# %% ../nbs/02_franken.ipynb
-def NavBarNavContainer(*li, # Components
-                       cls=NavT.primary, # Additional classes on the nav
-                       parent=True, # Whether to use a parent nav
-                       uk_nav=False, #True for default collapsible behavior, see https://franken-ui.dev/docs/nav#component-options for more advanced options
-                       **kwargs # Additional args for the nav
-                      )->FT: # NavBar nav container
-    "Drop Down Nav"
-    return Div(cls="uk-navbar-dropdown")(NavContainer(*li, cls=('uk-navbar-dropdown-nav',stringify(cls)), uk_nav=uk_nav, parent=parent, **kwargs))
-
-# %% ../nbs/02_franken.ipynb
-def NavBarParentIcon(): return Span(uk_navbar_parent_icon=True)
-
-# %% ../nbs/02_franken.ipynb
-def NavBar(nav_links:dict|List[FT], # List of Li(A(...)) components or dict of {"name":"href value"}
-           title:str|FT='Title', # `H1(title)` if string else any FT component on left of navbar (Often a logo)
-           active:str="", # if `nav_links` is a dict shows an indicator of which page you are on
-           sticky:bool=False, # Whether to stick to the top of the page while scrolling
-           uk_scrollspy_nav=False, # Activates scrollspy linking each item `A` tags `href` to content's `id` attribute
-           cls='',
-           **kwargs,
-          )->FT: # Navigation bar
-    _id = fh.unqid()
-    "Creates a fully responsive navigation bar.  This will collapse to hamburger menu when on mobile."
-    _click = f"htmx.find('#{_id}').classList.toggle('hidden')"
-    menu_icon = UkIcon("menu", width=30, height=30, cls="md:hidden", hx_on_click=_click)
-    
-    _cls = 'sticky top-4 bg-base-100/80 backdrop-blur-sm z-50' if sticky else ''
-    _uk_scrollspy_nav = False
-    if uk_scrollspy_nav:
-        if isinstance(uk_scrollspy_nav, bool):  _uk_scrollspy_nav = 'closest: li; scroll: true' if uk_scrollspy_nav else False
-        else:  _uk_scrollspy_nav = uk_scrollspy_nav
-
-    if isinstance(nav_links, dict):
-        def _item(link):
-            name, target = link
-            return Li(A(name, href=target), cls='uk-active' if active == name else '')
-        nav_links = map(_item, nav_links.items())
-
-    return Div(
-        Container(
-            Div(cls='md:flex md:relative')(
-                NavBarLSide(H1(title) if isinstance(title, str) else title, menu_icon),
-                NavBarRSide(
-                    NavBarNav(*nav_links, cls='w-full flex-col md:flex-row'),
-                    cls='hidden md:flex md:justify-between ',  id=_id, uk_scrollspy_nav=_uk_scrollspy_nav, **kwargs))),
-                    cls=(stringify(cls),_cls))
-
-# %% ../nbs/02_franken.ipynb
 def SliderContainer(
         *c, # Components
         cls='', # Additional classes on the container
@@ -1323,6 +1227,36 @@ def DropDownNavContainer(*li, # Components
                         )->FT: # DropDown nav container
     "A Nav that is part of a DropDown"
     return Div(cls = 'uk-drop uk-dropdown',uk_dropdown=uk_dropdown)(NavContainer(*li, cls=('uk-dropdown-nav',stringify(cls)), uk_nav=uk_nav, parent=parent, **kwargs))
+
+# %% ../nbs/02_franken.ipynb
+def NavBar(*c,
+           brand='', # Brand/logo component for left side
+           sticky:bool=False, # Whether to stick to the top of the page while scrolling
+           cls='p-4', # Classes for navbar
+           links_cls='[&>*]:mb-4 md:[&>*]:mb-0 md:[&>*]:mr-4',
+           menu_id='nav-menu', # ID for menu container (used for mobile toggle)
+           **kwargs): # Additional args for outer Div
+    "Creates a responsive navigation bar with mobile menu support"
+    menu_icon = UkIcon("menu", width=30, height=30, cls="md:hidden", hx_on_click=f"htmx.find('#{menu_id}').classList.toggle('hidden')")
+
+    _cls = 'sticky top-4 bg-base-100/80 backdrop-blur-sm z-50' if sticky else ''
+    
+    menu_button = UkIcon('menu', width=30, height=30, cls='md:hidden', hx_on_click=f"htmx.find('#{menu_id}').classList.toggle('hidden')")
+    
+    menu = Div(menu_button, DivHStacked(*c, cls=('hidden md:flex flex-col md:flex-row',stringify(links_cls)), id=menu_id),
+               cls='flex flex-col md:flex-row items-end md:items-center')
+    
+    return Div(DivFullySpaced(brand, menu) if brand else DivFullySpaced(menu), cls=(stringify(cls),_cls),**kwargs)
+
+Show(
+    NavBar(
+        A("Home", href="#", cls=AT.primary),
+        A("About", href="#", cls=AT.primary),
+        A("Contact", href="#", cls=AT.primary),
+        Button("Sign Up", cls=ButtonT.primary),
+        brand=A(DivHStacked(UkIcon('rocket', height=24),  Strong("MyApp", cls=TextT.lg)), href="#")),
+    link=True
+)
 
 # %% ../nbs/02_franken.ipynb
 def TabContainer(*li, # Components

@@ -193,14 +193,14 @@ def sidebar(open_section):
 
     return NavContainer(
         NavParentLi(
-            A(DivFullySpaced("Getting Started", NavBarParentIcon())),
+            A(DivFullySpaced("Getting Started", )),
             NavContainer(create_li("Getting Started", getting_started),
                          create_li("Tutorial App", tutorial_app),
                          parent=False),
             cls='uk-open' if open_section=='Getting Started' else ''
         ),
         NavParentLi(
-            A(DivFullySpaced("API Reference", NavBarParentIcon())),
+            A(DivFullySpaced("API Reference", )),
             NavContainer(
                 *[create_li(fname2title(o), f"/api_ref/{o}") for o in reference_fns],
                 parent=False,  
@@ -208,7 +208,7 @@ def sidebar(open_section):
             cls='uk-open' if open_section=='API Reference' else ''
         ),
         NavParentLi(
-            A(DivFullySpaced('Guides', NavBarParentIcon())),
+            A(DivFullySpaced('Guides', )),
             NavContainer(
                 *[create_li(title, href) for title, href in [
                     ('Spacing', tutorial_spacing),
@@ -220,7 +220,7 @@ def sidebar(open_section):
         ),
         
         NavParentLi(
-            A(DivFullySpaced('Examples', NavBarParentIcon())),
+            A(DivFullySpaced('Examples', )),
             NavContainer(
                 *[create_li(title, href) for title, href in [
                     ('Task', '/tasks/'),

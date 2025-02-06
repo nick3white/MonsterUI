@@ -369,7 +369,7 @@ docs_containers = create_doc_section(
 def ex_card():
     return Card(
         Form(LabelInput("Input"),
-             LabelRange("Range")),
+             Range("Range")),
         header=Div(
             CardTitle("Header"),
             P("A card with header and footer",cls=TextPresets.muted_sm)),
@@ -476,8 +476,9 @@ def ex_checkbox():
 def ex_range(): 
     return Div(
         Range(), 
-        Range(label='kg', value="25,75", min=20, max=75)
-        LabelRange(label="Range", id='range1'))
+        Range(label='kg', value="25,75", min=20, max=75),
+        # LabelRange(label="Range", id='range1')
+        )
 
 def ex_switch(): 
     return Div(
@@ -543,7 +544,7 @@ docs_forms = create_doc_section(
     LabelInput,
     LabelCheckboxX,
     LabelSwitch,
-    LabelRange,
+    # LabelRange,
     LabelTextArea,
     LabelRadio,
     LabelSelect,
@@ -751,48 +752,48 @@ def ex_nav2():
              ),
     )
 
-def ex_navbar1():
-    return NavBar(title='My Blog', 
-                  nav_links={'Page1':'/rt1','Page2':'/rt2','Page3':'/rt3'}, 
-                  active='Page2')
+# def ex_navbar1():
+#     return NavBar(title='My Blog', 
+#                   nav_links={'Page1':'/rt1','Page2':'/rt2','Page3':'/rt3'}, 
+#                   active='Page2')
 
-def ex_navbar2():
-    nav_content = (Li(A(Input(placeholder='search'))), 
-                   Li(A(UkIcon("rocket"))), Li(A('Page1',href='/rt1')), 
-                   Li(A("Page2", href='/rt3')))
+# def ex_navbar2():
+#     nav_content = (Li(A(Input(placeholder='search'))), 
+#                    Li(A(UkIcon("rocket"))), Li(A('Page1',href='/rt1')), 
+#                    Li(A("Page2", href='/rt3')))
     
-    return NavBar(title=DivLAligned(Img(src='/api_reference/logo.svg'),UkIcon('rocket',height=30,width=30)), 
-                  nav_links=nav_content)
+#     return NavBar(title=DivLAligned(Img(src='/api_reference/logo.svg'),UkIcon('rocket',height=30,width=30)), 
+#                   nav_links=nav_content)
 
-def ex_navbar3():
-    mbrs1 = [Li(A('Option 1'), cls='uk-active'), Li(A('Option 2')), Li(A('Option 3'))]
-    mbrs2 = [Li(A('Child 1')), Li(A('Child 2')),Li(A('Child 3'))]
+# def ex_navbar3():
+#     mbrs1 = [Li(A('Option 1'), cls='uk-active'), Li(A('Option 2')), Li(A('Option 3'))]
+#     mbrs2 = [Li(A('Child 1')), Li(A('Child 2')),Li(A('Child 3'))]
 
-    lnav = NavBarNav(
-        Li(cls='uk-active')(A(NavBarSubtitle("Title","Subtitle"),href='')),
-        Li(A("Parent",href=''),
-          NavBarNavContainer(
-              Li(cls='uk-active')(A("Active",href='')),
-              Li(A("Item",href='')),
-              Li(A("Item",href='')))),
-        Li(A(Button("A Button",cls=ButtonT.primary))))
+#     lnav = NavBarNav(
+#         Li(cls='uk-active')(A(NavBarSubtitle("Title","Subtitle"),href='')),
+#         Li(A("Parent",href=''),
+#           NavBarNavContainer(
+#               Li(cls='uk-active')(A("Active",href='')),
+#               Li(A("Item",href='')),
+#               Li(A("Item",href='')))),
+#         Li(A(Button("A Button",cls=ButtonT.primary))))
 
-    rnav = NavBarNav(
-        Li(A("DropDown",NavBarParentIcon(),href=''),
-            NavBarNavContainer(
-                NavHeaderLi("NavHeaderLi"),
-                *mbrs1,
-                Li(A(href='')(Div("Subtitle Ex",NavSubtitle("NavSubtitle text to be shown")))),
-                NavDividerLi(),
-                NavParentLi(
-                    A('Parent Name'),
-                    NavContainer(*mbrs2,parent=False)))),
-        Li(A(Input(placeholder='search', cls='w-20'))))
+#     rnav = NavBarNav(
+#         Li(A("DropDown",NavBarParentIcon(),href=''),
+#             NavBarNavContainer(
+#                 NavHeaderLi("NavHeaderLi"),
+#                 *mbrs1,
+#                 Li(A(href='')(Div("Subtitle Ex",NavSubtitle("NavSubtitle text to be shown")))),
+#                 NavDividerLi(),
+#                 NavParentLi(
+#                     A('Parent Name'),
+#                     NavContainer(*mbrs2,parent=False)))),
+#         Li(A(Input(placeholder='search', cls='w-20'))))
     
-    return NavBarContainer(
-        NavBarLSide(lnav),
-        NavBarCenter(Img(src='/api_reference/logo.svg')),
-        NavBarRSide(rnav))
+#     return NavBarContainer(
+#         NavBarLSide(lnav),
+#         NavBarCenter(Img(src='/api_reference/logo.svg')),
+#         NavBarRSide(rnav))
 
 def ex_navdrop():
     return Div(
@@ -829,11 +830,11 @@ docs_navigation = create_doc_section(
     fn2code_string(ex_nav2),
     H2("Navbars", id='navbars'),
     "Fully responsive simple navbar using the high level API and dicts to let MonsterUI do it all for you.  This will collapse to a hamburger menu on mobile devices",
-    fn2code_string(ex_navbar1),
+    # fn2code_string(ex_navbar1),
     "Pass your own components to the high level navbar API for more flexibility.  This will collapse to a hamburger menu on mobile devices",
-    fn2code_string(ex_navbar2),
+    # fn2code_string(ex_navbar2),
     "The final example shows a more complex navbar that lets you specify everything yourself.  You are responsible for everything, including responsiveness",
-    fn2code_string(ex_navbar3),
+    # fn2code_string(ex_navbar3),
     H2("Drop Down Navs"),
     fn2code_string(ex_navdrop),
     H2("Tabs"),
@@ -850,14 +851,14 @@ docs_navigation = create_doc_section(
     NavHeaderLi,
     NavDividerLi,
     NavParentLi,
-    NavBarCenter,
-    NavBarRSide,
-    NavBarLSide,
-    NavBarContainer,
-    NavBarNav,
-    NavBarSubtitle,
-    NavBarNavContainer,
-    NavBarParentIcon,
+    # NavBarCenter,
+    # NavBarRSide,
+    # NavBarLSide,
+    # NavBarContainer,
+    # NavBarNav,
+    # NavBarSubtitle,
+    # NavBarNavContainer,
+    # NavBarParentIcon,
     DropDownNavContainer,
     title="Navigation")
 

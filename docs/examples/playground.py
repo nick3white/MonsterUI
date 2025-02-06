@@ -46,9 +46,9 @@ rsidebar = NavContainer(
         Optgroup(map(Option,("code-davinci-002", "code-cushman-001")),label='Codex'),
         label="Model",
         searchable=True),
-    LabelRange(label='Temperature'),
-    LabelRange(label='Maximum Length'),
-    LabelRange(label='Top P'),
+    Range(label='Temperature'),
+    Range(label='Maximum Length'),
+    Range(label='Top P'),
     cls='space-y-6 mt-8')
 
 @rt

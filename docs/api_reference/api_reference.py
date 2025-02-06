@@ -101,7 +101,7 @@ def render_content(c):
     else: return c
 
 def create_doc_section(*content, title):
-    return lambda: Titled(H1(title,cls='mb-10'), *map(render_content, content))
+    return lambda: Div(Container(*map(render_content, content)))
 
 def string2code_string(code: str) -> tuple: return eval(code), code
 
@@ -119,6 +119,7 @@ def ex_sliders_3():
     return Slider(*[_card(i) for i in range(10)], items_cls='gap-10', uk_slider='autoplay: true; autoplay-interval: 1000')
 
 docs_sliders = create_doc_section(
+    H1("Carousel Sliders API Reference"),
     "Here is a simple example of a slider:",
     fn2code_string(ex_sliders_1),
     "Here is a slider with cards:",
@@ -155,6 +156,7 @@ def ex_links():
         A('Classic Link', cls=AT.classic),)
 
 docs_button_link = create_doc_section(
+    H1("Buttons & Links API Reference"),
     Div(id='button'), # for linking to in release post
     fn2code_string(ex_buttons),
     fn2code_string(ex_links),
@@ -170,6 +172,7 @@ def ex_theme_switcher():
     return Uk_theme_switcher()
 
 docs_theme_headers = create_doc_section( 
+    H1("Theme and Headers API Reference"),
    """
    To get headers with a default theme use `hdrs=Theme.<color>.headers()`.  For example for the blue theme you would use `hdrs=Theme.blue.headers()`.  The theme integrated together different frameworks and allows tailwind, FrankenUI, HighlighJS, and DaisyUI components to work well together.
    
@@ -278,6 +281,7 @@ def ex_other():
         CodeBlock("#This is a CodeBlock element\n\ndef add(a,b): return a+b"))
 
 docs_typography = create_doc_section(
+    H1("Typography API Reference"),
     P("Ready to go semantic options that cover most of what you need based on the HTML spec"),
     fn2code_string(ex_headings),
     fn2code_string(ex_semantic_elements),
@@ -319,6 +323,7 @@ def ex_toasts2():
     return Toast("Second Example Toast", alert_cls=AlertT.info)
 
 docs_notifications = create_doc_section(
+    H1("Alerts & Toasts API Reference"),
     H3("Alerts"),
     P("The simplest alert is a div wrapped with a span:"),
     fn2code_string(ex_alerts1),
@@ -352,6 +357,7 @@ def ex_containers():
 
 
 docs_containers = create_doc_section(
+    H1("Articles, Containers & Sections API Reference"),
     ArticleMeta,
     ArticleTitle,
     Article,
@@ -429,6 +435,7 @@ def ex_card3():
     return Grid(*team, cols_sm=1, cols_md=1, cols_lg=2, cols_xl=3)
 
 docs_cards = create_doc_section(
+    H1("Cards API Reference"),
     H3("Example Usage"),
     fn2code_string(ex_card),
     (*fn2code_string(ex_card2_wide),'uk-visible@s'),
@@ -454,6 +461,7 @@ def ex_lists():
     return Grid(*lists)
 
 docs_lists = create_doc_section(
+    H1("Lists API Reference"),
     fn2code_string(ex_lists),
     ListT,
     title="Lists")
@@ -524,6 +532,7 @@ def ex_form():
             DivCentered(Button("Submit Form", cls=ButtonT.primary))))
 
 docs_forms = create_doc_section(
+    H1("Forms and User Inputs API Reference"),
     H3("Example Form"),
     P(f"This form was live coded in a 5 minute video ",
           A("here",href="https://www.loom.com/share/0916e8a95d524c43a4d100ee85157624?start_and_pause=1", 
@@ -571,7 +580,9 @@ def ex_modal():
               footer=ModalCloseButton("Close", cls=ButtonT.primary),id='my-modal'))
 
 docs_modals = create_doc_section(
+    H1("Modals API Reference"),
     H3("Example Modal"),
+    Subtitle("This is a subtitle"),
     fn2code_string(ex_modal),
     Modal,
     ModalCloseButton,
@@ -665,6 +676,7 @@ def ex_h_stacked_div():
     )
 
 docs_layout = create_doc_section(
+    H1("Layout (Flex and Grid) API Reference"),
     P("This page covers `Grid`s, which are often used for general structure, `Flex` which is often used for layout of components that are not grid based, padding and positioning that can help you make your layout look good, and dividers that can help break up the page", cls=TextPresets.muted_sm),
     H2("Grid"),
     fn2code_string(ex_grid),
@@ -714,6 +726,7 @@ def ex_dividerline():
     return DividerLine()
 
 docs_dividers = create_doc_section(
+    H1("Dividers API Reference"),
     Divider,
     DividerT,
     fn2code_string(ex_dividers),
@@ -815,6 +828,7 @@ def ex_tabs2():
             Li(A("Disabled", cls='uk-disabled'))))
 
 docs_navigation = create_doc_section(
+    H1("Navigation (Nav, NavBar, Tabs, etc.) API Reference"),
     H1("Nav, NavBar, DowDownNav, and Tab examples"),
     Divider(),
     H2("Nav"),
@@ -873,6 +887,7 @@ def ex_steps3():
     cls=(StepsT.vertical, "min-h-[400px]"))
 
 docs_steps = create_doc_section(
+    H1("Steps API Reference"),
     fn2code_string(ex_steps2),
     fn2code_string(ex_steps3),
     H1("API Docs"),
@@ -915,6 +930,7 @@ def ex_tables2():
         body_cell_render=body_render)
 
 docs_tables = create_doc_section(
+    H1("Tables API Reference"),
     fn2code_string(ex_tables0),
     fn2code_string(ex_tables1),
     fn2code_string(ex_tables2),
@@ -952,6 +968,7 @@ def ex_iconlink():
         UkIconLink('chevrons-right', button=True, cls=ButtonT.primary))
 
 docs_icons_images = create_doc_section(
+    H1("Icons & Images API Reference"),
     H1("Avatars"),
     fn2code_string(ex_dicebear),
     DiceBearAvatar,
@@ -985,6 +1002,7 @@ def ex_applyclasses():
     return apply_classes('<h1>Hello, World!</h1><p>This is a paragraph</p>')
 
 docs_markdown = create_doc_section(
+    H1("Markdown + automated HTML styling API Reference"),
     fn2code_string(ex_markdown),
     P("This uses the `apply_classes` function, which can be used to apply classes to html strings"),
     apply_classes,
@@ -1001,6 +1019,7 @@ def ex_loading2():
     return Div(*rows, cls='flex flex-col gap-4')
 
 docs_loading = create_doc_section(
+    H1("Loading IndicatorsAPI Reference"),
     fn2code_string(ex_loading1),
     fn2code_string(ex_loading2),
     Loading,

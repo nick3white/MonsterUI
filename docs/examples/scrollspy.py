@@ -1,4 +1,4 @@
-"Scrollspy Example" 
+"MonsterUI Scrollspy Example application" 
 
 from fasthtml.common import *
 from monsterui.all import *

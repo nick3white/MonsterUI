@@ -1,4 +1,4 @@
-# MonsterUI
+# MonsterUI Getting Started
 
 ## Installation
 

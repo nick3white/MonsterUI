@@ -8,15 +8,15 @@ __all__ = ['franken_class_map', 'TextT', 'TextPresets', 'CodeSpan', 'CodeBlock',
            'DividerT', 'Divider', 'DividerSplit', 'DividerLine', 'Article', 'ArticleTitle', 'ArticleMeta', 'SectionT',
            'Section', 'Form', 'Fieldset', 'Legend', 'Input', 'Radio', 'CheckboxX', 'Range', 'TextArea', 'Switch',
            'Upload', 'UploadZone', 'FormLabel', 'LabelT', 'Label', 'UkFormSection', 'GenericLabelInput', 'LabelInput',
-           'LabelTextArea', 'LabelSwitch', 'LabelRadio', 'LabelCheckboxX', 'LabelSelect', 'Options', 'Select', 'AT',
-           'ListT', 'ModalContainer', 'ModalDialog', 'ModalHeader', 'ModalBody', 'ModalFooter', 'ModalTitle',
-           'ModalCloseButton', 'Modal', 'PaddingT', 'PositionT', 'Placeholder', 'Progress', 'UkIcon', 'UkIconLink',
-           'DiceBearAvatar', 'Center', 'FlexT', 'Grid', 'DivFullySpaced', 'DivCentered', 'DivLAligned', 'DivRAligned',
-           'DivVStacked', 'DivHStacked', 'NavT', 'NavContainer', 'NavParentLi', 'NavDividerLi', 'NavHeaderLi',
-           'NavSubtitle', 'NavCloseLi', 'NavBar', 'SliderContainer', 'SliderItems', 'SliderNav', 'Slider',
-           'DropDownNavContainer', 'TabContainer', 'CardT', 'CardTitle', 'CardHeader', 'CardBody', 'CardFooter',
-           'CardContainer', 'Card', 'TableT', 'Table', 'Td', 'Th', 'Tbody', 'TableFromLists', 'TableFromDicts',
-           'apply_classes', 'render_md', 'get_franken_renderer', 'ThemePicker']
+           'LabelTextArea', 'LabelSwitch', 'LabelRadio', 'LabelCheckboxX', 'LabelSelect', 'Options', 'Select',
+           'LabelRange', 'AT', 'ListT', 'ModalContainer', 'ModalDialog', 'ModalHeader', 'ModalBody', 'ModalFooter',
+           'ModalTitle', 'ModalCloseButton', 'Modal', 'PaddingT', 'PositionT', 'Placeholder', 'Progress', 'UkIcon',
+           'UkIconLink', 'DiceBearAvatar', 'Center', 'FlexT', 'Grid', 'DivFullySpaced', 'DivCentered', 'DivLAligned',
+           'DivRAligned', 'DivVStacked', 'DivHStacked', 'NavT', 'NavContainer', 'NavParentLi', 'NavDividerLi',
+           'NavHeaderLi', 'NavSubtitle', 'NavCloseLi', 'NavBar', 'SliderContainer', 'SliderItems', 'SliderNav',
+           'Slider', 'DropDownNavContainer', 'TabContainer', 'CardT', 'CardTitle', 'CardHeader', 'CardBody',
+           'CardFooter', 'CardContainer', 'Card', 'TableT', 'Table', 'Td', 'Th', 'Tbody', 'TableFromLists',
+           'TableFromDicts', 'apply_classes', 'render_md', 'get_franken_renderer', 'ThemePicker']
 
 # %% ../nbs/02_franken.ipynb
 import fasthtml.common as fh
@@ -43,28 +43,28 @@ class TextT(VEnum):
     def _generate_next_value_(name, start, count, last_values):
         return str2ukcls('text', name)
     
-    paragraph = auto()
+    paragraph = "uk-paragraph"
     # Text Style
-    lead,meta, italic, gray = auto(), auto(), auto(), 'text-gray-500 dark:text-gray-200'
+    lead,meta, gray, italic= auto(), auto(), 'text-gray-500 dark:text-gray-200', 'italic'
     # Text Size
-    sm, default, lg = 'uk-text-small', 'uk-text', 'uk-text-large'
+    xs, sm, lg, xl = 'text-xs', 'text-sm', 'text-lg', 'text-xl'
     # Text Weight
-    light, normal, medium, bold, lighter, bolder = auto(),auto(),'font-medium', auto(),auto(),auto()
+    light, normal, medium, bold, extrabold = 'font-normal','font-light','font-medium','font-bold','font-extrabold'
     # Text Transform
-    capitalize,uppercase, lowercase = auto(),auto(),auto()
-    # Text Decoration
-    decoration_none = auto()
+    capitalize,uppercase, lowercase = 'text-capitalize', 'text-uppercase', 'text-lowercase'
     # Text Color
-    muted,primary,secondary, success,warning, error, info = auto(),'text-primary', auto(), 'text-success', 'text-warning', 'text-error', 'text-info'
+    muted,primary,secondary = 'text-gray-500 dark:text-gray-200', 'text-primary', 'text-secondary'
+    success,warning, error, info =  'text-success', 'text-warning', 'text-error', 'text-info'
     # Text Alignment
-    left, right,center,justify = auto(), auto(), auto(), auto()
+    left, right,center = "text-left","text-right","text-center"
+    justify, start, end = "text-justify","text-start","text-end"
     # Vertical Alignment
-    top,middle,bottom, baseline = auto(),auto(),auto(),auto()
+    top,middle,bottom = 'align-top','align-middle','align-bottom'
     # Text Wrapping
-    truncate,break_,nowrap = auto(),auto(),auto()
+    truncate,break_,nowrap = 'uk-text-truncate','uk-text-break', 'uk-text-nowrap' 
     # other
     underline = 'underline'
-    highlight = 'bg-yellow-200 dark:bg-yellow-800 dark:text-yellow-100'
+    highlight = 'bg-yellow-200 dark:bg-yellow-800 text-black'
 class TextPresets(VEnum):
     'Common Typography Presets'
     muted_sm = TextT.muted+TextT.sm
@@ -395,13 +395,11 @@ def PicSumImg(h:int=200,           # Height in pixels
 class ButtonT(VEnum):
     "Options for styling Buttons"
     def _generate_next_value_(name, start, count, last_values): return str2ukcls('btn', name)
-    default = auto()
-    primary = auto()
-    secondary = auto()
-    danger = auto()
-    text = auto()
-    link = auto()
-    ghost = auto()
+    default, ghost, primary = auto(),auto(),auto()
+    secondary, destructive = auto(), auto()
+    text, link = auto(), auto()
+    xs, sm, lg, xl = auto(), auto(), auto(), auto()
+    icon = auto()
 
 # %% ../nbs/02_franken.ipynb
 def Button(*c: Union[str, FT], # Contents of `Button` tag (often text)
@@ -452,7 +450,7 @@ class DividerT(VEnum):
     "Divider Styles from https://franken-ui.dev/docs/divider"
     def _generate_next_value_(name, start, count, last_values): return str2ukcls('divider', name)
     icon=auto()
-    sm='uk-divider-small'
+    sm=auto()
     vertical=auto()
 
 # %% ../nbs/02_franken.ipynb
@@ -802,6 +800,26 @@ def Select(*option,            # Options for the select dropdown (can use `Optio
     return Div(cls=cls)(uk_select)
 
 # %% ../nbs/02_franken.ipynb
+@delegates(GenericLabelInput, but=['input_fn','cls'])
+def LabelRange(label:str|FT, # FormLabel content (often text)
+               lbl_cls='', # Additional classes for `FormLabel`
+               input_cls='', # Additional classes for `Range`
+               cls='space-y-6', # Classes on container (default is `'space-y-2'` to prevent scrunched up form elements)
+               id='', # id for `FormLabel` and `Range` (`id`, `name` and `for` attributes are set to this value)
+               value='', # Value for the range input
+               min=None, # Minimum value
+               max=None, # Maximum value
+               step=None, # Step size
+               label_range=True, # Whether to show the range value label (label for the `Range` component)
+               **kwargs # Additional args for `Range`
+               )->FT:  # Div(cls='space-y-2')(`FormLabel`, `Range`)
+    "A FormLabel and Range pair that provides default spacing and links/names them based on id"
+    def range_with_value(**kw): 
+        return Div(Range(value=value, min=min, max=max, step=step, label=label_range, **kw))
+    return GenericLabelInput(label=label, lbl_cls=lbl_cls, input_cls=input_cls,
+                           container=Div, cls=cls, id=id, input_fn=range_with_value, **kwargs)
+
+# %% ../nbs/02_franken.ipynb
 class AT(VEnum):
     'Link styles from https://franken-ui.dev/docs/link'
     def _generate_next_value_(name, start, count, last_values): return str2ukcls('link', name)
@@ -817,11 +835,11 @@ class ListT(VEnum):
     disc = 'list-disc list-inside'
     circle = 'list-[circle] list-inside' 
     square = 'list-[square] list-inside'
-    decimal = 'list-decimal list-inside'
-    hyphen = 'list-none list-inside [&>li]:before:content-["-"] [&>li]:before:mr-2'
-    bullet = 'list-disc list-inside'
-    divider = 'space-y-2 divide-y divide-gray-200'
-    striped = 'space-y-1 [&>li:nth-child(odd)]:bg-secondary'
+    decimal = 'uk-list uk-list-decimal'
+    hyphen = 'uk-list uk-list-hyphen'
+    bullet = 'uk-list uk-list-bullet'
+    divider = 'uk-list uk-list-divider'
+    striped = 'uk-list uk-list-striped'
 
 # %% ../nbs/02_franken.ipynb
 def ModalContainer(*c, # Components to put in the modal (often `ModalDialog`)
@@ -1434,8 +1452,8 @@ franken_class_map = {
     'a': 'uk-link text-primary hover:text-primary-focus underline',
     
     # Lists with proper spacing
-    'ul': 'uk-list uk-list-bullet space-y-2 mb-6 ml-6',
-    'ol': 'uk-list uk-list-decimal space-y-2 mb-6 ml-6',
+    'ul': 'uk-list uk-list-bullet space-y-2 mb-6 ml-6 text-lg',
+    'ol': 'uk-list uk-list-decimal space-y-2 mb-6 ml-6 text-lg',
     'li': 'leading-relaxed',
     
     # Code and quotes

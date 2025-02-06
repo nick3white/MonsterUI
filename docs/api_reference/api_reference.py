@@ -139,7 +139,7 @@ def ex_buttons():
         Button("Default"),
         Button("Primary",   cls=ButtonT.primary),
         Button("Secondary", cls=ButtonT.secondary),
-        Button("Danger",    cls=ButtonT.danger),
+        Button("Danger",    cls=ButtonT.destructive),
         Button("Text",      cls=ButtonT.text),
         Button("Link",      cls=ButtonT.link),
         Button("Ghost",     cls=ButtonT.ghost),
@@ -341,7 +341,7 @@ docs_notifications = create_doc_section(
 def ex_articles():
     return Article(
         ArticleTitle("Sample Article Title"), 
-        ArticleMeta("By: John Doe"),
+        Subtitle("By: John Doe"),
         P('lorem ipsum dolor sit amet consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'))
 
 def ex_containers():
@@ -352,7 +352,7 @@ def ex_containers():
 
 
 docs_containers = create_doc_section(
-    ArticleMeta,
+    Subtitle,
     ArticleTitle,
     Article,
     fn2code_string(ex_articles),
@@ -369,7 +369,7 @@ docs_containers = create_doc_section(
 def ex_card():
     return Card(
         Form(LabelInput("Input"),
-             Range("Range")),
+             LabelRange("Range")),
         header=Div(
             CardTitle("Header"),
             P("A card with header and footer",cls=TextPresets.muted_sm)),
@@ -431,8 +431,8 @@ def ex_card3():
 docs_cards = create_doc_section(
     H3("Example Usage"),
     fn2code_string(ex_card),
-    (*fn2code_string(ex_card2_wide),'uk-visible@s'),
-    (*fn2code_string(ex_card2_tall),'uk-hidden@s'),
+    (*fn2code_string(ex_card2_wide),'sm:block'),
+    (*fn2code_string(ex_card2_tall),'sm:hidden'),
     fn2code_string(ex_card3),
     H3("API Reference"),
     Card,
@@ -477,7 +477,10 @@ def ex_range():
     return Div(
         Range(), 
         Range(label='kg', value="25,75", min=20, max=75),
-        # LabelRange(label="Range", id='range1')
+        LabelRange('Basic Range', value='50', min=0, max=100, step=1),
+        LabelRange('Range with Label', value='75', min=0, max=100, step=5, label_range=True),
+        LabelRange('Multiple Values', value='25,75', min=0, max=100, step=5, label_range=True),
+        LabelRange('Custom Range', value='500', min=0, max=1000, step=100, label_range=True)        
         )
 
 def ex_switch(): 
@@ -544,7 +547,7 @@ docs_forms = create_doc_section(
     LabelInput,
     LabelCheckboxX,
     LabelSwitch,
-    # LabelRange,
+    LabelRange,
     LabelTextArea,
     LabelRadio,
     LabelSelect,
@@ -634,7 +637,7 @@ def ex_fully_spaced_div():
     return DivFullySpaced(
         Button("Left", cls=ButtonT.primary),
         Button("Center", cls=ButtonT.secondary),
-        Button("Right", cls=ButtonT.danger)
+        Button("Right", cls=ButtonT.destructive)
     )
 
 def ex_centered_div():

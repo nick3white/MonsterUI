@@ -9,8 +9,9 @@ def create_llms_txt():
     base = "https://monsterui.answer.ai"
     examples = [f for f in Path('examples').glob('*.py') if not f.name.startswith('__') and f.name.endswith('.py')]
     example_links = [f"[{f.stem.title()}]({base}/{f.name[:-3]}/md)" for f in examples]
+    reference_fns = L([o for o in dir(api_reference) if o.startswith('docs_')])
+    api_links = [f"[{fname2title(f)}]({base}/api_ref/{f}/md)" for f in reference_fns]
     
-
     # Create content
     content = [
         "# MonsterUI Documentation",
@@ -22,7 +23,12 @@ def create_llms_txt():
         '- [API List](https://raw.githubusercontent.com/AnswerDotAI/MonsterUI/refs/heads/main/docs/apilist.txt)',
         "",
         "## Examples",
-        *[f'- {a}' for a in example_links]
+        *[f'- {a}' for a in example_links],
+        "",
+        "## Optional",
+        *[f'- {a}' for a in api_links],
+        "- [Layout](https://monsterui.answer.ai/tutorial_layout/md)",
+        "- [Spacing](https://monsterui.answer.ai/tutorial_spacing/md)",
     ]
     
     # Write to file

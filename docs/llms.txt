@@ -6,16 +6,16 @@
 - [API List](https://raw.githubusercontent.com/AnswerDotAI/MonsterUI/refs/heads/main/docs/apilist.txt)
 
 ## Examples
-- [Mail](https://monsterui.answer.ai/mail/md)
-- [Auth](https://monsterui.answer.ai/auth/md)
+- [Scrollspy](https://monsterui.answer.ai/scrollspy/md)
+- [Dashboard](https://monsterui.answer.ai/dashboard/md)
 - [Ticket](https://monsterui.answer.ai/ticket/md)
+- [Music](https://monsterui.answer.ai/music/md)
 - [Playground](https://monsterui.answer.ai/playground/md)
 - [Tasks](https://monsterui.answer.ai/tasks/md)
-- [Scrollspy](https://monsterui.answer.ai/scrollspy/md)
 - [Cards](https://monsterui.answer.ai/cards/md)
-- [Music](https://monsterui.answer.ai/music/md)
+- [Mail](https://monsterui.answer.ai/mail/md)
 - [Forms](https://monsterui.answer.ai/forms/md)
-- [Dashboard](https://monsterui.answer.ai/dashboard/md)
+- [Auth](https://monsterui.answer.ai/auth/md)
 
 ## Optional
 - [Button | Link](https://monsterui.answer.ai/api_ref/docs_button_link/md)

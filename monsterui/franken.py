@@ -8,15 +8,15 @@ __all__ = ['franken_class_map', 'TextT', 'TextPresets', 'CodeSpan', 'CodeBlock',
            'DividerT', 'Divider', 'DividerSplit', 'DividerLine', 'Article', 'ArticleTitle', 'ArticleMeta', 'SectionT',
            'Section', 'Form', 'Fieldset', 'Legend', 'Input', 'Radio', 'CheckboxX', 'Range', 'TextArea', 'Switch',
            'Upload', 'UploadZone', 'FormLabel', 'LabelT', 'Label', 'UkFormSection', 'GenericLabelInput', 'LabelInput',
-           'LabelRange', 'LabelTextArea', 'LabelSwitch', 'LabelRadio', 'LabelCheckboxX', 'LabelSelect', 'Options',
-           'Select', 'AT', 'ListT', 'ModalContainer', 'ModalDialog', 'ModalHeader', 'ModalBody', 'ModalFooter',
-           'ModalTitle', 'ModalCloseButton', 'Modal', 'PaddingT', 'PositionT', 'Placeholder', 'Progress', 'UkIcon',
-           'UkIconLink', 'DiceBearAvatar', 'Center', 'FlexT', 'Grid', 'DivFullySpaced', 'DivCentered', 'DivLAligned',
-           'DivRAligned', 'DivVStacked', 'DivHStacked', 'NavT', 'NavContainer', 'NavParentLi', 'NavDividerLi',
-           'NavHeaderLi', 'NavSubtitle', 'NavCloseLi', 'SliderContainer', 'SliderItems', 'SliderNav', 'Slider',
-           'DropDownNavContainer', 'NavBar', 'TabContainer', 'CardT', 'CardTitle', 'CardHeader', 'CardBody',
-           'CardFooter', 'CardContainer', 'Card', 'TableT', 'Table', 'Td', 'Th', 'Tbody', 'TableFromLists',
-           'TableFromDicts', 'apply_classes', 'render_md', 'get_franken_renderer', 'ThemePicker']
+           'LabelTextArea', 'LabelSwitch', 'LabelRadio', 'LabelCheckboxX', 'LabelSelect', 'Options', 'Select', 'AT',
+           'ListT', 'ModalContainer', 'ModalDialog', 'ModalHeader', 'ModalBody', 'ModalFooter', 'ModalTitle',
+           'ModalCloseButton', 'Modal', 'PaddingT', 'PositionT', 'Placeholder', 'Progress', 'UkIcon', 'UkIconLink',
+           'DiceBearAvatar', 'Center', 'FlexT', 'Grid', 'DivFullySpaced', 'DivCentered', 'DivLAligned', 'DivRAligned',
+           'DivVStacked', 'DivHStacked', 'NavT', 'NavContainer', 'NavParentLi', 'NavDividerLi', 'NavHeaderLi',
+           'NavSubtitle', 'NavCloseLi', 'SliderContainer', 'SliderItems', 'SliderNav', 'Slider', 'DropDownNavContainer',
+           'NavBar', 'TabContainer', 'CardT', 'CardTitle', 'CardHeader', 'CardBody', 'CardFooter', 'CardContainer',
+           'Card', 'TableT', 'Table', 'Td', 'Th', 'Tbody', 'TableFromLists', 'TableFromDicts', 'apply_classes',
+           'render_md', 'get_franken_renderer', 'ThemePicker']
 
 # %% ../nbs/02_franken.ipynb
 import fasthtml.common as fh
@@ -35,6 +35,7 @@ from mistletoe.span_token import Image
 from pathlib import Path
 import mistletoe
 from lxml import html, etree
+from fasthtml.components import Uk_input_range
 
 # %% ../nbs/02_franken.ipynb
 class TextT(VEnum):
@@ -562,12 +563,21 @@ def CheckboxX(*c, # contents of CheckboxX tag (often nothing)
                )->FT: # Input(..., cls='uk-checkbox', type='checkbox')
     "A Checkbox with default styling"
     return fh.Input(*c, cls=('uk-checkbox',stringify(cls)), type='checkbox', **kwargs)
+
+# %% ../nbs/02_franken.ipynb
 def Range(*c, # contents of Range tag (often nothing)
+          value='',
+          label=True,
+          min=None,
+          max=None,
+          step=None,
            cls=(), # Classes in addition to Range styling
            **kwargs # Additional args for Range tag
            )->FT: # Input(..., cls='uk-range', type='range')
     "A Range with default styling"
-    return fh.Input(*c, cls=('uk-range',stringify(cls)), type='range', **kwargs)
+    return Uk_input_range(*c, min=min, label=label, max=max, value=value, multiple=len(value.split(','))>1, cls=('uk-range',stringify(cls)), **kwargs)
+
+# %% ../nbs/02_franken.ipynb
 def TextArea(*c, # contents of TextArea tag (often text)
              cls=(), # Classes in addition to TextArea styling
              **kwargs # Additional args for TextArea tag
@@ -684,18 +694,6 @@ def LabelInput(label:str|FT, # FormLabel content (often text)
     "A `FormLabel` and `Input` pair that provides default spacing and links/names them based on id"
     return GenericLabelInput(label=label, lbl_cls=lbl_cls, input_cls=input_cls,
                              container=Div, cls=cls, id=id, input_fn=Input, **kwargs)
-
-# %% ../nbs/02_franken.ipynb
-def LabelRange(label:str|FT, # FormLabel content (often text)
-               lbl_cls='', # Additional classes for `FormLabel`
-               input_cls='', # Additional classes for `Range`
-               cls='space-y-2', # Classes on container (default is `'space-y-2'` to prevent scrunched up form elements)
-               id='', # id for `FormLabel` and `Range` (`id`, `name` and `for` attributes are set to this value)
-                **kwargs # Additional args for `Range`
-               )->FT:  # Div(cls='space-y-2')(`FormLabel`, `Range`)
-    "A `FormLabel` and `Range` pair that provides default spacing and links/names them based on id"
-    return GenericLabelInput(label=label, lbl_cls=lbl_cls, input_cls=input_cls,
-                             container=Div, cls=cls, id=id, input_fn=Range, **kwargs)
 
 # %% ../nbs/02_franken.ipynb
 def LabelTextArea(label:str|FT, # FormLabel content (often text)
@@ -1247,16 +1245,6 @@ def NavBar(*c,
                cls='flex flex-col md:flex-row items-end md:items-center')
     
     return Div(DivFullySpaced(brand, menu) if brand else DivFullySpaced(menu), cls=(stringify(cls),_cls),**kwargs)
-
-Show(
-    NavBar(
-        A("Home", href="#", cls=AT.primary),
-        A("About", href="#", cls=AT.primary),
-        A("Contact", href="#", cls=AT.primary),
-        Button("Sign Up", cls=ButtonT.primary),
-        brand=A(DivHStacked(UkIcon('rocket', height=24),  Strong("MyApp", cls=TextT.lg)), href="#")),
-    link=True
-)
 
 # %% ../nbs/02_franken.ipynb
 def TabContainer(*li, # Components

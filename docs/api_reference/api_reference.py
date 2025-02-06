@@ -476,6 +476,7 @@ def ex_checkbox():
 def ex_range(): 
     return Div(
         Range(), 
+        Range(label='kg', value="25,75", min=20, max=75)
         LabelRange(label="Range", id='range1'))
 
 def ex_switch(): 

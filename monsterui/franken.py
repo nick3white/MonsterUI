@@ -875,12 +875,12 @@ def Modal(*c,                 # Components to put in the `ModalBody` (often form
 class PaddingT(VEnum):
     'Padding Modifiers from https://franken-ui.dev/docs/padding'
     def _generate_next_value_(name, start, count, last_values): return str2ukcls('padding', name)
-    xs = 'uk-padding-xs'
-    sm = 'uk-padding-sm'
+    xs = 'uk-padding-xsmall'
+    sm = 'uk-padding-small'
     default = ''
-    md = 'uk-padding-md'
-    lg = 'uk-padding-lg'
-    xl = 'uk-padding-xl'
+    md = 'uk-padding-medium'
+    lg = 'uk-padding-large'
+    xl = 'uk-padding-xlarge'
     remove = auto()
     remove_top = auto()
     remove_bottom = auto()

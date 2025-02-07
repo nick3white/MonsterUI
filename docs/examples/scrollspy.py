@@ -69,6 +69,12 @@ def TeamCard(m,img_id=1):
         DivLAligned(
             PicSumImg(w=50, h=50, cls='rounded-full', id=img_id), 
             Div(H4(m["name"]), P(m["role"]))),
+        DivRAligned(
+            UkIcon('twitter', cls='w-5 h-5'), 
+            UkIcon('linkedin', cls='w-5 h-5'),
+            UkIcon('github', cls='w-5 h-5'),
+            cls=TextT.gray+'space-x-2'
+        ),
         cls='p-3')
 
 ################################
@@ -83,7 +89,7 @@ scrollspy_links = (
                 Li(A("Code Example", href="#code-section")))
 @rt
 def index():
-    def _Section(*c, **kwargs): return Section(*c, cls='space-y-3', **kwargs)
+    def _Section(*c, **kwargs): return Section(*c, cls='space-y-3 my-48',**kwargs)
     return Container(
         NavBar(
             nav_links=scrollspy_links,

@@ -174,7 +174,7 @@ def tutorial_app(request=None):
             Li("Install fasthtml and MonsterUI"),
             Li("Copy the code into your own project locally and run it using `python app.py`"),
             Li("Go through the code in detail to understand how it works by experimenting with changing things"),
-            cls=ListT.decimal
+            cls=ListT.decimal+TextT.lg
         ),
         render_md("""> Tip:  Try adding `import fasthtml.common as fh`, so you can replace things with the base fasthtml components to see what happens!
 For example, try replacing `H4` with `fh.H4` or `Button` with `fh.Button`."""),

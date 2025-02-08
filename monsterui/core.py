@@ -112,7 +112,7 @@ class Theme(Enum):
     violet = auto()
     zinc = auto()
 
-    def _create_headers(self, urls, mode='auto', daisy=True, highlightjs=False):
+    def _create_headers(self, urls, mode='auto', daisy=True, highlightjs=False, katex=True):
         "Create header elements with given URLs"
         hdrs = [
             fh.Link(rel="stylesheet", href=urls['franken_css']),
@@ -153,14 +153,36 @@ class Theme(Enum):
                 ''', type='module'),
             ]
 
+        if katex:
+            hdrs += [
+                fh.Link(rel="stylesheet",
+                        href="https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/katex.min.css"),
+                fh.Script("""
+                import katex from 'https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/katex.mjs';
+                import autoRender from 'https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/contrib/auto-render.mjs';
+                const options = {
+                  delimiters: [
+                    {left: '$$', right: '$$', display: true},
+                    {left: '$', right: '$', display: false}
+                  ],
+                  ignoredClasses: ['nomath']
+                };
+
+                document.addEventListener('htmx:load', evt => {
+                  const element = evt.detail.elt || document.body;
+                  autoRender(element,options);
+                });
+                """,type="module"),
+                ]
+
         return hdrs
 
-    def headers(self, mode='auto', daisy=True, highlightjs=False):
+    def headers(self, mode='auto', daisy=True, highlightjs=False, katex=True):
         "Create frankenui and tailwind cdns"
-        return self._create_headers(HEADER_URLS, mode=mode, daisy=daisy, highlightjs=highlightjs)    
+        return self._create_headers(HEADER_URLS, mode=mode, daisy=daisy, highlightjs=highlightjs, katex=katex)    
     
-    def local_headers(self, mode='auto', static_dir='static', daisy=True, highlightjs=False):
+    def local_headers(self, mode='auto', static_dir='static', daisy=True, highlightjs=False, katex=True):
         "Create headers using local files downloaded from CDNs"
         Path(static_dir).mkdir(exist_ok=True)
         local_urls = dict([_download_resource(url, static_dir) for url in HEADER_URLS.items()])
-        return self._create_headers(local_urls, mode=mode, daisy=daisy, highlightjs=highlightjs)
+        return self._create_headers(local_urls, mode=mode, daisy=daisy, highlightjs=highlightjs, katex=katex)

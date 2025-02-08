@@ -5550,272 +5550,1052 @@ Source
   * `args`
 
   * `pico`
-</doc><doc title="Typography" desc="Typography API Reference"> <!doctype html>
- <html>
-   <head>
-     <title>MonsterUI</title>
-     <meta charset="utf-8">
-     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<script src="https://unpkg.com/htmx.org@2.0.4/dist/htmx.min.js"></script><script src="https://cdn.jsdelivr.net/gh/answerdotai/fasthtml-js@1.0.12/fasthtml.js"></script><script src="https://cdn.jsdelivr.net/gh/answerdotai/surreal@main/surreal.js"></script><script src="https://cdn.jsdelivr.net/gh/gnat/css-scope-inline@main/script.js"></script>     <link rel="stylesheet" href="https://unpkg.com/franken-ui@1.1.0/dist/css/core.min.css">
-<script type="module" src="https://unpkg.com/franken-ui@1.1.0/dist/js/core.iife.js"></script><script type="module" src="https://cdn.jsdelivr.net/gh/answerdotai/monsterui@main/monsterui/icon.iife.js"></script><script src="https://cdn.tailwindcss.com"></script><script>
-        const htmlElement = document.documentElement;
-        
-            if (
-                localStorage.getItem("mode") === "dark" ||
-                (!("mode" in localStorage) &&
-                window.matchMedia("(prefers-color-scheme: dark)").matches)
-            ) {
-                htmlElement.classList.add("dark");
-            } else {
-                htmlElement.classList.remove("dark");
-            }
-        
-        htmlElement.classList.add(localStorage.getItem("theme") || "uk-theme-blue");
-    </script>     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/daisyui@4.12.22/dist/full.min.css">
-     <style>
-:root {
-  --p: from hsl(var(--primary)) l c h;
-  --pc: from hsl(var(--primary-foreground)) l c h;
-  --s: from hsl(var(--secondary)) l c h;
-  --sc: from hsl(var(--secondary-foreground)) l c h;
-  --b2: from hsl(var(--card-background)) l c h;
-  --b1: from hsl(var(--background)) l c h;
-  --bc: from hsl(var(--foreground)) l c h;
-  --b3: from hsl(var(--ring)) l c h;
-  --er: from hsl(var(--destructive)) l c h;
-  --erc: from hsl(var(--destructive-foreground)) l c h;
-}
-</style>
-<script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/highlight.min.js"></script><script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/languages/python.min.js"></script>     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/styles/atom-one-light.css" id="hljs-light">
-     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/styles/atom-one-dark.css" id="hljs-dark">
-<script src="https://cdn.jsdelivr.net/gh/arronhunt/highlightjs-copy/dist/highlightjs-copy.min.js"></script>     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/arronhunt/highlightjs-copy/dist/highlightjs-copy.min.css">
-<script type="module">
-                    hljs.addPlugin(new CopyButtonPlugin());
-                    hljs.configure({
-                        cssSelector: 'pre code',
-                        languages: ['python'],
-                        ignoreUnescapedHTML: true
-                    });
-                    function updateTheme() {
-                        const isDark = document.documentElement.classList.contains('dark');
-                        document.getElementById('hljs-dark').disabled = !isDark;
-                        document.getElementById('hljs-light').disabled = isDark;
-                    }
-                    new MutationObserver(mutations =>
-                        mutations.forEach(m => m.target.tagName === 'HTML' &&
-                            m.attributeName === 'class' && updateTheme())
-                    ).observe(document.documentElement, { attributes: true });
-                    updateTheme();
-                    htmx.onLoad(hljs.highlightAll);
-                </script>     <link rel="icon" type="image/x-icon" href="/favicon.ico">
-   </head>
-   <body class=" bg-background text-foreground">
-     <div class="flex flex-col md:flex-row w-full">
-<button uk-toggle="target: #mobile-sidebar" type="submit" class="uk-button md:hidden mb-4"><uk-icon icon="menu" height="50" width="50" class="mt-4"></uk-icon></button>       <div hidden id="mobile-sidebar">
-         <ul uk-nav class="uk-nav uk-nav-primary space-y-4 p-4 w-full md:w-full ">
-           <li class="uk-parent ">
-<a href="#">               <div class="uk-flex uk-flex-between uk-flex-middle uk-width-1-1">
-Getting Started<span uk-navbar-parent-icon></span>               </div>
-</a>             <ul class="uk-nav-sub uk-nav-primary ">
-               <li>
-<a href="#" hx-get="/getting_started" hx-push-url="true" hx-target="#content">Getting Started</a>               </li>
-               <li>
-<a href="#" hx-get="/tutorial_app" hx-push-url="true" hx-target="#content">Tutorial App</a>               </li>
-             </ul>
-           </li>
-           <li class="uk-parent ">
-<a href="#">               <div class="uk-flex uk-flex-between uk-flex-middle uk-width-1-1">
-API Reference<span uk-navbar-parent-icon></span>               </div>
-</a>             <ul class="uk-nav-sub uk-nav-primary ">
-               <li>
-<a href="#" hx-get="/api_ref/docs_button_link" hx-push-url="true" hx-target="#content">Button | Link</a>               </li>
-               <li>
-<a href="#" hx-get="/api_ref/docs_cards" hx-push-url="true" hx-target="#content">Cards</a>               </li>
-               <li>
-<a href="#" hx-get="/api_ref/docs_containers" hx-push-url="true" hx-target="#content">Containers</a>               </li>
-               <li>
-<a href="#" hx-get="/api_ref/docs_dividers" hx-push-url="true" hx-target="#content">Dividers</a>               </li>
-               <li>
-<a href="#" hx-get="/api_ref/docs_forms" hx-push-url="true" hx-target="#content">Forms</a>               </li>
-               <li>
-<a href="#" hx-get="/api_ref/docs_icons_images" hx-push-url="true" hx-target="#content">Icons | Images</a>               </li>
-               <li>
-<a href="#" hx-get="/api_ref/docs_layout" hx-push-url="true" hx-target="#content">Layout</a>               </li>
-               <li>
-<a href="#" hx-get="/api_ref/docs_lists" hx-push-url="true" hx-target="#content">Lists</a>               </li>
-               <li>
-<a href="#" hx-get="/api_ref/docs_loading" hx-push-url="true" hx-target="#content">Loading</a>               </li>
-               <li>
-<a href="#" hx-get="/api_ref/docs_markdown" hx-push-url="true" hx-target="#content">Markdown</a>               </li>
-               <li>
-<a href="#" hx-get="/api_ref/docs_modals" hx-push-url="true" hx-target="#content">Modals</a>               </li>
-               <li>
-<a href="#" hx-get="/api_ref/docs_navigation" hx-push-url="true" hx-target="#content">Navigation</a>               </li>
-               <li>
-<a href="#" hx-get="/api_ref/docs_notifications" hx-push-url="true" hx-target="#content">Notifications</a>               </li>
-               <li>
-<a href="#" hx-get="/api_ref/docs_sliders" hx-push-url="true" hx-target="#content">Sliders</a>               </li>
-               <li>
-<a href="#" hx-get="/api_ref/docs_steps" hx-push-url="true" hx-target="#content">Steps</a>               </li>
-               <li>
-<a href="#" hx-get="/api_ref/docs_tables" hx-push-url="true" hx-target="#content">Tables</a>               </li>
-               <li>
-<a href="#" hx-get="/api_ref/docs_theme_headers" hx-push-url="true" hx-target="#content">Theme | Headers</a>               </li>
-               <li>
-<a href="#" hx-get="/api_ref/docs_typography" hx-push-url="true" hx-target="#content">Typography</a>               </li>
-             </ul>
-           </li>
-           <li class="uk-parent ">
-<a href="#">               <div class="uk-flex uk-flex-between uk-flex-middle uk-width-1-1">
-Guides<span uk-navbar-parent-icon></span>               </div>
-</a>             <ul class="uk-nav-sub uk-nav-primary ">
-               <li>
-<a href="#" hx-get="/tutorial_spacing" hx-push-url="true" hx-target="#content">Spacing</a>               </li>
-               <li>
-<a href="#" hx-get="/tutorial_layout" hx-push-url="true" hx-target="#content">Layout</a>               </li>
-             </ul>
-           </li>
-           <li class="uk-parent ">
-<a href="#">               <div class="uk-flex uk-flex-between uk-flex-middle uk-width-1-1">
-Examples<span uk-navbar-parent-icon></span>               </div>
-</a>             <ul class="uk-nav-sub uk-nav-primary ">
-               <li>
-<a href="#" hx-get="/tasks/" hx-push-url="true" hx-target="#content">Task</a>               </li>
-               <li>
-<a href="#" hx-get="/cards/" hx-push-url="true" hx-target="#content">Card</a>               </li>
-               <li>
-<a href="#" hx-get="/dashboard/" hx-push-url="true" hx-target="#content">Dashboard</a>               </li>
-               <li>
-<a href="#" hx-get="/forms/" hx-push-url="true" hx-target="#content">Form</a>               </li>
-               <li>
-<a href="#" hx-get="/music/" hx-push-url="true" hx-target="#content">Music</a>               </li>
-               <li>
-<a href="#" hx-get="/auth/" hx-push-url="true" hx-target="#content">Auth</a>               </li>
-               <li>
-<a href="#" hx-get="/playground/" hx-push-url="true" hx-target="#content">Playground</a>               </li>
-               <li>
-<a href="#" hx-get="/mail/" hx-push-url="true" hx-target="#content">Mail</a>               </li>
-               <li>
-<a href="#" hx-get="/ticket/" hx-push-url="true" hx-target="#content">Ticket</a>               </li>
-               <li>
-<a href="#" hx-get="/scrollspy/" hx-push-url="true" hx-target="#content">Scrollspy</a>               </li>
-             </ul>
-           </li>
-           <li>
-<a href="#" hx-get="/theme_switcher" hx-push-url="true" hx-target="#content">Theme</a>           </li>
-         </ul>
-       </div>
-       <div class="md:flex w-full">
-         <div class="hidden md:block w-1/5">
-           <ul uk-nav class="uk-nav uk-nav-primary space-y-4 p-4 w-full md:w-full ">
-             <li class="uk-parent ">
-<a href="#">                 <div class="uk-flex uk-flex-between uk-flex-middle uk-width-1-1">
-Getting Started<span uk-navbar-parent-icon></span>                 </div>
-</a>               <ul class="uk-nav-sub uk-nav-primary ">
-                 <li>
-<a href="#" hx-get="/getting_started" hx-push-url="true" hx-target="#content">Getting Started</a>                 </li>
-                 <li>
-<a href="#" hx-get="/tutorial_app" hx-push-url="true" hx-target="#content">Tutorial App</a>                 </li>
-               </ul>
-             </li>
-             <li class="uk-parent ">
-<a href="#">                 <div class="uk-flex uk-flex-between uk-flex-middle uk-width-1-1">
-API Reference<span uk-navbar-parent-icon></span>                 </div>
-</a>               <ul class="uk-nav-sub uk-nav-primary ">
-                 <li>
-<a href="#" hx-get="/api_ref/docs_button_link" hx-push-url="true" hx-target="#content">Button | Link</a>                 </li>
-                 <li>
-<a href="#" hx-get="/api_ref/docs_cards" hx-push-url="true" hx-target="#content">Cards</a>                 </li>
-                 <li>
-<a href="#" hx-get="/api_ref/docs_containers" hx-push-url="true" hx-target="#content">Containers</a>                 </li>
-                 <li>
-<a href="#" hx-get="/api_ref/docs_dividers" hx-push-url="true" hx-target="#content">Dividers</a>                 </li>
-                 <li>
-<a href="#" hx-get="/api_ref/docs_forms" hx-push-url="true" hx-target="#content">Forms</a>                 </li>
-                 <li>
-<a href="#" hx-get="/api_ref/docs_icons_images" hx-push-url="true" hx-target="#content">Icons | Images</a>                 </li>
-                 <li>
-<a href="#" hx-get="/api_ref/docs_layout" hx-push-url="true" hx-target="#content">Layout</a>                 </li>
-                 <li>
-<a href="#" hx-get="/api_ref/docs_lists" hx-push-url="true" hx-target="#content">Lists</a>                 </li>
-                 <li>
-<a href="#" hx-get="/api_ref/docs_loading" hx-push-url="true" hx-target="#content">Loading</a>                 </li>
-                 <li>
-<a href="#" hx-get="/api_ref/docs_markdown" hx-push-url="true" hx-target="#content">Markdown</a>                 </li>
-                 <li>
-<a href="#" hx-get="/api_ref/docs_modals" hx-push-url="true" hx-target="#content">Modals</a>                 </li>
-                 <li>
-<a href="#" hx-get="/api_ref/docs_navigation" hx-push-url="true" hx-target="#content">Navigation</a>                 </li>
-                 <li>
-<a href="#" hx-get="/api_ref/docs_notifications" hx-push-url="true" hx-target="#content">Notifications</a>                 </li>
-                 <li>
-<a href="#" hx-get="/api_ref/docs_sliders" hx-push-url="true" hx-target="#content">Sliders</a>                 </li>
-                 <li>
-<a href="#" hx-get="/api_ref/docs_steps" hx-push-url="true" hx-target="#content">Steps</a>                 </li>
-                 <li>
-<a href="#" hx-get="/api_ref/docs_tables" hx-push-url="true" hx-target="#content">Tables</a>                 </li>
-                 <li>
-<a href="#" hx-get="/api_ref/docs_theme_headers" hx-push-url="true" hx-target="#content">Theme | Headers</a>                 </li>
-                 <li>
-<a href="#" hx-get="/api_ref/docs_typography" hx-push-url="true" hx-target="#content">Typography</a>                 </li>
-               </ul>
-             </li>
-             <li class="uk-parent ">
-<a href="#">                 <div class="uk-flex uk-flex-between uk-flex-middle uk-width-1-1">
-Guides<span uk-navbar-parent-icon></span>                 </div>
-</a>               <ul class="uk-nav-sub uk-nav-primary ">
-                 <li>
-<a href="#" hx-get="/tutorial_spacing" hx-push-url="true" hx-target="#content">Spacing</a>                 </li>
-                 <li>
-<a href="#" hx-get="/tutorial_layout" hx-push-url="true" hx-target="#content">Layout</a>                 </li>
-               </ul>
-             </li>
-             <li class="uk-parent ">
-<a href="#">                 <div class="uk-flex uk-flex-between uk-flex-middle uk-width-1-1">
-Examples<span uk-navbar-parent-icon></span>                 </div>
-</a>               <ul class="uk-nav-sub uk-nav-primary ">
-                 <li>
-<a href="#" hx-get="/tasks/" hx-push-url="true" hx-target="#content">Task</a>                 </li>
-                 <li>
-<a href="#" hx-get="/cards/" hx-push-url="true" hx-target="#content">Card</a>                 </li>
-                 <li>
-<a href="#" hx-get="/dashboard/" hx-push-url="true" hx-target="#content">Dashboard</a>                 </li>
-                 <li>
-<a href="#" hx-get="/forms/" hx-push-url="true" hx-target="#content">Form</a>                 </li>
-                 <li>
-<a href="#" hx-get="/music/" hx-push-url="true" hx-target="#content">Music</a>                 </li>
-                 <li>
-<a href="#" hx-get="/auth/" hx-push-url="true" hx-target="#content">Auth</a>                 </li>
-                 <li>
-<a href="#" hx-get="/playground/" hx-push-url="true" hx-target="#content">Playground</a>                 </li>
-                 <li>
-<a href="#" hx-get="/mail/" hx-push-url="true" hx-target="#content">Mail</a>                 </li>
-                 <li>
-<a href="#" hx-get="/ticket/" hx-push-url="true" hx-target="#content">Ticket</a>                 </li>
-                 <li>
-<a href="#" hx-get="/scrollspy/" hx-push-url="true" hx-target="#content">Scrollspy</a>                 </li>
-               </ul>
-             </li>
-             <li>
-<a href="#" hx-get="/theme_switcher" hx-push-url="true" hx-target="#content">Theme</a>             </li>
-           </ul>
-         </div>
-         <div id="content" class="md:w-4/5 w-full mr-5">
-           <div class="uk-container mt-5 uk-container-xlarge">
-             <div class="uk-card ">
-               <div class="uk-card-body space-y-6">
-                 <div class="uk-card-body ">
-                   <h1 class="uk-h1 ">404 - Page Not Found</h1>
-                   <p>The page you&#x27;re looking for doesn&#x27;t exist.</p>
-                 </div>
-               </div>
-             </div>
-           </div>
-         </div>
-       </div>
-     </div>
-   </body>
- </html></doc><doc title="Layout" desc="MonsterUI Page Layout Guide"># MonterUI Page Layout Guide
+</doc><doc title="Typography" desc="Typography API Reference"># Typography API Reference
+
+Ready to go semantic options that cover most of what you need based on the HTML spec
+
+See Source
+
+See Output
+
+Titled
+
+# Titled
+
+# Level 1 Heading (H1)
+
+## Level 2 Heading (H2)
+
+### Level 3 Heading (H3)
+
+#### Level 4 Heading (H4)
+
+##### Level 5 Heading (H5)
+
+###### Level 6 Heading (H6)
+
+[code]
+
+    def ex_headings():
+        return Div(
+            Titled("Titled"),
+            H1("Level 1 Heading (H1)"), 
+            H2("Level 2 Heading (H2)"), 
+            H3("Level 3 Heading (H3)"), 
+            H4("Level 4 Heading (H4)"),
+            H5("Level 5 Heading (H5)"),
+            H6("Level 6 Heading (H6)"),
+            )
+    
+[/code]
+
+See Source
+
+See Output
+
+## Semantic HTML Elements Demo
+
+Here's an example of _emphasized (Em)_ and **strong (Strong)** text.
+
+Some _italic text (I)_ and smaller text (Small) in a paragraph.
+
+You can highlight (Mark) text, show ~~deleted (Del)~~ and inserted (Ins) content.
+
+Chemical formulas use subscripts (Sub) and superscripts (Sup) like H2O.
+
+> The only way to do great work is to love what you do.
+>
+> Steve Jobs (Cite)
+
+As Shakespeare wrote, "All the world's a stage (Q)".
+
+Posted on 2024-01-29
+
+Mozilla Foundation (Address)  
+331 E Evelyn Ave (Address)  
+Mountain View, CA 94041 (Address)  
+USA (Address)
+
+HTML (Dfn) (HyperText Markup Language (Abbr)) is the standard markup language for documents designed to be displayed in a web browser.
+
+Press `Ctrl (Kbd)` \+ `C (Kbd)` to copy.
+
+The command returned: Hello, World! (Samp)
+
+Let x (Var) be the variable in the equation.
+
+Figure 1: An example image with caption (Caption)Click to show more information (Summary)
+
+This is the detailed content that is initially hidden (P)
+
+123 (Data) is a number, and here's a Meter showing progress:
+
+Temperature:  (with low/high/optimum values)
+
+€42.00 \- price example with semantic value
+
+Form calculation result: The sum is 42 (Output)
+
+### Blog Post Title (H3)
+
+By John Doe • 5 min read (Small)
+
+Article content here...
+
+This text has _proper name annotation (U)_ and this is ~~outdated information (S)~~ that's been superseded.
+
+[code]
+
+    def ex_semantic_elements():
+        return Div(
+            H2("Semantic HTML Elements Demo"),
+            # Text formatting examples
+            P("Here's an example of ", Em("emphasized (Em)"), " and ", Strong("strong (Strong)"), " text."),
+            P("Some ", I("italic text (I)"), " and ", Small("smaller text (Small)"), " in a paragraph."),
+            P("You can ", Mark("highlight (Mark)"), " text, show ", Del("deleted (Del)"), " and ", 
+              Ins("inserted (Ins)"), " content."),
+            P("Chemical formulas use ", Sub("subscripts (Sub)"), " and ", Sup("superscripts (Sup)"), 
+              " like H", Sub("2"), "O."),
+            # Quote examples
+            Blockquote(
+                P("The only way to do great work is to love what you do."),
+                Cite("Steve Jobs (Cite)")),
+            P("As Shakespeare wrote, ", Q("All the world's a stage (Q)"), "."),
+            # Time and Address
+            P("Posted on ", Time("2024-01-29", datetime="2024-01-29")),
+            Address(
+                "Mozilla Foundation (Address)",
+                Br(),
+                "331 E Evelyn Ave (Address)",
+                Br(),
+                "Mountain View, CA 94041 (Address)",
+                Br(),
+                "USA (Address)"),
+            # Technical and definition examples
+            P(
+                Dfn("HTML (Dfn)"), " (", 
+                Abbr("HyperText Markup Language (Abbr)", title="HyperText Markup Language"), 
+                ") is the standard markup language for documents designed to be displayed in a web browser."),
+            P("Press ", Kbd("Ctrl (Kbd)"), " + ", Kbd("C (Kbd)"), " to copy."),
+            P("The command returned: ", Samp("Hello, World! (Samp)")),
+            P("Let ", Var("x (Var)"), " be the variable in the equation."),
+            # Figure with caption
+            Figure(
+                PicSumImg(),
+                Caption("Figure 1: An example image with caption (Caption)")),
+            # Interactive elements
+            Details(
+                Summary("Click to show more information (Summary)"),
+                P("This is the detailed content that is initially hidden (P)")),
+            # Data representation
+            P(
+                Data("123 (Data)", value="123"), " is a number, and here's a Meter showing progress: ",
+                Meter(value=0.6, min=0, max=1)),
+            P(
+                "Temperature: ",
+                Meter(value=-1, min=-10, max=40, low=0, high=30, optimum=21),
+                " (with low/high/optimum values)"),
+            P(
+                Data("€42.00", value="42"), 
+                " - price example with semantic value"),
+            # Output example
+            P("Form calculation result: ", Output("The sum is 42 (Output)", form="calc-form", for_="num1 num2")),
+            # Meta information example
+            Section(
+                H3("Blog Post Title (H3)"),
+                Small("By John Doe • 5 min read (Small)"),
+                P("Article content here...")),
+            # Text decoration examples
+            P("This text has ",U("proper name annotation (U)"), " and this is ",S("outdated information (S)"), " that's been superseded."),
+            cls='space-y-4'
+        )
+    
+[/code]
+
+See Source
+
+See Output
+
+`This is a CodeSpan element`
+
+> This is a blockquote element
+[code]
+
+    #This is a CodeBlock element
+    
+    def add(a,b): return a+b
+[/code]
+
+[code]
+
+    def ex_other():
+        return Div(
+            CodeSpan("This is a CodeSpan element"),
+            Blockquote("This is a blockquote element"),
+            CodeBlock("#This is a CodeBlock element\n\ndef add(a,b): return a+b"))
+    
+[/code]
+
+Styling text is possibly the most common style thing to do, so we have a couple of helpers for discoverability inside python. `TextPresets` is intended to be combinations are are widely applicable and used often, where `TextT` is intended to be more flexible options for you to combine together yourself.
+
+##### TextPresets.*
+
+See Source
+
+See Output
+
+This is muted_sm text
+
+This is muted_lg text
+
+This is bold_sm text
+
+This is bold_lg text
+
+This is md_weight_sm text
+
+This is md_weight_muted text
+
+[code]
+
+    def ex_textpresets():
+        return Grid(*[Div(P(f"This is {preset.name} text", cls=preset.value)) for preset in TextPresets])
+    
+[/code]
+
+##### TextT.*
+
+See Source
+
+See Output
+
+This is paragraph text
+
+This is lead text
+
+This is meta text
+
+This is italic text
+
+This is gray text
+
+This is sm text
+
+This is default text
+
+This is lg text
+
+This is light text
+
+This is normal text
+
+This is medium text
+
+This is bold text
+
+This is lighter text
+
+This is bolder text
+
+This is capitalize text
+
+This is uppercase text
+
+This is lowercase text
+
+This is decoration_none text
+
+This is muted text
+
+This is primary text
+
+This is secondary text
+
+This is success text
+
+This is warning text
+
+This is error text
+
+This is info text
+
+This is left text
+
+This is right text
+
+This is center text
+
+This is justify text
+
+This is top text
+
+This is middle text
+
+This is bottom text
+
+This is baseline text
+
+This is truncate text
+
+This is break_ text
+
+This is nowrap text
+
+This is underline text
+
+This is highlight text
+
+[code]
+
+    def ex_textt():
+        return Grid(*[Div(P(f"This is {s.name} text", cls=s.value)) for s in TextT])
+    
+[/code]
+
+### API Reference
+
+* * *
+
+### TextPresets
+
+_Common Typography Presets_
+
+Option | Value | Option | Value  
+---|---|---|---  
+muted_sm | uk-text-muted uk-text-small | muted_lg | uk-text-muted uk-text-large  
+bold_sm | uk-text-bold uk-text-small | bold_lg | uk-text-bold uk-text-large  
+md_weight_sm | uk-text-small font-medium | md_weight_muted | font-medium uk-text-muted  
+  
+* * *
+
+### TextT
+
+_Text Styles from https://franken-ui.dev/docs/text_
+
+Option | Value | Option | Value | Option | Value | Option | Value  
+---|---|---|---|---|---|---|---  
+paragraph | uk-text-paragraph | lead | uk-text-lead | meta | uk-text-meta | italic | uk-text-italic  
+gray | text-gray-500 dark:text-gray-200 | sm | uk-text-small | default | uk-text | lg | uk-text-large  
+light | uk-text-light | normal | uk-text-normal | medium | font-medium | bold | uk-text-bold  
+lighter | uk-text-lighter | bolder | uk-text-bolder | capitalize | uk-text-capitalize | uppercase | uk-text-uppercase  
+lowercase | uk-text-lowercase | decoration_none | uk-text-decoration-none | muted | uk-text-muted | primary | text-primary  
+secondary | uk-text-secondary | success | text-success | warning | text-warning | error | text-error  
+info | text-info | left | uk-text-left | right | uk-text-right | center | uk-text-center  
+justify | uk-text-justify | top | uk-text-top | middle | uk-text-middle | bottom | uk-text-bottom  
+baseline | uk-text-baseline | truncate | uk-text-truncate | break_ | uk-text-break | nowrap | uk-text-nowrap  
+underline | underline | highlight | bg-yellow-200 dark:bg-yellow-800 dark:text-yellow-100 |  |  |  |   
+  
+### H1
+
+Source
+
+[code]
+
+    H1(*c: fastcore.xml.FT | str, cls: enum.Enum | str | tuple = (), **kwargs) -> fastcore.xml.FT
+[/code]
+
+> H1 with styling and appropriate size
+
+**Params**
+
+  * `c` Contents of H1 tag (often text)
+
+  * `cls` Classes in addition to H1 styling
+
+  * `kwargs`
+
+**Returns:** H1(..., cls='uk-h1')
+
+### H2
+
+Source
+
+[code]
+
+    H2(*c: fastcore.xml.FT | str, cls: enum.Enum | str | tuple = (), **kwargs) -> fastcore.xml.FT
+[/code]
+
+> H2 with styling and appropriate size
+
+**Params**
+
+  * `c` Contents of H2 tag (often text)
+
+  * `cls` Classes in addition to H2 styling
+
+  * `kwargs`
+
+**Returns:** H2(..., cls='uk-h2')
+
+### H3
+
+Source
+
+[code]
+
+    H3(*c: fastcore.xml.FT | str, cls: enum.Enum | str | tuple = (), **kwargs) -> fastcore.xml.FT
+[/code]
+
+> H3 with styling and appropriate size
+
+**Params**
+
+  * `c` Contents of H3 tag (often text)
+
+  * `cls` Classes in addition to H3 styling
+
+  * `kwargs`
+
+**Returns:** H3(..., cls='uk-h3')
+
+### H4
+
+Source
+
+[code]
+
+    H4(*c: fastcore.xml.FT | str, cls: enum.Enum | str | tuple = (), **kwargs) -> fastcore.xml.FT
+[/code]
+
+> H4 with styling and appropriate size
+
+**Params**
+
+  * `c` Contents of H4 tag (often text)
+
+  * `cls` Classes in addition to H4 styling
+
+  * `kwargs`
+
+**Returns:** H4(..., cls='uk-h4')
+
+### H5
+
+Source
+
+[code]
+
+    H5(*c: fastcore.xml.FT | str, cls: enum.Enum | str | tuple = (), **kwargs) -> fastcore.xml.FT
+[/code]
+
+> H5 with styling and appropriate size
+
+**Params**
+
+  * `c` Contents of H5 tag (often text)
+
+  * `cls` Classes in addition to H5 styling
+
+  * `kwargs`
+
+**Returns:** H5(..., cls='text-lg font-semibold')
+
+### H6
+
+Source
+
+[code]
+
+    H6(*c: fastcore.xml.FT | str, cls: enum.Enum | str | tuple = (), **kwargs) -> fastcore.xml.FT
+[/code]
+
+> H6 with styling and appropriate size
+
+**Params**
+
+  * `c` Contents of H6 tag (often text)
+
+  * `cls` Classes in addition to H6 styling
+
+  * `kwargs`
+
+**Returns:** H6(..., cls='text-base font-semibold')
+
+### CodeSpan
+
+Source
+
+[code]
+
+    CodeSpan(*c, cls=(), **kwargs) -> fastcore.xml.FT
+[/code]
+
+> A CodeSpan with Styling
+
+**Params**
+
+  * `c` Contents of CodeSpan tag (inline text code snippets)
+
+  * `cls` Classes in addition to CodeSpan styling
+
+  * `kwargs`
+
+**Returns:** Code(..., cls='uk-codespan')
+
+### Blockquote
+
+Source
+
+[code]
+
+    Blockquote(*c: fastcore.xml.FT | str, cls: enum.Enum | str | tuple = (), **kwargs) -> fastcore.xml.FT
+[/code]
+
+> Blockquote with Styling
+
+**Params**
+
+  * `c` Contents of Blockquote tag (often text)
+
+  * `cls` Classes in addition to Blockquote styling
+
+  * `kwargs`
+
+**Returns:** Blockquote(..., cls='uk-blockquote')
+
+### CodeBlock
+
+Source
+
+[code]
+
+    CodeBlock(*c: str, cls: enum.Enum | str | tuple = (), code_cls: enum.Enum | str | tuple = (), **kwargs) -> fastcore.xml.FT
+[/code]
+
+> CodeBlock with Styling
+
+**Params**
+
+  * `c` Contents of Code tag (often text)
+
+  * `cls` Classes for the outer container
+
+  * `code_cls` Classes for the code tag
+
+  * `kwargs`
+
+**Returns:** Div(Pre(Code(..., cls='uk-codeblock), cls='multiple tailwind styles'), cls='uk-block')
+
+### Em
+
+Source
+
+[code]
+
+    Em(*c: fastcore.xml.FT | str, cls: enum.Enum | str | tuple = (), **kwargs) -> fastcore.xml.FT
+[/code]
+
+> Styled emphasis text
+
+**Params**
+
+  * `c` Contents of Em tag (emphasis)
+
+  * `cls` Additional classes
+
+  * `kwargs`
+
+**Returns:** Additional args for Em tag
+
+### Strong
+
+Source
+
+[code]
+
+    Strong(*c: fastcore.xml.FT | str, cls: enum.Enum | str | tuple = (), **kwargs) -> fastcore.xml.FT
+[/code]
+
+> Styled strong text
+
+**Params**
+
+  * `c` Contents of Strong tag
+
+  * `cls` Additional classes
+
+  * `kwargs`
+
+**Returns:** Additional args for Strong tag
+
+### I
+
+Source
+
+[code]
+
+    I(*c: fastcore.xml.FT | str, cls: enum.Enum | str | tuple = (), **kwargs) -> fastcore.xml.FT
+[/code]
+
+> Styled italic text
+
+**Params**
+
+  * `c` Contents of I tag (italics)
+
+  * `cls` Additional classes
+
+  * `kwargs`
+
+**Returns:** Additional args for I tag
+
+### Small
+
+Source
+
+[code]
+
+    Small(*c: fastcore.xml.FT | str, cls: enum.Enum | str | tuple = (), **kwargs) -> fastcore.xml.FT
+[/code]
+
+> Styled small text
+
+**Params**
+
+  * `c` Contents of Small tag
+
+  * `cls` Additional classes
+
+  * `kwargs`
+
+**Returns:** Additional args for Small tag
+
+### Mark
+
+Source
+
+[code]
+
+    Mark(*c: fastcore.xml.FT | str, cls: enum.Enum | str | tuple = (), **kwargs) -> fastcore.xml.FT
+[/code]
+
+> Styled highlighted text
+
+**Params**
+
+  * `c` Contents of Mark tag (highlighted text)
+
+  * `cls` Additional classes
+
+  * `kwargs`
+
+**Returns:** Additional args for Mark tag
+
+### Sub
+
+Source
+
+[code]
+
+    Sub(*c: fastcore.xml.FT | str, cls: enum.Enum | str | tuple = (), **kwargs) -> fastcore.xml.FT
+[/code]
+
+> Styled subscript text
+
+**Params**
+
+  * `c` Contents of Sub tag (subscript)
+
+  * `cls` Additional classes
+
+  * `kwargs`
+
+**Returns:** Additional args for Sub tag
+
+### Sup
+
+Source
+
+[code]
+
+    Sup(*c: fastcore.xml.FT | str, cls: enum.Enum | str | tuple = (), **kwargs) -> fastcore.xml.FT
+[/code]
+
+> Styled superscript text
+
+**Params**
+
+  * `c` Contents of Sup tag (superscript)
+
+  * `cls` Additional classes
+
+  * `kwargs`
+
+**Returns:** Additional args for Sup tag
+
+### Del
+
+Source
+
+[code]
+
+    Del(*c: fastcore.xml.FT | str, cls: enum.Enum | str | tuple = (), **kwargs) -> fastcore.xml.FT
+[/code]
+
+> Styled deleted text
+
+**Params**
+
+  * `c` Contents of Del tag (deleted text)
+
+  * `cls` Additional classes
+
+  * `kwargs`
+
+**Returns:** Additional args for Del tag
+
+### Ins
+
+Source
+
+[code]
+
+    Ins(*c: fastcore.xml.FT | str, cls: enum.Enum | str | tuple = (), **kwargs) -> fastcore.xml.FT
+[/code]
+
+> Styled inserted text
+
+**Params**
+
+  * `c` Contents of Ins tag (inserted text)
+
+  * `cls` Additional classes
+
+  * `kwargs`
+
+**Returns:** Additional args for Ins tag
+
+### Dfn
+
+Source
+
+[code]
+
+    Dfn(*c: fastcore.xml.FT | str, cls: enum.Enum | str | tuple = (), **kwargs) -> fastcore.xml.FT
+[/code]
+
+> Styled definition term with italic and medium weight
+
+**Params**
+
+  * `c` Contents of Dfn tag (definition)
+
+  * `cls` Additional classes
+
+  * `kwargs`
+
+**Returns:** Additional args for Dfn tag
+
+### Abbr
+
+Source
+
+[code]
+
+    Abbr(*c: fastcore.xml.FT | str, cls: enum.Enum | str | tuple = (), title: str = None, **kwargs) -> fastcore.xml.FT
+[/code]
+
+> Styled abbreviation with dotted underline
+
+**Params**
+
+  * `c` Contents of Abbr tag
+
+  * `cls` Additional classes
+
+  * `title` Title attribute for abbreviation
+
+  * `kwargs`
+
+**Returns:** Additional args for Abbr tag
+
+### Q
+
+Source
+
+[code]
+
+    Q(*c: fastcore.xml.FT | str, cls: enum.Enum | str | tuple = (), **kwargs) -> fastcore.xml.FT
+[/code]
+
+> Styled quotation mark
+
+**Params**
+
+  * `c` Contents of Q tag (quote)
+
+  * `cls` Additional classes
+
+  * `kwargs`
+
+**Returns:** Additional args for Q tag
+
+### Kbd
+
+Source
+
+[code]
+
+    Kbd(*c: fastcore.xml.FT | str, cls: enum.Enum | str | tuple = (), **kwargs) -> fastcore.xml.FT
+[/code]
+
+> Styled keyboard input with subtle background
+
+**Params**
+
+  * `c` Contents of Kbd tag (keyboard input)
+
+  * `cls` Additional classes
+
+  * `kwargs`
+
+**Returns:** Additional args for Kbd tag
+
+### Samp
+
+Source
+
+[code]
+
+    Samp(*c: fastcore.xml.FT | str, cls: enum.Enum | str | tuple = (), **kwargs) -> fastcore.xml.FT
+[/code]
+
+> Styled sample output with subtle background
+
+**Params**
+
+  * `c` Contents of Samp tag (sample output)
+
+  * `cls` Additional classes
+
+  * `kwargs`
+
+**Returns:** Additional args for Samp tag
+
+### Var
+
+Source
+
+[code]
+
+    Var(*c: fastcore.xml.FT | str, cls: enum.Enum | str | tuple = (), **kwargs) -> fastcore.xml.FT
+[/code]
+
+> Styled variable with italic monospace
+
+**Params**
+
+  * `c` Contents of Var tag (variable)
+
+  * `cls` Additional classes
+
+  * `kwargs`
+
+**Returns:** Additional args for Var tag
+
+### Figure
+
+Source
+
+[code]
+
+    Figure(*c: fastcore.xml.FT | str, cls: enum.Enum | str | tuple = (), **kwargs) -> fastcore.xml.FT
+[/code]
+
+> Styled figure container with card-like appearance
+
+**Params**
+
+  * `c` Contents of Figure tag
+
+  * `cls` Additional classes
+
+  * `kwargs`
+
+**Returns:** Additional args for Figure tag
+
+### Caption
+
+Source
+
+[code]
+
+    Caption(*c: fastcore.xml.FT | str, cls: enum.Enum | str | tuple = (), **kwargs) -> fastcore.xml.FT
+[/code]
+
+> Styled caption text
+
+**Params**
+
+  * `c`
+
+  * `cls`
+
+  * `kwargs`
+
+### Details
+
+Source
+
+[code]
+
+    Details(*c: fastcore.xml.FT | str, cls: enum.Enum | str | tuple = (), **kwargs) -> fastcore.xml.FT
+[/code]
+
+> Styled details element
+
+**Params**
+
+  * `c` Contents of Details tag
+
+  * `cls` Additional classes
+
+  * `kwargs`
+
+**Returns:** Additional args for Details tag
+
+### Summary
+
+Source
+
+[code]
+
+    Summary(*c: fastcore.xml.FT | str, cls: enum.Enum | str | tuple = (), **kwargs) -> fastcore.xml.FT
+[/code]
+
+> Styled summary element
+
+**Params**
+
+  * `c` Contents of Summary tag
+
+  * `cls` Additional classes
+
+  * `kwargs`
+
+**Returns:** Additional args for Summary tag
+
+### Meter
+
+Source
+
+[code]
+
+    Meter(*c: fastcore.xml.FT | str, value: float = None, min: float = None, max: float = None, cls: enum.Enum | str | tuple = (), **kwargs) -> fastcore.xml.FT
+[/code]
+
+> Styled meter element
+
+**Params**
+
+  * `c` Contents of Meter tag
+
+  * `value` Current value
+
+  * `min` Minimum value
+
+  * `max` Maximum value
+
+  * `cls` Additional classes
+
+  * `kwargs`
+
+**Returns:** Additional args for Meter tag
+
+### Data
+
+Source
+
+[code]
+
+    Data(*c: fastcore.xml.FT | str, value: str = None, cls: enum.Enum | str | tuple = (), **kwargs) -> fastcore.xml.FT
+[/code]
+
+> Styled data element
+
+**Params**
+
+  * `c` Contents of Data tag
+
+  * `value` Value attribute
+
+  * `cls` Additional classes
+
+  * `kwargs`
+
+**Returns:** Additional args for Data tag
+
+### Output
+
+Source
+
+[code]
+
+    Output(*c: fastcore.xml.FT | str, form: str = None, for_: str = None, cls: enum.Enum | str | tuple = (), **kwargs) -> fastcore.xml.FT
+[/code]
+
+> Styled output element for form results
+
+**Params**
+
+  * `c` Contents of Output tag
+
+  * `form` ID of form this output belongs to
+
+  * `for_` IDs of elements this output is for
+
+  * `cls` Additional classes
+
+  * `kwargs`
+
+**Returns:** Additional args for Output tag
+
+### Address
+
+Source
+
+[code]
+
+    Address(*c: fastcore.xml.FT | str, cls: enum.Enum | str | tuple = (), **kwargs) -> fastcore.xml.FT
+[/code]
+
+> Styled address element
+
+**Params**
+
+  * `c` Contents of Address tag
+
+  * `cls` Additional classes
+
+  * `kwargs`
+
+**Returns:** Additional args for Address tag
+
+### Time
+
+Source
+
+[code]
+
+    Time(*c: fastcore.xml.FT | str, cls: enum.Enum | str | tuple = (), datetime: str = None, **kwargs) -> fastcore.xml.FT
+[/code]
+
+> Styled time element
+
+**Params**
+
+  * `c` Contents of Time tag
+
+  * `cls` Additional classes
+
+  * `datetime` datetime attribute
+
+  * `kwargs`
+
+**Returns:** Additional args for Time tag
+
+  *[HyperText Markup Language (Abbr)]: HyperText Markup Language
+</doc><doc title="Layout" desc="MonsterUI Page Layout Guide"># MonterUI Page Layout Guide
 
 This guide will discuss 3 tools for laying out your app pages, Grid, Flexbox, and Columns. This page will discuss the strengths and when to use each individually, and then a section for how to combine them for more complex layouts at the end.
 

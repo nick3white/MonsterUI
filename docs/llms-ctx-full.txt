@@ -2268,328 +2268,777 @@ See Output
         return DividerLine()
     
 [/code]
-</doc><doc title="Forms" desc="Forms and User Inputs API Reference"> <!doctype html>
- <html>
-   <head>
-     <title>MonsterUI</title>
-     <meta charset="utf-8">
-     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<script src="https://unpkg.com/htmx.org@2.0.4/dist/htmx.min.js"></script><script src="https://cdn.jsdelivr.net/gh/answerdotai/fasthtml-js@1.0.12/fasthtml.js"></script><script src="https://cdn.jsdelivr.net/gh/answerdotai/surreal@main/surreal.js"></script><script src="https://cdn.jsdelivr.net/gh/gnat/css-scope-inline@main/script.js"></script>     <link rel="stylesheet" href="https://unpkg.com/franken-ui@2.0.0-internal.40/dist/css/core.min.css">
-<script type="module" src="https://unpkg.com/franken-ui@2.0.0-internal.40/dist/js/core.iife.js"></script><script type="module" src="https://unpkg.com/franken-ui@2.0.0-internal.40/dist/js/icon.iife.js"></script><script src="https://cdn.tailwindcss.com"></script><script>
-        const htmlElement = document.documentElement;
-        
-          const __FRANKEN__ = JSON.parse(localStorage.getItem("__FRANKEN__") || "{}");
+</doc><doc title="Forms" desc="Forms and User Inputs API Reference"># Forms and User Inputs API Reference
 
-          if (
-            __FRANKEN__.mode === "dark" ||
-            (!__FRANKEN__.mode &&
-              window.matchMedia("(prefers-color-scheme: dark)").matches)
-          ) {
-            htmlElement.classList.add("dark");
-          } else {
-            htmlElement.classList.remove("dark");
-          }
+### Example Form
 
-        
-        htmlElement.classList.add(localStorage.getItem("theme") || "uk-theme-blue");
-          htmlElement.classList.add(__FRANKEN__.theme || "uk-theme-blue");
-          htmlElement.classList.add(__FRANKEN__.radii || "uk-radii-md");
-          htmlElement.classList.add(__FRANKEN__.shadows || "uk-shadows-sm");
-          htmlElement.classList.add(__FRANKEN__.font || "uk-font-sm");
-    </script>     <style>
-.monster-navbar.navbar-bold a {
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-}
-.monster-navbar.navbar-bold a.uk-active {
-    transform: scale(1.15) ;
-    font-weight: bold;
-    text-shadow: 0 0 12px rgba(var(--p-rgb), 0.4);
-    letter-spacing: 0.02em;
-    color: hsl(var(--p) / 1);
-}
-.monster-navbar.navbar-underline a.uk-active { position: relative; }
-.monster-navbar.navbar-underline a.uk-active::after {
-    content: &#x27;&#x27;;
-    position: absolute;
-    left: 0;
-    bottom: -2px;
-    width: 100%;
-    height: 2px;
-    background: currentColor;
-    animation: slideIn 0.3s ease forwards;
-}
-@keyframes slideIn {
-    from { transform: scaleX(0); }
-    to { transform: scaleX(1); }
-}
-</style>
-     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/daisyui@4.12.22/dist/full.min.css">
-     <style>
-:root {
-  --p: from hsl(var(--primary)) l c h;
-  --pc: from hsl(var(--primary-foreground)) l c h;
-  --s: from hsl(var(--secondary)) l c h;
-  --sc: from hsl(var(--secondary-foreground)) l c h;
-  --b2: from hsl(var(--card-background)) l c h;
-  --b1: from hsl(var(--background)) l c h;
-  --bc: from hsl(var(--foreground)) l c h;
-  --b3: from hsl(var(--ring)) l c h;
-  --er: from hsl(var(--destructive)) l c h;
-  --erc: from hsl(var(--destructive-foreground)) l c h;
-}
-</style>
-<script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/highlight.min.js"></script><script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/languages/python.min.js"></script>     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/styles/atom-one-light.css" id="hljs-light">
-     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/styles/atom-one-dark.css" id="hljs-dark">
-<script src="https://cdn.jsdelivr.net/gh/arronhunt/highlightjs-copy/dist/highlightjs-copy.min.js"></script>     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/arronhunt/highlightjs-copy/dist/highlightjs-copy.min.css">
-<script type="module">
-                    hljs.addPlugin(new CopyButtonPlugin());
-                    hljs.configure({
-                        cssSelector: 'pre code',
-                        languages: ['python'],
-                        ignoreUnescapedHTML: true
-                    });
-                    function updateTheme() {
-                        const isDark = document.documentElement.classList.contains('dark');
-                        document.getElementById('hljs-dark').disabled = !isDark;
-                        document.getElementById('hljs-light').disabled = isDark;
-                    }
-                    new MutationObserver(mutations =>
-                        mutations.forEach(m => m.target.tagName === 'HTML' &&
-                            m.attributeName === 'class' && updateTheme())
-                    ).observe(document.documentElement, { attributes: true });
-                    updateTheme();
-                    htmx.onLoad(hljs.highlightAll);
-                </script>     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/katex.min.css">
-<script type="module">
-                import katex from 'https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/katex.mjs';
-                import autoRender from 'https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/contrib/auto-render.mjs';
-                const options = {
-                  delimiters: [
-                    {left: '$$', right: '$$', display: true},
-                    {left: '$', right: '$', display: false}
-                  ],
-                  ignoredClasses: ['nomath']
-                };
+This form was live coded in a 5 minute video here
 
-                document.addEventListener('htmx:load', evt => {
-                  const element = evt.detail.elt || document.body;
-                  autoRender(element,options);
-                });
-                </script>     <link rel="icon" type="image/x-icon" href="/favicon.ico">
-<script>
-    (function() {
-        var socket = new WebSocket(`ws://${window.location.host}/live-reload`);
-        var maxReloadAttempts = 1;
-        var reloadInterval = 1000; // time between reload attempts in ms
-        socket.onclose = function() {
-            let reloadAttempts = 0;
-            const intervalFn = setInterval(function(){
-                window.location.reload();
-                reloadAttempts++;
-                if (reloadAttempts === maxReloadAttempts) clearInterval(intervalFn);
-            }, reloadInterval);
-        }
-    })();
-</script>   </head>
-   <body reload-attempts="1" reload-interval="1000" class=" bg-background text-foreground">
-     <div class="flex flex-col md:flex-row w-full">
-<button data-uk-toggle="target: #mobile-sidebar" type="submit" class="uk-btn md:hidden mb-4"><uk-icon icon="menu" height="50" width="50" class="mt-4"></uk-icon></button>       <div hidden id="mobile-sidebar">
-         <ul uk-nav class="uk-nav uk-nav-primary space-y-4 p-4 w-full md:w-full ">
-           <li class="uk-parent ">
-<a href="#">               <div class="flex justify-between items-center w-full">Getting Started</div>
-</a>             <ul class="uk-nav-sub uk-nav-primary ">
-               <li>
-<a href="#" hx-get="/getting_started" hx-push-url="true" hx-target="#content">Getting Started</a>               </li>
-               <li>
-<a href="#" hx-get="/tutorial_app" hx-push-url="true" hx-target="#content">Tutorial App</a>               </li>
-             </ul>
-           </li>
-           <li class="uk-parent ">
-<a href="#">               <div class="flex justify-between items-center w-full">API Reference</div>
-</a>             <ul class="uk-nav-sub uk-nav-primary ">
-               <li>
-<a href="#" hx-get="/api_ref/docs_button_link" hx-push-url="true" hx-target="#content">Button | Link</a>               </li>
-               <li>
-<a href="#" hx-get="/api_ref/docs_cards" hx-push-url="true" hx-target="#content">Cards</a>               </li>
-               <li>
-<a href="#" hx-get="/api_ref/docs_containers" hx-push-url="true" hx-target="#content">Containers</a>               </li>
-               <li>
-<a href="#" hx-get="/api_ref/docs_dividers" hx-push-url="true" hx-target="#content">Dividers</a>               </li>
-               <li>
-<a href="#" hx-get="/api_ref/docs_forms" hx-push-url="true" hx-target="#content">Forms</a>               </li>
-               <li>
-<a href="#" hx-get="/api_ref/docs_icons_images" hx-push-url="true" hx-target="#content">Icons | Images</a>               </li>
-               <li>
-<a href="#" hx-get="/api_ref/docs_layout" hx-push-url="true" hx-target="#content">Layout</a>               </li>
-               <li>
-<a href="#" hx-get="/api_ref/docs_lists" hx-push-url="true" hx-target="#content">Lists</a>               </li>
-               <li>
-<a href="#" hx-get="/api_ref/docs_loading" hx-push-url="true" hx-target="#content">Loading</a>               </li>
-               <li>
-<a href="#" hx-get="/api_ref/docs_markdown" hx-push-url="true" hx-target="#content">Markdown</a>               </li>
-               <li>
-<a href="#" hx-get="/api_ref/docs_modals" hx-push-url="true" hx-target="#content">Modals</a>               </li>
-               <li>
-<a href="#" hx-get="/api_ref/docs_navigation" hx-push-url="true" hx-target="#content">Navigation</a>               </li>
-               <li>
-<a href="#" hx-get="/api_ref/docs_notifications" hx-push-url="true" hx-target="#content">Notifications</a>               </li>
-               <li>
-<a href="#" hx-get="/api_ref/docs_sliders" hx-push-url="true" hx-target="#content">Sliders</a>               </li>
-               <li>
-<a href="#" hx-get="/api_ref/docs_steps" hx-push-url="true" hx-target="#content">Steps</a>               </li>
-               <li>
-<a href="#" hx-get="/api_ref/docs_tables" hx-push-url="true" hx-target="#content">Tables</a>               </li>
-               <li>
-<a href="#" hx-get="/api_ref/docs_theme_headers" hx-push-url="true" hx-target="#content">Theme | Headers</a>               </li>
-               <li>
-<a href="#" hx-get="/api_ref/docs_typography" hx-push-url="true" hx-target="#content">Typography</a>               </li>
-             </ul>
-           </li>
-           <li class="uk-parent ">
-<a href="#">               <div class="flex justify-between items-center w-full">Guides</div>
-</a>             <ul class="uk-nav-sub uk-nav-primary ">
-               <li>
-<a href="#" hx-get="/tutorial_spacing" hx-push-url="true" hx-target="#content">Spacing</a>               </li>
-               <li>
-<a href="#" hx-get="/tutorial_layout" hx-push-url="true" hx-target="#content">Layout</a>               </li>
-             </ul>
-           </li>
-           <li class="uk-parent ">
-<a href="#">               <div class="flex justify-between items-center w-full">Examples</div>
-</a>             <ul class="uk-nav-sub uk-nav-primary ">
-               <li>
-<a href="#" hx-get="/tasks/" hx-push-url="true" hx-target="#content">Task</a>               </li>
-               <li>
-<a href="#" hx-get="/cards/" hx-push-url="true" hx-target="#content">Card</a>               </li>
-               <li>
-<a href="#" hx-get="/dashboard/" hx-push-url="true" hx-target="#content">Dashboard</a>               </li>
-               <li>
-<a href="#" hx-get="/forms/" hx-push-url="true" hx-target="#content">Form</a>               </li>
-               <li>
-<a href="#" hx-get="/music/" hx-push-url="true" hx-target="#content">Music</a>               </li>
-               <li>
-<a href="#" hx-get="/auth/" hx-push-url="true" hx-target="#content">Auth</a>               </li>
-               <li>
-<a href="#" hx-get="/playground/" hx-push-url="true" hx-target="#content">Playground</a>               </li>
-               <li>
-<a href="#" hx-get="/mail/" hx-push-url="true" hx-target="#content">Mail</a>               </li>
-               <li>
-<a href="#" hx-get="/ticket/" hx-push-url="true" hx-target="#content">Ticket</a>               </li>
-               <li>
-<a href="#" hx-get="/scrollspy/" hx-push-url="true" hx-target="#content">Scrollspy</a>               </li>
-             </ul>
-           </li>
-           <li>
-<a href="#" hx-get="/theme_switcher" hx-push-url="true" hx-target="#content">Theme</a>           </li>
-         </ul>
-       </div>
-       <div class="md:flex w-full">
-         <div class="hidden md:block w-1/5 max-w-52">
-           <ul uk-nav class="uk-nav uk-nav-primary space-y-4 p-4 w-full md:w-full ">
-             <li class="uk-parent ">
-<a href="#">                 <div class="flex justify-between items-center w-full">Getting Started</div>
-</a>               <ul class="uk-nav-sub uk-nav-primary ">
-                 <li>
-<a href="#" hx-get="/getting_started" hx-push-url="true" hx-target="#content">Getting Started</a>                 </li>
-                 <li>
-<a href="#" hx-get="/tutorial_app" hx-push-url="true" hx-target="#content">Tutorial App</a>                 </li>
-               </ul>
-             </li>
-             <li class="uk-parent ">
-<a href="#">                 <div class="flex justify-between items-center w-full">API Reference</div>
-</a>               <ul class="uk-nav-sub uk-nav-primary ">
-                 <li>
-<a href="#" hx-get="/api_ref/docs_button_link" hx-push-url="true" hx-target="#content">Button | Link</a>                 </li>
-                 <li>
-<a href="#" hx-get="/api_ref/docs_cards" hx-push-url="true" hx-target="#content">Cards</a>                 </li>
-                 <li>
-<a href="#" hx-get="/api_ref/docs_containers" hx-push-url="true" hx-target="#content">Containers</a>                 </li>
-                 <li>
-<a href="#" hx-get="/api_ref/docs_dividers" hx-push-url="true" hx-target="#content">Dividers</a>                 </li>
-                 <li>
-<a href="#" hx-get="/api_ref/docs_forms" hx-push-url="true" hx-target="#content">Forms</a>                 </li>
-                 <li>
-<a href="#" hx-get="/api_ref/docs_icons_images" hx-push-url="true" hx-target="#content">Icons | Images</a>                 </li>
-                 <li>
-<a href="#" hx-get="/api_ref/docs_layout" hx-push-url="true" hx-target="#content">Layout</a>                 </li>
-                 <li>
-<a href="#" hx-get="/api_ref/docs_lists" hx-push-url="true" hx-target="#content">Lists</a>                 </li>
-                 <li>
-<a href="#" hx-get="/api_ref/docs_loading" hx-push-url="true" hx-target="#content">Loading</a>                 </li>
-                 <li>
-<a href="#" hx-get="/api_ref/docs_markdown" hx-push-url="true" hx-target="#content">Markdown</a>                 </li>
-                 <li>
-<a href="#" hx-get="/api_ref/docs_modals" hx-push-url="true" hx-target="#content">Modals</a>                 </li>
-                 <li>
-<a href="#" hx-get="/api_ref/docs_navigation" hx-push-url="true" hx-target="#content">Navigation</a>                 </li>
-                 <li>
-<a href="#" hx-get="/api_ref/docs_notifications" hx-push-url="true" hx-target="#content">Notifications</a>                 </li>
-                 <li>
-<a href="#" hx-get="/api_ref/docs_sliders" hx-push-url="true" hx-target="#content">Sliders</a>                 </li>
-                 <li>
-<a href="#" hx-get="/api_ref/docs_steps" hx-push-url="true" hx-target="#content">Steps</a>                 </li>
-                 <li>
-<a href="#" hx-get="/api_ref/docs_tables" hx-push-url="true" hx-target="#content">Tables</a>                 </li>
-                 <li>
-<a href="#" hx-get="/api_ref/docs_theme_headers" hx-push-url="true" hx-target="#content">Theme | Headers</a>                 </li>
-                 <li>
-<a href="#" hx-get="/api_ref/docs_typography" hx-push-url="true" hx-target="#content">Typography</a>                 </li>
-               </ul>
-             </li>
-             <li class="uk-parent ">
-<a href="#">                 <div class="flex justify-between items-center w-full">Guides</div>
-</a>               <ul class="uk-nav-sub uk-nav-primary ">
-                 <li>
-<a href="#" hx-get="/tutorial_spacing" hx-push-url="true" hx-target="#content">Spacing</a>                 </li>
-                 <li>
-<a href="#" hx-get="/tutorial_layout" hx-push-url="true" hx-target="#content">Layout</a>                 </li>
-               </ul>
-             </li>
-             <li class="uk-parent ">
-<a href="#">                 <div class="flex justify-between items-center w-full">Examples</div>
-</a>               <ul class="uk-nav-sub uk-nav-primary ">
-                 <li>
-<a href="#" hx-get="/tasks/" hx-push-url="true" hx-target="#content">Task</a>                 </li>
-                 <li>
-<a href="#" hx-get="/cards/" hx-push-url="true" hx-target="#content">Card</a>                 </li>
-                 <li>
-<a href="#" hx-get="/dashboard/" hx-push-url="true" hx-target="#content">Dashboard</a>                 </li>
-                 <li>
-<a href="#" hx-get="/forms/" hx-push-url="true" hx-target="#content">Form</a>                 </li>
-                 <li>
-<a href="#" hx-get="/music/" hx-push-url="true" hx-target="#content">Music</a>                 </li>
-                 <li>
-<a href="#" hx-get="/auth/" hx-push-url="true" hx-target="#content">Auth</a>                 </li>
-                 <li>
-<a href="#" hx-get="/playground/" hx-push-url="true" hx-target="#content">Playground</a>                 </li>
-                 <li>
-<a href="#" hx-get="/mail/" hx-push-url="true" hx-target="#content">Mail</a>                 </li>
-                 <li>
-<a href="#" hx-get="/ticket/" hx-push-url="true" hx-target="#content">Ticket</a>                 </li>
-                 <li>
-<a href="#" hx-get="/scrollspy/" hx-push-url="true" hx-target="#content">Scrollspy</a>                 </li>
-               </ul>
-             </li>
-             <li>
-<a href="#" hx-get="/theme_switcher" hx-push-url="true" hx-target="#content">Theme</a>             </li>
-           </ul>
-         </div>
-         <div id="content" class="md:w-4/5 w-full mr-5">
-           <div class="uk-container mt-5 uk-container-xlarge">
-             <div class="uk-card ">
-               <div class="uk-card-body space-y-6">
-                 <div class="uk-card-body ">
-                   <h1 class="uk-h1 ">404 - Page Not Found</h1>
-                   <p>The page you&#x27;re looking for doesn&#x27;t exist.</p>
-                 </div>
-               </div>
-             </div>
-           </div>
-         </div>
-       </div>
-     </div>
-   </body>
- </html></doc><doc title="Icons | Images" desc="Icons &amp; Images API Reference"># Icons & Images API Reference
+See Source
+
+See Output
+
+### Emergency Contact Form
+
+Please fill out the form completely
+
+First Name
+
+Last Name
+
+Email
+
+Phone
+
+### Relationship to patient
+
+Parent
+
+Sibling
+
+Friend
+
+Spouse
+
+Significant Other
+
+Relative
+
+Child
+
+Other
+
+Address
+
+Address Line 2
+
+City
+
+State
+
+Zip
+
+Submit Form
+
+[code]
+
+    def ex_form():
+        relationship = ["Parent",'Sibling', "Friend", "Spouse", "Significant Other", "Relative", "Child", "Other"]
+        return Div(cls='space-y-4')(
+            DivCentered(
+                H3("Emergency Contact Form"),
+                P("Please fill out the form completely", cls=TextPresets.muted_sm)),
+            Form(cls='space-y-4')(
+                Grid(LabelInput("First Name",id='fn'), LabelInput("Last Name",id='ln')),
+                Grid(LabelInput("Email",     id='em'), LabelInput("Phone",    id='ph')),
+                H3("Relationship to patient"),
+                Grid(*[LabelCheckboxX(o) for o in relationship], cols=4, cls='space-y-3'),
+                LabelInput("Address",        id='ad'),
+                LabelInput("Address Line 2", id='ad2'),
+                Grid(LabelInput("City",      id='ct'), LabelInput("State",    id='st')),
+                LabelInput("Zip",            id='zp'),
+                DivCentered(Button("Submit Form", cls=ButtonT.primary))))
+    
+[/code]
+
+See Source
+
+See Output
+
+Upload Button!
+
+Upload Zone
+
+[code]
+
+    def ex_upload():
+        return Div(Upload("Upload Button!", id='upload1'),
+                   UploadZone(DivCentered(Span("Upload Zone"), UkIcon("upload")), id='upload2'),
+                   cls='space-y-4')
+    
+[/code]
+
+### FormLabel
+
+Source
+
+[code]
+
+    FormLabel(*c, cls=(), **kwargs) -> fastcore.xml.FT
+[/code]
+
+> A Label with default styling
+
+**Params**
+
+  * `c` contents of FormLabel tag (often text)
+
+  * `cls` Classes in addition to FormLabel styling
+
+  * `kwargs`
+
+**Returns:** Label(..., cls='uk-form-label')
+
+See Source
+
+See Output
+
+Form Label
+
+[code]
+
+    def ex_formlabel(): 
+        return FormLabel("Form Label")
+    
+[/code]
+
+### Input
+
+Source
+
+[code]
+
+    Input(*c, cls=(), **kwargs) -> fastcore.xml.FT
+[/code]
+
+> An Input with default styling
+
+**Params**
+
+  * `c` contents of Input tag (often nothing)
+
+  * `cls` Classes in addition to Input styling
+
+  * `kwargs`
+
+**Returns:** Input(..., cls='uk-input')
+
+See Source
+
+See Output
+
+Input
+
+[code]
+
+    def ex_input(): 
+        return Div(
+            Input(placeholder="Enter text"), 
+            LabelInput(label="Input", id='myid'))
+    
+[/code]
+
+### LabelInput
+
+Source
+
+[code]
+
+    LabelInput(label: str | fastcore.xml.FT, lbl_cls='', input_cls='', cls='space-y-2', id='', **kwargs) -> fastcore.xml.FT
+[/code]
+
+> A `FormLabel` and `Input` pair that provides default spacing and links/names them based on id
+
+**Params**
+
+  * `label` FormLabel content (often text)
+
+  * `lbl_cls` Additional classes for `FormLabel`
+
+  * `input_cls` Additional classes for `Input`
+
+  * `cls` Classes on container (default is `'space-y-2'` to prevent scrunched up form elements)
+
+  * `id` id for `FormLabel` and `Input` (`id`, `name` and `for` attributes are set to this value)
+
+  * `kwargs`
+
+**Returns:** Div(cls='space-y-2')(`FormLabel`, `Input`)
+
+### LabelCheckboxX
+
+Source
+
+[code]
+
+    LabelCheckboxX(label: str | fastcore.xml.FT, lbl_cls='', input_cls='', container=functools.partial(<function ft at 0x7f3f3aca2700>, 'div', void_=False), cls='flex items-center space-x-2', id='', **kwargs) -> fastcore.xml.FT
+[/code]
+
+> A FormLabel and CheckboxX pair that provides default spacing and links/names them based on id
+
+**Params**
+
+  * `label` FormLabel content (often text)
+
+  * `lbl_cls` Additional classes for `FormLabel`
+
+  * `input_cls` Additional classes for `CheckboxX`
+
+  * `container` Container to wrap label and input in (default is Div)
+
+  * `cls` Classes on container (default is 'flex items-center space-x-2')
+
+  * `id` id for `FormLabel` and `CheckboxX` (`id`, `name` and `for` attributes are set to this value)
+
+  * `kwargs`
+
+**Returns:** Div(cls='flex items-center space-x-2')(`FormLabel`, `CheckboxX`)
+
+### LabelSwitch
+
+Source
+
+[code]
+
+    LabelSwitch(label: str | fastcore.xml.FT, lbl_cls='', input_cls='', cls='space-x-2', id='', *, container=functools.partial(<function ft at 0x7f3f3aca2700>, 'div', void_=False)) -> fastcore.xml.FT
+[/code]
+
+> **Params**
+
+  * `label` FormLabel content (often text)
+
+  * `lbl_cls` Additional classes for `FormLabel`
+
+  * `input_cls` Additional classes for `Switch`
+
+  * `container` Container to wrap label and input in (default is Div)
+
+  * `cls` Classes on container (default is `'space-x-2'` to prevent scrunched up form elements)
+
+  * `id` id for `FormLabel` and `Switch` (`id`, `name` and `for` attributes are set to this value)
+
+**Returns:** Div(cls='space-y-2')(`FormLabel`, `Switch`)
+
+### LabelRange
+
+Source
+
+[code]
+
+    LabelRange(label: str | fastcore.xml.FT, lbl_cls='', input_cls='', cls='space-y-6', id='', value='', min=None, max=None, step=None, label_range=True, *, container=functools.partial(<function ft at 0x7f3f3aca2700>, 'div', void_=False)) -> fastcore.xml.FT
+[/code]
+
+> A FormLabel and Range pair that provides default spacing and links/names them based on id
+
+**Params**
+
+  * `label` FormLabel content (often text)
+
+  * `lbl_cls` Additional classes for `FormLabel`
+
+  * `input_cls` Additional classes for `Range`
+
+  * `container` Container to wrap label and input in (default is Div)
+
+  * `cls` Classes on container (default is `'space-y-2'` to prevent scrunched up form elements)
+
+  * `id` id for `FormLabel` and `Range` (`id`, `name` and `for` attributes are set to this value)
+
+  * `value` Value for the range input
+
+  * `min` Minimum value
+
+  * `max` Maximum value
+
+  * `step` Step size
+
+  * `label_range` Whether to show the range value label (label for the `Range` component)
+
+**Returns:** Div(cls='space-y-2')(`FormLabel`, `Range`)
+
+### LabelTextArea
+
+Source
+
+[code]
+
+    LabelTextArea(label: str | fastcore.xml.FT, value='', lbl_cls='', input_cls='', cls='space-y-2', id='', **kwargs) -> fastcore.xml.FT
+[/code]
+
+> **Params**
+
+  * `label` FormLabel content (often text)
+
+  * `value` Value for the textarea
+
+  * `lbl_cls` Additional classes for `FormLabel`
+
+  * `input_cls` Additional classes for `TextArea`
+
+  * `cls` Classes on container (default is `'space-y-2'` to prevent scrunched up form elements)
+
+  * `id` id for `FormLabel` and `TextArea` (`id`, `name` and `for` attributes are set to this value)
+
+  * `kwargs`
+
+**Returns:** Div(cls='space-y-2')(`FormLabel`, `TextArea`)
+
+### LabelRadio
+
+Source
+
+[code]
+
+    LabelRadio(label: str | fastcore.xml.FT, lbl_cls='', input_cls='', container=functools.partial(<function ft at 0x7f3f3aca2700>, 'div', void_=False), cls='flex items-center space-x-2', id='', **kwargs) -> fastcore.xml.FT
+[/code]
+
+> A FormLabel and Radio pair that provides default spacing and links/names them based on id
+
+**Params**
+
+  * `label` FormLabel content (often text)
+
+  * `lbl_cls` Additional classes for `FormLabel`
+
+  * `input_cls` Additional classes for `Radio`
+
+  * `container` Container to wrap label and input in (default is Div)
+
+  * `cls` Classes on container (default is 'flex items-center space-x-2')
+
+  * `id` id for `FormLabel` and `Radio` (`id`, `name` and `for` attributes are set to this value)
+
+  * `kwargs`
+
+**Returns:** Div(cls='flex items-center space-x-2')(`FormLabel`, `Radio`)
+
+### LabelSelect
+
+Source
+
+[code]
+
+    LabelSelect(*option, label: str | fastcore.xml.FT, lbl_cls='', input_cls='', container=functools.partial(<function ft at 0x7f3f3aca2700>, 'div', void_=False), cls='space-y-2', id='', **kwargs)
+[/code]
+
+> A FormLabel and Select pair that provides default spacing and links/names them based on id (usually UkLabelSelect is a better choice)
+
+**Params**
+
+  * `option` Options for the select dropdown (can use `Options` helper function to create)
+
+  * `label` FormLabel content (often text)
+
+  * `lbl_cls` Additional classes for `FormLabel`
+
+  * `input_cls` Additional classes for `Select`
+
+  * `container` Container to wrap label and input in (default is Div)
+
+  * `cls` Classes on container (default is 'space-y-2')
+
+  * `id` id for `FormLabel` and `Select` (`id`, `name` and `for` attributes are set to this value)
+
+  * `kwargs`
+
+### LabelSelect
+
+Source
+
+[code]
+
+    LabelSelect(*option, label: str | fastcore.xml.FT, lbl_cls='', input_cls='', container=functools.partial(<function ft at 0x7f3f3aca2700>, 'div', void_=False), cls='space-y-2', id='', **kwargs)
+[/code]
+
+> A FormLabel and Select pair that provides default spacing and links/names them based on id (usually UkLabelSelect is a better choice)
+
+**Params**
+
+  * `option` Options for the select dropdown (can use `Options` helper function to create)
+
+  * `label` FormLabel content (often text)
+
+  * `lbl_cls` Additional classes for `FormLabel`
+
+  * `input_cls` Additional classes for `Select`
+
+  * `container` Container to wrap label and input in (default is Div)
+
+  * `cls` Classes on container (default is 'space-y-2')
+
+  * `id` id for `FormLabel` and `Select` (`id`, `name` and `for` attributes are set to this value)
+
+  * `kwargs`
+
+### Progress
+
+Source
+
+[code]
+
+    Progress(*c, cls=(), value='', max='100', **kwargs) -> fastcore.xml.FT
+[/code]
+
+> Creates a progress bar
+
+**Params**
+
+  * `c` Components to put in the progress bar (often nothing)
+
+  * `cls` Additional classes on the progress bar
+
+  * `value` Value of the progress bar
+
+  * `max` Max value of the progress bar (defaults to 100 for percentage)
+
+  * `kwargs`
+
+**Returns:** Progress(..., cls='uk-progress')
+
+See Source
+
+See Output
+
+[code]
+
+    def ex_progress(): 
+        return Progress(value=20, max=100)
+    
+[/code]
+
+### Radio
+
+Source
+
+[code]
+
+    Radio(*c, cls=(), **kwargs) -> fastcore.xml.FT
+[/code]
+
+> A Radio with default styling
+
+**Params**
+
+  * `c` contents of Radio tag (often nothing)
+
+  * `cls` Classes in addition to Radio styling
+
+  * `kwargs`
+
+**Returns:** Input(..., cls='uk-radio', type='radio')
+
+See Source
+
+See Output
+
+Radio
+
+[code]
+
+    def ex_radio(): 
+        return Div(
+            Radio(name="radio-group", id="radio1"), 
+            LabelRadio(label="Radio", id='radio1',cls='flex items-center space-x-4'))
+    
+[/code]
+
+### CheckboxX
+
+Source
+
+[code]
+
+    CheckboxX(*c, cls=(), **kwargs) -> fastcore.xml.FT
+[/code]
+
+> A Checkbox with default styling
+
+**Params**
+
+  * `c` contents of CheckboxX tag (often nothing)
+
+  * `cls` Classes in addition to CheckboxX styling
+
+  * `kwargs`
+
+**Returns:** Input(..., cls='uk-checkbox', type='checkbox')
+
+See Source
+
+See Output
+
+Checkbox
+
+[code]
+
+    def ex_checkbox(): 
+        return Div(
+            CheckboxX(), 
+            LabelCheckboxX(label="Checkbox", id='checkbox1'))
+    
+[/code]
+
+### Range
+
+Source
+
+[code]
+
+    Range(*c, value='', label=True, min=None, max=None, step=None, cls=(), **kwargs) -> fastcore.xml.FT
+[/code]
+
+> A Range with default styling
+
+**Params**
+
+  * `c` contents of Range tag (often nothing)
+
+  * `value`
+
+  * `label`
+
+  * `min`
+
+  * `max`
+
+  * `step`
+
+  * `cls` Classes in addition to Range styling
+
+  * `kwargs`
+
+**Returns:** Input(..., cls='uk-range', type='range')
+
+See Source
+
+See Output
+
+Basic Range
+
+Range with Label
+
+Multiple Values
+
+Custom Range
+
+[code]
+
+    def ex_range(): 
+        return Div(
+            Range(), 
+            Range(label='kg', value="25,75", min=20, max=75),
+            LabelRange('Basic Range', value='50', min=0, max=100, step=1),
+            LabelRange('Range with Label', value='75', min=0, max=100, step=5, label_range=True),
+            LabelRange('Multiple Values', value='25,75', min=0, max=100, step=5, label_range=True),
+            LabelRange('Custom Range', value='500', min=0, max=1000, step=100, label_range=True)        
+            )
+    
+[/code]
+
+### Switch
+
+Source
+
+[code]
+
+    Switch(*c, cls=(), **kwargs) -> fastcore.xml.FT
+[/code]
+
+> A Switch with default styling
+
+**Params**
+
+  * `c` contents of Switch tag (often nothing)
+
+  * `cls` Classes in addition to Switch styling
+
+  * `kwargs`
+
+**Returns:** Input(..., cls='uk-toggle-switch uk-toggle-switch-primary min-w-9', type='checkbox')
+
+See Source
+
+See Output
+
+Switch
+
+[code]
+
+    def ex_switch(): 
+        return Div(
+            Switch(id="switch"), 
+            LabelSwitch(label="Switch", id='switch'))
+    
+[/code]
+
+### TextArea
+
+Source
+
+[code]
+
+    TextArea(*c, cls=(), **kwargs) -> fastcore.xml.FT
+[/code]
+
+> A Textarea with default styling
+
+**Params**
+
+  * `c` contents of TextArea tag (often text)
+
+  * `cls` Classes in addition to TextArea styling
+
+  * `kwargs`
+
+**Returns:** TextArea(..., cls='uk-textarea')
+
+See Source
+
+See Output
+
+TextArea
+
+[code]
+
+    def ex_textarea(): 
+        return Div(
+            TextArea(placeholder="Enter multiple lines of text"), 
+            LabelTextArea(label="TextArea", id='myid'))
+    
+[/code]
+
+### Select
+
+Source
+
+[code]
+
+    Select(*option, inp_cls=(), cls=('h-10',), cls_custom='button: uk-input-fake dropdown: w-full', id='', name='', placeholder='', searchable=False, **kwargs)
+[/code]
+
+> Creates a select dropdown with uk styling and option for adding a search box
+
+**Params**
+
+  * `option` Options for the select dropdown (can use `Options` helper function to create)
+
+  * `inp_cls` Additional classes for the select input
+
+  * `cls` Classes for the outer div (default h-10 for consistent height)
+
+  * `cls_custom` Classes for the Uk_Select web component
+
+  * `id` ID for the select input
+
+  * `name` Name attribute for the select input
+
+  * `placeholder` Placeholder text for the select input
+
+  * `searchable` Whether the select should be searchable
+
+  * `kwargs`
+
+See Source
+
+See Output
+
+Option 1Option 2Option 3
+
+Select
+
+Option 1Option 2Option 3
+
+[code]
+
+    def ex_select(): 
+        return Div(
+            Select(map(Option, ["Option 1", "Option 2", "Option 3"])),
+            LabelSelect(map(Option, ["Option 1", "Option 2", "Option 3"]), label="Select", id='myid'))
+    
+[/code]
+
+### Select
+
+Source
+
+[code]
+
+    Select(*option, inp_cls=(), cls=('h-10',), cls_custom='button: uk-input-fake dropdown: w-full', id='', name='', placeholder='', searchable=False, **kwargs)
+[/code]
+
+> Creates a select dropdown with uk styling and option for adding a search box
+
+**Params**
+
+  * `option` Options for the select dropdown (can use `Options` helper function to create)
+
+  * `inp_cls` Additional classes for the select input
+
+  * `cls` Classes for the outer div (default h-10 for consistent height)
+
+  * `cls_custom` Classes for the Uk_Select web component
+
+  * `id` ID for the select input
+
+  * `name` Name attribute for the select input
+
+  * `placeholder` Placeholder text for the select input
+
+  * `searchable` Whether the select should be searchable
+
+  * `kwargs`
+
+See Source
+
+See Output
+
+Option 1Option 2Option 3
+
+Select
+
+Option 1Option 2Option 3
+
+[code]
+
+    def ex_Select(): 
+        return Div(
+            Select(map(Option, ["Option 1", "Option 2", "Option 3"])),
+            LabelSelect(map(Option, ["Option 1", "Option 2", "Option 3"]), label="Select", id='myid'))
+    
+[/code]
+
+### Legend
+
+Source
+
+[code]
+
+    Legend(*c, cls=(), **kwargs) -> fastcore.xml.FT
+[/code]
+
+> A Legend with default styling
+
+**Params**
+
+  * `c` contents of Legend tag (often other tags)
+
+  * `cls` Classes in addition to Legend styling
+
+  * `kwargs`
+
+**Returns:** Legend(..., cls='uk-legend')
+
+### Fieldset
+
+Source
+
+[code]
+
+    Fieldset(*c, cls=(), **kwargs) -> fastcore.xml.FT
+[/code]
+
+> A Fieldset with default styling
+
+**Params**
+
+  * `c` contents of Fieldset tag (often other tags)
+
+  * `cls` Classes in addition to Fieldset styling
+
+  * `kwargs`
+
+**Returns:** Fieldset(..., cls='uk-fieldset')
+</doc><doc title="Icons | Images" desc="Icons &amp; Images API Reference"># Icons & Images API Reference
 
 # Avatars
 
@@ -3431,7 +3880,7 @@ Source
 
 **Params**
 
-  * `cls`omponents to put in the `ModalBody` (often forms, sign in buttons, images, etc.)
+  * `c` Components to put in the `ModalBody` (often forms, sign in buttons, images, etc.)
 
   * `header` Components that go in the `ModalHeader` (often a `ModalTitle`)
 
@@ -4605,7 +5054,7 @@ Source
 
 [code]
 
-    TableFromLists(header_data: Sequence, body_data: Sequence[Sequence], footer_data=None, header_cell_render=<function Th at 0x7efe1aef59e0>, body_cell_render=<function Td at 0x7efe1aef5940>, footer_cell_render=<function Td at 0x7efe1aef5940>, cls=(<TableT.middle: 'uk-table-middle'>, <TableT.divider: 'uk-table-divider'>, <TableT.hover: 'uk-table-hover'>, <TableT.sm: 'uk-table-small'>), sortable=False, **kwargs) -> fastcore.xml.FT
+    TableFromLists(header_data: Sequence, body_data: Sequence[Sequence], footer_data=None, header_cell_render=<function Th at 0x7f3ee4d4d9e0>, body_cell_render=<function Td at 0x7f3ee4d4d940>, footer_cell_render=<function Td at 0x7f3ee4d4d940>, cls=(<TableT.middle: 'uk-table-middle'>, <TableT.divider: 'uk-table-divider'>, <TableT.hover: 'uk-table-hover'>, <TableT.sm: 'uk-table-small'>), sortable=False, **kwargs) -> fastcore.xml.FT
 [/code]
 
 > Creates a Table from a list of header data and a list of lists of body data
@@ -4638,7 +5087,7 @@ Source
 
 [code]
 
-    TableFromDicts(header_data: Sequence, body_data: Sequence[dict], footer_data=None, header_cell_render=<function Th at 0x7efe1aef59e0>, body_cell_render=<function <lambda> at 0x7efe1aef5b20>, footer_cell_render=<function <lambda> at 0x7efe1aef5bc0>, cls=(<TableT.middle: 'uk-table-middle'>, <TableT.divider: 'uk-table-divider'>, <TableT.hover: 'uk-table-hover'>, <TableT.sm: 'uk-table-small'>), sortable=False, **kwargs) -> fastcore.xml.FT
+    TableFromDicts(header_data: Sequence, body_data: Sequence[dict], footer_data=None, header_cell_render=<function Th at 0x7f3ee4d4d9e0>, body_cell_render=<function <lambda> at 0x7f3ee4d4db20>, footer_cell_render=<function <lambda> at 0x7f3ee4d4dbc0>, cls=(<TableT.middle: 'uk-table-middle'>, <TableT.divider: 'uk-table-divider'>, <TableT.hover: 'uk-table-hover'>, <TableT.sm: 'uk-table-small'>), sortable=False, **kwargs) -> fastcore.xml.FT
 [/code]
 
 > Creates a Table from a list of header data and a list of dicts of body data
@@ -4823,7 +5272,7 @@ Source
 
 [code]
 
-    fast_app(*args, pico=False, db_file: Optional[str] = None, render: Optional[<built-in function callable>] = None, hdrs: Optional[tuple] = None, ftrs: Optional[tuple] = None, tbls: Optional[dict] = None, before: Union[tuple, NoneType, fasthtml.core.Beforeware] = None, middleware: Optional[tuple] = None, live: bool = False, debug: bool = False, routes: Optional[tuple] = None, exception_handlers: Optional[dict] = None, on_startup: Optional[<built-in function callable>] = None, on_shutdown: Optional[<built-in function callable>] = None, lifespan: Optional[<built-in function callable>] = None, default_hdrs=True, surreal: Optional[bool] = True, htmx: Optional[bool] = True, exts: Union[list, str, NoneType] = None, secret_key: Optional[str] = None, key_fname: str = '.sesskey', session_cookie: str = 'session_', max_age: int = 31536000, sess_path: str = '/', same_site: str = 'lax', sess_https_only: bool = False, sess_domain: Optional[str] = None, htmlkw: Optional[dict] = None, bodykw: Optional[dict] = None, reload_attempts: Optional[int] = 1, reload_interval: Optional[int] = 1000, static_path: str = '.', body_wrap: <built-in function callable> = <function noop_body at 0x7efe706fda80>, nb_hdrs: bool = False)
+    fast_app(*args, pico=False, db_file: Optional[str] = None, render: Optional[<built-in function callable>] = None, hdrs: Optional[tuple] = None, ftrs: Optional[tuple] = None, tbls: Optional[dict] = None, before: Union[tuple, NoneType, fasthtml.core.Beforeware] = None, middleware: Optional[tuple] = None, live: bool = False, debug: bool = False, routes: Optional[tuple] = None, exception_handlers: Optional[dict] = None, on_startup: Optional[<built-in function callable>] = None, on_shutdown: Optional[<built-in function callable>] = None, lifespan: Optional[<built-in function callable>] = None, default_hdrs=True, surreal: Optional[bool] = True, htmx: Optional[bool] = True, exts: Union[list, str, NoneType] = None, secret_key: Optional[str] = None, key_fname: str = '.sesskey', session_cookie: str = 'session_', max_age: int = 31536000, sess_path: str = '/', same_site: str = 'lax', sess_https_only: bool = False, sess_domain: Optional[str] = None, htmlkw: Optional[dict] = None, bodykw: Optional[dict] = None, reload_attempts: Optional[int] = 1, reload_interval: Optional[int] = 1000, static_path: str = '.', body_wrap: <built-in function callable> = <function noop_body at 0x7f3f3a34da80>, nb_hdrs: bool = False)
 [/code]
 
 > Create a FastHTML or FastHTMLWithLiveReload app with `bg-background text-foreground` to bodykw for frankenui themes
@@ -4906,7 +5355,7 @@ Source
 
 [code]
 
-    FastHTML(*args, pico=False, debug=False, routes=None, middleware=None, title: str = 'FastHTML page', exception_handlers=None, on_startup=None, on_shutdown=None, lifespan=None, hdrs=None, ftrs=None, exts=None, before=None, after=None, surreal=True, htmx=True, default_hdrs=True, sess_cls=<class 'starlette.middleware.sessions.SessionMiddleware'>, secret_key=None, session_cookie='session_', max_age=31536000, sess_path='/', same_site='lax', sess_https_only=False, sess_domain=None, key_fname='.sesskey', body_wrap=<function noop_body at 0x7efe706fda80>, htmlkw=None, nb_hdrs=False)
+    FastHTML(*args, pico=False, debug=False, routes=None, middleware=None, title: str = 'FastHTML page', exception_handlers=None, on_startup=None, on_shutdown=None, lifespan=None, hdrs=None, ftrs=None, exts=None, before=None, after=None, surreal=True, htmx=True, default_hdrs=True, sess_cls=<class 'starlette.middleware.sessions.SessionMiddleware'>, secret_key=None, session_cookie='session_', max_age=31536000, sess_path='/', same_site='lax', sess_https_only=False, sess_domain=None, key_fname='.sesskey', body_wrap=<function noop_body at 0x7f3f3a34da80>, htmlkw=None, nb_hdrs=False)
 [/code]
 
 > Create a FastHTML app and adds `bg-background text-foreground` to bodykw for frankenui themes

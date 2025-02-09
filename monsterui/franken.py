@@ -16,7 +16,7 @@ __all__ = ['franken_class_map', 'TextT', 'TextPresets', 'CodeSpan', 'CodeBlock',
            'NavHeaderLi', 'NavSubtitle', 'NavCloseLi', 'ScrollspyT', 'NavBar', 'SliderContainer', 'SliderItems',
            'SliderNav', 'Slider', 'DropDownNavContainer', 'TabContainer', 'CardT', 'CardTitle', 'CardHeader',
            'CardBody', 'CardFooter', 'CardContainer', 'Card', 'TableT', 'Table', 'Td', 'Th', 'Tbody', 'TableFromLists',
-           'TableFromDicts', 'apply_classes', 'render_md', 'get_franken_renderer', 'ThemePicker']
+           'TableFromDicts', 'CalendarInput', 'apply_classes', 'render_md', 'get_franken_renderer', 'ThemePicker']
 
 # %% ../nbs/02_franken.ipynb
 import fasthtml.common as fh
@@ -1435,6 +1435,30 @@ def TableFromDicts(header_data:Sequence, # List of header data
         cls=stringify(cls),    
         **kwargs
     )
+
+# %% ../nbs/02_franken.ipynb
+def CalendarInput(
+    cls="", # Additional classes
+    value=None, # Initial date value (YYYY-MM-DD format)
+    min=None, # Minimum selectable date (YYYY-MM-DD format)
+    max=None, # Maximum selectable date (YYYY-MM-DD format)
+    week_start=0, # First day of week (0 for Sunday, 1 for Monday, etc.)
+    multiple=False, # Allow multiple date selection
+    inline=False, # Display calendar inline instead of as a dropdown
+    **kwargs # Additional arguments passed to uk-calendar component
+)->FT:
+    "Creates a UIkit calendar component with common configuration options"
+    attrs = {
+        'value': value,
+        'min': min,
+        'max': max,
+        'week-start': week_start,
+        'multiple': multiple,
+        'inline': inline
+    }
+    # Only include non-None attributes
+    attrs = {k:v for k,v in attrs.items() if v is not None}
+    return fh.ft_html('uk-calendar', cls=stringify(cls), **{**attrs, **kwargs})
 
 # %% ../nbs/02_franken.ipynb
 franken_class_map = {

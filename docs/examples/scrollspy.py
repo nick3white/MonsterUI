@@ -82,21 +82,22 @@ def TeamCard(m,img_id=1):
 ################################
 
 scrollspy_links = (
-                Li(A("Welcome",      href="#welcome-section")),
-                Li(A("Products",     href="#products-section")),
-                Li(A("Testimonials", href="#testimonials-section")), 
-                Li(A("Team",         href="#team-section")),
-                Li(A("Code Example", href="#code-section")))
+                A("Welcome",      href="#welcome-section"),
+                A("Products",     href="#products-section"),
+                A("Testimonials", href="#testimonials-section"), 
+                A("Team",         href="#team-section"),
+                A("Code Example", href="#code-section"))
 @rt
 def index():
     def _Section(*c, **kwargs): return Section(*c, cls='space-y-3 my-48',**kwargs)
     return Container(
         NavBar(
-            nav_links=scrollspy_links,
-            title=DivLAligned(H3("Scrollspy Demo!"),UkIcon('rocket',height=30,width=30)),
-            sticky=True, uk_scrollspy_nav=True),
-        NavContainer(
             *scrollspy_links,
+            brand=DivLAligned(H3("Scrollspy Demo!"),UkIcon('rocket',height=30,width=30)),
+            sticky=True, uk_scrollspy_nav=True,
+            scrollspy_cls=ScrollspyT.bold),
+        NavContainer(
+            *map(Li, scrollspy_links),
             uk_scrollspy_nav=True,
             sticky=True,
             cls=(NavT.primary,'pt-20 px-5 pr-10')),

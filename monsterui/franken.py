@@ -1199,7 +1199,7 @@ def NavBar(*c, # Component for right side of navbar (Often A tag links)
            menu_id=None, # ID for menu container (used for mobile toggle)
            )->FT: # Responsive NavBar
     "Creates a responsive navigation bar with mobile menu support"
-    if menu_id is None: menu_id = unqid()
+    if menu_id is None: menu_id = fh.unqid()
     sticky_cls = 'sticky top-4 bg-base-100/80 backdrop-blur-sm z-50' if sticky else ''
     if uk_scrollspy_nav == True: uk_scrollspy_nav = 'closest: a; scroll: true'
 
@@ -1279,26 +1279,6 @@ def DropDownNavContainer(*li, # Components
                         )->FT: # DropDown nav container
     "A Nav that is part of a DropDown"
     return Div(cls = 'uk-drop uk-dropdown',uk_dropdown=uk_dropdown)(NavContainer(*li, cls=('uk-dropdown-nav',stringify(cls)), uk_nav=uk_nav, parent=parent, **kwargs))
-
-# %% ../nbs/02_franken.ipynb
-def NavBar(*c,
-           brand='', # Brand/logo component for left side
-           sticky:bool=False, # Whether to stick to the top of the page while scrolling
-           cls='p-4', # Classes for navbar
-           links_cls='[&>*]:mb-4 md:[&>*]:mb-0 md:[&>*]:mr-4',
-           menu_id='nav-menu', # ID for menu container (used for mobile toggle)
-           **kwargs): # Additional args for outer Div
-    "Creates a responsive navigation bar with mobile menu support"
-    menu_icon = UkIcon("menu", width=30, height=30, cls="md:hidden", hx_on_click=f"htmx.find('#{menu_id}').classList.toggle('hidden')")
-
-    _cls = 'sticky top-4 bg-base-100/80 backdrop-blur-sm z-50' if sticky else ''
-    
-    menu_button = UkIcon('menu', width=30, height=30, cls='md:hidden', hx_on_click=f"htmx.find('#{menu_id}').classList.toggle('hidden')")
-    
-    menu = Div(menu_button, DivHStacked(*c, cls=('hidden md:flex flex-col md:flex-row',stringify(links_cls)), id=menu_id),
-               cls='flex flex-col md:flex-row items-end md:items-center')
-    
-    return Div(DivFullySpaced(brand, menu) if brand else DivFullySpaced(menu), cls=(stringify(cls),_cls),**kwargs)
 
 # %% ../nbs/02_franken.ipynb
 def TabContainer(*li, # Components

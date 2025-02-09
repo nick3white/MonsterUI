@@ -77,7 +77,7 @@
 
 - `class TextT(Enum)`
     Text Styles from https://franken-ui.dev/docs/text
-    Members: paragraph, lead, meta, italic, gray, sm, default, lg, light, normal, medium, bold, lighter, bolder, capitalize, uppercase, lowercase, decoration_none, muted, primary, secondary, success, warning, error, info, left, right, center, justify, top, middle, bottom, baseline, truncate, break_, nowrap, underline, highlight
+    Members: paragraph, lead, meta, gray, italic, xs, sm, lg, xl, light, normal, medium, bold, extrabold, muted, primary, secondary, success, warning, error, info, left, right, center, justify, start, end, top, middle, bottom, truncate, break_, nowrap, underline, highlight
 
 
 - `class TextPresets(Enum)`
@@ -201,7 +201,7 @@
 
 - `class ButtonT(Enum)`
     Options for styling Buttons
-    Members: default, primary, secondary, danger, text, link, ghost
+    Members: default, ghost, primary, secondary, destructive, text, link, xs, sm, lg, xl, icon
 
 
 - `def Button(*c, **kwargs)`
@@ -262,9 +262,6 @@
 - `def Input(*c, **kwargs)`
     An Input with default styling
 
-- `def Select(*option, **kwargs)`
-    A Select with default styling, though often `UkSelect` is a better choice
-
 - `def Radio(*c, **kwargs)`
     A Radio with default styling
 
@@ -279,6 +276,12 @@
 
 - `def Switch(*c, **kwargs)`
     A Switch with default styling
+
+- `def Upload(*c, **kwargs)`
+    A file upload component with default styling
+
+- `def UploadZone(*c, **kwargs)`
+    A file drop zone component with default styling
 
 - `def FormLabel(*c, **kwargs)`
     A Label with default styling
@@ -299,9 +302,6 @@
 - `def LabelInput(label, lbl_cls, input_cls, cls, id, **kwargs)`
     A `FormLabel` and `Input` pair that provides default spacing and links/names them based on id
 
-- `def LabelRange(label, lbl_cls, input_cls, cls, id, **kwargs)`
-    A `FormLabel` and `Range` pair that provides default spacing and links/names them based on id
-
 - `def LabelRadio(label, lbl_cls, input_cls, container, cls, id, **kwargs)`
     A FormLabel and Radio pair that provides default spacing and links/names them based on id
 
@@ -312,13 +312,13 @@
     A FormLabel and Select pair that provides default spacing and links/names them based on id (usually UkLabelSelect is a better choice)
 
 - `def Options(*c)`
-    Helper function to wrap things into `Option`s for use in `UkSelect`
+    Helper function to wrap things into `Option`s for use in `Select`
 
-- `def UkSelect(*option, **kwargs)`
+- `def Select(*option, **kwargs)`
     Creates a select dropdown with uk styling and option for adding a search box
 
-- `def LabelUkSelect(*option, **kwargs)`
-    A FormLabel and Select pair that provides default spacing and links/names them based on id
+- `@delegates(GenericLabelInput, but=['input_fn', 'cls']) def LabelRange(label, lbl_cls, input_cls, cls, id, value, min, max, step, label_range, **kwargs)`
+    A FormLabel and Range pair that provides default spacing and links/names them based on id
 
 - `class AT(Enum)`
     Link styles from https://franken-ui.dev/docs/link
@@ -379,8 +379,11 @@
 - `def DiceBearAvatar(seed_name, h, w)`
     Creates an Avatar using https://dicebear.com/
 
+- `def Center(*c, **kwargs)`
+    Centers contents both vertically and horizontally by default
+
 - `class FlexT(Enum)`
-    Flexbox modifiers from UIkit
+    Flexbox modifiers using Tailwind CSS
     Members: block, inline, left, center, right, between, around, stretch, top, middle, bottom, row, row_reverse, column, column_reverse, nowrap, wrap, wrap_reverse
 
 
@@ -427,26 +430,12 @@
 - `def NavCloseLi(*c, **kwargs)`
     Creates a navigation list item with a close button
 
-- `def NavBarContainer(*navbarside, **kwargs)`
-    Create a NavBarContainer to put NavBar sides in
+- `class ScrollspyT(Enum)`
+    Members: underline, bold
 
-- `def NavBarLSide(*c, **kwargs)`
-    Creates a NavBar left side
 
-- `def NavBarRSide(*c, **kwargs)`
-    Creates a NavBar right side
-
-- `def NavBarCenter(*c, **kwargs)`
-    Creates a NavBar center
-
-- `def NavBarNav(*li, **kwargs)`
-    A Nav that is part of a NavBar that could go in a `NavBarLSide`, `NavBarRSide`, or `NavBarCenter`
-
-- `def NavBarSubtitle(title, subtitle, cls, subtitle_cls, **kwargs)`
-    Creates a NavBar subtitle
-
-- `def NavBarNavContainer(*li, **kwargs)`
-    Drop Down Nav
+- `def NavBar(*c)`
+    Creates a responsive navigation bar with mobile menu support
 
 - `def SliderContainer(*c, **kwargs)`
     Creates a slider container
@@ -510,4 +499,7 @@
 
 - `def get_franken_renderer(img_dir)`
     Create a renderer class with the specified img_dir
+
+- `def ThemePicker(color, radii, shadows, font, mode, cls)`
+    Theme picker component with configurable sections
 

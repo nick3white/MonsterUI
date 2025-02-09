@@ -6,10 +6,10 @@
     Selector to choose theme and get all headers needed for app.  Includes frankenui + tailwind + daisyui + highlight.js options
     Members: slate, stone, gray, neutral, red, rose, orange, green, blue, yellow, violet, zinc
 
-    - `headers(self, mode, daisy, highlightjs)`
+    - `headers(self, mode, daisy, highlightjs, katex)`
         Create frankenui and tailwind cdns
 
-    - `local_headers(self, mode, static_dir, daisy, highlightjs)`
+    - `local_headers(self, mode, static_dir, daisy, highlightjs, katex)`
         Create headers using local files downloaded from CDNs
 
 
@@ -793,8 +793,8 @@ def NewTicketModal():
                 LabelSelect(Options("Low", "Medium", "High"), label="Priority Level",  id="priority"),
                 LabelTextArea("Description", id="description", placeholder="Please provide detailed information about your issue"),
                 DivRAligned(
-                    Button("Cancel", cls=ButtonT.ghost, data_uk_toggle="target: #new-ticket"),
-                    Button(Loading(cls=LoadingT.spinner), "Submit Ticket", cls=ButtonT.primary, data_uk_toggle="target: #success-toast; target: #new-ticket")),
+                    Button("Cancel", cls=ButtonT.ghost, uk_toggle="target: #new-ticket"),
+                    Button(Loading(cls=LoadingT.spinner), "Submit Ticket", cls=ButtonT.primary, uk_toggle="target: #success-toast; target: #new-ticket")),
                 cls='space-y-8')),
             id="new-ticket")
 
@@ -816,7 +816,7 @@ def index():
         Section(
             DivFullySpaced(
                 H2("Active Tickets"),
-                Button(UkIcon("plus-circle", cls="mr-2"), "New Ticket", cls=ButtonT.primary, data_uk_toggle="target: #new-ticket"),
+                Button(UkIcon("plus-circle", cls="mr-2"), "New Ticket", cls=ButtonT.primary, uk_toggle="target: #new-ticket"),
                 cls='mb-8'),
             Grid(*[TicketCard(**ticket) for ticket in tickets], cols=1),
             cls="my-6"),
@@ -977,7 +977,7 @@ def playground_navbar():
     rnav = Div(
         UkSelect(*Options(*preset_options), name='preset', optgroup_label="Examples",
                  placeholder='Load a preset', searchable=True, cls='h-9 w-[200px] lg:w-[300px]'),
-        Button("Save",         cls=ButtonT.secondary, data_uk_toggle="#save"),save_modal,
+        Button("Save",         cls=ButtonT.secondary, uk_toggle="#save"),save_modal,
         Button("View Code",    cls=ButtonT.secondary),
         Button("Share",        cls=ButtonT.secondary),DropDownNavContainer(share_dd),
         Button(UkIcon(icon="ellipsis"), cls=ButtonT.secondary),
@@ -1083,7 +1083,7 @@ table_controls =(Input(cls='w-[250px]',placeholder='Filter task'),
      DropDownNavContainer(map(NavCloseLi,[A(DivFullySpaced(LAlignedCheckTxt(a['priority']), a['count']),cls=TextT.capitalize) for a in priority_dd])),
      Button("View"),
      DropDownNavContainer(map(NavCloseLi,[A(LAlignedCheckTxt(o)) for o in ['Title','Status','Priority']])),
-     Button('Create Task',cls=(ButtonT.primary, TextPresets.bold_sm), data_uk_toggle="target: #TaskForm"))
+     Button('Create Task',cls=(ButtonT.primary, TextPresets.bold_sm), uk_toggle="target: #TaskForm"))
 
 def task_dropdown():
     return Div(Button(UkIcon('ellipsis')),

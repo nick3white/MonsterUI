@@ -13,9 +13,9 @@ __all__ = ['franken_class_map', 'TextT', 'TextPresets', 'CodeSpan', 'CodeBlock',
            'ModalTitle', 'ModalCloseButton', 'Modal', 'PaddingT', 'PositionT', 'Placeholder', 'Progress', 'UkIcon',
            'UkIconLink', 'DiceBearAvatar', 'Center', 'FlexT', 'Grid', 'DivFullySpaced', 'DivCentered', 'DivLAligned',
            'DivRAligned', 'DivVStacked', 'DivHStacked', 'NavT', 'NavContainer', 'NavParentLi', 'NavDividerLi',
-           'NavHeaderLi', 'NavSubtitle', 'NavCloseLi', 'NavBar', 'SliderContainer', 'SliderItems', 'SliderNav',
-           'Slider', 'DropDownNavContainer', 'TabContainer', 'CardT', 'CardTitle', 'CardHeader', 'CardBody',
-           'CardFooter', 'CardContainer', 'Card', 'TableT', 'Table', 'Td', 'Th', 'Tbody', 'TableFromLists',
+           'NavHeaderLi', 'NavSubtitle', 'NavCloseLi', 'ScrollspyT', 'NavBar', 'SliderContainer', 'SliderItems',
+           'SliderNav', 'Slider', 'DropDownNavContainer', 'TabContainer', 'CardT', 'CardTitle', 'CardHeader',
+           'CardBody', 'CardFooter', 'CardContainer', 'Card', 'TableT', 'Table', 'Td', 'Th', 'Tbody', 'TableFromLists',
            'TableFromDicts', 'apply_classes', 'render_md', 'get_franken_renderer', 'ThemePicker']
 
 # %% ../nbs/02_franken.ipynb
@@ -1183,24 +1183,40 @@ def NavCloseLi(*c, # Components
     return fh.Li(*c, cls=('uk-drop-close', stringify(cls)),**kwargs)
 
 # %% ../nbs/02_franken.ipynb
-def NavBar(*c,
-           brand='', # Brand/logo component for left side
-           sticky:bool=False, # Whether to stick to the top of the page while scrolling
-           cls='p-4', # Classes for navbar
-           links_cls='[&>*]:mb-4 md:[&>*]:mb-0 md:[&>*]:mr-4',
-           menu_id='nav-menu', # ID for menu container (used for mobile toggle)
-           **kwargs): # Additional args for outer Div
-    "Creates a responsive navigation bar with mobile menu support"
-    menu_icon = UkIcon("menu", width=30, height=30, cls="md:hidden", hx_on_click=f"htmx.find('#{menu_id}').classList.toggle('hidden')")
+class ScrollspyT(VEnum):
+    underline = 'navbar-underline'
+    bold = 'navbar-bold'
 
-    _cls = 'sticky top-4 bg-base-100/80 backdrop-blur-sm z-50' if sticky else ''
-    
-    menu_button = UkIcon('menu', width=30, height=30, cls='md:hidden', hx_on_click=f"htmx.find('#{menu_id}').classList.toggle('hidden')")
-    
-    menu = Div(menu_button, DivHStacked(*c, cls=('hidden md:flex flex-col md:flex-row',stringify(links_cls)), id=menu_id),
-               cls='flex flex-col md:flex-row items-end md:items-center')
-    
-    return Div(DivFullySpaced(brand, menu) if brand else DivFullySpaced(menu), cls=(stringify(cls),_cls),**kwargs)
+# %% ../nbs/02_franken.ipynb
+def NavBar(*c, # Component for right side of navbar (Often A tag links)
+           brand=H3("Title"), # Brand/logo component for left side
+           right_cls='space-x-4', # Spacing for desktop links
+           mobile_cls='space-y-4', # Spacing for mobile links
+           sticky:bool=False, # Whether to stick to the top of the page while scrolling
+           uk_scrollspy_nav:bool|str=False, # Whether to use scrollspy for navigation
+           cls='p-4', # Classes for navbar
+           scrollspy_cls=ScrollspyT.underline, # Scrollspy class (usually ScrollspyT.*)
+           menu_id=None, # ID for menu container (used for mobile toggle)
+           )->FT: # Responsive NavBar
+    "Creates a responsive navigation bar with mobile menu support"
+    if menu_id is None: menu_id = unqid()
+    sticky_cls = 'sticky top-4 bg-base-100/80 backdrop-blur-sm z-50' if sticky else ''
+    if uk_scrollspy_nav == True: uk_scrollspy_nav = 'closest: a; scroll: true'
+
+    mobile_icon = A(UkIcon("menu", width=30, height=30), cls="md:hidden", data_uk_toggle=f"target: #{menu_id}; cls: hidden")
+    return Div(
+        Div(
+            DivFullySpaced(
+                brand, # Brand/logo component for left side
+                mobile_icon, # Hamburger menu icon
+                Div(*c,cls=(stringify(right_cls),'hidden md:flex'), uk_scrollspy_nav=uk_scrollspy_nav)),# Desktop Navbar (right side)
+            cls=('monster-navbar', stringify(cls), stringify(scrollspy_cls))
+            ),
+        DivCentered(*c, 
+                    cls=(stringify(mobile_cls),stringify(cls), stringify(scrollspy_cls),
+                         'hidden md:hidden monster-navbar'), 
+                    id=menu_id, uk_scrollspy_nav=uk_scrollspy_nav),
+        cls=sticky_cls)
 
 # %% ../nbs/02_franken.ipynb
 def SliderContainer(

@@ -8,7 +8,7 @@
 
 - Migrated to use FrankenUI version 2.0 version
 
-- Brand new simplified NavBar api, including enhanced sticky and scrollspy options
+- Brand new simplified NavBar api, including enhanced sticky and scrollspy options, thanks to [@ohmeow](https://github.com/ohmeow) and [@curtis-allan](https://github.com/curtis-allan)
 
 - Latex rendering enabled via katex ([#58](https://github.com/AnswerDotAI/MonsterUI/pull/58)), thanks to [@algal](https://github.com/algal)
 

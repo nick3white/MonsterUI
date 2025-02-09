@@ -77,7 +77,7 @@
 
 - `class TextT(Enum)`
     Text Styles from https://franken-ui.dev/docs/text
-    Members: paragraph, lead, meta, italic, gray, sm, default, lg, light, normal, medium, bold, lighter, bolder, capitalize, uppercase, lowercase, decoration_none, muted, primary, secondary, success, warning, error, info, left, right, center, justify, top, middle, bottom, baseline, truncate, break_, nowrap, underline, highlight
+    Members: paragraph, lead, meta, gray, italic, xs, sm, lg, xl, light, normal, medium, bold, extrabold, muted, primary, secondary, success, warning, error, info, left, right, center, justify, start, end, top, middle, bottom, truncate, break_, nowrap, underline, highlight
 
 
 - `class TextPresets(Enum)`
@@ -201,7 +201,7 @@
 
 - `class ButtonT(Enum)`
     Options for styling Buttons
-    Members: default, primary, secondary, danger, text, link, ghost
+    Members: default, ghost, primary, secondary, destructive, text, link, xs, sm, lg, xl, icon
 
 
 - `def Button(*c, **kwargs)`
@@ -262,9 +262,6 @@
 - `def Input(*c, **kwargs)`
     An Input with default styling
 
-- `def Select(*option, **kwargs)`
-    A Select with default styling, though often `UkSelect` is a better choice
-
 - `def Radio(*c, **kwargs)`
     A Radio with default styling
 
@@ -279,6 +276,12 @@
 
 - `def Switch(*c, **kwargs)`
     A Switch with default styling
+
+- `def Upload(*c, **kwargs)`
+    A file upload component with default styling
+
+- `def UploadZone(*c, **kwargs)`
+    A file drop zone component with default styling
 
 - `def FormLabel(*c, **kwargs)`
     A Label with default styling
@@ -299,9 +302,6 @@
 - `def LabelInput(label, lbl_cls, input_cls, cls, id, **kwargs)`
     A `FormLabel` and `Input` pair that provides default spacing and links/names them based on id
 
-- `def LabelRange(label, lbl_cls, input_cls, cls, id, **kwargs)`
-    A `FormLabel` and `Range` pair that provides default spacing and links/names them based on id
-
 - `def LabelRadio(label, lbl_cls, input_cls, container, cls, id, **kwargs)`
     A FormLabel and Radio pair that provides default spacing and links/names them based on id
 
@@ -312,13 +312,13 @@
     A FormLabel and Select pair that provides default spacing and links/names them based on id (usually UkLabelSelect is a better choice)
 
 - `def Options(*c)`
-    Helper function to wrap things into `Option`s for use in `UkSelect`
+    Helper function to wrap things into `Option`s for use in `Select`
 
-- `def UkSelect(*option, **kwargs)`
+- `def Select(*option, **kwargs)`
     Creates a select dropdown with uk styling and option for adding a search box
 
-- `def LabelUkSelect(*option, **kwargs)`
-    A FormLabel and Select pair that provides default spacing and links/names them based on id
+- `@delegates(GenericLabelInput, but=['input_fn', 'cls']) def LabelRange(label, lbl_cls, input_cls, cls, id, value, min, max, step, label_range, **kwargs)`
+    A FormLabel and Range pair that provides default spacing and links/names them based on id
 
 - `class AT(Enum)`
     Link styles from https://franken-ui.dev/docs/link
@@ -379,8 +379,11 @@
 - `def DiceBearAvatar(seed_name, h, w)`
     Creates an Avatar using https://dicebear.com/
 
+- `def Center(*c, **kwargs)`
+    Centers contents both vertically and horizontally by default
+
 - `class FlexT(Enum)`
-    Flexbox modifiers from UIkit
+    Flexbox modifiers using Tailwind CSS
     Members: block, inline, left, center, right, between, around, stretch, top, middle, bottom, row, row_reverse, column, column_reverse, nowrap, wrap, wrap_reverse
 
 
@@ -427,26 +430,12 @@
 - `def NavCloseLi(*c, **kwargs)`
     Creates a navigation list item with a close button
 
-- `def NavBarContainer(*navbarside, **kwargs)`
-    Create a NavBarContainer to put NavBar sides in
+- `class ScrollspyT(Enum)`
+    Members: underline, bold
 
-- `def NavBarLSide(*c, **kwargs)`
-    Creates a NavBar left side
 
-- `def NavBarRSide(*c, **kwargs)`
-    Creates a NavBar right side
-
-- `def NavBarCenter(*c, **kwargs)`
-    Creates a NavBar center
-
-- `def NavBarNav(*li, **kwargs)`
-    A Nav that is part of a NavBar that could go in a `NavBarLSide`, `NavBarRSide`, or `NavBarCenter`
-
-- `def NavBarSubtitle(title, subtitle, cls, subtitle_cls, **kwargs)`
-    Creates a NavBar subtitle
-
-- `def NavBarNavContainer(*li, **kwargs)`
-    Drop Down Nav
+- `def NavBar(*c)`
+    Creates a responsive navigation bar with mobile menu support
 
 - `def SliderContainer(*c, **kwargs)`
     Creates a slider container
@@ -510,6 +499,9 @@
 
 - `def get_franken_renderer(img_dir)`
     Create a renderer class with the specified img_dir
+
+- `def ThemePicker(color, radii, shadows, font, mode, cls)`
+    Theme picker component with configurable sections
 </doc></api reference><examples><doc title="Scrollspy" desc="MonsterUI Scrollspy Example application">"MonsterUI Scrollspy Example application" 
 
 from fasthtml.common import *
@@ -564,23 +556,29 @@ team = [
 ]
 
 
-def ProductCard(p):
+def ProductCard(p,img_id=1):
     return Card(
-        PicSumImg(w=500, height=100, id=random.randint(1, 20)),
+        PicSumImg(w=500, height=100, id=img_id),
         DivFullySpaced(H4(p["name"]), P(Strong(p["price"], cls=TextT.sm))), 
         Button("Details", cls=(ButtonT.primary, "w-full")))
 
-def TestimonialCard(t):
+def TestimonialCard(t,img_id=1):
     return Card(
-        DivLAligned(PicSumImg(w=50, h=50, cls='rounded-full', id=random.randint(1, 20)), H4(t["name"])), 
+        DivLAligned(PicSumImg(w=50, h=50, cls='rounded-full', id=img_id), H4(t["name"])), 
         P(Q((t["feedback"]))))
 
 
-def TeamCard(m): 
+def TeamCard(m,img_id=1): 
     return Card(
         DivLAligned(
-            PicSumImg(w=50, h=50, cls='rounded-full', id=random.randint(1, 20)), 
+            PicSumImg(w=50, h=50, cls='rounded-full', id=img_id), 
             Div(H4(m["name"]), P(m["role"]))),
+        DivRAligned(
+            UkIcon('twitter', cls='w-5 h-5'), 
+            UkIcon('linkedin', cls='w-5 h-5'),
+            UkIcon('github', cls='w-5 h-5'),
+            cls=TextT.gray+'space-x-2'
+        ),
         cls='p-3')
 
 ################################
@@ -588,21 +586,22 @@ def TeamCard(m):
 ################################
 
 scrollspy_links = (
-                Li(A("Welcome",      href="#welcome-section")),
-                Li(A("Products",     href="#products-section")),
-                Li(A("Testimonials", href="#testimonials-section")), 
-                Li(A("Team",         href="#team-section")),
-                Li(A("Code Example", href="#code-section")))
+                A("Welcome",      href="#welcome-section"),
+                A("Products",     href="#products-section"),
+                A("Testimonials", href="#testimonials-section"), 
+                A("Team",         href="#team-section"),
+                A("Code Example", href="#code-section"))
 @rt
 def index():
-    def _Section(*c, **kwargs): return Section(*c, cls='space-y-3', **kwargs)
+    def _Section(*c, **kwargs): return Section(*c, cls='space-y-3 my-48',**kwargs)
     return Container(
         NavBar(
-            nav_links=scrollspy_links,
-            title=DivLAligned(H3("Scrollspy Demo!"),UkIcon('rocket',height=30,width=30)),
-            sticky=True, uk_scrollspy_nav=True),
-        NavContainer(
             *scrollspy_links,
+            brand=DivLAligned(H3("Scrollspy Demo!"),UkIcon('rocket',height=30,width=30)),
+            sticky=True, uk_scrollspy_nav=True,
+            scrollspy_cls=ScrollspyT.bold),
+        NavContainer(
+            *map(Li, scrollspy_links),
             uk_scrollspy_nav=True,
             sticky=True,
             cls=(NavT.primary,'pt-20 px-5 pr-10')),
@@ -614,13 +613,13 @@ def index():
                 Subtitle("Explore our products and enjoy dynamic code examples."), 
                 id="welcome-section"),
             _Section(H2("Products"),
-                     Grid(*[ProductCard(p) for p in products], cols_lg=2),                   
+                     Grid(*[ProductCard(p,img_id=i) for i,p in enumerate(products)], cols_lg=2),                   
                      id="products-section"),
             _Section(H2("Testimonials"), 
-                     Slider(*[TestimonialCard(t) for t in testimonials]),       
+                     Slider(*[TestimonialCard(t,img_id=i) for i,t in enumerate(testimonials)]),       
                      id="testimonials-section"),
             _Section(H2("Our Team"), 
-                     Grid(*[TeamCard(m) for m in team], cols_lg=2, cols_max=3),                          
+                     Grid(*[TeamCard(m,img_id=i) for i,m in enumerate(team)], cols_lg=2, cols_max=3),                          
                      id="team-section"),
             _Section(H2("Code Example"), 
                      CodeBlock(code_example, lang="python"),                             
@@ -696,7 +695,7 @@ teams = [["Alicia Koch"],['Acme Inc', 'Monster Inc.'],['Create a Team']]
 
 opt_hdrs = ["Personal", "Team", ""]
 
-team_dropdown = UkSelect(
+team_dropdown = Select(
     Optgroup(Option(A("Alicia Koch")), label="Personal Account"),
     Optgroup(Option(A("Acme Inc")), Option(A("Monster Inc.")), label="Teams"),
     Option(A("Create a Team")),
@@ -713,8 +712,8 @@ avatar_dropdown = Div(
           *[NavSpacedLi(*hk) for hk in hotkeys],))
 
 top_nav = NavBar(
-    nav_links=Div(team_dropdown, *map(lambda x: Li(A(x)), ["Overview", "Customers", "Products", "Settings"])),
-    title=DivLAligned(avatar_dropdown, Input(placeholder='Search')))
+    team_dropdown, *map(A, ["Overview", "Customers", "Products", "Settings"]),
+    brand=DivLAligned(avatar_dropdown, Input(placeholder='Search')))
 
 @rt
 def index():
@@ -727,9 +726,9 @@ def index():
             alt=True),
         top_info_row,
         Grid(
-            Card(Safe(generate_chart(100)),cls='col-span-4'),
+            Card(Safe(generate_chart(100)), cls='col-span-4'),
             recent_sales,
-            gap=4,cols=7),
+            gap=4,cols_xl=7,cols_lg=7,cols_md=1,cols_sm=1,cols_xs=1),
         cls=('space-y-4', ContainerT.xl))
 
 serve()</doc><doc title="Ticket" desc="MonsterUI Help Desk Example - Professional Dashboard with DaisyUI components">"""MonsterUI Help Desk Example - Professional Dashboard with DaisyUI components"""
@@ -793,8 +792,8 @@ def NewTicketModal():
                 LabelSelect(Options("Low", "Medium", "High"), label="Priority Level",  id="priority"),
                 LabelTextArea("Description", id="description", placeholder="Please provide detailed information about your issue"),
                 DivRAligned(
-                    Button("Cancel", cls=ButtonT.ghost, uk_toggle="target: #new-ticket"),
-                    Button(Loading(cls=LoadingT.spinner), "Submit Ticket", cls=ButtonT.primary, uk_toggle="target: #success-toast; target: #new-ticket")),
+                    Button("Cancel", cls=ButtonT.ghost, data_uk_toggle="target: #new-ticket"),
+                    Button(Loading(cls=LoadingT.spinner), "Submit Ticket", cls=ButtonT.primary, data_uk_toggle="target: #success-toast; target: #new-ticket")),
                 cls='space-y-8')),
             id="new-ticket")
 
@@ -816,7 +815,7 @@ def index():
         Section(
             DivFullySpaced(
                 H2("Active Tickets"),
-                Button(UkIcon("plus-circle", cls="mr-2"), "New Ticket", cls=ButtonT.primary, uk_toggle="target: #new-ticket"),
+                Button(UkIcon("plus-circle", cls="mr-2"), "New Ticket", cls=ButtonT.primary, data_uk_toggle="target: #new-ticket"),
                 cls='mb-8'),
             Grid(*[TicketCard(**ticket) for ticket in tickets], cols=1),
             cls="my-6"),
@@ -861,22 +860,36 @@ edit_actions = [("Undo",         "⌘Z"),
 
 view_dd_data = ["Show Playing Next", "Show Lyrics", "Show Status Bar", "Hide Sidebar", "Enter Full Screen"]
 
-music_headers = NavBarContainer(
-            NavBarLSide(
-                NavBarNav(
-                Li(A("Music"),NavBarNavContainer(map(lambda x: MusicLi(*x), music_items))),
-                Li(A("File"), NavBarNavContainer(map(lambda x: MusicLi(*x), file_dd_items))),
-                Li(A("Edit")),
-                    NavBarNavContainer(
-                        *map(lambda x: MusicLi(*x), edit_actions),
-                        Li(A(DivFullySpaced("Smart Dictation",UkIcon("mic")))),
-                        Li(A(DivFullySpaced("Emojis & Symbols",UkIcon("globe"))))),
-                Li(A("View"),
-                NavBarNavContainer(map(lambda x: MusicLi(x), view_dd_data))),
-                Li(A("Account"),
-                    NavBarNavContainer(
-                        NavHeaderLi("Switch Account"),
-                        *map(MusicLi, ("Andy", "Benoit", "Luis", "Manage Family", "Add Account")))))))
+
+music_headers = NavBar(
+    Button("Music", cls=ButtonT.ghost+TextT.gray),DropDownNavContainer(Li(A("Music"),NavContainer(map(lambda x: MusicLi(*x), music_items)))),
+    Button("File", cls=ButtonT.ghost+TextT.gray), DropDownNavContainer(Li(A("File"), NavContainer(map(lambda x: MusicLi(*x), file_dd_items)))),
+    Button("Edit", cls=ButtonT.ghost+TextT.gray), DropDownNavContainer(Li(A("Edit")),NavContainer(
+            *map(lambda x: MusicLi(*x), edit_actions),
+            Li(A(DivFullySpaced("Smart Dictation",UkIcon("mic")))),
+            Li(A(DivFullySpaced("Emojis & Symbols",UkIcon("globe")))))),
+    Button("View", cls=ButtonT.ghost+TextT.gray),DropDownNavContainer(Li(A("View"),NavContainer(map(lambda x: MusicLi(x), view_dd_data)))),
+    )
+    
+
+
+
+# music_headers = NavBarContainer(
+#             NavBarLSide(
+#                 NavBarNav(
+#                 Li(A("Music"),NavBarNavContainer(map(lambda x: MusicLi(*x), music_items))),
+#                 Li(A("File"), NavBarNavContainer(map(lambda x: MusicLi(*x), file_dd_items))),
+#                 Li(A("Edit")),
+#                     NavBarNavContainer(
+#                         *map(lambda x: MusicLi(*x), edit_actions),
+#                         Li(A(DivFullySpaced("Smart Dictation",UkIcon("mic")))),
+#                         Li(A(DivFullySpaced("Emojis & Symbols",UkIcon("globe"))))),
+#                 Li(A("View"),
+#                 NavBarNavContainer(map(lambda x: MusicLi(x), view_dd_data))),
+#                 Li(A("Account"),
+#                     NavBarNavContainer(
+#                         NavHeaderLi("Switch Account"),
+#                         *map(MusicLi, ("Andy", "Benoit", "Luis", "Manage Family", "Add Account")))))))
 
 
 def Album(title,artist):
@@ -974,10 +987,10 @@ def playground_navbar():
         Div(Input(value="https://platform.openai.com/playground/p/7bbKYQvsVkNmVb8NGcdUOLae?model=text-davinci-003", readonly=True),
             Button(UkIcon('copy'), cls=(ButtonT.primary, "uk-drop-close",'mt-4'))))
 
-    rnav = Div(
-        UkSelect(*Options(*preset_options), name='preset', optgroup_label="Examples",
+    rnav = (
+        Select(*Options(*preset_options), name='preset', optgroup_label="Examples",
                  placeholder='Load a preset', searchable=True, cls='h-9 w-[200px] lg:w-[300px]'),
-        Button("Save",         cls=ButtonT.secondary, uk_toggle="#save"),save_modal,
+        Button("Save",         cls=ButtonT.secondary, data_uk_toggle="#save"),save_modal,
         Button("View Code",    cls=ButtonT.secondary),
         Button("Share",        cls=ButtonT.secondary),DropDownNavContainer(share_dd),
         Button(UkIcon(icon="ellipsis"), cls=ButtonT.secondary),
@@ -987,17 +1000,17 @@ def playground_navbar():
             Li(A("Delete preset", cls="text-destructive")),
         uk_dropdown="mode: click"))
     
-    return NavBar(title=H4('Playground'),nav_links=rnav)
+    return NavBar(*rnav, brand=H4('Playground'))
 
 rsidebar = NavContainer(
-    UkSelect(
+    Select(
         Optgroup(map(Option,("text-davinci-003", "text-curie-001", "text-babbage-001", "text-ada-001")),label='GPT-3'),
         Optgroup(map(Option,("code-davinci-002", "code-cushman-001")),label='Codex'),
         label="Model",
         searchable=True),
-    LabelRange(label='Temperature'),
-    LabelRange(label='Maximum Length'),
-    LabelRange(label='Top P'),
+    LabelRange(label='Temperature', value='12'),
+    LabelRange(label='Maximum Length', value='80'),
+    LabelRange(label='Top P', value='40'),
     cls='space-y-6 mt-8')
 
 @rt
@@ -1078,12 +1091,12 @@ page_heading = DivFullySpaced(cls='space-y-2')(
 
 table_controls =(Input(cls='w-[250px]',placeholder='Filter task'),
      Button("Status"),
-     DropDownNavContainer(map(NavCloseLi,[A(DivFullySpaced(P(a['status']), P(a['count'])),cls=TextT.capitalize) for a in status_dd])), 
+     DropDownNavContainer(map(NavCloseLi,[A(DivFullySpaced(P(a['status']), P(a['count'])),cls='capitalize') for a in status_dd])), 
      Button("Priority"),
-     DropDownNavContainer(map(NavCloseLi,[A(DivFullySpaced(LAlignedCheckTxt(a['priority']), a['count']),cls=TextT.capitalize) for a in priority_dd])),
+     DropDownNavContainer(map(NavCloseLi,[A(DivFullySpaced(LAlignedCheckTxt(a['priority']), a['count']),cls='capitalize') for a in priority_dd])),
      Button("View"),
      DropDownNavContainer(map(NavCloseLi,[A(LAlignedCheckTxt(o)) for o in ['Title','Status','Priority']])),
-     Button('Create Task',cls=(ButtonT.primary, TextPresets.bold_sm), uk_toggle="target: #TaskForm"))
+     Button('Create Task',cls=(ButtonT.primary, TextPresets.bold_sm), data_uk_toggle="target: #TaskForm"))
 
 def task_dropdown():
     return Div(Button(UkIcon('ellipsis')),
@@ -1103,7 +1116,7 @@ def cell_render(col, val):
         case "Done": return _Td(shrink=True)(CheckboxX(selected=val))
         case "Task":  return _Td(val, cls='uk-visible@s')  # Hide on small screens
         case "Title": return _Td(val, cls='font-medium', expand=True)
-        case "Status" | "Priority": return _Td(cls='uk-visible@m uk-text-nowrap uk-text-capitalize')(Span(val))
+        case "Status" | "Priority": return _Td(cls='uk-visible@m uk-text-nowrap capitalize')(Span(val))
         case "Actions": return _Td(task_dropdown(), shrink=True)
         case _: raise ValueError(f"Unknown column: {col}")
 
@@ -1163,16 +1176,16 @@ PaymentMethod = Card(
          Button(DivCentered(AppleSvg,  "Apple"),  cls='h-20')),
     Form(LabelInput('Name',        id='name',        placeholder='John Doe'),
          LabelInput('Card Number', id='card_number', placeholder='m@example.com'),
-         Grid(LabelUkSelect(*Options(*calendar.month_name[1:],selected_idx=0),label='Expires',id='expire_month'),
-              LabelUkSelect(*Options(*range(2024,2030),selected_idx=0),       label='Year',   id='expire_year'),
+         Grid(LabelSelect(*Options(*calendar.month_name[1:],selected_idx=0),label='Expires',id='expire_month'),
+              LabelSelect(*Options(*range(2024,2030),selected_idx=0),       label='Year',   id='expire_year'),
               LabelInput('CVV', id='cvv',placeholder='CVV', cls='mt-0'))),
         header=(H3('Payment Method'),Subtitle('Add a new payment method to your account.')))
 
 area_opts = ('Team','Billing','Account','Deployment','Support')
 severity_opts = ('Severity 1 (Highest)', 'Severity 2', 'Severity 3', 'Severity 4 (Lowest)')
 ReportIssue = Card(
-    Grid(Div(LabelUkSelect(*Options(*area_opts),    label='Area',    id='area')),
-         Div(LabelUkSelect(*Options(*severity_opts),label='Severity',id='area'))),
+    Grid(Div(LabelSelect(*Options(*area_opts),    label='Area',    id='area')),
+         Div(LabelSelect(*Options(*severity_opts),label='Severity',id='area'))),
     LabelInput(    label='Subject',     id='subject',    placeholder='I need help with'),
     LabelTextArea( label='Description', id='description',placeholder='Please include all information relevant to your issue'),
     Div(FormLabel('Tags', fr='#tags'),
@@ -1229,7 +1242,7 @@ def TeamMemberRow(name, email, role):
         DivLAligned(DiceBearAvatar(name, 10,10),
                     Div(P(name, cls=(TextT.sm, TextT.medium)),
                         P(email, cls=TextPresets.muted_sm))),
-        UkSelect(*Options(*access_roles, selected_idx=access_roles.index(role))))
+        Select(*Options(*access_roles, selected_idx=access_roles.index(role))))
 
 ShareDocument = Card(
     DivLAligned(Input(value='http://example.com/link/to/document'),Button('Copy link', cls='whitespace-nowrap')),
@@ -1293,7 +1306,7 @@ def MailSbLi(icon, title, cnt):
 
 sidebar = NavContainer(
     NavHeaderLi(H3("Email"), cls='p-3'),
-    Li(UkSelect(map(Option, ('alicia@example.com','alicia@gmail.com', 'alicia@yahoo.com')))),
+    Li(Select(map(Option, ('alicia@example.com','alicia@gmail.com', 'alicia@yahoo.com')))),
     *[MailSbLi(i, t, c) for i, t, c in sidebar_group1],
     Li(Hr()),
     *[MailSbLi(i, t, c) for i, t, c in sidebar_group2],
@@ -1348,12 +1361,12 @@ def MailDetailView(mail):
     return Container(
             DivFullySpaced(
                 DivLAligned(
-                    IconNav(*IconNavItem(*top_icons)),
-                    IconNav(Li(A(UkIcon('clock'), uk_tooltip='Snooze')), cls='pl-2'),
+                    DivLAligned(*[UkIcon(o[0],uk_tooltip=o[1]) for o in top_icons]),  
+                    Div(UkIcon('clock', uk_tooltip='Snooze'), cls='pl-2'),
                     cls='space-x-2 divide-x divide-border'),
-                IconNav(
-                    *IconNavItem(*reply_icons),
-                    Li(A(UkIcon('ellipsis-vertical',button=True))),
+                DivLAligned(
+                    *[UkIcon(o[0],uk_tooltip=o[1]) for o in reply_icons],
+                    Div(UkIcon('ellipsis-vertical',button=True)),
                     DropDownNavContainer(*map(lambda x: Li(A(x)), dropdown_items)))),
             DivLAligned(
                 Span(mail['name'][:2], cls='flex h-10 w-10 items-center justify-center rounded-full bg-muted'),
@@ -1415,8 +1428,9 @@ def profile_form():
             LabelInput("Username", placeholder='sveltecult', id='username'),
             HelpText("This is your public display name. It can be your real name or a pseudonym. You can only change this once every 30 days.")),
         FormSectionDiv(
-            LabelUkSelect(Option("Select a verified email to display", value="", selected=True, disabled=True),
-                     *map(Option,('m@example.com', 'm@yahoo.com', 'm@cloud.com')),  
+            LabelSelect(
+                      Option("Select a verified email to display", value="", selected=True, disabled=True),
+                     *[Option(o, value=o) for o in ('m@example.com', 'm@yahoo.com', 'm@cloud.com')],  
                      label="Email", id="email"),
             HelpText("You can manage verified email addresses in your email settings.")),
         FormSectionDiv(
@@ -1442,7 +1456,7 @@ def account_form():
             LabelInput("Date of Birth", type="date", placeholder="Pick a date", id="date_of_birth"),
             HelpText("Your date of birth is used to calculate your age.")),
         FormSectionDiv(
-            LabelUkSelect(*Options("Select a language", "English", "French", "German", "Spanish", "Portuguese", selected_idx=1, disabled_idxs={0}),
+            LabelSelect(*Options("Select a language", "English", "French", "German", "Spanish", "Portuguese", selected_idx=1, disabled_idxs={0}),
                           label='Language', id="language"),
             HelpText("This is the language that will be used in the dashboard.")),
         Button('Update profile', cls=ButtonT.primary))
@@ -1467,7 +1481,7 @@ def appearance_form():
 
     content = (
         FormSectionDiv(
-            LabelUkSelect(*Options('Select a font family', 'Inter', 'Geist', 'Open Sans', selected_idx=2, disabled_idxs={0}),
+            LabelSelect(*Options('Select a font family', 'Inter', 'Geist', 'Open Sans', selected_idx=2, disabled_idxs={0}),
             label='Font Family', id='font_family'), 
             HelpText("Set the font you want to use in the dashboard.")),
         FormSectionDiv(
@@ -1541,7 +1555,7 @@ app, rt = fast_app(hdrs=Theme.blue.headers())
 @rt
 def index():    
     left = Div(cls="col-span-1 hidden flex-col justify-between bg-zinc-900 p-8 text-white lg:flex")(
-        Div(cls=(TextT.bold,TextT.default))("Acme Inc"),
+        Div(cls=(TextT.bold))("Acme Inc"),
         Blockquote(cls="space-y-2")(
             P(cls=TextT.lg)('"This library has saved me countless hours of work and helped me deliver stunning designs to my clients faster than ever before."'),
             Footer(cls=TextT.sm)("Sofia Davis")))

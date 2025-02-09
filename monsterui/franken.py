@@ -1190,7 +1190,7 @@ class ScrollspyT(VEnum):
 # %% ../nbs/02_franken.ipynb
 def NavBar(*c, # Component for right side of navbar (Often A tag links)
            brand=H3("Title"), # Brand/logo component for left side
-           right_cls='space-x-4', # Spacing for desktop links
+           right_cls='items-center space-x-4', # Spacing for desktop links
            mobile_cls='space-y-4', # Spacing for mobile links
            sticky:bool=False, # Whether to stick to the top of the page while scrolling
            uk_scrollspy_nav:bool|str=False, # Whether to use scrollspy for navigation

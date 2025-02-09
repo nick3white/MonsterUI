@@ -140,7 +140,7 @@ def ex_buttons():
         Button("Default"),
         Button("Primary",   cls=ButtonT.primary),
         Button("Secondary", cls=ButtonT.secondary),
-        Button("Danger",    cls=ButtonT.danger),
+        Button("Danger",    cls=ButtonT.destructive),
         Button("Text",      cls=ButtonT.text),
         Button("Link",      cls=ButtonT.link),
         Button("Ghost",     cls=ButtonT.ghost),
@@ -168,8 +168,7 @@ docs_button_link = create_doc_section(
 # Theme
 
 def ex_theme_switcher():
-    from fasthtml.components import Uk_theme_switcher
-    return Uk_theme_switcher()
+    return ThemePicker()
 
 docs_theme_headers = create_doc_section( 
     H1("Theme and Headers API Reference"),
@@ -184,6 +183,7 @@ docs_theme_headers = create_doc_section(
     Card(Grid(map(P,Theme)),cls='mb-8'),
     H3("Theme Picker", id='theme'),
     fn2code_string(ex_theme_switcher),
+    ThemePicker,
     "Themes are controlled with `bg-background text-foreground` classes on the `Body` tag.  `fast_app` and `FastHTML` will do this for you automatically so you typically do not have to do anything",
     fast_app,
     FastHTML,
@@ -346,7 +346,7 @@ docs_notifications = create_doc_section(
 def ex_articles():
     return Article(
         ArticleTitle("Sample Article Title"), 
-        ArticleMeta("By: John Doe"),
+        Subtitle("By: John Doe"),
         P('lorem ipsum dolor sit amet consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'))
 
 def ex_containers():
@@ -438,8 +438,8 @@ docs_cards = create_doc_section(
     H1("Cards API Reference"),
     H3("Example Usage"),
     fn2code_string(ex_card),
-    (*fn2code_string(ex_card2_wide),'uk-visible@s'),
-    (*fn2code_string(ex_card2_tall),'uk-hidden@s'),
+    (*fn2code_string(ex_card2_wide),'sm:block'),
+    (*fn2code_string(ex_card2_tall),'sm:hidden'),
     fn2code_string(ex_card3),
     H3("API Reference"),
     Card,
@@ -484,7 +484,12 @@ def ex_checkbox():
 def ex_range(): 
     return Div(
         Range(), 
-        LabelRange(label="Range", id='range1'))
+        Range(label='kg', value="25,75", min=20, max=75),
+        LabelRange('Basic Range', value='50', min=0, max=100, step=1),
+        LabelRange('Range with Label', value='75', min=0, max=100, step=5, label_range=True),
+        LabelRange('Multiple Values', value='25,75', min=0, max=100, step=5, label_range=True),
+        LabelRange('Custom Range', value='500', min=0, max=1000, step=100, label_range=True)        
+        )
 
 def ex_switch(): 
     return Div(
@@ -501,10 +506,10 @@ def ex_radio():
         Radio(name="radio-group", id="radio1"), 
         LabelRadio(label="Radio", id='radio1',cls='flex items-center space-x-4'))
 
-def ex_ukselect(): 
+def ex_Select(): 
     return Div(
-        UkSelect(map(Option, ["Option 1", "Option 2", "Option 3"])),
-        LabelUkSelect(map(Option, ["Option 1", "Option 2", "Option 3"]), label="UkSelect", id='myid'))
+        Select(map(Option, ["Option 1", "Option 2", "Option 3"])),
+        LabelSelect(map(Option, ["Option 1", "Option 2", "Option 3"]), label="Select", id='myid'))
 
 def ex_select(): 
     return Div(
@@ -531,6 +536,11 @@ def ex_form():
             LabelInput("Zip",            id='zp'),
             DivCentered(Button("Submit Form", cls=ButtonT.primary))))
 
+def ex_upload():
+    return Div(Upload("Upload Button!", id='upload1'),
+               UploadZone(DivCentered(Span("Upload Zone"), UkIcon("upload")), id='upload2'),
+               cls='space-y-4')
+
 docs_forms = create_doc_section(
     H1("Forms and User Inputs API Reference"),
     H3("Example Form"),
@@ -538,6 +548,7 @@ docs_forms = create_doc_section(
           A("here",href="https://www.loom.com/share/0916e8a95d524c43a4d100ee85157624?start_and_pause=1", 
             cls=AT.muted), cls=TextPresets.muted_sm),
     fn2code_string(ex_form),
+    fn2code_string(ex_upload),
     FormLabel,
     fn2code_string(ex_formlabel),
     Input,
@@ -549,7 +560,7 @@ docs_forms = create_doc_section(
     LabelTextArea,
     LabelRadio,
     LabelSelect,
-    LabelUkSelect,
+    LabelSelect,
     Progress,
     fn2code_string(ex_progress),
     Radio,
@@ -564,8 +575,8 @@ docs_forms = create_doc_section(
     fn2code_string(ex_textarea),
     Select,
     fn2code_string(ex_select),
-    UkSelect,
-    fn2code_string(ex_ukselect),
+    Select,
+    fn2code_string(ex_Select),
     Legend,
     Fieldset,
     title="Forms")
@@ -574,7 +585,7 @@ docs_forms = create_doc_section(
 
 def ex_modal():
     return Div(
-        Button("Open Modal",uk_toggle="target: #my-modal" ),
+        Button("Open Modal",data_uk_toggle="target: #my-modal" ),
         Modal(ModalTitle("Simple Test Modal"), 
               P("With some somewhat brief content to show that it works!", cls=TextPresets.muted_sm),
               footer=ModalCloseButton("Close", cls=ButtonT.primary),id='my-modal'))
@@ -637,7 +648,7 @@ def ex_fully_spaced_div():
     return DivFullySpaced(
         Button("Left", cls=ButtonT.primary),
         Button("Center", cls=ButtonT.secondary),
-        Button("Right", cls=ButtonT.danger)
+        Button("Right", cls=ButtonT.destructive)
     )
 
 def ex_centered_div():
@@ -758,47 +769,18 @@ def ex_nav2():
     )
 
 def ex_navbar1():
-    return NavBar(title='My Blog', 
-                  nav_links={'Page1':'/rt1','Page2':'/rt2','Page3':'/rt3'}, 
-                  active='Page2')
+    return NavBar(A("Page1",href='/rt1'),
+                  A("Page2",href='/rt2'),
+                  A("Page3",href='/rt3'),
+                  brand=H3('My Blog'))
 
-def ex_navbar2():
-    nav_content = (Li(A(Input(placeholder='search'))), 
-                   Li(A(UkIcon("rocket"))), Li(A('Page1',href='/rt1')), 
-                   Li(A("Page2", href='/rt3')))
-    
-    return NavBar(title=DivLAligned(Img(src='/api_reference/logo.svg'),UkIcon('rocket',height=30,width=30)), 
-                  nav_links=nav_content)
-
-def ex_navbar3():
-    mbrs1 = [Li(A('Option 1'), cls='uk-active'), Li(A('Option 2')), Li(A('Option 3'))]
-    mbrs2 = [Li(A('Child 1')), Li(A('Child 2')),Li(A('Child 3'))]
-
-    lnav = NavBarNav(
-        Li(cls='uk-active')(A(NavBarSubtitle("Title","Subtitle"),href='')),
-        Li(A("Parent",href=''),
-          NavBarNavContainer(
-              Li(cls='uk-active')(A("Active",href='')),
-              Li(A("Item",href='')),
-              Li(A("Item",href='')))),
-        Li(A(Button("A Button",cls=ButtonT.primary))))
-
-    rnav = NavBarNav(
-        Li(A("DropDown",NavBarParentIcon(),href=''),
-            NavBarNavContainer(
-                NavHeaderLi("NavHeaderLi"),
-                *mbrs1,
-                Li(A(href='')(Div("Subtitle Ex",NavSubtitle("NavSubtitle text to be shown")))),
-                NavDividerLi(),
-                NavParentLi(
-                    A('Parent Name'),
-                    NavContainer(*mbrs2,parent=False)))),
-        Li(A(Input(placeholder='search', cls='w-20'))))
-    
-    return NavBarContainer(
-        NavBarLSide(lnav),
-        NavBarCenter(Img(src='/api_reference/logo.svg')),
-        NavBarRSide(rnav))
+def ex_navbar2():    
+    return NavBar(
+        A(Input(placeholder='search')), 
+        A(UkIcon("rocket")), 
+        A('Page1',href='/rt1'), 
+        A("Page2", href='/rt3'),
+        brand=DivLAligned(Img(src='/api_reference/logo.svg'),UkIcon('rocket',height=30,width=30)))
 
 def ex_navdrop():
     return Div(
@@ -835,12 +817,9 @@ docs_navigation = create_doc_section(
     fn2code_string(ex_nav1),
     fn2code_string(ex_nav2),
     H2("Navbars", id='navbars'),
-    "Fully responsive simple navbar using the high level API and dicts to let MonsterUI do it all for you.  This will collapse to a hamburger menu on mobile devices",
+    "Fully responsive simple navbar using the high level API.  This will collapse to a hamburger menu on mobile devices.  See the Scrollspy example for a more complex navbar example.",
     fn2code_string(ex_navbar1),
-    "Pass your own components to the high level navbar API for more flexibility.  This will collapse to a hamburger menu on mobile devices",
     fn2code_string(ex_navbar2),
-    "The final example shows a more complex navbar that lets you specify everything yourself.  You are responsible for everything, including responsiveness",
-    fn2code_string(ex_navbar3),
     H2("Drop Down Navs"),
     fn2code_string(ex_navdrop),
     H2("Tabs"),
@@ -857,14 +836,14 @@ docs_navigation = create_doc_section(
     NavHeaderLi,
     NavDividerLi,
     NavParentLi,
-    NavBarCenter,
-    NavBarRSide,
-    NavBarLSide,
-    NavBarContainer,
-    NavBarNav,
-    NavBarSubtitle,
-    NavBarNavContainer,
-    NavBarParentIcon,
+    # NavBarCenter,
+    # NavBarRSide,
+    # NavBarLSide,
+    # NavBarContainer,
+    # NavBarNav,
+    # NavBarSubtitle,
+    # NavBarNavContainer,
+    # NavBarParentIcon,
     DropDownNavContainer,
     title="Navigation")
 

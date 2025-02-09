@@ -25,10 +25,10 @@ def playground_navbar():
         Div(Input(value="https://platform.openai.com/playground/p/7bbKYQvsVkNmVb8NGcdUOLae?model=text-davinci-003", readonly=True),
             Button(UkIcon('copy'), cls=(ButtonT.primary, "uk-drop-close",'mt-4'))))
 
-    rnav = Div(
-        UkSelect(*Options(*preset_options), name='preset', optgroup_label="Examples",
+    rnav = (
+        Select(*Options(*preset_options), name='preset', optgroup_label="Examples",
                  placeholder='Load a preset', searchable=True, cls='h-9 w-[200px] lg:w-[300px]'),
-        Button("Save",         cls=ButtonT.secondary, uk_toggle="#save"),save_modal,
+        Button("Save",         cls=ButtonT.secondary, data_uk_toggle="#save"),save_modal,
         Button("View Code",    cls=ButtonT.secondary),
         Button("Share",        cls=ButtonT.secondary),DropDownNavContainer(share_dd),
         Button(UkIcon(icon="ellipsis"), cls=ButtonT.secondary),
@@ -38,17 +38,17 @@ def playground_navbar():
             Li(A("Delete preset", cls="text-destructive")),
         uk_dropdown="mode: click"))
     
-    return NavBar(title=H4('Playground'),nav_links=rnav)
+    return NavBar(*rnav, brand=H4('Playground'))
 
 rsidebar = NavContainer(
-    UkSelect(
+    Select(
         Optgroup(map(Option,("text-davinci-003", "text-curie-001", "text-babbage-001", "text-ada-001")),label='GPT-3'),
         Optgroup(map(Option,("code-davinci-002", "code-cushman-001")),label='Codex'),
         label="Model",
         searchable=True),
-    LabelRange(label='Temperature'),
-    LabelRange(label='Maximum Length'),
-    LabelRange(label='Top P'),
+    LabelRange(label='Temperature', value='12'),
+    LabelRange(label='Maximum Length', value='80'),
+    LabelRange(label='Top P', value='40'),
     cls='space-y-6 mt-8')
 
 @rt

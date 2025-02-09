@@ -9,7 +9,7 @@ app, rt = fast_app(hdrs=Theme.blue.headers())
 @rt
 def index():    
     left = Div(cls="col-span-1 hidden flex-col justify-between bg-zinc-900 p-8 text-white lg:flex")(
-        Div(cls=(TextT.bold,TextT.default))("Acme Inc"),
+        Div(cls=(TextT.bold))("Acme Inc"),
         Blockquote(cls="space-y-2")(
             P(cls=TextT.lg)('"This library has saved me countless hours of work and helped me deliver stunning designs to my clients faster than ever before."'),
             Footer(cls=TextT.sm)("Sofia Davis")))

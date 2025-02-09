@@ -29,16 +29,16 @@ PaymentMethod = Card(
          Button(DivCentered(AppleSvg,  "Apple"),  cls='h-20')),
     Form(LabelInput('Name',        id='name',        placeholder='John Doe'),
          LabelInput('Card Number', id='card_number', placeholder='m@example.com'),
-         Grid(LabelUkSelect(*Options(*calendar.month_name[1:],selected_idx=0),label='Expires',id='expire_month'),
-              LabelUkSelect(*Options(*range(2024,2030),selected_idx=0),       label='Year',   id='expire_year'),
+         Grid(LabelSelect(*Options(*calendar.month_name[1:],selected_idx=0),label='Expires',id='expire_month'),
+              LabelSelect(*Options(*range(2024,2030),selected_idx=0),       label='Year',   id='expire_year'),
               LabelInput('CVV', id='cvv',placeholder='CVV', cls='mt-0'))),
         header=(H3('Payment Method'),Subtitle('Add a new payment method to your account.')))
 
 area_opts = ('Team','Billing','Account','Deployment','Support')
 severity_opts = ('Severity 1 (Highest)', 'Severity 2', 'Severity 3', 'Severity 4 (Lowest)')
 ReportIssue = Card(
-    Grid(Div(LabelUkSelect(*Options(*area_opts),    label='Area',    id='area')),
-         Div(LabelUkSelect(*Options(*severity_opts),label='Severity',id='area'))),
+    Grid(Div(LabelSelect(*Options(*area_opts),    label='Area',    id='area')),
+         Div(LabelSelect(*Options(*severity_opts),label='Severity',id='area'))),
     LabelInput(    label='Subject',     id='subject',    placeholder='I need help with'),
     LabelTextArea( label='Description', id='description',placeholder='Please include all information relevant to your issue'),
     Div(FormLabel('Tags', fr='#tags'),
@@ -95,7 +95,7 @@ def TeamMemberRow(name, email, role):
         DivLAligned(DiceBearAvatar(name, 10,10),
                     Div(P(name, cls=(TextT.sm, TextT.medium)),
                         P(email, cls=TextPresets.muted_sm))),
-        UkSelect(*Options(*access_roles, selected_idx=access_roles.index(role))))
+        Select(*Options(*access_roles, selected_idx=access_roles.index(role))))
 
 ShareDocument = Card(
     DivLAligned(Input(value='http://example.com/link/to/document'),Button('Copy link', cls='whitespace-nowrap')),

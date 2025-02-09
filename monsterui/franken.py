@@ -6,18 +6,17 @@ __all__ = ['franken_class_map', 'TextT', 'TextPresets', 'CodeSpan', 'CodeBlock',
            'Time', 'Address', 'Abbr', 'Dfn', 'Kbd', 'Samp', 'Var', 'Figure', 'Details', 'Summary', 'Data', 'Meter', 'S',
            'U', 'Output', 'PicSumImg', 'ButtonT', 'Button', 'ContainerT', 'BackgroundT', 'Container', 'Titled',
            'DividerT', 'Divider', 'DividerSplit', 'DividerLine', 'Article', 'ArticleTitle', 'ArticleMeta', 'SectionT',
-           'Section', 'Form', 'Fieldset', 'Legend', 'Input', 'Select', 'Radio', 'CheckboxX', 'Range', 'TextArea',
-           'Switch', 'FormLabel', 'LabelT', 'Label', 'UkFormSection', 'GenericLabelInput', 'LabelInput', 'LabelRange',
-           'LabelTextArea', 'LabelSwitch', 'LabelRadio', 'LabelCheckboxX', 'LabelSelect', 'Options', 'UkSelect',
-           'LabelUkSelect', 'AT', 'ListT', 'ModalContainer', 'ModalDialog', 'ModalHeader', 'ModalBody', 'ModalFooter',
+           'Section', 'Form', 'Fieldset', 'Legend', 'Input', 'Radio', 'CheckboxX', 'Range', 'TextArea', 'Switch',
+           'Upload', 'UploadZone', 'FormLabel', 'LabelT', 'Label', 'UkFormSection', 'GenericLabelInput', 'LabelInput',
+           'LabelTextArea', 'LabelSwitch', 'LabelRadio', 'LabelCheckboxX', 'LabelSelect', 'Options', 'Select',
+           'LabelRange', 'AT', 'ListT', 'ModalContainer', 'ModalDialog', 'ModalHeader', 'ModalBody', 'ModalFooter',
            'ModalTitle', 'ModalCloseButton', 'Modal', 'PaddingT', 'PositionT', 'Placeholder', 'Progress', 'UkIcon',
-           'UkIconLink', 'DiceBearAvatar', 'FlexT', 'Grid', 'DivFullySpaced', 'DivCentered', 'DivLAligned',
+           'UkIconLink', 'DiceBearAvatar', 'Center', 'FlexT', 'Grid', 'DivFullySpaced', 'DivCentered', 'DivLAligned',
            'DivRAligned', 'DivVStacked', 'DivHStacked', 'NavT', 'NavContainer', 'NavParentLi', 'NavDividerLi',
-           'NavHeaderLi', 'NavSubtitle', 'NavCloseLi', 'NavBarContainer', 'NavBarLSide', 'NavBarRSide', 'NavBarCenter',
-           'NavBarNav', 'NavBarSubtitle', 'NavBarNavContainer', 'NavBarParentIcon', 'NavBar', 'SliderContainer',
-           'SliderItems', 'SliderNav', 'Slider', 'DropDownNavContainer', 'TabContainer', 'CardT', 'CardTitle',
-           'CardHeader', 'CardBody', 'CardFooter', 'CardContainer', 'Card', 'TableT', 'Table', 'Td', 'Th', 'Tbody',
-           'TableFromLists', 'TableFromDicts', 'apply_classes', 'render_md', 'get_franken_renderer']
+           'NavHeaderLi', 'NavSubtitle', 'NavCloseLi', 'ScrollspyT', 'NavBar', 'SliderContainer', 'SliderItems',
+           'SliderNav', 'Slider', 'DropDownNavContainer', 'TabContainer', 'CardT', 'CardTitle', 'CardHeader',
+           'CardBody', 'CardFooter', 'CardContainer', 'Card', 'TableT', 'Table', 'Td', 'Th', 'Tbody', 'TableFromLists',
+           'TableFromDicts', 'apply_classes', 'render_md', 'get_franken_renderer', 'ThemePicker']
 
 # %% ../nbs/02_franken.ipynb
 import fasthtml.common as fh
@@ -36,6 +35,7 @@ from mistletoe.span_token import Image
 from pathlib import Path
 import mistletoe
 from lxml import html, etree
+from fasthtml.components import Uk_input_range
 
 # %% ../nbs/02_franken.ipynb
 class TextT(VEnum):
@@ -43,28 +43,26 @@ class TextT(VEnum):
     def _generate_next_value_(name, start, count, last_values):
         return str2ukcls('text', name)
     
-    paragraph = auto()
+    paragraph = "uk-paragraph"
     # Text Style
-    lead,meta, italic, gray = auto(), auto(), auto(), 'text-gray-500 dark:text-gray-200'
+    lead,meta, gray, italic= auto(), auto(), 'text-gray-500 dark:text-gray-200', 'italic'
     # Text Size
-    sm, default, lg = 'uk-text-small', 'uk-text', 'uk-text-large'
+    xs, sm, lg, xl = 'text-xs', 'text-sm', 'text-lg', 'text-xl'
     # Text Weight
-    light, normal, medium, bold, lighter, bolder = auto(),auto(),'font-medium', auto(),auto(),auto()
-    # Text Transform
-    capitalize,uppercase, lowercase = auto(),auto(),auto()
-    # Text Decoration
-    decoration_none = auto()
+    light, normal, medium, bold, extrabold = 'font-normal','font-light','font-medium','font-bold','font-extrabold'
     # Text Color
-    muted,primary,secondary, success,warning, error, info = auto(),'text-primary', auto(), 'text-success', 'text-warning', 'text-error', 'text-info'
+    muted,primary,secondary = 'text-gray-500 dark:text-gray-200', 'text-primary', 'text-secondary'
+    success,warning, error, info =  'text-success', 'text-warning', 'text-error', 'text-info'
     # Text Alignment
-    left, right,center,justify = auto(), auto(), auto(), auto()
+    left, right,center = "text-left","text-right","text-center"
+    justify, start, end = "text-justify","text-start","text-end"
     # Vertical Alignment
-    top,middle,bottom, baseline = auto(),auto(),auto(),auto()
+    top,middle,bottom = 'align-top','align-middle','align-bottom'
     # Text Wrapping
-    truncate,break_,nowrap = auto(),auto(),auto()
+    truncate,break_,nowrap = 'uk-text-truncate','uk-text-break', 'uk-text-nowrap' 
     # other
     underline = 'underline'
-    highlight = 'bg-yellow-200 dark:bg-yellow-800 dark:text-yellow-100'
+    highlight = 'bg-yellow-200 dark:bg-yellow-800 text-black'
 class TextPresets(VEnum):
     'Common Typography Presets'
     muted_sm = TextT.muted+TextT.sm
@@ -394,24 +392,22 @@ def PicSumImg(h:int=200,           # Height in pixels
 # %% ../nbs/02_franken.ipynb
 class ButtonT(VEnum):
     "Options for styling Buttons"
-    def _generate_next_value_(name, start, count, last_values): return str2ukcls('button', name)
-    default = auto()
-    primary = auto()
-    secondary = auto()
-    danger = auto()
-    text = auto()
-    link = auto()
-    ghost = auto()
+    def _generate_next_value_(name, start, count, last_values): return str2ukcls('btn', name)
+    default, ghost, primary = auto(),auto(),auto()
+    secondary, destructive = auto(), auto()
+    text, link = auto(), auto()
+    xs, sm, lg, xl = auto(), auto(), auto(), auto()
+    icon = auto()
 
 # %% ../nbs/02_franken.ipynb
 def Button(*c: Union[str, FT], # Contents of `Button` tag (often text)
            cls: Union[str, Enum]=ButtonT.default, # Classes in addition to `Button` styling (use `ButtonT` for built in styles)
            submit=True, # Whether the button should submit a form
            **kwargs # Additional args for `Button` tag
-           ) -> FT: # Button(..., cls='uk-button')
+           ) -> FT: # Button(..., cls='uk-btn')
     "Button with Styling (defaults to `submit` for form submission)"
     if 'type' not in kwargs: kwargs['type'] = 'submit' if submit else 'button'
-    return fh.Button(*c, cls=('uk-button', stringify(cls)), **kwargs)
+    return fh.Button(*c, cls=('uk-btn', stringify(cls)), **kwargs)
 
 # %% ../nbs/02_franken.ipynb
 class ContainerT(VEnum):
@@ -452,7 +448,7 @@ class DividerT(VEnum):
     "Divider Styles from https://franken-ui.dev/docs/divider"
     def _generate_next_value_(name, start, count, last_values): return str2ukcls('divider', name)
     icon=auto()
-    sm='uk-divider-small'
+    sm=auto()
     vertical=auto()
 
 # %% ../nbs/02_franken.ipynb
@@ -551,12 +547,6 @@ def Input(*c, # contents of Input tag (often nothing)
     "An Input with default styling"
     return fh.Input(*c, cls=('uk-input',stringify(cls)), **kwargs)
 
-def Select(*option, # options for the select dropdown
-           cls=(), # Classes in addition to Select styling
-           **kwargs # Additional args for Select tag
-           )->FT: # Select(..., cls='uk-select')
-    "A Select with default styling, though often `UkSelect` is a better choice"
-    return fh.Select(*option, cls=('uk-select',stringify(cls)), **kwargs)
 def Radio(*c, # contents of Radio tag (often nothing)
            cls=(), # Classes in addition to Radio styling
            **kwargs # Additional args for Radio tag
@@ -569,12 +559,21 @@ def CheckboxX(*c, # contents of CheckboxX tag (often nothing)
                )->FT: # Input(..., cls='uk-checkbox', type='checkbox')
     "A Checkbox with default styling"
     return fh.Input(*c, cls=('uk-checkbox',stringify(cls)), type='checkbox', **kwargs)
+
+# %% ../nbs/02_franken.ipynb
 def Range(*c, # contents of Range tag (often nothing)
+          value='',
+          label=True,
+          min=None,
+          max=None,
+          step=None,
            cls=(), # Classes in addition to Range styling
            **kwargs # Additional args for Range tag
            )->FT: # Input(..., cls='uk-range', type='range')
     "A Range with default styling"
-    return fh.Input(*c, cls=('uk-range',stringify(cls)), type='range', **kwargs)
+    return Uk_input_range(*c, min=min, label=label, max=max, value=value, multiple=len(value.split(','))>1, cls=('uk-range',stringify(cls)), **kwargs)
+
+# %% ../nbs/02_franken.ipynb
 def TextArea(*c, # contents of TextArea tag (often text)
              cls=(), # Classes in addition to TextArea styling
              **kwargs # Additional args for TextArea tag
@@ -587,6 +586,48 @@ def Switch(*c, # contents of Switch tag (often nothing)
            )->FT: # Input(..., cls='uk-toggle-switch uk-toggle-switch-primary min-w-9', type='checkbox')
     "A Switch with default styling"
     return fh.Input(*c, cls=('uk-toggle-switch uk-toggle-switch-primary min-w-9',stringify(cls)), type='checkbox', **kwargs)
+
+# %% ../nbs/02_franken.ipynb
+def Upload(*c, # Contents of Upload tag button (often text)
+          cls=(), # Classes in addition to Upload styling
+          multiple=False, # Whether to allow multiple file selection
+          accept=None, # File types to accept (e.g. 'image/*')
+          button_cls=ButtonT.default, # Classes for the button
+          id=None, # ID for the file input
+          name=None, # Name for the file input
+          **kwargs # Additional args for the outer div
+          )->FT: # Div(Input(type='file'), Button(...))
+    "A file upload component with default styling"
+    input_kwargs = {'type': 'file', 'multiple': multiple}
+    if accept: input_kwargs['accept'] = accept
+    if id: input_kwargs['id'] = id
+    if name: input_kwargs['name'] = name
+    return Div(
+        fh.Input(**input_kwargs),
+        Button(*c, cls=button_cls, submit=False, tabindex="-1"),
+        cls=('w-full js-upload', stringify(cls)),
+        uk_form_custom=True)
+
+def UploadZone(*c, # Contents of UploadZone tag (often text or other tags)
+               cls=(), # Classes in addition to UploadZone styling
+               multiple=False, # Whether to allow multiple file selection
+               accept=None, # File types to accept (e.g. 'image/*')
+               id=None, # ID for the file input
+               name=None, # Name for the file input
+               **kwargs # Additional args for the outer div
+               )->FT:
+    "A file drop zone component with default styling"
+    input_kwargs = {'type': 'file', 'multiple': multiple}
+    if accept: input_kwargs['accept'] = accept 
+    if id: input_kwargs['id'] = id
+    if name: input_kwargs['name'] = name
+    return Div(
+        Div(fh.Input(**input_kwargs),
+            Span(*c),
+            uk_form_custom=True, 
+            cls='w-full'),
+        cls=('js-upload uk-placeholder uk-text-center', stringify(cls)),
+        **kwargs)
 
 # %% ../nbs/02_franken.ipynb
 def FormLabel(*c, # contents of FormLabel tag (often text)
@@ -649,18 +690,6 @@ def LabelInput(label:str|FT, # FormLabel content (often text)
     "A `FormLabel` and `Input` pair that provides default spacing and links/names them based on id"
     return GenericLabelInput(label=label, lbl_cls=lbl_cls, input_cls=input_cls,
                              container=Div, cls=cls, id=id, input_fn=Input, **kwargs)
-
-# %% ../nbs/02_franken.ipynb
-def LabelRange(label:str|FT, # FormLabel content (often text)
-               lbl_cls='', # Additional classes for `FormLabel`
-               input_cls='', # Additional classes for `Range`
-               cls='space-y-2', # Classes on container (default is `'space-y-2'` to prevent scrunched up form elements)
-               id='', # id for `FormLabel` and `Range` (`id`, `name` and `for` attributes are set to this value)
-                **kwargs # Additional args for `Range`
-               )->FT:  # Div(cls='space-y-2')(`FormLabel`, `Range`)
-    "A `FormLabel` and `Range` pair that provides default spacing and links/names them based on id"
-    return GenericLabelInput(label=label, lbl_cls=lbl_cls, input_cls=input_cls,
-                             container=Div, cls=cls, id=id, input_fn=Range, **kwargs)
 
 # %% ../nbs/02_franken.ipynb
 def LabelTextArea(label:str|FT, # FormLabel content (often text)
@@ -742,42 +771,51 @@ def Options(*c,                    # Content for an `Option`
             selected_idx:int=None, # Index location of selected `Option`
             disabled_idxs:set=None # Idex locations of disabled `Options`
            ):
-    "Helper function to wrap things into `Option`s for use in `UkSelect`"
+    "Helper function to wrap things into `Option`s for use in `Select`"
     return [fh.Option(o,selected=i==selected_idx, disabled=disabled_idxs and i in disabled_idxs) for i,o in enumerate(c)]
 
 # %% ../nbs/02_franken.ipynb
-def UkSelect(*option,            # Options for the select dropdown (can use `Options` helper function to create)
-             inp_cls=(),         # Additional classes for the select input
-             cls=('space-y-2',), # Classes for the outer div
-             id="",              # ID for the select input
-             name="",            # Name attribute for the select input
-             placeholder="",     # Placeholder text for the select input
-             searchable=False,   # Whether the select should be searchable
-             **kwargs):          # Additional arguments passed to Uk_select
+def Select(*option,            # Options for the select dropdown (can use `Options` helper function to create)
+          inp_cls=(),         # Additional classes for the select input
+          cls=('h-10',),      # Classes for the outer div (default h-10 for consistent height)
+          cls_custom='button: uk-input-fake dropdown: w-full', # Classes for the Uk_Select web component
+          id="",              # ID for the select input
+          name="",            # Name attribute for the select input
+          placeholder="",     # Placeholder text for the select input
+          searchable=False,   # Whether the select should be searchable
+          **kwargs):          # Additional arguments passed to Uk_select
     "Creates a select dropdown with uk styling and option for adding a search box"
-    inp_cls, cls = map(stringify, (inp_cls, cls))
-    select = Uk_select(*option, cls=inp_cls, uk_cloak=True, id=id, 
-                       name=name, placeholder=placeholder, searchable=searchable, **kwargs)
-    return Div(cls=cls)(select)
+    inp_cls, cls, cls_custom= map(stringify, (inp_cls, cls, cls_custom))
+    uk_select = Uk_select(fh.Select(*option, hidden=True, id=id, name=name),
+                         cls_custom=cls_custom,
+                         searchable=searchable,
+                         placeholder=placeholder,
+                         cls=inp_cls,
+                         id=id, 
+                         name=name,
+                         **kwargs)
+    
+    return Div(cls=cls)(uk_select)
 
 # %% ../nbs/02_franken.ipynb
-def LabelUkSelect(*option,            # Options for the select dropdown (can use `Options` helper function to create)
-             label=(),           # String or FT component for the label
-             lbl_cls=(),         # Additional classes for the label
-             inp_cls=(),         # Additional classes for the select input
-             cls=('space-y-2',), # Classes for the outer div
-             id="",              # ID for the select input
-             name="",            # Name attribute for the select input
-             placeholder="",     # Placeholder text for the select input
-             searchable=False,   # Whether the select should be searchable
-             **kwargs):          # Additional arguments passed to Uk_select
-    "A FormLabel and Select pair that provides default spacing and links/names them based on id"
-    lbl_cls, inp_cls, cls = map(stringify, (lbl_cls, inp_cls, cls))
-    if label: 
-        lbl = FormLabel(cls=f'{lbl_cls}', fr=id)(label) 
-    select = Uk_select(*option, cls=inp_cls, uk_cloak=True, id=id, 
-                       name=name if name else id, placeholder=placeholder, searchable=searchable, **kwargs)
-    return Div(cls=cls)(lbl, select) if label else Div(cls=cls)(select)
+@delegates(GenericLabelInput, but=['input_fn','cls'])
+def LabelRange(label:str|FT, # FormLabel content (often text)
+               lbl_cls='', # Additional classes for `FormLabel`
+               input_cls='', # Additional classes for `Range`
+               cls='space-y-6', # Classes on container (default is `'space-y-2'` to prevent scrunched up form elements)
+               id='', # id for `FormLabel` and `Range` (`id`, `name` and `for` attributes are set to this value)
+               value='', # Value for the range input
+               min=None, # Minimum value
+               max=None, # Maximum value
+               step=None, # Step size
+               label_range=True, # Whether to show the range value label (label for the `Range` component)
+               **kwargs # Additional args for `Range`
+               )->FT:  # Div(cls='space-y-2')(`FormLabel`, `Range`)
+    "A FormLabel and Range pair that provides default spacing and links/names them based on id"
+    def range_with_value(**kw): 
+        return Div(Range(value=value, min=min, max=max, step=step, label=label_range, **kw))
+    return GenericLabelInput(label=label, lbl_cls=lbl_cls, input_cls=input_cls,
+                           container=Div, cls=cls, id=id, input_fn=range_with_value, **kwargs)
 
 # %% ../nbs/02_franken.ipynb
 class AT(VEnum):
@@ -795,11 +833,11 @@ class ListT(VEnum):
     disc = 'list-disc list-inside'
     circle = 'list-[circle] list-inside' 
     square = 'list-[square] list-inside'
-    decimal = 'list-decimal list-inside'
-    hyphen = 'list-none list-inside [&>li]:before:content-["-"] [&>li]:before:mr-2'
-    bullet = 'list-disc list-inside'
-    divider = 'space-y-2 divide-y divide-gray-200'
-    striped = 'space-y-1 [&>li:nth-child(odd)]:bg-secondary'
+    decimal = 'uk-list uk-list-decimal'
+    hyphen = 'uk-list uk-list-hyphen'
+    bullet = 'uk-list uk-list-bullet'
+    divider = 'uk-list uk-list-divider'
+    striped = 'uk-list uk-list-striped'
 
 # %% ../nbs/02_franken.ipynb
 def ModalContainer(*c, # Components to put in the modal (often `ModalDialog`)
@@ -963,20 +1001,50 @@ def DiceBearAvatar(seed_name:str, # Seed name (ie 'Isaac Flath')
             fh.Img(cls=f"aspect-square h-{h} w-{w}", alt="Avatar", loading="lazy", src=f"{url}{seed_name}"))
 
 # %% ../nbs/02_franken.ipynb
+def Center(*c, # Components to center
+          vertical:bool=True, # Whether to center vertically
+          horizontal:bool=True, # Whether to center horizontally 
+          cls=(), # Additional classes
+          **kwargs # Additional args for container div
+          )->FT: # Div with centered contents
+    "Centers contents both vertically and horizontally by default"
+    classes = ['flex']
+    if vertical: classes.append('items-center min-h-full') 
+    if horizontal: classes.append('justify-center min-w-full')
+    return fh_comp.Center(*c, cls=(stringify(classes), stringify(cls)), **kwargs)
+
+# %% ../nbs/02_franken.ipynb
 class FlexT(VEnum):
-    'Flexbox modifiers from UIkit'
-    def _generate_next_value_(name, start, count, last_values): return str2ukcls('flex', name)
+    'Flexbox modifiers using Tailwind CSS'
+    def _generate_next_value_(name, start, count, last_values): return name
     
     # Display
-    block, inline = 'uk-flex', auto()
+    block = 'flex'
+    inline = 'inline-flex'
+    
     # Horizontal Alignment
-    left, center, right, between, around = auto(), auto(), auto(), auto(), auto()
+    left = 'justify-start' 
+    center = 'justify-center'
+    right = 'justify-end'
+    between = 'justify-between'
+    around = 'justify-around'
+    
     # Vertical Alignment
-    stretch, top, middle, bottom = auto(), auto(), auto(), auto()
+    stretch = 'items-stretch'
+    top = 'items-start'
+    middle = 'items-center' 
+    bottom = 'items-end'
+    
     # Direction
-    row, row_reverse, column, column_reverse = auto(), auto(), auto(), auto()
+    row = 'flex-row'
+    row_reverse = 'flex-row-reverse'
+    column = 'flex-col'
+    column_reverse = 'flex-col-reverse'
+    
     # Wrap
-    nowrap, wrap, wrap_reverse = auto(), auto(), auto()
+    nowrap = 'flex-nowrap'
+    wrap = 'flex-wrap'
+    wrap_reverse = 'flex-wrap-reverse'
 
 # %% ../nbs/02_franken.ipynb
 def Grid(*div, # `Div` components to put in the grid
@@ -1003,7 +1071,7 @@ def Grid(*div, # `Div` components to put in the grid
 
 # %% ../nbs/02_franken.ipynb
 def DivFullySpaced(*c,                # Components
-                   cls='uk-width-1-1',# Classes for outer div (`uk-width-1-1` makes it use all available width)
+                   cls='w-full',# Classes for outer div (`w-full` makes it use all available width)
                    **kwargs           # Additional args for outer div
                   ):                  # Div with spaced components via flex classes
     "Creates a flex div with it's components having as much space between them as possible"
@@ -1012,7 +1080,7 @@ def DivFullySpaced(*c,                # Components
 
 # %% ../nbs/02_franken.ipynb
 def DivCentered(*c,      # Components
-                cls='space--4',  # Classes for outer div (`space-y-4` provides spacing between components)
+                cls='space-y-4',  # Classes for outer div (`space-y-4` provides spacing between components)
                 vstack=True, # Whether to stack the components vertically
                 **kwargs # Additional args for outer div
                )->FT: # Div with components centered in it
@@ -1113,99 +1181,40 @@ def NavCloseLi(*c, # Components
     return fh.Li(*c, cls=('uk-drop-close', stringify(cls)),**kwargs)
 
 # %% ../nbs/02_franken.ipynb
-def NavBarContainer(*navbarside, # Components (typically `NavBarLSide` or `NavBarRSide` or `NavBarCenter`)
-                    cls=(), # Additional classes on the container
-                    container_cls=ContainerT.expand, # Additional classes on the container
-                    uk_navbar=True, # Whether to use a navbar
-                    **kwargs # Additional args for the container
-                   )->FT: # NavBar container
-    "Create a NavBarContainer to put NavBar sides in"
-    return fh.Div(Container(Div(*navbarside, uk_navbar=uk_navbar),cls=stringify(container_cls)), cls=('',stringify(cls)), **kwargs) #uk-navbar-container
-
-def NavBarLSide(*c,  # Components
-                cls=(), # Additional classes on the div
-                **kwargs # Additional args for the div
-               )->FT: # NavBar left side
-    "Creates a NavBar left side"
-    return fh.Div(*c, cls=('uk-navbar-left',  stringify(cls)), **kwargs)
-def NavBarRSide(*c,  # Components
-                cls=(), # Additional classes on the div
-                **kwargs # Additional args for the div
-               )->FT: # NavBar right side
-    "Creates a NavBar right side"
-    return fh.Div(*c, cls=('uk-navbar-right', stringify(cls)), **kwargs)
-def NavBarCenter(*c, # Components
-                  cls=(), # Additional classes on the div
-                  **kwargs # Additional args for the div
-                 )->FT: # NavBar center
-    "Creates a NavBar center"
-    return fh.Div(*c, cls=('uk-navbar-center',stringify(cls)), **kwargs)
+class ScrollspyT(VEnum):
+    underline = 'navbar-underline'
+    bold = 'navbar-bold'
 
 # %% ../nbs/02_franken.ipynb
-def NavBarNav(*li, # Components
-              cls=(), # Additional classes on the nav
-              **kwargs # Additional args for the nav
-             )->FT: # Nav that is part of a NavBar
-    "A Nav that is part of a NavBar that could go in a `NavBarLSide`, `NavBarRSide`, or `NavBarCenter`"
-    return fh.Nav(*li, cls=('uk-navbar-nav',      stringify(cls)),                 **kwargs)
-
-# %% ../nbs/02_franken.ipynb
-def NavBarSubtitle(title, # Title
-                   subtitle, # Subtitle
-                   cls=(), # Additional classes on the div
-                   subtitle_cls=TextPresets.muted_sm, # Additional classes on the subtitle
-                   **kwargs # Additional args for the div
-                  )->FT: # NavBar subtitle
-    "Creates a NavBar subtitle"
-    return fh.Div(title,fh.Div(subtitle, cls=('uk-navbar-subtitle', stringify(subtitle_cls))), cls=stringify(cls), **kwargs)
-
-# %% ../nbs/02_franken.ipynb
-def NavBarNavContainer(*li, # Components
-                       cls=NavT.primary, # Additional classes on the nav
-                       parent=True, # Whether to use a parent nav
-                       uk_nav=False, #True for default collapsible behavior, see https://franken-ui.dev/docs/nav#component-options for more advanced options
-                       **kwargs # Additional args for the nav
-                      )->FT: # NavBar nav container
-    "Drop Down Nav"
-    return Div(cls="uk-navbar-dropdown")(NavContainer(*li, cls=('uk-navbar-dropdown-nav',stringify(cls)), uk_nav=uk_nav, parent=parent, **kwargs))
-
-# %% ../nbs/02_franken.ipynb
-def NavBarParentIcon(): return Span(uk_navbar_parent_icon=True)
-
-# %% ../nbs/02_franken.ipynb
-def NavBar(nav_links:dict|List[FT], # List of Li(A(...)) components or dict of {"name":"href value"}
-           title:str|FT='Title', # `H1(title)` if string else any FT component on left of navbar (Often a logo)
-           active:str="", # if `nav_links` is a dict shows an indicator of which page you are on
+def NavBar(*c, # Component for right side of navbar (Often A tag links)
+           brand=H3("Title"), # Brand/logo component for left side
+           right_cls='items-center space-x-4', # Spacing for desktop links
+           mobile_cls='space-y-4', # Spacing for mobile links
            sticky:bool=False, # Whether to stick to the top of the page while scrolling
-           uk_scrollspy_nav=False, # Activates scrollspy linking each item `A` tags `href` to content's `id` attribute
-           cls='',
-           **kwargs,
-          )->FT: # Navigation bar
-    _id = fh.unqid()
-    "Creates a fully responsive navigation bar.  This will collapse to hamburger menu when on mobile."
-    _click = f"htmx.find('#{_id}').classList.toggle('hidden')"
-    menu_icon = UkIcon("menu", width=30, height=30, cls="md:hidden", hx_on_click=_click)
-    
-    _cls = 'sticky top-4 bg-base-100/80 backdrop-blur-sm z-50' if sticky else ''
-    _uk_scrollspy_nav = False
-    if uk_scrollspy_nav:
-        if isinstance(uk_scrollspy_nav, bool):  _uk_scrollspy_nav = 'closest: li; scroll: true' if uk_scrollspy_nav else False
-        else:  _uk_scrollspy_nav = uk_scrollspy_nav
+           uk_scrollspy_nav:bool|str=False, # Whether to use scrollspy for navigation
+           cls='p-4', # Classes for navbar
+           scrollspy_cls=ScrollspyT.underline, # Scrollspy class (usually ScrollspyT.*)
+           menu_id=None, # ID for menu container (used for mobile toggle)
+           )->FT: # Responsive NavBar
+    "Creates a responsive navigation bar with mobile menu support"
+    if menu_id is None: menu_id = fh.unqid()
+    sticky_cls = 'sticky top-4 bg-base-100/80 backdrop-blur-sm z-50' if sticky else ''
+    if uk_scrollspy_nav == True: uk_scrollspy_nav = 'closest: a; scroll: true'
 
-    if isinstance(nav_links, dict):
-        def _item(link):
-            name, target = link
-            return Li(A(name, href=target), cls='uk-active' if active == name else '')
-        nav_links = map(_item, nav_links.items())
-
+    mobile_icon = A(UkIcon("menu", width=30, height=30), cls="md:hidden", data_uk_toggle=f"target: #{menu_id}; cls: hidden")
     return Div(
-        Container(
-            Div(cls='md:flex md:relative')(
-                NavBarLSide(H1(title) if isinstance(title, str) else title, menu_icon),
-                NavBarRSide(
-                    NavBarNav(*nav_links, cls='w-full flex-col md:flex-row'),
-                    cls='hidden md:flex md:justify-between ',  id=_id, uk_scrollspy_nav=_uk_scrollspy_nav, **kwargs))),
-                    cls=(stringify(cls),_cls))
+        Div(
+            DivFullySpaced(
+                brand, # Brand/logo component for left side
+                mobile_icon, # Hamburger menu icon
+                Div(*c,cls=(stringify(right_cls),'hidden md:flex'), uk_scrollspy_nav=uk_scrollspy_nav)),# Desktop Navbar (right side)
+            cls=('monster-navbar', stringify(cls), stringify(scrollspy_cls))
+            ),
+        DivCentered(*c, 
+                    cls=(stringify(mobile_cls),stringify(cls), stringify(scrollspy_cls),
+                         'hidden md:hidden monster-navbar'), 
+                    id=menu_id, uk_scrollspy_nav=uk_scrollspy_nav),
+        cls=sticky_cls)
 
 # %% ../nbs/02_franken.ipynb
 def SliderContainer(
@@ -1437,8 +1446,8 @@ franken_class_map = {
     'a': 'uk-link text-primary hover:text-primary-focus underline',
     
     # Lists with proper spacing
-    'ul': 'uk-list uk-list-bullet space-y-2 mb-6 ml-6',
-    'ol': 'uk-list uk-list-decimal space-y-2 mb-6 ml-6',
+    'ul': 'uk-list uk-list-bullet space-y-2 mb-6 ml-6 text-lg',
+    'ol': 'uk-list uk-list-decimal space-y-2 mb-6 ml-6 text-lg',
     'li': 'leading-relaxed',
     
     # Code and quotes
@@ -1516,3 +1525,30 @@ def render_md(md_content:str, # Markdown content
     renderer = get_franken_renderer(img_dir)
     html_content = mistletoe.markdown(md_content, renderer)
     return NotStr(apply_classes(html_content, class_map, class_map_mods))
+
+# %% ../nbs/02_franken.ipynb
+def ThemePicker(color=True, radii=True, shadows=True, font=True, mode=True, cls='p-4'):
+    "Theme picker component with configurable sections"
+    def _opt(val, txt, **kwargs): return Option(txt, value=val, **kwargs)
+    def _optgrp(key, lbl, opts): return fh.Optgroup(data_key=key, label=lbl)(*opts)
+    
+    groups = []
+    if color: groups.append(_optgrp('theme', 'Theme', [
+        _opt('uk-theme-zinc', 'Zinc', data_hex='#52525b', selected=True),
+        *[_opt(f'uk-theme-{c.lower()}', c, data_hex=h) for c,h in 
+          [('Slate','#64748b'),('Stone','#78716c'),('Gray','#6b7280'),
+           ('Neutral','#737373'),('Red','#dc2626'),('Rose','#e11d48'),
+           ('Orange','#f97316'),('Green','#16a34a'),('Blue','#2563eb'),
+           ('Yellow','#facc15'),('Violet','#7c3aed')]]]))
+    if radii: groups.append(_optgrp('radii', 'Radii', [
+        _opt('uk-radii-none','None'), _opt('uk-radii-sm','Small'),
+        _opt('uk-radii-md','Medium',selected=True), _opt('uk-radii-lg','Large')]))
+    if shadows: groups.append(_optgrp('shadows', 'Shadows', [
+        _opt('uk-shadows-none','None'), _opt('uk-shadows-sm','Small',selected=True),
+        _opt('uk-shadows-md','Medium'), _opt('uk-shadows-lg','Large')]))
+    if font: groups.append(_optgrp('font', 'Font', [
+        _opt('uk-font-sm','Small',selected=True), _opt('uk-font-base','Default')]))
+    if mode: groups.append(_optgrp('mode', 'Mode', [
+        _opt('light','Light',data_icon='sun'), _opt('dark','Dark',data_icon='moon')]))
+    from fasthtml.components import Uk_theme_switcher
+    return Div(Uk_theme_switcher(fh.Select(*groups, hidden=True),  id="theme-switcher"), cls=stringify(cls))

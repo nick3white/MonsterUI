@@ -33,22 +33,36 @@ edit_actions = [("Undo",         "⌘Z"),
 
 view_dd_data = ["Show Playing Next", "Show Lyrics", "Show Status Bar", "Hide Sidebar", "Enter Full Screen"]
 
-music_headers = NavBarContainer(
-            NavBarLSide(
-                NavBarNav(
-                Li(A("Music"),NavBarNavContainer(map(lambda x: MusicLi(*x), music_items))),
-                Li(A("File"), NavBarNavContainer(map(lambda x: MusicLi(*x), file_dd_items))),
-                Li(A("Edit")),
-                    NavBarNavContainer(
-                        *map(lambda x: MusicLi(*x), edit_actions),
-                        Li(A(DivFullySpaced("Smart Dictation",UkIcon("mic")))),
-                        Li(A(DivFullySpaced("Emojis & Symbols",UkIcon("globe"))))),
-                Li(A("View"),
-                NavBarNavContainer(map(lambda x: MusicLi(x), view_dd_data))),
-                Li(A("Account"),
-                    NavBarNavContainer(
-                        NavHeaderLi("Switch Account"),
-                        *map(MusicLi, ("Andy", "Benoit", "Luis", "Manage Family", "Add Account")))))))
+
+music_headers = NavBar(
+    Button("Music", cls=ButtonT.ghost+TextT.gray),DropDownNavContainer(Li(A("Music"),NavContainer(map(lambda x: MusicLi(*x), music_items)))),
+    Button("File", cls=ButtonT.ghost+TextT.gray), DropDownNavContainer(Li(A("File"), NavContainer(map(lambda x: MusicLi(*x), file_dd_items)))),
+    Button("Edit", cls=ButtonT.ghost+TextT.gray), DropDownNavContainer(Li(A("Edit")),NavContainer(
+            *map(lambda x: MusicLi(*x), edit_actions),
+            Li(A(DivFullySpaced("Smart Dictation",UkIcon("mic")))),
+            Li(A(DivFullySpaced("Emojis & Symbols",UkIcon("globe")))))),
+    Button("View", cls=ButtonT.ghost+TextT.gray),DropDownNavContainer(Li(A("View"),NavContainer(map(lambda x: MusicLi(x), view_dd_data)))),
+    )
+    
+
+
+
+# music_headers = NavBarContainer(
+#             NavBarLSide(
+#                 NavBarNav(
+#                 Li(A("Music"),NavBarNavContainer(map(lambda x: MusicLi(*x), music_items))),
+#                 Li(A("File"), NavBarNavContainer(map(lambda x: MusicLi(*x), file_dd_items))),
+#                 Li(A("Edit")),
+#                     NavBarNavContainer(
+#                         *map(lambda x: MusicLi(*x), edit_actions),
+#                         Li(A(DivFullySpaced("Smart Dictation",UkIcon("mic")))),
+#                         Li(A(DivFullySpaced("Emojis & Symbols",UkIcon("globe"))))),
+#                 Li(A("View"),
+#                 NavBarNavContainer(map(lambda x: MusicLi(x), view_dd_data))),
+#                 Li(A("Account"),
+#                     NavBarNavContainer(
+#                         NavHeaderLi("Switch Account"),
+#                         *map(MusicLi, ("Andy", "Benoit", "Luis", "Manage Family", "Add Account")))))))
 
 
 def Album(title,artist):

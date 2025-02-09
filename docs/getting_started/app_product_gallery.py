@@ -43,7 +43,7 @@ def ProductCard(p):
         P(p["price"], cls=TextPresets.bold_sm), 
         # ButtonT.primary is useful for actions you really want the user to take (like adding
         # something to the card) - these stand out visually. For dangerous actions (like
-        # deleting something) you generally would want to use ButtonT.danger. For UX actions
+        # deleting something) you generally would want to use ButtonT.destructive. For UX actions
         # that aren't a goal of the page (like cancelling something that hasn't been submitted)
         # you generally want the default styling.
         Button("Click me!", cls=(ButtonT.primary, "mt-2"),  

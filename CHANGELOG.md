@@ -2,6 +2,31 @@
 
 <!-- do not remove -->
 
+## 1.0.0
+
+### New Features
+
+- Migrated to use FrankenUI version 2.0 version
+
+- Brand new simplified NavBar api, including enhanced sticky and scrollspy options
+
+- Latex rendering enabled via katex ([#58](https://github.com/AnswerDotAI/MonsterUI/pull/58)), thanks to [@algal](https://github.com/algal)
+
+- Add API References and Guides to llms.txt ([#54](https://github.com/AnswerDotAI/MonsterUI/issues/54))
+
+- New Range component, which includes min/max range
+
+- New center component thanks to inspiration from Carson of HTMX ([#52](https://github.com/AnswerDotAI/MonsterUI/issues/52))
+
+- Better Theme Picker ([#51](https://github.com/AnswerDotAI/MonsterUI/issues/51))
+
+- Upload Zone and Upload Button Components added ([#50](https://github.com/AnswerDotAI/MonsterUI/issues/50))
+
+### Bugs Squashed
+
+- fix: correct PaddingT class naming for padding variants ([#55](https://github.com/AnswerDotAI/MonsterUI/pull/55)), thanks to [@Zaseem-BIsquared](https://github.com/Zaseem-BIsquared)
+
+
 ## 0.0.34
 
 

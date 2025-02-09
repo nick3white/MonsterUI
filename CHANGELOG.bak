@@ -2,6 +2,14 @@
 
 <!-- do not remove -->
 
+## 0.0.34
+
+
+### Bugs Squashed
+
+- Table markdown rendering bug fix ([#46](https://github.com/AnswerDotAI/MonsterUI/issues/46))
+
+
 ## 0.0.33
 
 ### New Features

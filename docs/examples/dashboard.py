@@ -67,7 +67,7 @@ teams = [["Alicia Koch"],['Acme Inc', 'Monster Inc.'],['Create a Team']]
 
 opt_hdrs = ["Personal", "Team", ""]
 
-team_dropdown = UkSelect(
+team_dropdown = Select(
     Optgroup(Option(A("Alicia Koch")), label="Personal Account"),
     Optgroup(Option(A("Acme Inc")), Option(A("Monster Inc.")), label="Teams"),
     Option(A("Create a Team")),
@@ -84,8 +84,8 @@ avatar_dropdown = Div(
           *[NavSpacedLi(*hk) for hk in hotkeys],))
 
 top_nav = NavBar(
-    nav_links=Div(team_dropdown, *map(lambda x: Li(A(x)), ["Overview", "Customers", "Products", "Settings"])),
-    title=DivLAligned(avatar_dropdown, Input(placeholder='Search')))
+    team_dropdown, *map(A, ["Overview", "Customers", "Products", "Settings"]),
+    brand=DivLAligned(avatar_dropdown, Input(placeholder='Search')))
 
 @rt
 def index():
@@ -98,9 +98,9 @@ def index():
             alt=True),
         top_info_row,
         Grid(
-            Card(Safe(generate_chart(100)),cls='col-span-4'),
+            Card(Safe(generate_chart(100)), cls='col-span-4'),
             recent_sales,
-            gap=4,cols=7),
+            gap=4,cols_xl=7,cols_lg=7,cols_md=1,cols_sm=1,cols_xs=1),
         cls=('space-y-4', ContainerT.xl))
 
 serve()

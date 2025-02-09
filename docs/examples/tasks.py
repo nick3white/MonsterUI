@@ -61,12 +61,12 @@ page_heading = DivFullySpaced(cls='space-y-2')(
 
 table_controls =(Input(cls='w-[250px]',placeholder='Filter task'),
      Button("Status"),
-     DropDownNavContainer(map(NavCloseLi,[A(DivFullySpaced(P(a['status']), P(a['count'])),cls=TextT.capitalize) for a in status_dd])), 
+     DropDownNavContainer(map(NavCloseLi,[A(DivFullySpaced(P(a['status']), P(a['count'])),cls='capitalize') for a in status_dd])), 
      Button("Priority"),
-     DropDownNavContainer(map(NavCloseLi,[A(DivFullySpaced(LAlignedCheckTxt(a['priority']), a['count']),cls=TextT.capitalize) for a in priority_dd])),
+     DropDownNavContainer(map(NavCloseLi,[A(DivFullySpaced(LAlignedCheckTxt(a['priority']), a['count']),cls='capitalize') for a in priority_dd])),
      Button("View"),
      DropDownNavContainer(map(NavCloseLi,[A(LAlignedCheckTxt(o)) for o in ['Title','Status','Priority']])),
-     Button('Create Task',cls=(ButtonT.primary, TextPresets.bold_sm), uk_toggle="target: #TaskForm"))
+     Button('Create Task',cls=(ButtonT.primary, TextPresets.bold_sm), data_uk_toggle="target: #TaskForm"))
 
 def task_dropdown():
     return Div(Button(UkIcon('ellipsis')),
@@ -86,7 +86,7 @@ def cell_render(col, val):
         case "Done": return _Td(shrink=True)(CheckboxX(selected=val))
         case "Task":  return _Td(val, cls='uk-visible@s')  # Hide on small screens
         case "Title": return _Td(val, cls='font-medium', expand=True)
-        case "Status" | "Priority": return _Td(cls='uk-visible@m uk-text-nowrap uk-text-capitalize')(Span(val))
+        case "Status" | "Priority": return _Td(cls='uk-visible@m uk-text-nowrap capitalize')(Span(val))
         case "Actions": return _Td(task_dropdown(), shrink=True)
         case _: raise ValueError(f"Unknown column: {col}")
 

@@ -50,8 +50,6 @@ class TextT(VEnum):
     xs, sm, lg, xl = 'text-xs', 'text-sm', 'text-lg', 'text-xl'
     # Text Weight
     light, normal, medium, bold, extrabold = 'font-normal','font-light','font-medium','font-bold','font-extrabold'
-    # Text Transform
-    capitalize,uppercase, lowercase = 'text-capitalize', 'text-uppercase', 'text-lowercase'
     # Text Color
     muted,primary,secondary = 'text-gray-500 dark:text-gray-200', 'text-primary', 'text-secondary'
     success,warning, error, info =  'text-success', 'text-warning', 'text-error', 'text-info'
@@ -915,12 +913,12 @@ def Modal(*c,                 # Components to put in the `ModalBody` (often form
 class PaddingT(VEnum):
     'Padding Modifiers from https://franken-ui.dev/docs/padding'
     def _generate_next_value_(name, start, count, last_values): return str2ukcls('padding', name)
-    xs = 'uk-padding-xs'
-    sm = 'uk-padding-sm'
+    xs = 'uk-padding-xsmall'
+    sm = 'uk-padding-small'
     default = ''
-    md = 'uk-padding-md'
-    lg = 'uk-padding-lg'
-    xl = 'uk-padding-xl'
+    md = 'uk-padding-medium'
+    lg = 'uk-padding-large'
+    xl = 'uk-padding-xlarge'
     remove = auto()
     remove_top = auto()
     remove_bottom = auto()

@@ -55,7 +55,6 @@ def _headers_theme(color, mode='auto'):
     return fh.Script(f'''
         const htmlElement = document.documentElement;
         {mode_script[mode]}
-        htmlElement.classList.add(localStorage.getItem("theme") || "uk-theme-{color}");
           htmlElement.classList.add(__FRANKEN__.theme || "uk-theme-{color}");
           htmlElement.classList.add(__FRANKEN__.radii || "uk-radii-md");
           htmlElement.classList.add(__FRANKEN__.shadows || "uk-shadows-sm");

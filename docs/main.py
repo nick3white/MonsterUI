@@ -4,13 +4,13 @@ from monsterui.all import *
 from fasthtml.components import Uk_theme_switcher
 from utils import render_nb
 from pathlib import Path
-from toolslm.download import read_html
+from toolslm.download import read_html,html2md
 from starlette.responses import PlainTextResponse
 import httpx
 
 def _not_found(req, exc):
     _path = req.url.path.rstrip('/')
-    if _path.endswith('.md') or _path.endswith('/md') or _path.endswith('/rmd') or _path.endswith('.rmd'):
+    if _path.endswith('.md') or _path.endswith('.rmd'):
         url = f'https://monsterui.answer.ai{_path[:-3].rstrip("/").rstrip(".")}'.rstrip("/").rstrip(".")
         try:
             r = httpx.head(url, follow_redirects=True, timeout=1.0)
@@ -117,23 +117,38 @@ import api_reference.api_reference as api_reference
 def fname2title(ref_fn_name): return ref_fn_name[5:].replace('_',' | ').title() 
 
 reference_fns = L([o for o in dir(api_reference) if o.startswith('docs_')])
-
 @rt('/api_ref/{o}')
 def api_route(request, o:str):
     if o not in reference_fns: raise HTTPException(404)
     content = getattr(api_reference, o)()
     return _create_page(Container(content), request=request, sidebar_section='API Reference')
 
+@rt('/api_ref/{o}/md')
+def api_route_md(request, o:str):
+    if o not in reference_fns: raise HTTPException(404)
+    content = getattr(api_reference, o)()
+    return PlainTextResponse(html2md(to_xml(content)))
+
+@rt('/api_ref/{o}rmd')
+def api_route_md(request, o:str):
+    if o not in reference_fns: raise HTTPException(404)
+    content = getattr(api_reference, o)()
+    return Div(render_md(html2md(to_xml(content))))
+
 ###
 # Build the Guides Pages
 ###
-@rt
-def tutorial_spacing(request=None): 
-    # if o=='md': return PlainTextResponse(read_html(f'https://monsterui.answer.ai/tutorial_spacing/', sel='#content'))
+@rt('/tutorial_spacing')
+@rt('/tutorial_spacing/{o}')
+def tutorial_spacing(o:str='', request=None): 
+    if o=='md': return PlainTextResponse(read_html(f'https://monsterui.answer.ai/tutorial_spacing', sel='#content'))
+    if o=='rmd': return Div(render_md(read_html(f'https://monsterui.answer.ai/tutorial_spacing', sel='#content')))
     return _create_page(render_nb('guides/Spacing.ipynb'), request, 'Guides')
-@rt
-def tutorial_layout(request=None): 
-    # if o=='md': return PlainTextResponse(read_html(f'https://monsterui.answer.ai/tutorial_layout/', sel='#content'))
+@rt('/tutorial_layout')
+@rt('/tutorial_layout/{o}')
+def tutorial_layout(o:str='', request=None): 
+    if o=='md': return PlainTextResponse(read_html(f'https://monsterui.answer.ai/tutorial_layout', sel='#content'))
+    if o=='rmd': return Div(render_md(read_html(f'https://monsterui.answer.ai/tutorial_layout', sel='#content')))
     return _create_page(render_nb('guides/Layout.ipynb'), request,  'Guides',)
 
 ###
@@ -150,18 +165,28 @@ def theme_switcher(request):
 
 gs_path = Path('getting_started')
 
-@rt
-def getting_started(request=None):
+@rt('/getting_started')
+@rt('/getting_started/{o}')
+def getting_started(o:str='', request=None):
+    if o=='md': return PlainTextResponse(read_html(f'https://monsterui.answer.ai/getting_started', sel='#content'))
+    if o=='rmd': return Div(render_md(read_html(f'https://monsterui.answer.ai/getting_started', sel='#content')))
     content = Container(render_md(open(gs_path/'GettingStarted.md').read()))
     return _create_page(content, 
                        request, 
                        'Getting Started')
-@rt
-def index(): 
+@rt('/')
+@rt('/{o}')
+def index(o:str='', request=None):
+    if o=='md': return PlainTextResponse(read_html(f'https://monsterui.answer.ai', sel='#content'))
+    if o=='rmd': return Div(render_md(read_html(f'https://monsterui.answer.ai', sel='#content')))
     return getting_started('')
 
-@rt
-def tutorial_app(request=None):
+@rt('/tutorial_app2')
+@rt('/tutorial_app2/{o}')
+def tutorial_app(o:str='', request=None):
+    pass
+    if o=='md': return PlainTextResponse(read_html(f'https://monsterui.answer.ai/tutorial_app', sel='#content'))
+    if o=='rmd': return Div(render_md(read_html(f'https://monsterui.answer.ai/tutorial_app', sel='#content')))
     app_code = open(gs_path/'app_product_gallery.py').read()
     app_rendered = Div(Pre(Code(app_code)))
     content = Container(cls='space-y-4')(
@@ -195,7 +220,7 @@ def sidebar(open_section):
         NavParentLi(
             A(DivFullySpaced("Getting Started", )),
             NavContainer(create_li("Getting Started", getting_started),
-                         create_li("Tutorial App", tutorial_app),
+                         create_li("Tutorial App", '/tutorial_app'),
                          parent=False),
             cls='uk-open' if open_section=='Getting Started' else ''
         ),

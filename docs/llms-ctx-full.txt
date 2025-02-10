@@ -2461,7 +2461,7 @@ Source
 
 [code]
 
-    LabelCheckboxX(label: str | fastcore.xml.FT, lbl_cls='', input_cls='', container=functools.partial(<function ft at 0x7fa004d6a7a0>, 'div', void_=False), cls='flex items-center space-x-2', id='', **kwargs) -> fastcore.xml.FT
+    LabelCheckboxX(label: str | fastcore.xml.FT, lbl_cls='', input_cls='', container=functools.partial(<function ft at 0x7fdb5673a7a0>, 'div', void_=False), cls='flex items-center space-x-2', id='', **kwargs) -> fastcore.xml.FT
 [/code]
 
 > A FormLabel and CheckboxX pair that provides default spacing and links/names them based on id
@@ -2490,7 +2490,7 @@ Source
 
 [code]
 
-    LabelSwitch(label: str | fastcore.xml.FT, lbl_cls='', input_cls='', cls='space-x-2', id='', *, container=functools.partial(<function ft at 0x7fa004d6a7a0>, 'div', void_=False)) -> fastcore.xml.FT
+    LabelSwitch(label: str | fastcore.xml.FT, lbl_cls='', input_cls='', cls='space-x-2', id='', *, container=functools.partial(<function ft at 0x7fdb5673a7a0>, 'div', void_=False)) -> fastcore.xml.FT
 [/code]
 
 > **Params**
@@ -2515,7 +2515,7 @@ Source
 
 [code]
 
-    LabelRange(label: str | fastcore.xml.FT, lbl_cls='', input_cls='', cls='space-y-6', id='', value='', min=None, max=None, step=None, label_range=True, *, container=functools.partial(<function ft at 0x7fa004d6a7a0>, 'div', void_=False)) -> fastcore.xml.FT
+    LabelRange(label: str | fastcore.xml.FT, lbl_cls='', input_cls='', cls='space-y-6', id='', value='', min=None, max=None, step=None, label_range=True, *, container=functools.partial(<function ft at 0x7fdb5673a7a0>, 'div', void_=False)) -> fastcore.xml.FT
 [/code]
 
 > A FormLabel and Range pair that provides default spacing and links/names them based on id
@@ -2579,7 +2579,7 @@ Source
 
 [code]
 
-    LabelRadio(label: str | fastcore.xml.FT, lbl_cls='', input_cls='', container=functools.partial(<function ft at 0x7fa004d6a7a0>, 'div', void_=False), cls='flex items-center space-x-2', id='', **kwargs) -> fastcore.xml.FT
+    LabelRadio(label: str | fastcore.xml.FT, lbl_cls='', input_cls='', container=functools.partial(<function ft at 0x7fdb5673a7a0>, 'div', void_=False), cls='flex items-center space-x-2', id='', **kwargs) -> fastcore.xml.FT
 [/code]
 
 > A FormLabel and Radio pair that provides default spacing and links/names them based on id
@@ -2608,7 +2608,7 @@ Source
 
 [code]
 
-    LabelSelect(*option, label: str | fastcore.xml.FT, lbl_cls='', input_cls='', container=functools.partial(<function ft at 0x7fa004d6a7a0>, 'div', void_=False), cls='space-y-2', id='', **kwargs)
+    LabelSelect(*option, label: str | fastcore.xml.FT, lbl_cls='', input_cls='', container=functools.partial(<function ft at 0x7fdb5673a7a0>, 'div', void_=False), cls='space-y-2', id='', **kwargs)
 [/code]
 
 > A FormLabel and Select pair that provides default spacing and links/names them based on id (usually UkLabelSelect is a better choice)
@@ -2637,7 +2637,7 @@ Source
 
 [code]
 
-    LabelSelect(*option, label: str | fastcore.xml.FT, lbl_cls='', input_cls='', container=functools.partial(<function ft at 0x7fa004d6a7a0>, 'div', void_=False), cls='space-y-2', id='', **kwargs)
+    LabelSelect(*option, label: str | fastcore.xml.FT, lbl_cls='', input_cls='', container=functools.partial(<function ft at 0x7fdb5673a7a0>, 'div', void_=False), cls='space-y-2', id='', **kwargs)
 [/code]
 
 > A FormLabel and Select pair that provides default spacing and links/names them based on id (usually UkLabelSelect is a better choice)
@@ -5081,7 +5081,7 @@ Source
 
 [code]
 
-    TableFromLists(header_data: Sequence, body_data: Sequence[Sequence], footer_data=None, header_cell_render=<function Th at 0x7f9faec1da80>, body_cell_render=<function Td at 0x7f9faec1d9e0>, footer_cell_render=<function Td at 0x7f9faec1d9e0>, cls=(<TableT.middle: 'uk-table-middle'>, <TableT.divider: 'uk-table-divider'>, <TableT.hover: 'uk-table-hover'>, <TableT.sm: 'uk-table-small'>), sortable=False, **kwargs) -> fastcore.xml.FT
+    TableFromLists(header_data: Sequence, body_data: Sequence[Sequence], footer_data=None, header_cell_render=<function Th at 0x7fdb005e9a80>, body_cell_render=<function Td at 0x7fdb005e99e0>, footer_cell_render=<function Td at 0x7fdb005e99e0>, cls=(<TableT.middle: 'uk-table-middle'>, <TableT.divider: 'uk-table-divider'>, <TableT.hover: 'uk-table-hover'>, <TableT.sm: 'uk-table-small'>), sortable=False, **kwargs) -> fastcore.xml.FT
 [/code]
 
 > Creates a Table from a list of header data and a list of lists of body data
@@ -5114,7 +5114,7 @@ Source
 
 [code]
 
-    TableFromDicts(header_data: Sequence, body_data: Sequence[dict], footer_data=None, header_cell_render=<function Th at 0x7f9faec1da80>, body_cell_render=<function <lambda> at 0x7f9faec1dbc0>, footer_cell_render=<function <lambda> at 0x7f9faec1dc60>, cls=(<TableT.middle: 'uk-table-middle'>, <TableT.divider: 'uk-table-divider'>, <TableT.hover: 'uk-table-hover'>, <TableT.sm: 'uk-table-small'>), sortable=False, **kwargs) -> fastcore.xml.FT
+    TableFromDicts(header_data: Sequence, body_data: Sequence[dict], footer_data=None, header_cell_render=<function Th at 0x7fdb005e9a80>, body_cell_render=<function <lambda> at 0x7fdb005e9bc0>, footer_cell_render=<function <lambda> at 0x7fdb005e9c60>, cls=(<TableT.middle: 'uk-table-middle'>, <TableT.divider: 'uk-table-divider'>, <TableT.hover: 'uk-table-hover'>, <TableT.sm: 'uk-table-small'>), sortable=False, **kwargs) -> fastcore.xml.FT
 [/code]
 
 > Creates a Table from a list of header data and a list of dicts of body data
@@ -5299,7 +5299,7 @@ Source
 
 [code]
 
-    fast_app(*args, pico=False, db_file: Optional[str] = None, render: Optional[<built-in function callable>] = None, hdrs: Optional[tuple] = None, ftrs: Optional[tuple] = None, tbls: Optional[dict] = None, before: Union[tuple, NoneType, fasthtml.core.Beforeware] = None, middleware: Optional[tuple] = None, live: bool = False, debug: bool = False, routes: Optional[tuple] = None, exception_handlers: Optional[dict] = None, on_startup: Optional[<built-in function callable>] = None, on_shutdown: Optional[<built-in function callable>] = None, lifespan: Optional[<built-in function callable>] = None, default_hdrs=True, surreal: Optional[bool] = True, htmx: Optional[bool] = True, exts: Union[list, str, NoneType] = None, secret_key: Optional[str] = None, key_fname: str = '.sesskey', session_cookie: str = 'session_', max_age: int = 31536000, sess_path: str = '/', same_site: str = 'lax', sess_https_only: bool = False, sess_domain: Optional[str] = None, htmlkw: Optional[dict] = None, bodykw: Optional[dict] = None, reload_attempts: Optional[int] = 1, reload_interval: Optional[int] = 1000, static_path: str = '.', body_wrap: <built-in function callable> = <function noop_body at 0x7fa004409b20>, nb_hdrs: bool = False)
+    fast_app(*args, pico=False, db_file: Optional[str] = None, render: Optional[<built-in function callable>] = None, hdrs: Optional[tuple] = None, ftrs: Optional[tuple] = None, tbls: Optional[dict] = None, before: Union[tuple, NoneType, fasthtml.core.Beforeware] = None, middleware: Optional[tuple] = None, live: bool = False, debug: bool = False, routes: Optional[tuple] = None, exception_handlers: Optional[dict] = None, on_startup: Optional[<built-in function callable>] = None, on_shutdown: Optional[<built-in function callable>] = None, lifespan: Optional[<built-in function callable>] = None, default_hdrs=True, surreal: Optional[bool] = True, htmx: Optional[bool] = True, exts: Union[list, str, NoneType] = None, secret_key: Optional[str] = None, key_fname: str = '.sesskey', session_cookie: str = 'session_', max_age: int = 31536000, sess_path: str = '/', same_site: str = 'lax', sess_https_only: bool = False, sess_domain: Optional[str] = None, htmlkw: Optional[dict] = None, bodykw: Optional[dict] = None, reload_attempts: Optional[int] = 1, reload_interval: Optional[int] = 1000, static_path: str = '.', body_wrap: <built-in function callable> = <function noop_body at 0x7fdb55de1b20>, nb_hdrs: bool = False)
 [/code]
 
 > Create a FastHTML or FastHTMLWithLiveReload app with `bg-background text-foreground` to bodykw for frankenui themes
@@ -5382,7 +5382,7 @@ Source
 
 [code]
 
-    FastHTML(*args, pico=False, debug=False, routes=None, middleware=None, title: str = 'FastHTML page', exception_handlers=None, on_startup=None, on_shutdown=None, lifespan=None, hdrs=None, ftrs=None, exts=None, before=None, after=None, surreal=True, htmx=True, default_hdrs=True, sess_cls=<class 'starlette.middleware.sessions.SessionMiddleware'>, secret_key=None, session_cookie='session_', max_age=31536000, sess_path='/', same_site='lax', sess_https_only=False, sess_domain=None, key_fname='.sesskey', body_wrap=<function noop_body at 0x7fa004409b20>, htmlkw=None, nb_hdrs=False)
+    FastHTML(*args, pico=False, debug=False, routes=None, middleware=None, title: str = 'FastHTML page', exception_handlers=None, on_startup=None, on_shutdown=None, lifespan=None, hdrs=None, ftrs=None, exts=None, before=None, after=None, surreal=True, htmx=True, default_hdrs=True, sess_cls=<class 'starlette.middleware.sessions.SessionMiddleware'>, secret_key=None, session_cookie='session_', max_age=31536000, sess_path='/', same_site='lax', sess_https_only=False, sess_domain=None, key_fname='.sesskey', body_wrap=<function noop_body at 0x7fdb55de1b20>, htmlkw=None, nb_hdrs=False)
 [/code]
 
 > Create a FastHTML app and adds `bg-background text-foreground` to bodykw for frankenui themes

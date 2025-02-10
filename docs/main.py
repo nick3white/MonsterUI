@@ -165,24 +165,8 @@ def theme_switcher(request):
 
 gs_path = Path('getting_started')
 
-@rt('/getting_started')
-@rt('/getting_started/{o}')
-def getting_started(o:str='', request=None):
-    if o=='md': return PlainTextResponse(read_html(f'https://monsterui.answer.ai/getting_started', sel='#content'))
-    if o=='rmd': return Div(render_md(read_html(f'https://monsterui.answer.ai/getting_started', sel='#content')))
-    content = Container(render_md(open(gs_path/'GettingStarted.md').read()))
-    return _create_page(content, 
-                       request, 
-                       'Getting Started')
-@rt('/')
-@rt('/{o}')
-def index(o:str='', request=None):
-    if o=='md': return PlainTextResponse(read_html(f'https://monsterui.answer.ai', sel='#content'))
-    if o=='rmd': return Div(render_md(read_html(f'https://monsterui.answer.ai', sel='#content')))
-    return getting_started('')
-
-@rt('/tutorial_app2')
-@rt('/tutorial_app2/{o}')
+@rt('/tutorial_app')
+@rt('/tutorial_app/{o}')
 def tutorial_app(o:str='', request=None):
     pass
     if o=='md': return PlainTextResponse(read_html(f'https://monsterui.answer.ai/tutorial_app', sel='#content'))
@@ -207,6 +191,21 @@ For example, try replacing `H4` with `fh.H4` or `Button` with `fh.Button`."""),
         app_rendered)
     return _create_page(content, request, 'Getting Started')
 
+@rt('/getting_started')
+@rt('/getting_started/{o}')
+def getting_started(o:str='', request=None):
+    if o=='md': return PlainTextResponse(read_html(f'https://monsterui.answer.ai/getting_started', sel='#content'))
+    if o=='rmd': return Div(render_md(read_html(f'https://monsterui.answer.ai/getting_started', sel='#content')))
+    content = Container(render_md(open(gs_path/'GettingStarted.md').read()))
+    return _create_page(content, 
+                       request, 
+                       'Getting Started')
+@rt('/')
+@rt('/{o}')
+def index(o:str='', request=None):
+    if o=='md': return PlainTextResponse(read_html(f'https://monsterui.answer.ai', sel='#content'))
+    if o=='rmd': return Div(render_md(read_html(f'https://monsterui.answer.ai', sel='#content')))
+    return getting_started('')
 
 ###
 # Build the Sidebar

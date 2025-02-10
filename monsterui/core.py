@@ -157,6 +157,11 @@ class Theme(Enum):
             fh.Script(type="module", src=urls['franken_js_core']),
             fh.Script(type="module", src=urls['franken_icons']),
             fh.Script(src=urls['tailwind']),
+            fh.Script("""
+    tailwind.config = {
+        darkMode: 'selector',
+    }
+    """),
             _headers_theme(self.value, mode=mode),
             scrollspy_style]
 

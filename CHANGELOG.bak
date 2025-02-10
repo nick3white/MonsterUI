@@ -2,6 +2,13 @@
 
 <!-- do not remove -->
 
+## 1.0.1
+
+- Theme bug fix not allowing theme changes to stick, thanks to [@zaseem-bisquared](https://github.com/Zaseem-BIsquared)
+
+- Documentation bug fix on tutorial app, thanks to [@decherd](https://github.com/decherd)
+
+
 ## 1.0.0
 
 ### New Features

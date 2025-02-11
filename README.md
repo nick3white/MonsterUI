@@ -1,10 +1,4 @@
-# MonsterUI
-
-> Combine the simplicity of FastHTML with the power of TailwindCSS
-
-## Why
-
-Because UI is too complex and too aggravating, people don't want to need to become a CSS expert to make professional-looking websites.
+# MonsterUI Getting Started
 
 ## Installation
 
@@ -12,17 +6,13 @@ To install this library, uses
 
 `pip install MonsterUI`
 
-
 ## Getting Started
-
-
-Go to the MonsterUI [Getting Started Page](https://monsterui.answer.ai/getting_started).  It is the #1 best way to learn to get started.
 
 ### TLDR
 
 Run `python file.py` on this to start:
 
-```python
+``` python
 from fasthtml.common import *
 from monsterui.all import *
 
@@ -49,37 +39,52 @@ serve()
 
 ## LLM context files
 
-Using LLMs for development is a best practice way to get started and explore. While LLMs cannot code for you, they can be helpful assistants. You must check, refactor, test, and vet any code any LLM generates for you - but they are helpful productivity tools.  Take a look inside the `llms.txt` file to see links to particularly useful context files!
+Using LLMs for development is a best practice way to get started and
+explore. While LLMs cannot code for you, they can be helpful assistants.
+You must check, refactor, test, and vet any code any LLM generates for
+you - but they are helpful productivity tools. Take a look inside the
+`llms.txt` file to see links to particularly useful context files!
 
 - [llms.txt](https://raw.githubusercontent.com/AnswerDotAI/MonsterUI/refs/heads/main/docs/llms.txt): Links to what is included
 - [llms-ctx.txt](https://raw.githubusercontent.com/AnswerDotAI/MonsterUI/refs/heads/main/docs/llms-ctx.txt): MonsterUI Documentation Pages
 - [API list](https://raw.githubusercontent.com/AnswerDotAI/MonsterUI/refs/heads/main/docs/apilist.txt): API list for MonsterUI (included in llms-ctx.txt)
+- [llms-ctx-full.txt](https://raw.githubusercontent.com/AnswerDotAI/MonsterUI/refs/heads/main/docs/llms-ctx-full.txt): Full context that includes all api reference pages as markdown
 
-In addition you can add `/md` (for markdown) to a url to get a markdown representation and `/rmd` for rendered markdown representation (nice for looking to see what would be put into context.  
+In addition you can add `/md` (for markdown) to a url to get a markdown representation and `/rmd` for rendered markdown representation (nice for looking to see what would be put into context.
 
 ### Step by Step
 
 To get started, check out:
 
-1. Start by importing the modules as follows:
+1.  Start by importing the modules as follows:
 
-```python
+``` python
 from fasthtml.common import *
 from monsterui.all import *
 ```
 
-2. Instantiate the app with the MonsterUI headers
+2.  Instantiate the app with the MonsterUI headers
 
-```python
+``` python
 app = FastHTML(hdrs=Theme.blue.headers())
 
 # Alternatively, using the fast_app method
 app, rt = fast_app(hdrs=Theme.slate.headers())
 ```
->*The color option can be any of the theme options available out of the box*
 
-From here, you can explore the API Reference & examples to see how to implement the components. You can also check out these demo videos in the documentation page
+> *The color option can be any of the theme options available out of the
+> box*
 
-- MonsterUI [Getting Started Page](https://monsterui.answer.ai/getting_started)
+From here, you can explore the API Reference & examples to see how to
+implement the components. You can also check out these demo videos to as
+a quick start guide:
 
-More resources and improvements to the documentation will be added here soon!
+- MonsterUI [documentation page and Tutorial
+  app](https://monsterui.answer.ai/tutorial_app)
+- Isaac & Hamel : [Building his website’s team
+  page](https://youtu.be/22Jn46-mmM0)
+- Isaac & Audrey : [Building a blog](https://youtu.be/gVWAsywxLXE)
+- Isaac : [Building a blog](https://youtu.be/22NJgfAqgko)
+
+More resources and improvements to the documentation will be added here
+soon!

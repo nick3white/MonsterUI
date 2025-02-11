@@ -2,6 +2,13 @@
 
 <!-- do not remove -->
 
+## 1.0.4
+
+### New Features
+
+- Bug fix to correct theming conflict in theme initialization
+
+
 ## 1.0.2
 
 - Bug fix to add dark mode theme selector to TW config, thanks to [@curtis-allan](https://github.com/curtis-allan)

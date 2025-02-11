@@ -36,6 +36,7 @@ from pathlib import Path
 import mistletoe
 from lxml import html, etree
 from fasthtml.components import Uk_input_range
+import fasthtml.components as fh_comp
 
 # %% ../nbs/02_franken.ipynb
 class TextT(VEnum):

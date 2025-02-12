@@ -9,17 +9,6 @@
 
 - Update component classes to align with Franken UI v2.0 ([#67](https://github.com/AnswerDotAI/MonsterUI/pull/67)), thanks to [@Zaseem-BIsquared](https://github.com/Zaseem-BIsquared)
 
-## Changes Made
-- Updated ContainerT, CardT, and TableT class names to match the documented patterns from Franken UI v2.0 docs
-
-## References
-- [Franken UI docs](https://franken-ui.dev/docs/introduction)
-- [Franken UI v2.0 docs](https://next.franken-ui.dev/docs/2.0/introduction)
-
-## Testing
-- Tested locally to confirm everything was working properly
-- Verified class names match documentation specifications
-
 
 ## 1.0.5
 

@@ -713,9 +713,6 @@ docs_layout = create_doc_section(
     fn2code_string(ex_h_stacked_div),
     FlexT,
 
-    H2("Padding and Positioning"),
-    PaddingT,
-    PositionT,
     title="Layout")
 
 # Dividers

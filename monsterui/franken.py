@@ -10,13 +10,13 @@ __all__ = ['franken_class_map', 'TextT', 'TextPresets', 'CodeSpan', 'CodeBlock',
            'Upload', 'UploadZone', 'FormLabel', 'LabelT', 'Label', 'UkFormSection', 'GenericLabelInput', 'LabelInput',
            'LabelTextArea', 'LabelSwitch', 'LabelRadio', 'LabelCheckboxX', 'LabelSelect', 'Options', 'Select',
            'LabelRange', 'AT', 'ListT', 'ModalContainer', 'ModalDialog', 'ModalHeader', 'ModalBody', 'ModalFooter',
-           'ModalTitle', 'ModalCloseButton', 'Modal', 'PaddingT', 'PositionT', 'Placeholder', 'Progress', 'UkIcon',
-           'UkIconLink', 'DiceBearAvatar', 'Center', 'FlexT', 'Grid', 'DivFullySpaced', 'DivCentered', 'DivLAligned',
-           'DivRAligned', 'DivVStacked', 'DivHStacked', 'NavT', 'NavContainer', 'NavParentLi', 'NavDividerLi',
-           'NavHeaderLi', 'NavSubtitle', 'NavCloseLi', 'ScrollspyT', 'NavBar', 'SliderContainer', 'SliderItems',
-           'SliderNav', 'Slider', 'DropDownNavContainer', 'TabContainer', 'CardT', 'CardTitle', 'CardHeader',
-           'CardBody', 'CardFooter', 'CardContainer', 'Card', 'TableT', 'Table', 'Td', 'Th', 'Tbody', 'TableFromLists',
-           'TableFromDicts', 'apply_classes', 'render_md', 'get_franken_renderer', 'ThemePicker']
+           'ModalTitle', 'ModalCloseButton', 'Modal', 'Placeholder', 'Progress', 'UkIcon', 'UkIconLink',
+           'DiceBearAvatar', 'Center', 'FlexT', 'Grid', 'DivFullySpaced', 'DivCentered', 'DivLAligned', 'DivRAligned',
+           'DivVStacked', 'DivHStacked', 'NavT', 'NavContainer', 'NavParentLi', 'NavDividerLi', 'NavHeaderLi',
+           'NavSubtitle', 'NavCloseLi', 'ScrollspyT', 'NavBar', 'SliderContainer', 'SliderItems', 'SliderNav', 'Slider',
+           'DropDownNavContainer', 'TabContainer', 'CardT', 'CardTitle', 'CardHeader', 'CardBody', 'CardFooter',
+           'CardContainer', 'Card', 'TableT', 'Table', 'Td', 'Th', 'Tbody', 'TableFromLists', 'TableFromDicts',
+           'apply_classes', 'render_md', 'get_franken_renderer', 'ThemePicker']
 
 # %% ../nbs/02_franken.ipynb
 import fasthtml.common as fh
@@ -910,44 +910,6 @@ def Modal(*c,                 # Components to put in the `ModalBody` (often form
     res.append(ModalBody(cls=body_cls)(*c))
     if footer: res.append(ModalFooter(cls=footer_cls)(footer))
     return ModalContainer(ModalDialog(*res, cls=dialog_cls), cls=cls, id=id, **kwargs)
-
-# %% ../nbs/02_franken.ipynb
-class PaddingT(VEnum):
-    'Padding Modifiers from https://franken-ui.dev/docs/padding'
-    def _generate_next_value_(name, start, count, last_values): return str2ukcls('padding', name)
-    xs = 'uk-padding-xsmall'
-    sm = 'uk-padding-small'
-    default = ''
-    md = 'uk-padding-medium'
-    lg = 'uk-padding-large'
-    xl = 'uk-padding-xlarge'
-    remove = auto()
-    remove_top = auto()
-    remove_bottom = auto()
-    remove_left = auto()
-    remove_right = auto()
-    remove_vertical = auto()
-    remove_horizontal = auto()
-
-# %% ../nbs/02_franken.ipynb
-class PositionT(VEnum):
-    'Position modifiers from https://franken-ui.dev/docs/position'
-    def _generate_next_value_(name, start, count, last_values): return str2ukcls('position', name)
-    top = auto()
-    bottom = auto()
-    left = auto()
-    right = auto()
-    top_left = auto()
-    top_center = auto()
-    top_right = auto()
-    center = auto()
-    center_left = auto()
-    center_right = auto()
-    bottom_left = auto()
-    bottom_center = auto()
-    bottom_right = auto()
-    center_horizontal = auto()
-    center_vertical = auto()
 
 # %% ../nbs/02_franken.ipynb
 def Placeholder(*c, # Components to put in the placeholder

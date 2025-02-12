@@ -354,16 +354,6 @@
 - `def Modal(*c, **kwargs)`
     Creates a modal with the appropriate classes to put the boilerplate in the appropriate places for you
 
-- `class PaddingT(Enum)`
-    Padding Modifiers from https://franken-ui.dev/docs/padding
-    Members: xs, sm, default, md, lg, xl, remove, remove_top, remove_bottom, remove_left, remove_right, remove_vertical, remove_horizontal
-
-
-- `class PositionT(Enum)`
-    Position modifiers from https://franken-ui.dev/docs/position
-    Members: top, bottom, left, right, top_left, top_center, top_right, center, center_left, center_right, bottom_left, bottom_center, bottom_right, center_horizontal, center_vertical
-
-
 - `def Placeholder(*c, **kwargs)`
     Creates a placeholder
 

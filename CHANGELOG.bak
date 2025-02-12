@@ -2,6 +2,10 @@
 
 <!-- do not remove -->
 
+## 1.0.5
+
+- Add Center component
+
 ## 1.0.4
 
 ### New Features

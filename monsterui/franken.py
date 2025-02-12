@@ -413,11 +413,12 @@ def Button(*c: Union[str, FT], # Contents of `Button` tag (often text)
 # %% ../nbs/02_franken.ipynb
 class ContainerT(VEnum):
     'Max width container sizes from https://franken-ui.dev/docs/container'
-    xs = 'uk-container-xsmall'
-    sm = 'uk-container-small'
-    lg = 'uk-container-large'
-    xl = 'uk-container-xlarge'
-    expand = 'uk-container-expand'
+    def _generate_next_value_(name, start, count, last_values): return str2ukcls('container', name)
+    xs = auto()
+    sm = auto()
+    lg = auto()
+    xl = auto()
+    expand = auto()
 
 # %% ../nbs/02_franken.ipynb
 class BackgroundT(VEnum):
@@ -1296,7 +1297,7 @@ class CardT(VEnum):
     default = auto()
     primary = auto()
     secondary = auto()
-    danger = auto()
+    destructive = auto()
     hover = 'uk-card hover:shadow-lg hover:-translate-y-1 transition-all duration-200'
 
 # %% ../nbs/02_franken.ipynb
@@ -1359,8 +1360,8 @@ class TableT(VEnum):
     divider = auto()
     striped = auto()
     hover = auto()
-    sm = 'uk-table-small'
-    lg = 'uk-table-large'
+    sm = auto()
+    lg = auto()
     justify = auto()
     middle = auto()
     responsive = auto()

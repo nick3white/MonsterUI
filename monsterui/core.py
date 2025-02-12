@@ -65,10 +65,10 @@ def _headers_theme(color, mode='auto'):
 
 # %% ../nbs/01_core.ipynb
 HEADER_URLS = {
-        'franken_css': "https://unpkg.com/franken-ui@2.0.0-internal.40/dist/css/core.min.css",
+        'franken_css': "https://unpkg.com/franken-ui@2.0.0-internal.44/dist/css/core.min.css",
 #         'franken_tw_utils': "https://unpkg.com/franken-ui@2.0.0-internal.40/dist/css/utilities.min.css",
-        'franken_js_core': "https://unpkg.com/franken-ui@2.0.0-internal.40/dist/js/core.iife.js",
-        'franken_icons': "https://unpkg.com/franken-ui@2.0.0-internal.40/dist/js/icon.iife.js",
+        'franken_js_core': "https://unpkg.com/franken-ui@2.0.0-internal.44/dist/js/core.iife.js",
+        'franken_icons': "https://unpkg.com/franken-ui@2.0.0-internal.44/dist/js/icon.iife.js",
 #         'icon_js': "https://cdn.jsdelivr.net/gh/answerdotai/monsterui@main/monsterui/icon.iife.js",
         'tailwind': "https://cdn.tailwindcss.com",
         'daisyui': "https://cdn.jsdelivr.net/npm/daisyui@4.12.22/dist/full.min.css",

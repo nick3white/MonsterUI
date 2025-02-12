@@ -457,7 +457,7 @@
 
 - `class CardT(Enum)`
     Card styles from UIkit
-    Members: default, primary, secondary, danger, hover
+    Members: default, primary, secondary, destructive, hover
 
 
 - `def CardTitle(*c, **kwargs)`
@@ -6042,7 +6042,7 @@ Source
 
 **Returns:** Additional args for Mark tag
 
-### Sub
+### `Space-y-5`
 
 Source
 

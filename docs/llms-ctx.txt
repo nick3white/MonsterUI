@@ -457,7 +457,7 @@
 
 - `class CardT(Enum)`
     Card styles from UIkit
-    Members: default, primary, secondary, danger, hover
+    Members: default, primary, secondary, destructive, hover
 
 
 - `def CardTitle(*c, **kwargs)`

@@ -986,14 +986,25 @@ def add(a, b):
 '''
     return render_md(md)
 
+def ex_markdown2():
+    md = '''With custom **bold** style\n\n > But no extra quote style because class_map overrides all default styled'''
+    return render_md(md, class_map={'b': 'text-red-500'})
+
+def ex_markdown3():
+    md = '''With custom **bold** style\n\n > But default  quote style because class_map_mods replaces sepecified styles and leaves the rest as default'''
+    return render_md(md, class_map_mods={'b': 'text-red-500'})
 
 def ex_applyclasses():
     return apply_classes('<h1>Hello, World!</h1><p>This is a paragraph</p>')
 
-docs_markdown = create_doc_section(
+docs_markdown_HTMLstyling = create_doc_section(
     H1("Markdown + automated HTML styling API Reference"),
     fn2code_string(ex_markdown),
-    P("This uses the `apply_classes` function, which can be used to apply classes to html strings"),
+    render_md("You can overwrite the default styling for markdown rendering with your own css classes with  `class_map"),
+    fn2code_string(ex_markdown2),
+    render_md("You can modify the default styling for markdown rendering with your own css classes with  `class_map_mods"),
+    fn2code_string(ex_markdown3),
+    render_md("This uses the `apply_classes` function, which can be used to apply classes to html strings.  This is useful for applying styles to any html you get from an external source."),
     apply_classes,
     fn2code_string(ex_applyclasses),
     title="Markdown + HTML Frankification")

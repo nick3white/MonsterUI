@@ -785,10 +785,13 @@ def Select(*option,            # Options for the select dropdown (can use `Optio
           name="",            # Name attribute for the select input
           placeholder="",     # Placeholder text for the select input
           searchable=False,   # Whether the select should be searchable
-          **kwargs):          # Additional arguments passed to Uk_select
+          select_kwargs=None, # Additional Arguments passed to Select
+           **kwargs           # Additional arguments passed to Uk_select
+          ):          
     "Creates a select dropdown with uk styling and option for adding a search box"
     inp_cls, cls, cls_custom= map(stringify, (inp_cls, cls, cls_custom))
-    uk_select = Uk_select(fh.Select(*option, hidden=True, id=id, name=name),
+    select_kwargs = ifnone(select_kwargs, {})
+    uk_select = Uk_select(fh.Select(*option, hidden=True, id=id, name=name, **select_kwargs),
                          cls_custom=cls_custom,
                          searchable=searchable,
                          placeholder=placeholder,

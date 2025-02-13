@@ -977,7 +977,7 @@ $$
 \\frac{1}{2\\pi i} \\oint_C \\frac{f(z)}{z-z_0} dz
 $$
 
-And even syntax highlighting thanks to Highlight.js!
+And even syntax highlighting thanks to Highlight.js! (Just make sure you set `highlightjs=True` in the headers function)
 
 ```python
 def add(a, b):

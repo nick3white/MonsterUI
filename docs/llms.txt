@@ -27,7 +27,7 @@
 - [Layout](https://monsterui.answer.ai/api_ref/docs_layout/md): Layout (Flex and Grid) API Reference
 - [Lists](https://monsterui.answer.ai/api_ref/docs_lists/md): Lists API Reference
 - [Loading](https://monsterui.answer.ai/api_ref/docs_loading/md): Loading IndicatorsAPI Reference
-- [Markdown | Htmlstyling](https://monsterui.answer.ai/api_ref/docs_markdown_HTMLstyling/md): <!doctype html>
+- [Markdown | Htmlstyling](https://monsterui.answer.ai/api_ref/docs_markdown_HTMLstyling/md): Markdown + automated HTML styling API Reference
 - [Modals](https://monsterui.answer.ai/api_ref/docs_modals/md): Modals API Reference
 - [Navigation](https://monsterui.answer.ai/api_ref/docs_navigation/md): Navigation (Nav, NavBar, Tabs, etc.) API Reference
 - [Notifications](https://monsterui.answer.ai/api_ref/docs_notifications/md): Alerts & Toasts API Reference

@@ -2,6 +2,17 @@
 
 <!-- do not remove -->
 
+## 1.0.7
+
+### New Features
+
+- Add select kwargs to Select and LabelSelect ([#70](https://github.com/AnswerDotAI/MonsterUI/issues/70))
+
+### Bugs Squashed
+
+- Update component classes to align with Franken UI v2.0 ([#67](https://github.com/AnswerDotAI/MonsterUI/pull/67)), thanks to [@Zaseem-BIsquared](https://github.com/Zaseem-BIsquared)
+- Updated ContainerT, CardT, and TableT class names to match the documented patterns from Franken UI v2.0 docs
+
 ## 1.0.6
 
 

@@ -16,7 +16,7 @@ __all__ = ['franken_class_map', 'TextT', 'TextPresets', 'CodeSpan', 'CodeBlock',
            'NavSubtitle', 'NavCloseLi', 'ScrollspyT', 'NavBar', 'SliderContainer', 'SliderItems', 'SliderNav', 'Slider',
            'DropDownNavContainer', 'TabContainer', 'CardT', 'CardTitle', 'CardHeader', 'CardBody', 'CardFooter',
            'CardContainer', 'Card', 'TableT', 'Table', 'Td', 'Th', 'Tbody', 'TableFromLists', 'TableFromDicts',
-           'apply_classes', 'render_md', 'get_franken_renderer', 'ThemePicker']
+           'apply_classes', 'render_md', 'get_franken_renderer', 'ThemePicker', 'Lightbox', 'MultiLightbox']
 
 # %% ../nbs/02_franken.ipynb
 import fasthtml.common as fh
@@ -1519,3 +1519,46 @@ def ThemePicker(color=True, radii=True, shadows=True, font=True, mode=True, cls=
         _opt('light','Light',data_icon='sun'), _opt('dark','Dark',data_icon='moon')]))
     from fasthtml.components import Uk_theme_switcher
     return Div(Uk_theme_switcher(fh.Select(*groups, hidden=True),  id="theme-switcher"), cls=stringify(cls))
+
+# %% ../nbs/02_franken.ipynb
+def Lightbox(link:str|fh.FT='Open Lightbox',
+            href:str='#',
+            caption:str|fh.FT='Image Caption',
+            alt:str='Lightbox Image',
+            in_multi:bool=False,
+            use_img_link:bool=False,
+            link_cls=None,
+            thumb_width=400,
+            thumb_height=400,
+            iframe:bool=False,
+            **kwargs):
+    link_kw = dict(data_caption=to_xml(caption), data_alt=alt, href=href, cls=(link_cls, 'uk-inline' if use_img_link else '',), data_type="iframe" if iframe else None)
+    if isinstance(link, str):
+        link = Button(link, cls=ButtonT.default)
+    inner = lambda x: A(x, **link_kw)
+    ctn = lambda x: Div(x, data_uk_lightbox=True, **kwargs)
+    
+    if use_img_link:
+            link = fh.Img(src=href, alt=alt, width=thumb_width, height=thumb_height)
+    if in_multi: return inner(link())
+    return ctn(inner(link()))
+
+# %% ../nbs/02_franken.ipynb
+def MultiLightbox(*c,
+                  urls:list=[],
+                  img_links:bool=False,
+                  animation:str='slide',
+                  nav:str='',
+                  counter:bool=False,
+                  cls='grid mt-4 grid-cols-3 gap-4',
+                  **kwargs):
+    _nav_str = f"slidenav: false;nav:{nav}" if nav else ''
+    ctn = Div(data_uk_lightbox=f'animation:{animation};{_nav_str}', counter=counter, cls=cls, **kwargs)
+    link_tag = fh.Img if img_links else Button
+    def _mk_lb(index:int, href:str):
+        return Div(Lightbox(in_multi=True, link=fh.Img(src=href, alt=""), caption=f"Photo {index}", href=href, link_cls='uk-inline'))
+    if urls:
+        return ctn(
+            *[_mk_lb(i+1, u) for i,u in enumerate(urls)]
+            )
+    return ctn(*c)

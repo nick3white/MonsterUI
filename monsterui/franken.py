@@ -16,7 +16,8 @@ __all__ = ['franken_class_map', 'TextT', 'TextPresets', 'CodeSpan', 'CodeBlock',
            'NavSubtitle', 'NavCloseLi', 'ScrollspyT', 'NavBar', 'SliderContainer', 'SliderItems', 'SliderNav', 'Slider',
            'DropDownNavContainer', 'TabContainer', 'CardT', 'CardTitle', 'CardHeader', 'CardBody', 'CardFooter',
            'CardContainer', 'Card', 'TableT', 'Table', 'Td', 'Th', 'Tbody', 'TableFromLists', 'TableFromDicts',
-           'apply_classes', 'render_md', 'get_franken_renderer', 'ThemePicker', 'Lightbox', 'MultiLightbox']
+           'apply_classes', 'render_md', 'get_franken_renderer', 'ThemePicker', 'LightboxT', 'Lightbox',
+           'MultiLightbox']
 
 # %% ../nbs/02_franken.ipynb
 import fasthtml.common as fh
@@ -1521,44 +1522,78 @@ def ThemePicker(color=True, radii=True, shadows=True, font=True, mode=True, cls=
     return Div(Uk_theme_switcher(fh.Select(*groups, hidden=True),  id="theme-switcher"), cls=stringify(cls))
 
 # %% ../nbs/02_franken.ipynb
-def Lightbox(link:str|fh.FT='Open Lightbox',
-            href:str='#',
-            caption:str|fh.FT='Image Caption',
-            alt:str='Lightbox Image',
-            in_multi:bool=False,
-            use_img_link:bool=False,
-            link_cls=None,
-            thumb_width=400,
-            thumb_height=400,
-            iframe:bool=False,
-            **kwargs):
-    link_kw = dict(data_caption=to_xml(caption) if caption else None, data_alt=alt, href=href, cls=(link_cls, 'uk-inline' if use_img_link else '',), data_type="iframe" if iframe else None)
-    if isinstance(link, str):
-        link = Button(link, cls=ButtonT.default)
-    inner = lambda x: A(x, **link_kw)
-    ctn = lambda x: Div(x, data_uk_lightbox=True, **kwargs)
+class LightboxT(VEnum):
+    'Lightbox styles and animations'
+    def _generate_next_value_(name, start, count, last_values): return str2ukcls('lightbox', name)
     
-    if use_img_link:
-            link = fh.Img(src=href, alt=alt, width=thumb_width, height=thumb_height)
-    if in_multi: return inner(link())
-    return ctn(inner(link()))
+    # Animations
+    slide = auto()
+    fade = auto()
+    scale = auto()
+    
+    # Navigation
+    no_nav = 'slidenav: false; nav: false'
+    thumbnav = 'slidenav: false; nav: thumbnav'
+    dotnav = 'slidenav: false; nav: dotnav'
 
 # %% ../nbs/02_franken.ipynb
-def MultiLightbox(*c,
-                  urls:list=[],
-                  img_links:bool=False,
-                  animation:str='slide',
-                  nav:str='',
-                  counter:bool=False,
-                  cls='grid mt-4 grid-cols-3 gap-4',
-                  **kwargs):
-    _nav_str = f"slidenav: false;nav:{nav}" if nav else ''
-    ctn = Div(data_uk_lightbox=f'animation:{animation};{_nav_str}', counter=counter, cls=cls, **kwargs)
-    link_tag = fh.Img if img_links else Button
-    def _mk_lb(index:int, href:str):
-        return Div(Lightbox(in_multi=True, link=fh.Img(src=href, alt=""), caption=f"Photo {index}", href=href, link_cls='uk-inline'))
+def Lightbox(
+    link:str|FT='Open Lightbox', # Content for the lightbox trigger
+    href:str='#', # URL of the lightbox content
+    caption:str|FT='Image Caption', # Caption shown in lightbox 
+    alt:str='Lightbox Image', # Alt text for images
+    in_multi:bool=False, # Whether this is part of a MultiLightbox
+    use_img_link:bool=False, # Use thumbnail image as trigger
+    link_cls:str|tuple=(), # Additional classes for trigger
+    thumb_width:int=400, # Thumbnail width if use_img_link=True
+    thumb_height:int=400, # Thumbnail height if use_img_link=True
+    iframe:bool=False, # Whether content should be loaded in iframe
+    **kwargs # Additional args for container
+)->FT: # Lightbox component
+    "Creates a lightbox component for displaying media content"
+    link_kw = dict(
+        data_caption=to_xml(caption) if caption else None,
+        data_alt=alt,
+        href=href,
+        cls=('uk-inline' if use_img_link else '', stringify(link_cls)),
+        data_type='iframe' if iframe else None
+    )
+    
+    if isinstance(link, str): link = Button(link, cls=ButtonT.default)
+    if use_img_link: link = fh.Img(src=href, alt=alt, width=thumb_width, height=thumb_height)
+    
+    inner = A(link, **link_kw)
+    if in_multi: return inner
+    return Div(inner, data_uk_lightbox=True, **kwargs)
+
+# %% ../nbs/02_franken.ipynb
+def MultiLightbox(
+    *c:FT, # Child lightbox components
+    urls:list=[], # List of URLs to create lightboxes from
+    animation:str=LightboxT.slide, # Animation type
+    nav:str='', # Navigation type (thumbnav/dotnav)
+    counter:bool=False, # Show image counter
+    cls:str='grid mt-4 grid-cols-3 gap-4', # Container classes
+    **kwargs # Additional args for container
+)->FT: # Multi-image lightbox gallery
+    "Creates a lightbox gallery for displaying multiple images with navigation"
+    nav_str = f"slidenav: false;nav:{nav}" if nav else ''
+    container = Div(
+        data_uk_lightbox=f'animation:{animation};{nav_str}',
+        counter=counter,
+        cls=stringify(cls),
+        **kwargs
+    )
+    
     if urls:
-        return ctn(
-            *[_mk_lb(i+1, u) for i,u in enumerate(urls)]
-            )
-    return ctn(*c)
+        items = [
+            Div(Lightbox(
+                in_multi=True,
+                link=fh.Img(src=url, alt=""),
+                caption=f"Photo {i+1}",
+                href=url,
+                link_cls='uk-inline'
+            )) for i,url in enumerate(urls)
+        ]
+        return container(*items)
+    return container(*c)

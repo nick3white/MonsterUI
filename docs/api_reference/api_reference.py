@@ -506,11 +506,6 @@ def ex_radio():
         Radio(name="radio-group", id="radio1"), 
         LabelRadio(label="Radio", id='radio1',cls='flex items-center space-x-4'))
 
-def ex_Select(): 
-    return Div(
-        Select(map(Option, ["Option 1", "Option 2", "Option 3"])),
-        LabelSelect(map(Option, ["Option 1", "Option 2", "Option 3"]), label="Select", id='myid'))
-
 def ex_select(): 
     return Div(
         Select(map(Option, ["Option 1", "Option 2", "Option 3"])),

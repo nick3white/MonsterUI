@@ -1532,7 +1532,7 @@ def Lightbox(link:str|fh.FT='Open Lightbox',
             thumb_height=400,
             iframe:bool=False,
             **kwargs):
-    link_kw = dict(data_caption=to_xml(caption), data_alt=alt, href=href, cls=(link_cls, 'uk-inline' if use_img_link else '',), data_type="iframe" if iframe else None)
+    link_kw = dict(data_caption=to_xml(caption) if caption else None, data_alt=alt, href=href, cls=(link_cls, 'uk-inline' if use_img_link else '',), data_type="iframe" if iframe else None)
     if isinstance(link, str):
         link = Button(link, cls=ButtonT.default)
     inner = lambda x: A(x, **link_kw)

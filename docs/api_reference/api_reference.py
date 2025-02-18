@@ -506,10 +506,20 @@ def ex_radio():
         Radio(name="radio-group", id="radio1"), 
         LabelRadio(label="Radio", id='radio1',cls='flex items-center space-x-4'))
 
-def ex_Select(): 
-    return Div(
-        Select(map(Option, ["Option 1", "Option 2", "Option 3"])),
-        LabelSelect(map(Option, ["Option 1", "Option 2", "Option 3"]), label="Select", id='myid'))
+def ex_insertable_select1():
+    fruit_opts = ['apple', 'orange', 'banana', 'mango']
+
+    return Grid(
+        Select(Option('Apple', value='apple'),
+               Option('Orange', value='orange'),
+               Option('Banana', value='banana'),
+               Option('Mango', value='mango'),
+               id="fruit", icon=True, insertable=True, placeholder="Choose a fruit..."),
+
+        Select(Optgroup(label="Fruit")(
+                    *map(lambda l: Option(l.capitalize(), value=l), sorted(fruit_opts))),
+                id="fruit", icon=True, insertable=True, placeholder="Choose a fruit...",
+                cls_custom="button: uk-input-fake justify-between w-full; dropdown: w-full"))
 
 def ex_select(): 
     return Div(
@@ -560,7 +570,6 @@ docs_forms = create_doc_section(
     LabelTextArea,
     LabelRadio,
     LabelSelect,
-    LabelSelect,
     Progress,
     fn2code_string(ex_progress),
     Radio,
@@ -575,11 +584,42 @@ docs_forms = create_doc_section(
     fn2code_string(ex_textarea),
     Select,
     fn2code_string(ex_select),
-    Select,
-    fn2code_string(ex_Select),
+    H3("Example: Insertable Select"),
+    Caption("In a production app, the user-inserted option would be saved server-side (db, session etc.)"),
+    fn2code_string(ex_insertable_select1),
     Legend,
     Fieldset,
     title="Forms")
+
+
+# Lightbox
+
+def ex_lightbox1():
+    return LightboxContainer(
+        LightboxItem(Button("Open"), href='https://picsum.photos/id/100/1280/720.webp', data_alt='A placeholder image to demonstrate the lightbox', data_caption='This is my super cool caption'),
+    )
+def ex_lightbox2():
+    return LightboxContainer(
+        LightboxItem(Button("Open"), href='https://picsum.photos/id/100/1280/720.webp', data_alt='A placeholder image to demonstrate the lightbox', data_caption='Image 1'),
+        LightboxItem(href='https://picsum.photos/id/101/1280/720.webp', data_alt='A placeholder image to demonstrate the lightbox', data_caption='Image 2'),
+        LightboxItem(href='https://picsum.photos/id/102/1280/720.webp', data_alt='A placeholder image to demonstrate the lightbox', data_caption='Image 3'),
+    )
+
+def ex_lightbox3():
+    return LightboxContainer(
+        LightboxItem(Button("mp4"), href='https://yootheme.com/site/images/media/yootheme-pro.mp4'),
+        LightboxItem(Button("Youtube"), href='https://www.youtube.com/watch?v=c2pz2mlSfXA'),
+        LightboxItem(Button("Vimeo"), href='https://vimeo.com/1084537'),
+        LightboxItem(Button("Iframe"), data_type='iframe', href='https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d4740.819266853735!2d9.99008871708242!3d53.550454675412404!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x3f9d24afe84a0263!2sRathaus!5e0!3m2!1sde!2sde!4v1499675200938'))
+
+docs_lightbox = create_doc_section(
+    H1("Lightbox API Reference"),
+    fn2code_string(ex_lightbox1),
+    fn2code_string(ex_lightbox2),
+    fn2code_string(ex_lightbox3),
+    LightboxContainer,
+    LightboxItem,
+    title="Lightbox")
 
 # Modals
 
@@ -712,7 +752,6 @@ docs_layout = create_doc_section(
     DivHStacked,
     fn2code_string(ex_h_stacked_div),
     FlexT,
-
     title="Layout")
 
 # Dividers
@@ -833,14 +872,6 @@ docs_navigation = create_doc_section(
     NavHeaderLi,
     NavDividerLi,
     NavParentLi,
-    # NavBarCenter,
-    # NavBarRSide,
-    # NavBarLSide,
-    # NavBarContainer,
-    # NavBarNav,
-    # NavBarSubtitle,
-    # NavBarNavContainer,
-    # NavBarParentIcon,
     DropDownNavContainer,
     title="Navigation")
 
@@ -997,7 +1028,7 @@ def ex_markdown3():
 def ex_applyclasses():
     return apply_classes('<h1>Hello, World!</h1><p>This is a paragraph</p>')
 
-docs_markdown_HTMLstyling = create_doc_section(
+docs_markdown = create_doc_section(
     H1("Markdown + automated HTML styling API Reference"),
     fn2code_string(ex_markdown),
     render_md("You can overwrite the default styling for markdown rendering with your own css classes with  `class_map"),
@@ -1008,6 +1039,12 @@ docs_markdown_HTMLstyling = create_doc_section(
     apply_classes,
     fn2code_string(ex_applyclasses),
     title="Markdown + HTML Frankification")
+
+
+docs_html = create_doc_section(
+    H1("HTML Styling API Reference"),
+    fn2code_string(ex_applyclasses),
+    title="HTML Styling")
 
 def ex_loading1():
     return Loading()

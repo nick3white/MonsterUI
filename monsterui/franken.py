@@ -16,7 +16,7 @@ __all__ = ['franken_class_map', 'TextT', 'TextPresets', 'CodeSpan', 'CodeBlock',
            'NavSubtitle', 'NavCloseLi', 'ScrollspyT', 'NavBar', 'SliderContainer', 'SliderItems', 'SliderNav', 'Slider',
            'DropDownNavContainer', 'TabContainer', 'CardT', 'CardTitle', 'CardHeader', 'CardBody', 'CardFooter',
            'CardContainer', 'Card', 'TableT', 'Table', 'Td', 'Th', 'Tbody', 'TableFromLists', 'TableFromDicts',
-           'apply_classes', 'render_md', 'get_franken_renderer', 'ThemePicker']
+           'apply_classes', 'render_md', 'get_franken_renderer', 'ThemePicker', 'LightboxContainer', 'LightboxItem']
 
 # %% ../nbs/02_franken.ipynb
 import fasthtml.common as fh
@@ -785,6 +785,7 @@ def Select(*option,            # Options for the select dropdown (can use `Optio
           name="",            # Name attribute for the select input
           placeholder="",     # Placeholder text for the select input
           searchable=False,   # Whether the select should be searchable
+          insertable=False,   # Whether to allow user-defined options to be added
           select_kwargs=None, # Additional Arguments passed to Select
            **kwargs           # Additional arguments passed to Uk_select
           ):          
@@ -795,6 +796,7 @@ def Select(*option,            # Options for the select dropdown (can use `Optio
                          cls_custom=cls_custom,
                          searchable=searchable,
                          placeholder=placeholder,
+                         insertable=insertable,
                          cls=inp_cls,
                          id=id, 
                          name=name,
@@ -1519,3 +1521,22 @@ def ThemePicker(color=True, radii=True, shadows=True, font=True, mode=True, cls=
         _opt('light','Light',data_icon='sun'), _opt('dark','Dark',data_icon='moon')]))
     from fasthtml.components import Uk_theme_switcher
     return Div(Uk_theme_switcher(fh.Select(*groups, hidden=True),  id="theme-switcher"), cls=stringify(cls))
+
+# %% ../nbs/02_franken.ipynb
+def LightboxContainer(*lightboxitem, # `LightBoxItem`s that will be inside lightbox
+                      data_uk_lightbox='counter: true', # See https://franken-ui.dev/docs/2.0/lightbox for advanced options
+                      **kwargs # Additional options for outer container
+                     )->FT: # Lightbox
+    "Lightbox container that will hold `LightboxItems`"
+    return fh.Div(*lightboxitem, data_uk_lightbox=data_uk_lightbox, **kwargs)
+
+# %% ../nbs/02_franken.ipynb
+def LightboxItem(*c, # Component that when clicked will open the lightbox (often a button)
+                 href, # Href to image, youtube video, vimeo, google maps, etc.
+                 data_alt=None, # Alt text for the lightbox item/image
+                 data_caption=None, # Caption for the item that shows below it
+                 cls='', # Class for the A tag (often nothing or `uk-btn`)
+                 **kwargs # Additional args for the `A` tag
+                )->FT: # A(... href, data_alt, cls., ...)
+    "Anchor tag with appropriate structure to go inside a `LightBoxContainer`"
+    return fh.A(*c, href=href, data_alt=data_alt, cls=stringify(cls), **kwargs)

@@ -82,9 +82,9 @@ def _headers_theme(color, mode='auto', radii=ThemeRadii.sm, shadows=ThemeShadows
 
 # %% ../nbs/01_core.ipynb
 HEADER_URLS = {
-        'franken_css': "https://unpkg.com/franken-ui@2.0.0-internal.40/dist/css/core.min.css",
-        'franken_js_core': "https://unpkg.com/franken-ui@2.0.0-internal.40/dist/js/core.iife.js",
-        'franken_icons': "https://unpkg.com/franken-ui@2.0.0-internal.40/dist/js/icon.iife.js",
+        'franken_css': "https://unpkg.com/franken-ui@2.0.0-internal.45/dist/css/core.min.css",
+        'franken_js_core': "https://unpkg.com/franken-ui@2.0.0-internal.45/dist/js/core.iife.js",
+        'franken_icons': "https://unpkg.com/franken-ui@2.0.0-internal.45/dist/js/icon.iife.js",
         'tailwind': "https://cdn.tailwindcss.com",
         'daisyui': "https://cdn.jsdelivr.net/npm/daisyui@4.12.22/dist/full.min.css",
         'highlight_js': "https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/highlight.min.js",

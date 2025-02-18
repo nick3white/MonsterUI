@@ -506,6 +506,18 @@ def ex_radio():
         Radio(name="radio-group", id="radio1"), 
         LabelRadio(label="Radio", id='radio1',cls='flex items-center space-x-4'))
 
+def ex_Select():
+    fruit_opts = ['apple', 'orange', 'banana', 'mango']
+    refresh_btn = DivRAligned(
+               Button('Refresh', hx_get=True, hx_select_oob="#fruit",
+                      hx_swap="none", cls=ButtonT.default))
+    return Grid(Select(
+                Optgroup(label="Fruit")(
+                    *map(lambda l: Option(l.capitalize(), value=l), sorted(fruit_opts))),
+                id="fruit", icon=True, insertable=True, placeholder="Choose a fruit...",
+                cls_custom="button: uk-input-fake justify-between w-full; dropdown: w-full"),
+            refresh_btn, cls='gap-2 mx-auto w-1/2')
+
 def ex_select(): 
     return Div(
         Select(map(Option, ["Option 1", "Option 2", "Option 3"])),
@@ -555,7 +567,6 @@ docs_forms = create_doc_section(
     LabelTextArea,
     LabelRadio,
     LabelSelect,
-    LabelSelect,
     Progress,
     fn2code_string(ex_progress),
     Radio,
@@ -570,7 +581,8 @@ docs_forms = create_doc_section(
     fn2code_string(ex_textarea),
     Select,
     fn2code_string(ex_select),
-    Select,
+    H3("Example: Insertable Select"),
+    Caption("In a production app, the user-inserted option would be saved server-side (db, session etc.)"),
     fn2code_string(ex_Select),
     Legend,
     Fieldset,

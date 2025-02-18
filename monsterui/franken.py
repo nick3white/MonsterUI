@@ -786,6 +786,7 @@ def Select(*option,            # Options for the select dropdown (can use `Optio
           name="",            # Name attribute for the select input
           placeholder="",     # Placeholder text for the select input
           searchable=False,   # Whether the select should be searchable
+          insertable=False,   # Whether to allow user-defined options to be added
           select_kwargs=None, # Additional Arguments passed to Select
            **kwargs           # Additional arguments passed to Uk_select
           ):          
@@ -796,6 +797,7 @@ def Select(*option,            # Options for the select dropdown (can use `Optio
                          cls_custom=cls_custom,
                          searchable=searchable,
                          placeholder=placeholder,
+                         insertable=insertable,
                          cls=inp_cls,
                          id=id, 
                          name=name,

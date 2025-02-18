@@ -50,7 +50,7 @@ class ThemeFont:
     default = 'uk-font-base'
 
 # %% ../nbs/01_core.ipynb
-def _headers_theme(color, mode='auto', radii='md', shadows='sm', font='sm'):
+def _headers_theme(color, mode='auto', radii=ThemeRadii.sm, shadows=ThemeShadows.sm, font=ThemeFont.sm):
     mode_script = {
         'auto': '''
           const __FRANKEN__ = JSON.parse(localStorage.getItem("__FRANKEN__") || "{}");
@@ -75,9 +75,9 @@ def _headers_theme(color, mode='auto', radii='md', shadows='sm', font='sm'):
         {mode_script[mode]}
           htmlElement.classList.add("uk-theme-{color}");
           htmlElement.classList.add(__FRANKEN__.theme || "uk-theme-{color}");
-          htmlElement.classList.add(__FRANKEN__.radii || "uk-radii-{radii}");
-          htmlElement.classList.add(__FRANKEN__.shadows || "uk-shadows-{shadows}");
-          htmlElement.classList.add(__FRANKEN__.font || "uk-font-{font}");
+          htmlElement.classList.add(__FRANKEN__.radii || "{radii}");
+          htmlElement.classList.add(__FRANKEN__.shadows || "{shadows}");
+          htmlElement.classList.add(__FRANKEN__.font || "{font}");
     ''')
 
 # %% ../nbs/01_core.ipynb
@@ -166,7 +166,7 @@ class Theme(Enum):
     violet = auto()
     zinc = auto()
 
-    def _create_headers(self, urls, mode='auto', daisy=True, highlightjs=False, katex=True, radii='md', shadows='sm', font='sm'):
+    def _create_headers(self, urls, mode='auto', daisy=True, highlightjs=False, katex=True, radii=ThemeRadii.sm, shadows=ThemeShadows.sm, font=ThemeFont.sm):
         "Create header elements with given URLs"
         hdrs = [
             fh.Link(rel="stylesheet", href=urls['franken_css']),
@@ -236,7 +236,7 @@ class Theme(Enum):
                 ]
         return hdrs
 
-    def headers(self, mode='auto', daisy=True, highlightjs=False, katex=True, radii='md', shadows='sm', font='sm' ):
+    def headers(self, mode='auto', daisy=True, highlightjs=False, katex=True, radii=ThemeRadii.sm, shadows=ThemeShadows.sm, font=ThemeFont.sm ):
         "Create frankenui and tailwind cdns"
         return self._create_headers(HEADER_URLS, mode=mode, daisy=daisy, highlightjs=highlightjs, katex=katex, radii=radii, shadows=shadows, font=font)    
     

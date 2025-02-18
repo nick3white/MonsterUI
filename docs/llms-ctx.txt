@@ -2,14 +2,22 @@
 
 ## monsterui.core
 
+- `class ThemeRadii(Enum)`
+    Members: none, sm, md, lg
+
+
+- `class ThemeShadows`
+
+- `class ThemeFont`
+
 - `class Theme(Enum)`
     Selector to choose theme and get all headers needed for app.  Includes frankenui + tailwind + daisyui + highlight.js options
     Members: slate, stone, gray, neutral, red, rose, orange, green, blue, yellow, violet, zinc
 
-    - `headers(self, mode, daisy, highlightjs, katex)`
+    - `headers(self, mode, daisy, highlightjs, katex, radii, shadows, font)`
         Create frankenui and tailwind cdns
 
-    - `local_headers(self, mode, static_dir, daisy, highlightjs, katex)`
+    - `local_headers(self, mode, static_dir, daisy, highlightjs, katex, radii, shadows, font)`
         Create headers using local files downloaded from CDNs
 
 

@@ -82,7 +82,6 @@ def _headers_theme(color, mode='auto', radii=ThemeRadii.sm, shadows=ThemeShadows
 
 # %% ../nbs/01_core.ipynb
 HEADER_URLS = {
-
         'franken_css': "https://unpkg.com/franken-ui@2.0.0-internal.45/dist/css/core.min.css",
         'franken_js_core': "https://unpkg.com/franken-ui@2.0.0-internal.45/dist/js/core.iife.js",
         'franken_icons': "https://unpkg.com/franken-ui@2.0.0-internal.45/dist/js/icon.iife.js",

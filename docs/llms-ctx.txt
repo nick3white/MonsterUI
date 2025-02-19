@@ -500,6 +500,12 @@
 
 - `def ThemePicker(color, radii, shadows, font, mode, cls)`
     Theme picker component with configurable sections
+
+- `def LightboxContainer(*lightboxitem, **kwargs)`
+    Lightbox container that will hold `LightboxItems`
+
+- `def LightboxItem(*c, **kwargs)`
+    Anchor tag with appropriate structure to go inside a `LightBoxContainer`
 </doc></api reference><examples><doc title="Ticket" desc="MonsterUI Help Desk Example - Professional Dashboard with DaisyUI components">"""MonsterUI Help Desk Example - Professional Dashboard with DaisyUI components"""
 from fasthtml.common import *
 from monsterui.all import *

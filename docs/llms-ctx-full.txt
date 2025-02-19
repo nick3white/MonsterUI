@@ -500,6 +500,12 @@
 
 - `def ThemePicker(color, radii, shadows, font, mode, cls)`
     Theme picker component with configurable sections
+
+- `def LightboxContainer(*lightboxitem, **kwargs)`
+    Lightbox container that will hold `LightboxItems`
+
+- `def LightboxItem(*c, **kwargs)`
+    Anchor tag with appropriate structure to go inside a `LightBoxContainer`
 </doc></api reference><examples><doc title="Ticket" desc="MonsterUI Help Desk Example - Professional Dashboard with DaisyUI components">"""MonsterUI Help Desk Example - Professional Dashboard with DaisyUI components"""
 from fasthtml.common import *
 from monsterui.all import *
@@ -2459,7 +2465,7 @@ Source
 
 [code]
 
-    LabelCheckboxX(label: str | fastcore.xml.FT, lbl_cls='', input_cls='', container=functools.partial(<function ft at 0x7ff1c27a67a0>, 'div', void_=False), cls='flex items-center space-x-2', id='', **kwargs) -> fastcore.xml.FT
+    LabelCheckboxX(label: str | fastcore.xml.FT, lbl_cls='', input_cls='', container=functools.partial(<function ft at 0x7ff636e027a0>, 'div', void_=False), cls='flex items-center space-x-2', id='', **kwargs) -> fastcore.xml.FT
 [/code]
 
 > A FormLabel and CheckboxX pair that provides default spacing and links/names them based on id
@@ -2488,7 +2494,7 @@ Source
 
 [code]
 
-    LabelSwitch(label: str | fastcore.xml.FT, lbl_cls='', input_cls='', cls='space-x-2', id='', *, container=functools.partial(<function ft at 0x7ff1c27a67a0>, 'div', void_=False)) -> fastcore.xml.FT
+    LabelSwitch(label: str | fastcore.xml.FT, lbl_cls='', input_cls='', cls='space-x-2', id='', *, container=functools.partial(<function ft at 0x7ff636e027a0>, 'div', void_=False)) -> fastcore.xml.FT
 [/code]
 
 > **Params**
@@ -2513,7 +2519,7 @@ Source
 
 [code]
 
-    LabelRange(label: str | fastcore.xml.FT, lbl_cls='', input_cls='', cls='space-y-6', id='', value='', min=None, max=None, step=None, label_range=True, *, container=functools.partial(<function ft at 0x7ff1c27a67a0>, 'div', void_=False)) -> fastcore.xml.FT
+    LabelRange(label: str | fastcore.xml.FT, lbl_cls='', input_cls='', cls='space-y-6', id='', value='', min=None, max=None, step=None, label_range=True, *, container=functools.partial(<function ft at 0x7ff636e027a0>, 'div', void_=False)) -> fastcore.xml.FT
 [/code]
 
 > A FormLabel and Range pair that provides default spacing and links/names them based on id
@@ -2577,7 +2583,7 @@ Source
 
 [code]
 
-    LabelRadio(label: str | fastcore.xml.FT, lbl_cls='', input_cls='', container=functools.partial(<function ft at 0x7ff1c27a67a0>, 'div', void_=False), cls='flex items-center space-x-2', id='', **kwargs) -> fastcore.xml.FT
+    LabelRadio(label: str | fastcore.xml.FT, lbl_cls='', input_cls='', container=functools.partial(<function ft at 0x7ff636e027a0>, 'div', void_=False), cls='flex items-center space-x-2', id='', **kwargs) -> fastcore.xml.FT
 [/code]
 
 > A FormLabel and Radio pair that provides default spacing and links/names them based on id
@@ -2606,36 +2612,7 @@ Source
 
 [code]
 
-    LabelSelect(*option, label: str | fastcore.xml.FT, lbl_cls='', input_cls='', container=functools.partial(<function ft at 0x7ff1c27a67a0>, 'div', void_=False), cls='space-y-2', id='', **kwargs)
-[/code]
-
-> A FormLabel and Select pair that provides default spacing and links/names them based on id (usually UkLabelSelect is a better choice)
-
-**Params**
-
-  * `option` Options for the select dropdown (can use `Options` helper function to create)
-
-  * `label` FormLabel content (often text)
-
-  * `lbl_cls` Additional classes for `FormLabel`
-
-  * `input_cls` Additional classes for `Select`
-
-  * `container` Container to wrap label and input in (default is Div)
-
-  * `cls` Classes on container (default is 'space-y-2')
-
-  * `id` id for `FormLabel` and `Select` (`id`, `name` and `for` attributes are set to this value)
-
-  * `kwargs`
-
-### LabelSelect
-
-Source
-
-[code]
-
-    LabelSelect(*option, label: str | fastcore.xml.FT, lbl_cls='', input_cls='', container=functools.partial(<function ft at 0x7ff1c27a67a0>, 'div', void_=False), cls='space-y-2', id='', **kwargs)
+    LabelSelect(*option, label: str | fastcore.xml.FT, lbl_cls='', input_cls='', container=functools.partial(<function ft at 0x7ff636e027a0>, 'div', void_=False), cls='space-y-2', id='', **kwargs)
 [/code]
 
 > A FormLabel and Select pair that provides default spacing and links/names them based on id (usually UkLabelSelect is a better choice)
@@ -2901,7 +2878,7 @@ Source
 
 [code]
 
-    Select(*option, inp_cls=(), cls=('h-10',), cls_custom='button: uk-input-fake dropdown: w-full', id='', name='', placeholder='', searchable=False, select_kwargs=None, **kwargs)
+    Select(*option, inp_cls=(), cls=('h-10',), cls_custom='button: uk-input-fake dropdown: w-full', id='', name='', placeholder='', searchable=False, insertable=False, select_kwargs=None, **kwargs)
 [/code]
 
 > Creates a select dropdown with uk styling and option for adding a search box
@@ -2923,6 +2900,8 @@ Source
   * `placeholder` Placeholder text for the select input
 
   * `searchable` Whether the select should be searchable
+
+  * `insertable` Whether to allow user-defined options to be added
 
   * `select_kwargs` Additional Arguments passed to Select
 
@@ -2947,55 +2926,34 @@ Option 1Option 2Option 3
     
 [/code]
 
-### Select
+### Example: Insertable Select
 
-Source
-
-[code]
-
-    Select(*option, inp_cls=(), cls=('h-10',), cls_custom='button: uk-input-fake dropdown: w-full', id='', name='', placeholder='', searchable=False, select_kwargs=None, **kwargs)
-[/code]
-
-> Creates a select dropdown with uk styling and option for adding a search box
-
-**Params**
-
-  * `option` Options for the select dropdown (can use `Options` helper function to create)
-
-  * `inp_cls` Additional classes for the select input
-
-  * `cls` Classes for the outer div (default h-10 for consistent height)
-
-  * `cls_custom` Classes for the Uk_Select web component
-
-  * `id` ID for the select input
-
-  * `name` Name attribute for the select input
-
-  * `placeholder` Placeholder text for the select input
-
-  * `searchable` Whether the select should be searchable
-
-  * `select_kwargs` Additional Arguments passed to Select
-
-  * `kwargs`
+In a production app, the user-inserted option would be saved server-side (db, session etc.)
 
 See Source
 
 See Output
 
-Option 1Option 2Option 3
+AppleOrangeBananaMango
 
-Select
-
-Option 1Option 2Option 3
+AppleBananaMangoOrange
 
 [code]
 
-    def ex_Select(): 
-        return Div(
-            Select(map(Option, ["Option 1", "Option 2", "Option 3"])),
-            LabelSelect(map(Option, ["Option 1", "Option 2", "Option 3"]), label="Select", id='myid'))
+    def ex_insertable_select1():
+        fruit_opts = ['apple', 'orange', 'banana', 'mango']
+    
+        return Grid(
+            Select(Option('Apple', value='apple'),
+                   Option('Orange', value='orange'),
+                   Option('Banana', value='banana'),
+                   Option('Mango', value='mango'),
+                   id="fruit", icon=True, insertable=True, placeholder="Choose a fruit..."),
+    
+            Select(Optgroup(label="Fruit")(
+                        *map(lambda l: Option(l.capitalize(), value=l), sorted(fruit_opts))),
+                    id="fruit", icon=True, insertable=True, placeholder="Choose a fruit...",
+                    cls_custom="button: uk-input-fake justify-between w-full; dropdown: w-full"))
     
 [/code]
 
@@ -3040,333 +2998,21 @@ Source
   * `kwargs`
 
 **Returns:** Fieldset(..., cls='uk-fieldset')
-</doc><doc title="Html" desc="&lt;!doctype html&gt;"> <!doctype html>
- <html>
-   <head>
-     <title>MonsterUI</title>
-     <meta charset="utf-8">
-     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<script src="https://unpkg.com/htmx.org@2.0.4/dist/htmx.min.js"></script><script src="https://cdn.jsdelivr.net/gh/answerdotai/fasthtml-js@1.0.12/fasthtml.js"></script><script src="https://cdn.jsdelivr.net/gh/answerdotai/surreal@main/surreal.js"></script><script src="https://cdn.jsdelivr.net/gh/gnat/css-scope-inline@main/script.js"></script>     <link rel="stylesheet" href="https://unpkg.com/franken-ui@2.0.0-internal.44/dist/css/core.min.css">
-<script type="module" src="https://unpkg.com/franken-ui@2.0.0-internal.44/dist/js/core.iife.js"></script><script type="module" src="https://unpkg.com/franken-ui@2.0.0-internal.44/dist/js/icon.iife.js"></script><script src="https://cdn.tailwindcss.com"></script><script>
-    tailwind.config = {
-        darkMode: 'selector',
-    }
-    </script><script>
-        const htmlElement = document.documentElement;
-        
-          const __FRANKEN__ = JSON.parse(localStorage.getItem("__FRANKEN__") || "{}");
+</doc><doc title="Html" desc="HTML Styling API Reference"># HTML Styling API Reference
 
-          if (
-            __FRANKEN__.mode === "dark" ||
-            (!__FRANKEN__.mode &&
-              window.matchMedia("(prefers-color-scheme: dark)").matches)
-          ) {
-            htmlElement.classList.add("dark");
-          } else {
-            htmlElement.classList.remove("dark");
-          }
+See Source
 
-        
-          htmlElement.classList.add("uk-theme-blue");
-          htmlElement.classList.add(__FRANKEN__.theme || "uk-theme-blue");
-          htmlElement.classList.add(__FRANKEN__.radii || "uk-radii-md");
-          htmlElement.classList.add(__FRANKEN__.shadows || "uk-shadows-sm");
-          htmlElement.classList.add(__FRANKEN__.font || "uk-font-sm");
+See Output
 
-    </script>     <style>
-.monster-navbar.navbar-bold a {
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-}
-.monster-navbar.navbar-bold a.uk-active {
-    transform: scale(1.15) ;
-    font-weight: bold;
-    text-shadow: 0 0 12px rgba(var(--p-rgb), 0.4);
-    letter-spacing: 0.02em;
-    color: hsl(var(--p) / 1);
-}
-.monster-navbar.navbar-underline a.uk-active { position: relative; }
-.monster-navbar.navbar-underline a.uk-active::after {
-    content: &#x27;&#x27;;
-    position: absolute;
-    left: 0;
-    bottom: -2px;
-    width: 100%;
-    height: 2px;
-    background: currentColor;
-    animation: slideIn 0.3s ease forwards;
-}
-@keyframes slideIn {
-    from { transform: scaleX(0); }
-    to { transform: scaleX(1); }
-}
-</style>
-     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/daisyui@4.12.22/dist/full.min.css">
-     <style>
-:root {
-  --p: from hsl(var(--primary)) l c h;
-  --pc: from hsl(var(--primary-foreground)) l c h;
-  --s: from hsl(var(--secondary)) l c h;
-  --sc: from hsl(var(--secondary-foreground)) l c h;
-  --b2: from hsl(var(--card-background)) l c h;
-  --b1: from hsl(var(--background)) l c h;
-  --bc: from hsl(var(--foreground)) l c h;
-  --b3: from hsl(var(--ring)) l c h;
-  --er: from hsl(var(--destructive)) l c h;
-  --erc: from hsl(var(--destructive-foreground)) l c h;
-}
-</style>
-<script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/highlight.min.js"></script><script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/languages/python.min.js"></script>     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/styles/atom-one-light.css" id="hljs-light">
-     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/styles/atom-one-dark.css" id="hljs-dark">
-<script src="https://cdn.jsdelivr.net/gh/arronhunt/highlightjs-copy/dist/highlightjs-copy.min.js"></script>     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/arronhunt/highlightjs-copy/dist/highlightjs-copy.min.css">
-<script type="module">
-                    hljs.addPlugin(new CopyButtonPlugin());
-                    hljs.configure({
-                        cssSelector: 'pre code',
-                        languages: ['python'],
-                        ignoreUnescapedHTML: true
-                    });
-                    function updateTheme() {
-                        const isDark = document.documentElement.classList.contains('dark');
-                        document.getElementById('hljs-dark').disabled = !isDark;
-                        document.getElementById('hljs-light').disabled = isDark;
-                    }
-                    new MutationObserver(mutations =>
-                        mutations.forEach(m => m.target.tagName === 'HTML' &&
-                            m.attributeName === 'class' && updateTheme())
-                    ).observe(document.documentElement, { attributes: true });
-                    updateTheme();
-                    htmx.onLoad(hljs.highlightAll);
-                </script>     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/katex.min.css">
-<script type="module">
-                import katex from 'https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/katex.mjs';
-                import autoRender from 'https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/contrib/auto-render.mjs';
-                const options = {
-                  delimiters: [
-                    {left: '$$', right: '$$', display: true},
-                    {left: '$', right: '$', display: false}
-                  ],
-                  ignoredClasses: ['nomath']
-                };
+<div><h1 class="uk-h1 text-4xl font-bold mt-12 mb-6">Hello, World!</h1><p class="text-lg leading-relaxed mb-6">This is a paragraph</p></div>
 
-                document.addEventListener('htmx:load', evt => {
-                  const element = evt.detail.elt || document.body;
-                  autoRender(element,options);
-                });
-                </script>     <link rel="icon" type="image/x-icon" href="/favicon.ico">
-<script>
-    (function() {
-        var socket = new WebSocket(`ws://${window.location.host}/live-reload`);
-        var maxReloadAttempts = 1;
-        var reloadInterval = 1000; // time between reload attempts in ms
-        socket.onclose = function() {
-            let reloadAttempts = 0;
-            const intervalFn = setInterval(function(){
-                window.location.reload();
-                reloadAttempts++;
-                if (reloadAttempts === maxReloadAttempts) clearInterval(intervalFn);
-            }, reloadInterval);
-        }
-    })();
-</script>   </head>
-   <body reload-attempts="1" reload-interval="1000" class=" bg-background text-foreground">
-     <div class="flex flex-col md:flex-row w-full">
-<button data-uk-toggle="target: #mobile-sidebar" type="submit" class="uk-btn md:hidden mb-4"><uk-icon icon="menu" height="50" width="50" class="mt-4"></uk-icon></button>       <div hidden id="mobile-sidebar">
-         <ul uk-nav class="uk-nav uk-nav-primary space-y-4 p-4 w-full md:w-full ">
-           <li class="uk-parent ">
-<a href="#">               <div class="flex justify-between items-center w-full">Getting Started</div>
-</a>             <ul class="uk-nav-sub uk-nav-primary ">
-               <li>
-<a href="#" hx-get="/" hx-push-url="true" hx-target="#content">Getting Started</a>               </li>
-               <li>
-<a href="#" hx-get="/tutorial_app" hx-push-url="true" hx-target="#content">Tutorial App</a>               </li>
-             </ul>
-           </li>
-           <li class="uk-parent ">
-<a href="#">               <div class="flex justify-between items-center w-full">API Reference</div>
-</a>             <ul class="uk-nav-sub uk-nav-primary ">
-               <li>
-<a href="#" hx-get="/api_ref/docs_button_link" hx-push-url="true" hx-target="#content">Button | Link</a>               </li>
-               <li>
-<a href="#" hx-get="/api_ref/docs_cards" hx-push-url="true" hx-target="#content">Cards</a>               </li>
-               <li>
-<a href="#" hx-get="/api_ref/docs_containers" hx-push-url="true" hx-target="#content">Containers</a>               </li>
-               <li>
-<a href="#" hx-get="/api_ref/docs_dividers" hx-push-url="true" hx-target="#content">Dividers</a>               </li>
-               <li>
-<a href="#" hx-get="/api_ref/docs_forms" hx-push-url="true" hx-target="#content">Forms</a>               </li>
-               <li>
-<a href="#" hx-get="/api_ref/docs_icons_images" hx-push-url="true" hx-target="#content">Icons | Images</a>               </li>
-               <li>
-<a href="#" hx-get="/api_ref/docs_layout" hx-push-url="true" hx-target="#content">Layout</a>               </li>
-               <li>
-<a href="#" hx-get="/api_ref/docs_lists" hx-push-url="true" hx-target="#content">Lists</a>               </li>
-               <li>
-<a href="#" hx-get="/api_ref/docs_loading" hx-push-url="true" hx-target="#content">Loading</a>               </li>
-               <li>
-<a href="#" hx-get="/api_ref/docs_markdown_HTMLstyling" hx-push-url="true" hx-target="#content">Markdown | Htmlstyling</a>               </li>
-               <li>
-<a href="#" hx-get="/api_ref/docs_modals" hx-push-url="true" hx-target="#content">Modals</a>               </li>
-               <li>
-<a href="#" hx-get="/api_ref/docs_navigation" hx-push-url="true" hx-target="#content">Navigation</a>               </li>
-               <li>
-<a href="#" hx-get="/api_ref/docs_notifications" hx-push-url="true" hx-target="#content">Notifications</a>               </li>
-               <li>
-<a href="#" hx-get="/api_ref/docs_sliders" hx-push-url="true" hx-target="#content">Sliders</a>               </li>
-               <li>
-<a href="#" hx-get="/api_ref/docs_steps" hx-push-url="true" hx-target="#content">Steps</a>               </li>
-               <li>
-<a href="#" hx-get="/api_ref/docs_tables" hx-push-url="true" hx-target="#content">Tables</a>               </li>
-               <li>
-<a href="#" hx-get="/api_ref/docs_theme_headers" hx-push-url="true" hx-target="#content">Theme | Headers</a>               </li>
-               <li>
-<a href="#" hx-get="/api_ref/docs_typography" hx-push-url="true" hx-target="#content">Typography</a>               </li>
-             </ul>
-           </li>
-           <li class="uk-parent ">
-<a href="#">               <div class="flex justify-between items-center w-full">Guides</div>
-</a>             <ul class="uk-nav-sub uk-nav-primary ">
-               <li>
-<a href="#" hx-get="/tutorial_spacing" hx-push-url="true" hx-target="#content">Spacing</a>               </li>
-               <li>
-<a href="#" hx-get="/tutorial_layout" hx-push-url="true" hx-target="#content">Layout</a>               </li>
-             </ul>
-           </li>
-           <li class="uk-parent ">
-<a href="#">               <div class="flex justify-between items-center w-full">Examples</div>
-</a>             <ul class="uk-nav-sub uk-nav-primary ">
-               <li>
-<a href="#" hx-get="/tasks/" hx-push-url="true" hx-target="#content">Task</a>               </li>
-               <li>
-<a href="#" hx-get="/cards/" hx-push-url="true" hx-target="#content">Card</a>               </li>
-               <li>
-<a href="#" hx-get="/dashboard/" hx-push-url="true" hx-target="#content">Dashboard</a>               </li>
-               <li>
-<a href="#" hx-get="/forms/" hx-push-url="true" hx-target="#content">Form</a>               </li>
-               <li>
-<a href="#" hx-get="/music/" hx-push-url="true" hx-target="#content">Music</a>               </li>
-               <li>
-<a href="#" hx-get="/auth/" hx-push-url="true" hx-target="#content">Auth</a>               </li>
-               <li>
-<a href="#" hx-get="/playground/" hx-push-url="true" hx-target="#content">Playground</a>               </li>
-               <li>
-<a href="#" hx-get="/mail/" hx-push-url="true" hx-target="#content">Mail</a>               </li>
-               <li>
-<a href="#" hx-get="/ticket/" hx-push-url="true" hx-target="#content">Ticket</a>               </li>
-               <li>
-<a href="#" hx-get="/scrollspy/" hx-push-url="true" hx-target="#content">Scrollspy</a>               </li>
-             </ul>
-           </li>
-           <li>
-<a href="#" hx-get="/theme_switcher" hx-push-url="true" hx-target="#content">Theme</a>           </li>
-         </ul>
-       </div>
-       <div class="md:flex w-full">
-         <div class="hidden md:block w-1/5 max-w-52">
-           <ul uk-nav class="uk-nav uk-nav-primary space-y-4 p-4 w-full md:w-full ">
-             <li class="uk-parent ">
-<a href="#">                 <div class="flex justify-between items-center w-full">Getting Started</div>
-</a>               <ul class="uk-nav-sub uk-nav-primary ">
-                 <li>
-<a href="#" hx-get="/" hx-push-url="true" hx-target="#content">Getting Started</a>                 </li>
-                 <li>
-<a href="#" hx-get="/tutorial_app" hx-push-url="true" hx-target="#content">Tutorial App</a>                 </li>
-               </ul>
-             </li>
-             <li class="uk-parent ">
-<a href="#">                 <div class="flex justify-between items-center w-full">API Reference</div>
-</a>               <ul class="uk-nav-sub uk-nav-primary ">
-                 <li>
-<a href="#" hx-get="/api_ref/docs_button_link" hx-push-url="true" hx-target="#content">Button | Link</a>                 </li>
-                 <li>
-<a href="#" hx-get="/api_ref/docs_cards" hx-push-url="true" hx-target="#content">Cards</a>                 </li>
-                 <li>
-<a href="#" hx-get="/api_ref/docs_containers" hx-push-url="true" hx-target="#content">Containers</a>                 </li>
-                 <li>
-<a href="#" hx-get="/api_ref/docs_dividers" hx-push-url="true" hx-target="#content">Dividers</a>                 </li>
-                 <li>
-<a href="#" hx-get="/api_ref/docs_forms" hx-push-url="true" hx-target="#content">Forms</a>                 </li>
-                 <li>
-<a href="#" hx-get="/api_ref/docs_icons_images" hx-push-url="true" hx-target="#content">Icons | Images</a>                 </li>
-                 <li>
-<a href="#" hx-get="/api_ref/docs_layout" hx-push-url="true" hx-target="#content">Layout</a>                 </li>
-                 <li>
-<a href="#" hx-get="/api_ref/docs_lists" hx-push-url="true" hx-target="#content">Lists</a>                 </li>
-                 <li>
-<a href="#" hx-get="/api_ref/docs_loading" hx-push-url="true" hx-target="#content">Loading</a>                 </li>
-                 <li>
-<a href="#" hx-get="/api_ref/docs_markdown_HTMLstyling" hx-push-url="true" hx-target="#content">Markdown | Htmlstyling</a>                 </li>
-                 <li>
-<a href="#" hx-get="/api_ref/docs_modals" hx-push-url="true" hx-target="#content">Modals</a>                 </li>
-                 <li>
-<a href="#" hx-get="/api_ref/docs_navigation" hx-push-url="true" hx-target="#content">Navigation</a>                 </li>
-                 <li>
-<a href="#" hx-get="/api_ref/docs_notifications" hx-push-url="true" hx-target="#content">Notifications</a>                 </li>
-                 <li>
-<a href="#" hx-get="/api_ref/docs_sliders" hx-push-url="true" hx-target="#content">Sliders</a>                 </li>
-                 <li>
-<a href="#" hx-get="/api_ref/docs_steps" hx-push-url="true" hx-target="#content">Steps</a>                 </li>
-                 <li>
-<a href="#" hx-get="/api_ref/docs_tables" hx-push-url="true" hx-target="#content">Tables</a>                 </li>
-                 <li>
-<a href="#" hx-get="/api_ref/docs_theme_headers" hx-push-url="true" hx-target="#content">Theme | Headers</a>                 </li>
-                 <li>
-<a href="#" hx-get="/api_ref/docs_typography" hx-push-url="true" hx-target="#content">Typography</a>                 </li>
-               </ul>
-             </li>
-             <li class="uk-parent ">
-<a href="#">                 <div class="flex justify-between items-center w-full">Guides</div>
-</a>               <ul class="uk-nav-sub uk-nav-primary ">
-                 <li>
-<a href="#" hx-get="/tutorial_spacing" hx-push-url="true" hx-target="#content">Spacing</a>                 </li>
-                 <li>
-<a href="#" hx-get="/tutorial_layout" hx-push-url="true" hx-target="#content">Layout</a>                 </li>
-               </ul>
-             </li>
-             <li class="uk-parent ">
-<a href="#">                 <div class="flex justify-between items-center w-full">Examples</div>
-</a>               <ul class="uk-nav-sub uk-nav-primary ">
-                 <li>
-<a href="#" hx-get="/tasks/" hx-push-url="true" hx-target="#content">Task</a>                 </li>
-                 <li>
-<a href="#" hx-get="/cards/" hx-push-url="true" hx-target="#content">Card</a>                 </li>
-                 <li>
-<a href="#" hx-get="/dashboard/" hx-push-url="true" hx-target="#content">Dashboard</a>                 </li>
-                 <li>
-<a href="#" hx-get="/forms/" hx-push-url="true" hx-target="#content">Form</a>                 </li>
-                 <li>
-<a href="#" hx-get="/music/" hx-push-url="true" hx-target="#content">Music</a>                 </li>
-                 <li>
-<a href="#" hx-get="/auth/" hx-push-url="true" hx-target="#content">Auth</a>                 </li>
-                 <li>
-<a href="#" hx-get="/playground/" hx-push-url="true" hx-target="#content">Playground</a>                 </li>
-                 <li>
-<a href="#" hx-get="/mail/" hx-push-url="true" hx-target="#content">Mail</a>                 </li>
-                 <li>
-<a href="#" hx-get="/ticket/" hx-push-url="true" hx-target="#content">Ticket</a>                 </li>
-                 <li>
-<a href="#" hx-get="/scrollspy/" hx-push-url="true" hx-target="#content">Scrollspy</a>                 </li>
-               </ul>
-             </li>
-             <li>
-<a href="#" hx-get="/theme_switcher" hx-push-url="true" hx-target="#content">Theme</a>             </li>
-           </ul>
-         </div>
-         <div id="content" class="md:w-4/5 w-full mr-5">
-           <div class="uk-container mt-5 uk-container-xl">
-             <div class="uk-card ">
-               <div class="uk-card-body space-y-6">
-                 <div class="uk-card-body ">
-                   <h1 class="uk-h1 ">404 - Page Not Found</h1>
-                   <p>The page you&#x27;re looking for doesn&#x27;t exist.</p>
-                 </div>
-               </div>
-             </div>
-           </div>
-         </div>
-       </div>
-     </div>
-   </body>
- </html></doc><doc title="Icons | Images" desc="Icons &amp; Images API Reference"># Icons & Images API Reference
+[code]
+
+    def ex_applyclasses():
+        return apply_classes('<h1>Hello, World!</h1><p>This is a paragraph</p>')
+    
+[/code]
+</doc><doc title="Icons | Images" desc="Icons &amp; Images API Reference"># Icons & Images API Reference
 
 # Avatars
 
@@ -3947,333 +3593,105 @@ right | justify-end | between | justify-between | around | justify-around | stre
 top | items-start | middle | items-center | bottom | items-end | row | flex-row  
 row_reverse | flex-row-reverse | column | flex-col | column_reverse | flex-col-reverse | nowrap | flex-nowrap  
 wrap | flex-wrap | wrap_reverse | flex-wrap-reverse |  |  |  | 
-</doc><doc title="Lightbox" desc="&lt;!doctype html&gt;"> <!doctype html>
- <html>
-   <head>
-     <title>MonsterUI</title>
-     <meta charset="utf-8">
-     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<script src="https://unpkg.com/htmx.org@2.0.4/dist/htmx.min.js"></script><script src="https://cdn.jsdelivr.net/gh/answerdotai/fasthtml-js@1.0.12/fasthtml.js"></script><script src="https://cdn.jsdelivr.net/gh/answerdotai/surreal@main/surreal.js"></script><script src="https://cdn.jsdelivr.net/gh/gnat/css-scope-inline@main/script.js"></script>     <link rel="stylesheet" href="https://unpkg.com/franken-ui@2.0.0-internal.44/dist/css/core.min.css">
-<script type="module" src="https://unpkg.com/franken-ui@2.0.0-internal.44/dist/js/core.iife.js"></script><script type="module" src="https://unpkg.com/franken-ui@2.0.0-internal.44/dist/js/icon.iife.js"></script><script src="https://cdn.tailwindcss.com"></script><script>
-    tailwind.config = {
-        darkMode: 'selector',
-    }
-    </script><script>
-        const htmlElement = document.documentElement;
-        
-          const __FRANKEN__ = JSON.parse(localStorage.getItem("__FRANKEN__") || "{}");
+</doc><doc title="Lightbox" desc="Lightbox API Reference"># Lightbox API Reference
 
-          if (
-            __FRANKEN__.mode === "dark" ||
-            (!__FRANKEN__.mode &&
-              window.matchMedia("(prefers-color-scheme: dark)").matches)
-          ) {
-            htmlElement.classList.add("dark");
-          } else {
-            htmlElement.classList.remove("dark");
-          }
+See Source
 
-        
-          htmlElement.classList.add("uk-theme-blue");
-          htmlElement.classList.add(__FRANKEN__.theme || "uk-theme-blue");
-          htmlElement.classList.add(__FRANKEN__.radii || "uk-radii-md");
-          htmlElement.classList.add(__FRANKEN__.shadows || "uk-shadows-sm");
-          htmlElement.classList.add(__FRANKEN__.font || "uk-font-sm");
+See Output
 
-    </script>     <style>
-.monster-navbar.navbar-bold a {
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-}
-.monster-navbar.navbar-bold a.uk-active {
-    transform: scale(1.15) ;
-    font-weight: bold;
-    text-shadow: 0 0 12px rgba(var(--p-rgb), 0.4);
-    letter-spacing: 0.02em;
-    color: hsl(var(--p) / 1);
-}
-.monster-navbar.navbar-underline a.uk-active { position: relative; }
-.monster-navbar.navbar-underline a.uk-active::after {
-    content: &#x27;&#x27;;
-    position: absolute;
-    left: 0;
-    bottom: -2px;
-    width: 100%;
-    height: 2px;
-    background: currentColor;
-    animation: slideIn 0.3s ease forwards;
-}
-@keyframes slideIn {
-    from { transform: scaleX(0); }
-    to { transform: scaleX(1); }
-}
-</style>
-     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/daisyui@4.12.22/dist/full.min.css">
-     <style>
-:root {
-  --p: from hsl(var(--primary)) l c h;
-  --pc: from hsl(var(--primary-foreground)) l c h;
-  --s: from hsl(var(--secondary)) l c h;
-  --sc: from hsl(var(--secondary-foreground)) l c h;
-  --b2: from hsl(var(--card-background)) l c h;
-  --b1: from hsl(var(--background)) l c h;
-  --bc: from hsl(var(--foreground)) l c h;
-  --b3: from hsl(var(--ring)) l c h;
-  --er: from hsl(var(--destructive)) l c h;
-  --erc: from hsl(var(--destructive-foreground)) l c h;
-}
-</style>
-<script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/highlight.min.js"></script><script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/languages/python.min.js"></script>     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/styles/atom-one-light.css" id="hljs-light">
-     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/styles/atom-one-dark.css" id="hljs-dark">
-<script src="https://cdn.jsdelivr.net/gh/arronhunt/highlightjs-copy/dist/highlightjs-copy.min.js"></script>     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/arronhunt/highlightjs-copy/dist/highlightjs-copy.min.css">
-<script type="module">
-                    hljs.addPlugin(new CopyButtonPlugin());
-                    hljs.configure({
-                        cssSelector: 'pre code',
-                        languages: ['python'],
-                        ignoreUnescapedHTML: true
-                    });
-                    function updateTheme() {
-                        const isDark = document.documentElement.classList.contains('dark');
-                        document.getElementById('hljs-dark').disabled = !isDark;
-                        document.getElementById('hljs-light').disabled = isDark;
-                    }
-                    new MutationObserver(mutations =>
-                        mutations.forEach(m => m.target.tagName === 'HTML' &&
-                            m.attributeName === 'class' && updateTheme())
-                    ).observe(document.documentElement, { attributes: true });
-                    updateTheme();
-                    htmx.onLoad(hljs.highlightAll);
-                </script>     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/katex.min.css">
-<script type="module">
-                import katex from 'https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/katex.mjs';
-                import autoRender from 'https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/contrib/auto-render.mjs';
-                const options = {
-                  delimiters: [
-                    {left: '$$', right: '$$', display: true},
-                    {left: '$', right: '$', display: false}
-                  ],
-                  ignoredClasses: ['nomath']
-                };
+Open
 
-                document.addEventListener('htmx:load', evt => {
-                  const element = evt.detail.elt || document.body;
-                  autoRender(element,options);
-                });
-                </script>     <link rel="icon" type="image/x-icon" href="/favicon.ico">
-<script>
-    (function() {
-        var socket = new WebSocket(`ws://${window.location.host}/live-reload`);
-        var maxReloadAttempts = 1;
-        var reloadInterval = 1000; // time between reload attempts in ms
-        socket.onclose = function() {
-            let reloadAttempts = 0;
-            const intervalFn = setInterval(function(){
-                window.location.reload();
-                reloadAttempts++;
-                if (reloadAttempts === maxReloadAttempts) clearInterval(intervalFn);
-            }, reloadInterval);
-        }
-    })();
-</script>   </head>
-   <body reload-attempts="1" reload-interval="1000" class=" bg-background text-foreground">
-     <div class="flex flex-col md:flex-row w-full">
-<button data-uk-toggle="target: #mobile-sidebar" type="submit" class="uk-btn md:hidden mb-4"><uk-icon icon="menu" height="50" width="50" class="mt-4"></uk-icon></button>       <div hidden id="mobile-sidebar">
-         <ul uk-nav class="uk-nav uk-nav-primary space-y-4 p-4 w-full md:w-full ">
-           <li class="uk-parent ">
-<a href="#">               <div class="flex justify-between items-center w-full">Getting Started</div>
-</a>             <ul class="uk-nav-sub uk-nav-primary ">
-               <li>
-<a href="#" hx-get="/" hx-push-url="true" hx-target="#content">Getting Started</a>               </li>
-               <li>
-<a href="#" hx-get="/tutorial_app" hx-push-url="true" hx-target="#content">Tutorial App</a>               </li>
-             </ul>
-           </li>
-           <li class="uk-parent ">
-<a href="#">               <div class="flex justify-between items-center w-full">API Reference</div>
-</a>             <ul class="uk-nav-sub uk-nav-primary ">
-               <li>
-<a href="#" hx-get="/api_ref/docs_button_link" hx-push-url="true" hx-target="#content">Button | Link</a>               </li>
-               <li>
-<a href="#" hx-get="/api_ref/docs_cards" hx-push-url="true" hx-target="#content">Cards</a>               </li>
-               <li>
-<a href="#" hx-get="/api_ref/docs_containers" hx-push-url="true" hx-target="#content">Containers</a>               </li>
-               <li>
-<a href="#" hx-get="/api_ref/docs_dividers" hx-push-url="true" hx-target="#content">Dividers</a>               </li>
-               <li>
-<a href="#" hx-get="/api_ref/docs_forms" hx-push-url="true" hx-target="#content">Forms</a>               </li>
-               <li>
-<a href="#" hx-get="/api_ref/docs_icons_images" hx-push-url="true" hx-target="#content">Icons | Images</a>               </li>
-               <li>
-<a href="#" hx-get="/api_ref/docs_layout" hx-push-url="true" hx-target="#content">Layout</a>               </li>
-               <li>
-<a href="#" hx-get="/api_ref/docs_lists" hx-push-url="true" hx-target="#content">Lists</a>               </li>
-               <li>
-<a href="#" hx-get="/api_ref/docs_loading" hx-push-url="true" hx-target="#content">Loading</a>               </li>
-               <li>
-<a href="#" hx-get="/api_ref/docs_markdown_HTMLstyling" hx-push-url="true" hx-target="#content">Markdown | Htmlstyling</a>               </li>
-               <li>
-<a href="#" hx-get="/api_ref/docs_modals" hx-push-url="true" hx-target="#content">Modals</a>               </li>
-               <li>
-<a href="#" hx-get="/api_ref/docs_navigation" hx-push-url="true" hx-target="#content">Navigation</a>               </li>
-               <li>
-<a href="#" hx-get="/api_ref/docs_notifications" hx-push-url="true" hx-target="#content">Notifications</a>               </li>
-               <li>
-<a href="#" hx-get="/api_ref/docs_sliders" hx-push-url="true" hx-target="#content">Sliders</a>               </li>
-               <li>
-<a href="#" hx-get="/api_ref/docs_steps" hx-push-url="true" hx-target="#content">Steps</a>               </li>
-               <li>
-<a href="#" hx-get="/api_ref/docs_tables" hx-push-url="true" hx-target="#content">Tables</a>               </li>
-               <li>
-<a href="#" hx-get="/api_ref/docs_theme_headers" hx-push-url="true" hx-target="#content">Theme | Headers</a>               </li>
-               <li>
-<a href="#" hx-get="/api_ref/docs_typography" hx-push-url="true" hx-target="#content">Typography</a>               </li>
-             </ul>
-           </li>
-           <li class="uk-parent ">
-<a href="#">               <div class="flex justify-between items-center w-full">Guides</div>
-</a>             <ul class="uk-nav-sub uk-nav-primary ">
-               <li>
-<a href="#" hx-get="/tutorial_spacing" hx-push-url="true" hx-target="#content">Spacing</a>               </li>
-               <li>
-<a href="#" hx-get="/tutorial_layout" hx-push-url="true" hx-target="#content">Layout</a>               </li>
-             </ul>
-           </li>
-           <li class="uk-parent ">
-<a href="#">               <div class="flex justify-between items-center w-full">Examples</div>
-</a>             <ul class="uk-nav-sub uk-nav-primary ">
-               <li>
-<a href="#" hx-get="/tasks/" hx-push-url="true" hx-target="#content">Task</a>               </li>
-               <li>
-<a href="#" hx-get="/cards/" hx-push-url="true" hx-target="#content">Card</a>               </li>
-               <li>
-<a href="#" hx-get="/dashboard/" hx-push-url="true" hx-target="#content">Dashboard</a>               </li>
-               <li>
-<a href="#" hx-get="/forms/" hx-push-url="true" hx-target="#content">Form</a>               </li>
-               <li>
-<a href="#" hx-get="/music/" hx-push-url="true" hx-target="#content">Music</a>               </li>
-               <li>
-<a href="#" hx-get="/auth/" hx-push-url="true" hx-target="#content">Auth</a>               </li>
-               <li>
-<a href="#" hx-get="/playground/" hx-push-url="true" hx-target="#content">Playground</a>               </li>
-               <li>
-<a href="#" hx-get="/mail/" hx-push-url="true" hx-target="#content">Mail</a>               </li>
-               <li>
-<a href="#" hx-get="/ticket/" hx-push-url="true" hx-target="#content">Ticket</a>               </li>
-               <li>
-<a href="#" hx-get="/scrollspy/" hx-push-url="true" hx-target="#content">Scrollspy</a>               </li>
-             </ul>
-           </li>
-           <li>
-<a href="#" hx-get="/theme_switcher" hx-push-url="true" hx-target="#content">Theme</a>           </li>
-         </ul>
-       </div>
-       <div class="md:flex w-full">
-         <div class="hidden md:block w-1/5 max-w-52">
-           <ul uk-nav class="uk-nav uk-nav-primary space-y-4 p-4 w-full md:w-full ">
-             <li class="uk-parent ">
-<a href="#">                 <div class="flex justify-between items-center w-full">Getting Started</div>
-</a>               <ul class="uk-nav-sub uk-nav-primary ">
-                 <li>
-<a href="#" hx-get="/" hx-push-url="true" hx-target="#content">Getting Started</a>                 </li>
-                 <li>
-<a href="#" hx-get="/tutorial_app" hx-push-url="true" hx-target="#content">Tutorial App</a>                 </li>
-               </ul>
-             </li>
-             <li class="uk-parent ">
-<a href="#">                 <div class="flex justify-between items-center w-full">API Reference</div>
-</a>               <ul class="uk-nav-sub uk-nav-primary ">
-                 <li>
-<a href="#" hx-get="/api_ref/docs_button_link" hx-push-url="true" hx-target="#content">Button | Link</a>                 </li>
-                 <li>
-<a href="#" hx-get="/api_ref/docs_cards" hx-push-url="true" hx-target="#content">Cards</a>                 </li>
-                 <li>
-<a href="#" hx-get="/api_ref/docs_containers" hx-push-url="true" hx-target="#content">Containers</a>                 </li>
-                 <li>
-<a href="#" hx-get="/api_ref/docs_dividers" hx-push-url="true" hx-target="#content">Dividers</a>                 </li>
-                 <li>
-<a href="#" hx-get="/api_ref/docs_forms" hx-push-url="true" hx-target="#content">Forms</a>                 </li>
-                 <li>
-<a href="#" hx-get="/api_ref/docs_icons_images" hx-push-url="true" hx-target="#content">Icons | Images</a>                 </li>
-                 <li>
-<a href="#" hx-get="/api_ref/docs_layout" hx-push-url="true" hx-target="#content">Layout</a>                 </li>
-                 <li>
-<a href="#" hx-get="/api_ref/docs_lists" hx-push-url="true" hx-target="#content">Lists</a>                 </li>
-                 <li>
-<a href="#" hx-get="/api_ref/docs_loading" hx-push-url="true" hx-target="#content">Loading</a>                 </li>
-                 <li>
-<a href="#" hx-get="/api_ref/docs_markdown_HTMLstyling" hx-push-url="true" hx-target="#content">Markdown | Htmlstyling</a>                 </li>
-                 <li>
-<a href="#" hx-get="/api_ref/docs_modals" hx-push-url="true" hx-target="#content">Modals</a>                 </li>
-                 <li>
-<a href="#" hx-get="/api_ref/docs_navigation" hx-push-url="true" hx-target="#content">Navigation</a>                 </li>
-                 <li>
-<a href="#" hx-get="/api_ref/docs_notifications" hx-push-url="true" hx-target="#content">Notifications</a>                 </li>
-                 <li>
-<a href="#" hx-get="/api_ref/docs_sliders" hx-push-url="true" hx-target="#content">Sliders</a>                 </li>
-                 <li>
-<a href="#" hx-get="/api_ref/docs_steps" hx-push-url="true" hx-target="#content">Steps</a>                 </li>
-                 <li>
-<a href="#" hx-get="/api_ref/docs_tables" hx-push-url="true" hx-target="#content">Tables</a>                 </li>
-                 <li>
-<a href="#" hx-get="/api_ref/docs_theme_headers" hx-push-url="true" hx-target="#content">Theme | Headers</a>                 </li>
-                 <li>
-<a href="#" hx-get="/api_ref/docs_typography" hx-push-url="true" hx-target="#content">Typography</a>                 </li>
-               </ul>
-             </li>
-             <li class="uk-parent ">
-<a href="#">                 <div class="flex justify-between items-center w-full">Guides</div>
-</a>               <ul class="uk-nav-sub uk-nav-primary ">
-                 <li>
-<a href="#" hx-get="/tutorial_spacing" hx-push-url="true" hx-target="#content">Spacing</a>                 </li>
-                 <li>
-<a href="#" hx-get="/tutorial_layout" hx-push-url="true" hx-target="#content">Layout</a>                 </li>
-               </ul>
-             </li>
-             <li class="uk-parent ">
-<a href="#">                 <div class="flex justify-between items-center w-full">Examples</div>
-</a>               <ul class="uk-nav-sub uk-nav-primary ">
-                 <li>
-<a href="#" hx-get="/tasks/" hx-push-url="true" hx-target="#content">Task</a>                 </li>
-                 <li>
-<a href="#" hx-get="/cards/" hx-push-url="true" hx-target="#content">Card</a>                 </li>
-                 <li>
-<a href="#" hx-get="/dashboard/" hx-push-url="true" hx-target="#content">Dashboard</a>                 </li>
-                 <li>
-<a href="#" hx-get="/forms/" hx-push-url="true" hx-target="#content">Form</a>                 </li>
-                 <li>
-<a href="#" hx-get="/music/" hx-push-url="true" hx-target="#content">Music</a>                 </li>
-                 <li>
-<a href="#" hx-get="/auth/" hx-push-url="true" hx-target="#content">Auth</a>                 </li>
-                 <li>
-<a href="#" hx-get="/playground/" hx-push-url="true" hx-target="#content">Playground</a>                 </li>
-                 <li>
-<a href="#" hx-get="/mail/" hx-push-url="true" hx-target="#content">Mail</a>                 </li>
-                 <li>
-<a href="#" hx-get="/ticket/" hx-push-url="true" hx-target="#content">Ticket</a>                 </li>
-                 <li>
-<a href="#" hx-get="/scrollspy/" hx-push-url="true" hx-target="#content">Scrollspy</a>                 </li>
-               </ul>
-             </li>
-             <li>
-<a href="#" hx-get="/theme_switcher" hx-push-url="true" hx-target="#content">Theme</a>             </li>
-           </ul>
-         </div>
-         <div id="content" class="md:w-4/5 w-full mr-5">
-           <div class="uk-container mt-5 uk-container-xl">
-             <div class="uk-card ">
-               <div class="uk-card-body space-y-6">
-                 <div class="uk-card-body ">
-                   <h1 class="uk-h1 ">404 - Page Not Found</h1>
-                   <p>The page you&#x27;re looking for doesn&#x27;t exist.</p>
-                 </div>
-               </div>
-             </div>
-           </div>
-         </div>
-       </div>
-     </div>
-   </body>
- </html></doc><doc title="Lists" desc="Lists API Reference"># Lists API Reference
+[code]
+
+    def ex_lightbox1():
+        return LightboxContainer(
+            LightboxItem(Button("Open"), href='https://picsum.photos/id/100/1280/720.webp', data_alt='A placeholder image to demonstrate the lightbox', data_caption='This is my super cool caption'),
+        )
+    
+[/code]
+
+See Source
+
+See Output
+
+Open
+
+[code]
+
+    def ex_lightbox2():
+        return LightboxContainer(
+            LightboxItem(Button("Open"), href='https://picsum.photos/id/100/1280/720.webp', data_alt='A placeholder image to demonstrate the lightbox', data_caption='Image 1'),
+            LightboxItem(href='https://picsum.photos/id/101/1280/720.webp', data_alt='A placeholder image to demonstrate the lightbox', data_caption='Image 2'),
+            LightboxItem(href='https://picsum.photos/id/102/1280/720.webp', data_alt='A placeholder image to demonstrate the lightbox', data_caption='Image 3'),
+        )
+    
+[/code]
+
+See Source
+
+See Output
+
+mp4YoutubeVimeoIframe
+
+[code]
+
+    def ex_lightbox3():
+        return LightboxContainer(
+            LightboxItem(Button("mp4"), href='https://yootheme.com/site/images/media/yootheme-pro.mp4'),
+            LightboxItem(Button("Youtube"), href='https://www.youtube.com/watch?v=c2pz2mlSfXA'),
+            LightboxItem(Button("Vimeo"), href='https://vimeo.com/1084537'),
+            LightboxItem(Button("Iframe"), data_type='iframe', href='https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d4740.819266853735!2d9.99008871708242!3d53.550454675412404!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x3f9d24afe84a0263!2sRathaus!5e0!3m2!1sde!2sde!4v1499675200938'))
+    
+[/code]
+
+### LightboxContainer
+
+Source
+
+[code]
+
+    LightboxContainer(*lightboxitem, data_uk_lightbox='counter: true', **kwargs) -> fastcore.xml.FT
+[/code]
+
+> Lightbox container that will hold `LightboxItems`
+
+**Params**
+
+  * `lightboxitem` `LightBoxItem`s that will be inside lightbox
+
+  * `data_uk_lightbox` See https://franken-ui.dev/docs/2.0/lightbox for advanced options
+
+  * `kwargs`
+
+**Returns:** Lightbox
+
+### LightboxItem
+
+Source
+
+[code]
+
+    LightboxItem(*c, href, data_alt=None, data_caption=None, cls='', **kwargs) -> fastcore.xml.FT
+[/code]
+
+> Anchor tag with appropriate structure to go inside a `LightBoxContainer`
+
+**Params**
+
+  * `c` Component that when clicked will open the lightbox (often a button)
+
+  * `href` Href to image, youtube video, vimeo, google maps, etc.
+
+  * `data_alt` Alt text for the lightbox item/image
+
+  * `data_caption` Caption for the item that shows below it
+
+  * `cls` Class for the A tag (often nothing or `uk-btn`)
+
+  * `kwargs`
+
+**Returns:** A(... href, data_alt, cls., ...)
+</doc><doc title="Lists" desc="Lists API Reference"># Lists API Reference
 
 See Source
 
@@ -4399,333 +3817,133 @@ spinner | loading-spinner | dots | loading-dots | ring | loading-ring
 ball | loading-ball | bars | loading-bars | infinity | loading-infinity  
 xs | loading-xsmall | sm | loading-small | md | loading-medium  
 lg | loading-large |  |  |  | 
-</doc><doc title="Markdown" desc="&lt;!doctype html&gt;"> <!doctype html>
- <html>
-   <head>
-     <title>MonsterUI</title>
-     <meta charset="utf-8">
-     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<script src="https://unpkg.com/htmx.org@2.0.4/dist/htmx.min.js"></script><script src="https://cdn.jsdelivr.net/gh/answerdotai/fasthtml-js@1.0.12/fasthtml.js"></script><script src="https://cdn.jsdelivr.net/gh/answerdotai/surreal@main/surreal.js"></script><script src="https://cdn.jsdelivr.net/gh/gnat/css-scope-inline@main/script.js"></script>     <link rel="stylesheet" href="https://unpkg.com/franken-ui@2.0.0-internal.44/dist/css/core.min.css">
-<script type="module" src="https://unpkg.com/franken-ui@2.0.0-internal.44/dist/js/core.iife.js"></script><script type="module" src="https://unpkg.com/franken-ui@2.0.0-internal.44/dist/js/icon.iife.js"></script><script src="https://cdn.tailwindcss.com"></script><script>
-    tailwind.config = {
-        darkMode: 'selector',
-    }
-    </script><script>
-        const htmlElement = document.documentElement;
-        
-          const __FRANKEN__ = JSON.parse(localStorage.getItem("__FRANKEN__") || "{}");
+</doc><doc title="Markdown" desc="Markdown + automated HTML styling API Reference"># Markdown + automated HTML styling API Reference
 
-          if (
-            __FRANKEN__.mode === "dark" ||
-            (!__FRANKEN__.mode &&
-              window.matchMedia("(prefers-color-scheme: dark)").matches)
-          ) {
-            htmlElement.classList.add("dark");
-          } else {
-            htmlElement.classList.remove("dark");
-          }
+See Source
 
-        
-          htmlElement.classList.add("uk-theme-blue");
-          htmlElement.classList.add(__FRANKEN__.theme || "uk-theme-blue");
-          htmlElement.classList.add(__FRANKEN__.radii || "uk-radii-md");
-          htmlElement.classList.add(__FRANKEN__.shadows || "uk-shadows-sm");
-          htmlElement.classList.add(__FRANKEN__.font || "uk-font-sm");
+See Output
 
-    </script>     <style>
-.monster-navbar.navbar-bold a {
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-}
-.monster-navbar.navbar-bold a.uk-active {
-    transform: scale(1.15) ;
-    font-weight: bold;
-    text-shadow: 0 0 12px rgba(var(--p-rgb), 0.4);
-    letter-spacing: 0.02em;
-    color: hsl(var(--p) / 1);
-}
-.monster-navbar.navbar-underline a.uk-active { position: relative; }
-.monster-navbar.navbar-underline a.uk-active::after {
-    content: &#x27;&#x27;;
-    position: absolute;
-    left: 0;
-    bottom: -2px;
-    width: 100%;
-    height: 2px;
-    background: currentColor;
-    animation: slideIn 0.3s ease forwards;
-}
-@keyframes slideIn {
-    from { transform: scaleX(0); }
-    to { transform: scaleX(1); }
-}
-</style>
-     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/daisyui@4.12.22/dist/full.min.css">
-     <style>
-:root {
-  --p: from hsl(var(--primary)) l c h;
-  --pc: from hsl(var(--primary-foreground)) l c h;
-  --s: from hsl(var(--secondary)) l c h;
-  --sc: from hsl(var(--secondary-foreground)) l c h;
-  --b2: from hsl(var(--card-background)) l c h;
-  --b1: from hsl(var(--background)) l c h;
-  --bc: from hsl(var(--foreground)) l c h;
-  --b3: from hsl(var(--ring)) l c h;
-  --er: from hsl(var(--destructive)) l c h;
-  --erc: from hsl(var(--destructive-foreground)) l c h;
-}
-</style>
-<script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/highlight.min.js"></script><script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/languages/python.min.js"></script>     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/styles/atom-one-light.css" id="hljs-light">
-     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/styles/atom-one-dark.css" id="hljs-dark">
-<script src="https://cdn.jsdelivr.net/gh/arronhunt/highlightjs-copy/dist/highlightjs-copy.min.js"></script>     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/arronhunt/highlightjs-copy/dist/highlightjs-copy.min.css">
-<script type="module">
-                    hljs.addPlugin(new CopyButtonPlugin());
-                    hljs.configure({
-                        cssSelector: 'pre code',
-                        languages: ['python'],
-                        ignoreUnescapedHTML: true
-                    });
-                    function updateTheme() {
-                        const isDark = document.documentElement.classList.contains('dark');
-                        document.getElementById('hljs-dark').disabled = !isDark;
-                        document.getElementById('hljs-light').disabled = isDark;
-                    }
-                    new MutationObserver(mutations =>
-                        mutations.forEach(m => m.target.tagName === 'HTML' &&
-                            m.attributeName === 'class' && updateTheme())
-                    ).observe(document.documentElement, { attributes: true });
-                    updateTheme();
-                    htmx.onLoad(hljs.highlightAll);
-                </script>     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/katex.min.css">
-<script type="module">
-                import katex from 'https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/katex.mjs';
-                import autoRender from 'https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/contrib/auto-render.mjs';
-                const options = {
-                  delimiters: [
-                    {left: '$$', right: '$$', display: true},
-                    {left: '$', right: '$', display: false}
-                  ],
-                  ignoredClasses: ['nomath']
-                };
+# Example Markdown
 
-                document.addEventListener('htmx:load', evt => {
-                  const element = evt.detail.elt || document.body;
-                  autoRender(element,options);
-                });
-                </script>     <link rel="icon" type="image/x-icon" href="/favicon.ico">
-<script>
-    (function() {
-        var socket = new WebSocket(`ws://${window.location.host}/live-reload`);
-        var maxReloadAttempts = 1;
-        var reloadInterval = 1000; // time between reload attempts in ms
-        socket.onclose = function() {
-            let reloadAttempts = 0;
-            const intervalFn = setInterval(function(){
-                window.location.reload();
-                reloadAttempts++;
-                if (reloadAttempts === maxReloadAttempts) clearInterval(intervalFn);
-            }, reloadInterval);
-        }
-    })();
-</script>   </head>
-   <body reload-attempts="1" reload-interval="1000" class=" bg-background text-foreground">
-     <div class="flex flex-col md:flex-row w-full">
-<button data-uk-toggle="target: #mobile-sidebar" type="submit" class="uk-btn md:hidden mb-4"><uk-icon icon="menu" height="50" width="50" class="mt-4"></uk-icon></button>       <div hidden id="mobile-sidebar">
-         <ul uk-nav class="uk-nav uk-nav-primary space-y-4 p-4 w-full md:w-full ">
-           <li class="uk-parent ">
-<a href="#">               <div class="flex justify-between items-center w-full">Getting Started</div>
-</a>             <ul class="uk-nav-sub uk-nav-primary ">
-               <li>
-<a href="#" hx-get="/" hx-push-url="true" hx-target="#content">Getting Started</a>               </li>
-               <li>
-<a href="#" hx-get="/tutorial_app" hx-push-url="true" hx-target="#content">Tutorial App</a>               </li>
-             </ul>
-           </li>
-           <li class="uk-parent ">
-<a href="#">               <div class="flex justify-between items-center w-full">API Reference</div>
-</a>             <ul class="uk-nav-sub uk-nav-primary ">
-               <li>
-<a href="#" hx-get="/api_ref/docs_button_link" hx-push-url="true" hx-target="#content">Button | Link</a>               </li>
-               <li>
-<a href="#" hx-get="/api_ref/docs_cards" hx-push-url="true" hx-target="#content">Cards</a>               </li>
-               <li>
-<a href="#" hx-get="/api_ref/docs_containers" hx-push-url="true" hx-target="#content">Containers</a>               </li>
-               <li>
-<a href="#" hx-get="/api_ref/docs_dividers" hx-push-url="true" hx-target="#content">Dividers</a>               </li>
-               <li>
-<a href="#" hx-get="/api_ref/docs_forms" hx-push-url="true" hx-target="#content">Forms</a>               </li>
-               <li>
-<a href="#" hx-get="/api_ref/docs_icons_images" hx-push-url="true" hx-target="#content">Icons | Images</a>               </li>
-               <li>
-<a href="#" hx-get="/api_ref/docs_layout" hx-push-url="true" hx-target="#content">Layout</a>               </li>
-               <li>
-<a href="#" hx-get="/api_ref/docs_lists" hx-push-url="true" hx-target="#content">Lists</a>               </li>
-               <li>
-<a href="#" hx-get="/api_ref/docs_loading" hx-push-url="true" hx-target="#content">Loading</a>               </li>
-               <li>
-<a href="#" hx-get="/api_ref/docs_markdown_HTMLstyling" hx-push-url="true" hx-target="#content">Markdown | Htmlstyling</a>               </li>
-               <li>
-<a href="#" hx-get="/api_ref/docs_modals" hx-push-url="true" hx-target="#content">Modals</a>               </li>
-               <li>
-<a href="#" hx-get="/api_ref/docs_navigation" hx-push-url="true" hx-target="#content">Navigation</a>               </li>
-               <li>
-<a href="#" hx-get="/api_ref/docs_notifications" hx-push-url="true" hx-target="#content">Notifications</a>               </li>
-               <li>
-<a href="#" hx-get="/api_ref/docs_sliders" hx-push-url="true" hx-target="#content">Sliders</a>               </li>
-               <li>
-<a href="#" hx-get="/api_ref/docs_steps" hx-push-url="true" hx-target="#content">Steps</a>               </li>
-               <li>
-<a href="#" hx-get="/api_ref/docs_tables" hx-push-url="true" hx-target="#content">Tables</a>               </li>
-               <li>
-<a href="#" hx-get="/api_ref/docs_theme_headers" hx-push-url="true" hx-target="#content">Theme | Headers</a>               </li>
-               <li>
-<a href="#" hx-get="/api_ref/docs_typography" hx-push-url="true" hx-target="#content">Typography</a>               </li>
-             </ul>
-           </li>
-           <li class="uk-parent ">
-<a href="#">               <div class="flex justify-between items-center w-full">Guides</div>
-</a>             <ul class="uk-nav-sub uk-nav-primary ">
-               <li>
-<a href="#" hx-get="/tutorial_spacing" hx-push-url="true" hx-target="#content">Spacing</a>               </li>
-               <li>
-<a href="#" hx-get="/tutorial_layout" hx-push-url="true" hx-target="#content">Layout</a>               </li>
-             </ul>
-           </li>
-           <li class="uk-parent ">
-<a href="#">               <div class="flex justify-between items-center w-full">Examples</div>
-</a>             <ul class="uk-nav-sub uk-nav-primary ">
-               <li>
-<a href="#" hx-get="/tasks/" hx-push-url="true" hx-target="#content">Task</a>               </li>
-               <li>
-<a href="#" hx-get="/cards/" hx-push-url="true" hx-target="#content">Card</a>               </li>
-               <li>
-<a href="#" hx-get="/dashboard/" hx-push-url="true" hx-target="#content">Dashboard</a>               </li>
-               <li>
-<a href="#" hx-get="/forms/" hx-push-url="true" hx-target="#content">Form</a>               </li>
-               <li>
-<a href="#" hx-get="/music/" hx-push-url="true" hx-target="#content">Music</a>               </li>
-               <li>
-<a href="#" hx-get="/auth/" hx-push-url="true" hx-target="#content">Auth</a>               </li>
-               <li>
-<a href="#" hx-get="/playground/" hx-push-url="true" hx-target="#content">Playground</a>               </li>
-               <li>
-<a href="#" hx-get="/mail/" hx-push-url="true" hx-target="#content">Mail</a>               </li>
-               <li>
-<a href="#" hx-get="/ticket/" hx-push-url="true" hx-target="#content">Ticket</a>               </li>
-               <li>
-<a href="#" hx-get="/scrollspy/" hx-push-url="true" hx-target="#content">Scrollspy</a>               </li>
-             </ul>
-           </li>
-           <li>
-<a href="#" hx-get="/theme_switcher" hx-push-url="true" hx-target="#content">Theme</a>           </li>
-         </ul>
-       </div>
-       <div class="md:flex w-full">
-         <div class="hidden md:block w-1/5 max-w-52">
-           <ul uk-nav class="uk-nav uk-nav-primary space-y-4 p-4 w-full md:w-full ">
-             <li class="uk-parent ">
-<a href="#">                 <div class="flex justify-between items-center w-full">Getting Started</div>
-</a>               <ul class="uk-nav-sub uk-nav-primary ">
-                 <li>
-<a href="#" hx-get="/" hx-push-url="true" hx-target="#content">Getting Started</a>                 </li>
-                 <li>
-<a href="#" hx-get="/tutorial_app" hx-push-url="true" hx-target="#content">Tutorial App</a>                 </li>
-               </ul>
-             </li>
-             <li class="uk-parent ">
-<a href="#">                 <div class="flex justify-between items-center w-full">API Reference</div>
-</a>               <ul class="uk-nav-sub uk-nav-primary ">
-                 <li>
-<a href="#" hx-get="/api_ref/docs_button_link" hx-push-url="true" hx-target="#content">Button | Link</a>                 </li>
-                 <li>
-<a href="#" hx-get="/api_ref/docs_cards" hx-push-url="true" hx-target="#content">Cards</a>                 </li>
-                 <li>
-<a href="#" hx-get="/api_ref/docs_containers" hx-push-url="true" hx-target="#content">Containers</a>                 </li>
-                 <li>
-<a href="#" hx-get="/api_ref/docs_dividers" hx-push-url="true" hx-target="#content">Dividers</a>                 </li>
-                 <li>
-<a href="#" hx-get="/api_ref/docs_forms" hx-push-url="true" hx-target="#content">Forms</a>                 </li>
-                 <li>
-<a href="#" hx-get="/api_ref/docs_icons_images" hx-push-url="true" hx-target="#content">Icons | Images</a>                 </li>
-                 <li>
-<a href="#" hx-get="/api_ref/docs_layout" hx-push-url="true" hx-target="#content">Layout</a>                 </li>
-                 <li>
-<a href="#" hx-get="/api_ref/docs_lists" hx-push-url="true" hx-target="#content">Lists</a>                 </li>
-                 <li>
-<a href="#" hx-get="/api_ref/docs_loading" hx-push-url="true" hx-target="#content">Loading</a>                 </li>
-                 <li>
-<a href="#" hx-get="/api_ref/docs_markdown_HTMLstyling" hx-push-url="true" hx-target="#content">Markdown | Htmlstyling</a>                 </li>
-                 <li>
-<a href="#" hx-get="/api_ref/docs_modals" hx-push-url="true" hx-target="#content">Modals</a>                 </li>
-                 <li>
-<a href="#" hx-get="/api_ref/docs_navigation" hx-push-url="true" hx-target="#content">Navigation</a>                 </li>
-                 <li>
-<a href="#" hx-get="/api_ref/docs_notifications" hx-push-url="true" hx-target="#content">Notifications</a>                 </li>
-                 <li>
-<a href="#" hx-get="/api_ref/docs_sliders" hx-push-url="true" hx-target="#content">Sliders</a>                 </li>
-                 <li>
-<a href="#" hx-get="/api_ref/docs_steps" hx-push-url="true" hx-target="#content">Steps</a>                 </li>
-                 <li>
-<a href="#" hx-get="/api_ref/docs_tables" hx-push-url="true" hx-target="#content">Tables</a>                 </li>
-                 <li>
-<a href="#" hx-get="/api_ref/docs_theme_headers" hx-push-url="true" hx-target="#content">Theme | Headers</a>                 </li>
-                 <li>
-<a href="#" hx-get="/api_ref/docs_typography" hx-push-url="true" hx-target="#content">Typography</a>                 </li>
-               </ul>
-             </li>
-             <li class="uk-parent ">
-<a href="#">                 <div class="flex justify-between items-center w-full">Guides</div>
-</a>               <ul class="uk-nav-sub uk-nav-primary ">
-                 <li>
-<a href="#" hx-get="/tutorial_spacing" hx-push-url="true" hx-target="#content">Spacing</a>                 </li>
-                 <li>
-<a href="#" hx-get="/tutorial_layout" hx-push-url="true" hx-target="#content">Layout</a>                 </li>
-               </ul>
-             </li>
-             <li class="uk-parent ">
-<a href="#">                 <div class="flex justify-between items-center w-full">Examples</div>
-</a>               <ul class="uk-nav-sub uk-nav-primary ">
-                 <li>
-<a href="#" hx-get="/tasks/" hx-push-url="true" hx-target="#content">Task</a>                 </li>
-                 <li>
-<a href="#" hx-get="/cards/" hx-push-url="true" hx-target="#content">Card</a>                 </li>
-                 <li>
-<a href="#" hx-get="/dashboard/" hx-push-url="true" hx-target="#content">Dashboard</a>                 </li>
-                 <li>
-<a href="#" hx-get="/forms/" hx-push-url="true" hx-target="#content">Form</a>                 </li>
-                 <li>
-<a href="#" hx-get="/music/" hx-push-url="true" hx-target="#content">Music</a>                 </li>
-                 <li>
-<a href="#" hx-get="/auth/" hx-push-url="true" hx-target="#content">Auth</a>                 </li>
-                 <li>
-<a href="#" hx-get="/playground/" hx-push-url="true" hx-target="#content">Playground</a>                 </li>
-                 <li>
-<a href="#" hx-get="/mail/" hx-push-url="true" hx-target="#content">Mail</a>                 </li>
-                 <li>
-<a href="#" hx-get="/ticket/" hx-push-url="true" hx-target="#content">Ticket</a>                 </li>
-                 <li>
-<a href="#" hx-get="/scrollspy/" hx-push-url="true" hx-target="#content">Scrollspy</a>                 </li>
-               </ul>
-             </li>
-             <li>
-<a href="#" hx-get="/theme_switcher" hx-push-url="true" hx-target="#content">Theme</a>             </li>
-           </ul>
-         </div>
-         <div id="content" class="md:w-4/5 w-full mr-5">
-           <div class="uk-container mt-5 uk-container-xl">
-             <div class="uk-card ">
-               <div class="uk-card-body space-y-6">
-                 <div class="uk-card-body ">
-                   <h1 class="uk-h1 ">404 - Page Not Found</h1>
-                   <p>The page you&#x27;re looking for doesn&#x27;t exist.</p>
-                 </div>
-               </div>
-             </div>
-           </div>
-         </div>
-       </div>
-     </div>
-   </body>
- </html></doc><doc title="Modals" desc="Modals API Reference"># Modals API Reference
+  * With **bold** and _italics_
+  * With a link
+
+### And a subheading
+
+> This is a blockquote
+
+This supports inline latex: $e^{\pi i} + 1 = 0$ as well as block latex thanks to Katex.
+
+$$ \frac{1}{2\pi i} \oint_C \frac{f(z)}{z-z_0} dz $$
+
+And even syntax highlighting thanks to Highlight.js! (Just make sure you set `highlightjs=True` in the headers function)
+
+[code]
+
+    def add(a, b):
+        return a + b
+    
+[/code]
+
+[code]
+
+    def ex_markdown():
+        md = '''# Example Markdown
+    
+    + With **bold** and *italics*
+    + With a [link](https://github.com)
+    
+    ### And a subheading
+    
+    > This is a blockquote
+    
+    This supports inline latex: $e^{\\pi i} + 1 = 0$ as well as block latex thanks to Katex.
+    
+    $$
+    \\frac{1}{2\\pi i} \\oint_C \\frac{f(z)}{z-z_0} dz
+    $$
+    
+    And even syntax highlighting thanks to Highlight.js! (Just make sure you set `highlightjs=True` in the headers function)
+    
+    ```python
+    def add(a, b):
+        return a + b
+    ```
+    '''
+        return render_md(md)
+    
+[/code]
+
+You can overwrite the default styling for markdown rendering with your own css classes with `class_map
+
+See Source
+
+See Output
+
+With custom **bold** style
+
+> But no extra quote style because class_map overrides all default styled
+[code]
+
+    def ex_markdown2():
+        md = '''With custom **bold** style\n\n > But no extra quote style because class_map overrides all default styled'''
+        return render_md(md, class_map={'b': 'text-red-500'})
+    
+[/code]
+
+You can modify the default styling for markdown rendering with your own css classes with `class_map_mods
+
+See Source
+
+See Output
+
+With custom **bold** style
+
+> But default quote style because class_map_mods replaces sepecified styles and leaves the rest as default
+[code]
+
+    def ex_markdown3():
+        md = '''With custom **bold** style\n\n > But default  quote style because class_map_mods replaces sepecified styles and leaves the rest as default'''
+        return render_md(md, class_map_mods={'b': 'text-red-500'})
+    
+[/code]
+
+This uses the `apply_classes` function, which can be used to apply classes to html strings. This is useful for applying styles to any html you get from an external source.
+
+### apply_classes
+
+Source
+
+[code]
+
+    apply_classes(html_str: str, class_map=None, class_map_mods=None) -> str
+[/code]
+
+> Apply classes to html string
+
+**Params**
+
+  * `html_str` Html string
+
+  * `class_map` Class map
+
+  * `class_map_mods` Class map that will modify the class map map (useful for small changes to a base class map)
+
+**Returns:** Html string with classes applied
+
+See Source
+
+See Output
+
+<div><h1 class="uk-h1 text-4xl font-bold mt-12 mb-6">Hello, World!</h1><p class="text-lg leading-relaxed mb-6">This is a paragraph</p></div>
+
+[code]
+
+    def ex_applyclasses():
+        return apply_classes('<h1>Hello, World!</h1><p>This is a paragraph</p>')
+    
+[/code]
+</doc><doc title="Modals" desc="Modals API Reference"># Modals API Reference
 
 ### Example Modal
 
@@ -5941,7 +5159,7 @@ Source
 
 [code]
 
-    TableFromLists(header_data: Sequence, body_data: Sequence[Sequence], footer_data=None, header_cell_render=<function Th at 0x7ff16c639800>, body_cell_render=<function Td at 0x7ff16c639760>, footer_cell_render=<function Td at 0x7ff16c639760>, cls=(<TableT.middle: 'uk-table-middle'>, <TableT.divider: 'uk-table-divider'>, <TableT.hover: 'uk-table-hover'>, <TableT.sm: 'uk-table-sm'>), sortable=False, **kwargs) -> fastcore.xml.FT
+    TableFromLists(header_data: Sequence, body_data: Sequence[Sequence], footer_data=None, header_cell_render=<function Th at 0x7ff5e0ca58a0>, body_cell_render=<function Td at 0x7ff5e0ca5800>, footer_cell_render=<function Td at 0x7ff5e0ca5800>, cls=(<TableT.middle: 'uk-table-middle'>, <TableT.divider: 'uk-table-divider'>, <TableT.hover: 'uk-table-hover'>, <TableT.sm: 'uk-table-sm'>), sortable=False, **kwargs) -> fastcore.xml.FT
 [/code]
 
 > Creates a Table from a list of header data and a list of lists of body data
@@ -5974,7 +5192,7 @@ Source
 
 [code]
 
-    TableFromDicts(header_data: Sequence, body_data: Sequence[dict], footer_data=None, header_cell_render=<function Th at 0x7ff16c639800>, body_cell_render=<function <lambda> at 0x7ff16c639940>, footer_cell_render=<function <lambda> at 0x7ff16c6399e0>, cls=(<TableT.middle: 'uk-table-middle'>, <TableT.divider: 'uk-table-divider'>, <TableT.hover: 'uk-table-hover'>, <TableT.sm: 'uk-table-sm'>), sortable=False, **kwargs) -> fastcore.xml.FT
+    TableFromDicts(header_data: Sequence, body_data: Sequence[dict], footer_data=None, header_cell_render=<function Th at 0x7ff5e0ca58a0>, body_cell_render=<function <lambda> at 0x7ff5e0ca59e0>, footer_cell_render=<function <lambda> at 0x7ff5e0ca5a80>, cls=(<TableT.middle: 'uk-table-middle'>, <TableT.divider: 'uk-table-divider'>, <TableT.hover: 'uk-table-hover'>, <TableT.sm: 'uk-table-sm'>), sortable=False, **kwargs) -> fastcore.xml.FT
 [/code]
 
 > Creates a Table from a list of header data and a list of dicts of body data
@@ -6159,7 +5377,7 @@ Source
 
 [code]
 
-    fast_app(*args, pico=False, db_file: Optional[str] = None, render: Optional[<built-in function callable>] = None, hdrs: Optional[tuple] = None, ftrs: Optional[tuple] = None, tbls: Optional[dict] = None, before: Union[tuple, NoneType, fasthtml.core.Beforeware] = None, middleware: Optional[tuple] = None, live: bool = False, debug: bool = False, routes: Optional[tuple] = None, exception_handlers: Optional[dict] = None, on_startup: Optional[<built-in function callable>] = None, on_shutdown: Optional[<built-in function callable>] = None, lifespan: Optional[<built-in function callable>] = None, default_hdrs=True, surreal: Optional[bool] = True, htmx: Optional[bool] = True, exts: Union[list, str, NoneType] = None, secret_key: Optional[str] = None, key_fname: str = '.sesskey', session_cookie: str = 'session_', max_age: int = 31536000, sess_path: str = '/', same_site: str = 'lax', sess_https_only: bool = False, sess_domain: Optional[str] = None, htmlkw: Optional[dict] = None, bodykw: Optional[dict] = None, reload_attempts: Optional[int] = 1, reload_interval: Optional[int] = 1000, static_path: str = '.', body_wrap: <built-in function callable> = <function noop_body at 0x7ff1c1e4db20>, nb_hdrs: bool = False)
+    fast_app(*args, pico=False, db_file: Optional[str] = None, render: Optional[<built-in function callable>] = None, hdrs: Optional[tuple] = None, ftrs: Optional[tuple] = None, tbls: Optional[dict] = None, before: Union[tuple, NoneType, fasthtml.core.Beforeware] = None, middleware: Optional[tuple] = None, live: bool = False, debug: bool = False, routes: Optional[tuple] = None, exception_handlers: Optional[dict] = None, on_startup: Optional[<built-in function callable>] = None, on_shutdown: Optional[<built-in function callable>] = None, lifespan: Optional[<built-in function callable>] = None, default_hdrs=True, surreal: Optional[bool] = True, htmx: Optional[bool] = True, exts: Union[list, str, NoneType] = None, secret_key: Optional[str] = None, key_fname: str = '.sesskey', session_cookie: str = 'session_', max_age: int = 31536000, sess_path: str = '/', same_site: str = 'lax', sess_https_only: bool = False, sess_domain: Optional[str] = None, htmlkw: Optional[dict] = None, bodykw: Optional[dict] = None, reload_attempts: Optional[int] = 1, reload_interval: Optional[int] = 1000, static_path: str = '.', body_wrap: <built-in function callable> = <function noop_body at 0x7ff6364a9b20>, nb_hdrs: bool = False)
 [/code]
 
 > Create a FastHTML or FastHTMLWithLiveReload app with `bg-background text-foreground` to bodykw for frankenui themes
@@ -6242,7 +5460,7 @@ Source
 
 [code]
 
-    FastHTML(*args, pico=False, debug=False, routes=None, middleware=None, title: str = 'FastHTML page', exception_handlers=None, on_startup=None, on_shutdown=None, lifespan=None, hdrs=None, ftrs=None, exts=None, before=None, after=None, surreal=True, htmx=True, default_hdrs=True, sess_cls=<class 'starlette.middleware.sessions.SessionMiddleware'>, secret_key=None, session_cookie='session_', max_age=31536000, sess_path='/', same_site='lax', sess_https_only=False, sess_domain=None, key_fname='.sesskey', body_wrap=<function noop_body at 0x7ff1c1e4db20>, htmlkw=None, nb_hdrs=False)
+    FastHTML(*args, pico=False, debug=False, routes=None, middleware=None, title: str = 'FastHTML page', exception_handlers=None, on_startup=None, on_shutdown=None, lifespan=None, hdrs=None, ftrs=None, exts=None, before=None, after=None, surreal=True, htmx=True, default_hdrs=True, sess_cls=<class 'starlette.middleware.sessions.SessionMiddleware'>, secret_key=None, session_cookie='session_', max_age=31536000, sess_path='/', same_site='lax', sess_https_only=False, sess_domain=None, key_fname='.sesskey', body_wrap=<function noop_body at 0x7ff6364a9b20>, htmlkw=None, nb_hdrs=False)
 [/code]
 
 > Create a FastHTML app and adds `bg-background text-foreground` to bodykw for frankenui themes

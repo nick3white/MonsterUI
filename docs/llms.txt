@@ -23,13 +23,13 @@
 - [Containers](https://monsterui.answer.ai/api_ref/docs_containers/md): Articles, Containers & Sections API Reference
 - [Dividers](https://monsterui.answer.ai/api_ref/docs_dividers/md): Dividers API Reference
 - [Forms](https://monsterui.answer.ai/api_ref/docs_forms/md): Forms and User Inputs API Reference
-- [Html](https://monsterui.answer.ai/api_ref/docs_html/md): <!doctype html>
+- [Html](https://monsterui.answer.ai/api_ref/docs_html/md): HTML Styling API Reference
 - [Icons | Images](https://monsterui.answer.ai/api_ref/docs_icons_images/md): Icons & Images API Reference
 - [Layout](https://monsterui.answer.ai/api_ref/docs_layout/md): Layout (Flex and Grid) API Reference
-- [Lightbox](https://monsterui.answer.ai/api_ref/docs_lightbox/md): <!doctype html>
+- [Lightbox](https://monsterui.answer.ai/api_ref/docs_lightbox/md): Lightbox API Reference
 - [Lists](https://monsterui.answer.ai/api_ref/docs_lists/md): Lists API Reference
 - [Loading](https://monsterui.answer.ai/api_ref/docs_loading/md): Loading IndicatorsAPI Reference
-- [Markdown](https://monsterui.answer.ai/api_ref/docs_markdown/md): <!doctype html>
+- [Markdown](https://monsterui.answer.ai/api_ref/docs_markdown/md): Markdown + automated HTML styling API Reference
 - [Modals](https://monsterui.answer.ai/api_ref/docs_modals/md): Modals API Reference
 - [Navigation](https://monsterui.answer.ai/api_ref/docs_navigation/md): Navigation (Nav, NavBar, Tabs, etc.) API Reference
 - [Notifications](https://monsterui.answer.ai/api_ref/docs_notifications/md): Alerts & Toasts API Reference

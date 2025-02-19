@@ -498,7 +498,7 @@
 - `def get_franken_renderer(img_dir)`
     Create a renderer class with the specified img_dir
 
-- `def ThemePicker(color, radii, shadows, font, mode, cls)`
+- `def ThemePicker(color, radii, shadows, font, mode, cls, custom_themes)`
     Theme picker component with configurable sections
 
 - `def LightboxContainer(*lightboxitem, **kwargs)`

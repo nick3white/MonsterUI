@@ -1245,7 +1245,7 @@ def DropDownNavContainer(*li, # Components
                          **kwargs # Additional args for the nav
                         )->FT: # DropDown nav container
     "A Nav that is part of a DropDown"
-    return Div(cls = 'uk-drop uk-dropdown',uk_dropdown=uk_dropdown)(NavContainer(*li, cls=('uk-dropdown-nav',stringify(cls)), uk_nav=uk_nav, parent=parent, **kwargs))
+    return Div(cls = 'uk-drop w-full uk-dropdown',uk_dropdown=uk_dropdown)(NavContainer(*li, cls=('uk-dropdown-nav',stringify(cls)), uk_nav=uk_nav, parent=parent, **kwargs))
 
 # %% ../nbs/02_franken.ipynb
 def TabContainer(*li, # Components

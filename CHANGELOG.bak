@@ -2,6 +2,10 @@
 
 <!-- do not remove -->
 
+## 1.0.8
+
+# Add lightbox and Insertable select
+
 ## 1.0.7
 
 ### New Features

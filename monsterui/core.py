@@ -51,23 +51,25 @@ class ThemeFont:
 
 # %% ../nbs/01_core.ipynb
 def _headers_theme(color, mode='auto', radii=ThemeRadii.sm, shadows=ThemeShadows.sm, font=ThemeFont.sm):
-    mode_script = {
-        'auto': '''
+    franken_init = '''
           const __FRANKEN__ = JSON.parse(localStorage.getItem("__FRANKEN__") || "{}");
-
+    '''
+    
+    mode_script = {
+        'auto': f'''
+          {franken_init}
           if (
             __FRANKEN__.mode === "dark" ||
             (!__FRANKEN__.mode &&
               window.matchMedia("(prefers-color-scheme: dark)").matches)
-          ) {
+          ) {{
             htmlElement.classList.add("dark");
-          } else {
+          }} else {{
             htmlElement.classList.remove("dark");
-          }
-
+          }}
         ''',
-        'light': 'htmlElement.classList.remove("dark");',
-        'dark': 'htmlElement.classList.add("dark");'
+        'light': f'{franken_init}\nhtmlElement.classList.remove("dark");',
+        'dark': f'{franken_init}\nhtmlElement.classList.add("dark");'
     }
     
     return fh.Script(f'''
@@ -106,16 +108,31 @@ def _download_resource(url, static_dir):
 # %% ../nbs/01_core.ipynb
 daisy_styles = Style("""
 :root {
+  --b1: from hsl(var(--background)) l c h;
+  --bc: from hsl(var(--foreground)) l c h;
+  --m: from hsl(var(--muted)) l c h;
+  --mc: from hsl(var(--muted-foreground)) l c h;
+  --po: from hsl(var(--popover)) l c h;
+  --poc: from hsl(var(--popover-foreground)) l c h;
+  --b2: from hsl(var(--card)) l c h;
+  --b2c: from hsl(var(--card-foreground)) l c h;
+  --br: from hsl(var(--border)) l c h;
+  --in: from hsl(var(--input)) l c h;
   --p: from hsl(var(--primary)) l c h;
   --pc: from hsl(var(--primary-foreground)) l c h;
   --s: from hsl(var(--secondary)) l c h;
   --sc: from hsl(var(--secondary-foreground)) l c h;
-  --b2: from hsl(var(--card-background)) l c h;
-  --b1: from hsl(var(--background)) l c h;
-  --bc: from hsl(var(--foreground)) l c h;
-  --b3: from hsl(var(--ring)) l c h;
+  --a: from hsl(var(--accent)) l c h;
+  --ac: from hsl(var(--accent-foreground)) l c h;
   --er: from hsl(var(--destructive)) l c h;
   --erc: from hsl(var(--destructive-foreground)) l c h;
+  --b3: from hsl(var(--ring)) l c h;
+  --ch1: from hsl(var(--chart-1)) l c h;
+  --ch2: from hsl(var(--chart-2)) l c h;
+  --ch3: from hsl(var(--chart-3)) l c h;
+  --ch4: from hsl(var(--chart-4)) l c h;
+  --ch5: from hsl(var(--chart-5)) l c h;
+  --rd: var(--radius);
 }
 """)
 

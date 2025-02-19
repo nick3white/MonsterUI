@@ -184,9 +184,18 @@ docs_theme_headers = create_doc_section(
     H3("Theme Picker", id='theme'),
     fn2code_string(ex_theme_switcher),
     ThemePicker,
+    H3("Custom Themes"),
+    render_md("""
+1. You can use [this theme](https://github.com/AnswerDotAI/MonsterUI/blob/main/docs/custom_theme.css) as a starting point.
+2. Add the theme to your headers as a link like this `Link(rel="stylesheet", href="/custom_theme.css", type="text/css")`
+3. Then add the theme to the `ThemePicker` component. For example `ThemePicker(custom_themes=[('Grass', '#10b981')])`
+"""),
     "Themes are controlled with `bg-background text-foreground` classes on the `Body` tag.  `fast_app` and `FastHTML` will do this for you automatically so you typically do not have to do anything",
     fast_app,
     FastHTML,
+
+    Blockquote(P("Users have said", A("this site", href="https://ui.jln.dev/"), " is helpful in creating your own themes.")),
+
     title="Headers")
 
 # Typography

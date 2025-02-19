@@ -23,7 +23,11 @@ def _not_found(req, exc):
         req,
         None)
 
-app,rt = fast_app(exception_handlers={404:_not_found}, pico=False, hdrs=(*Theme.blue.headers(highlightjs=True), Link(rel="icon", type="image/x-icon", href="/favicon.ico")), live=True)
+
+app,rt = fast_app(exception_handlers={404:_not_found}, pico=False, 
+                  hdrs=(*Theme.blue.headers(highlightjs=True), Link(rel="icon", type="image/x-icon", href="/favicon.ico"),
+                        Link(rel="stylesheet", href="/custom_theme.css", type="text/css")), 
+                  live=True)
 
 def is_htmx(request=None): 
     "Check if the request is an HTMX request"
@@ -157,7 +161,7 @@ def tutorial_layout(o:str='', request=None):
 
 @rt
 def theme_switcher(request): 
-    return _create_page(Div(ThemePicker(),cls="p-12"), request, None)
+    return _create_page(Div(ThemePicker(custom_themes=[("Grass", "#10b981")]),cls="p-12"), request, None)
 
 ###
 # Build the Getting Started Pages

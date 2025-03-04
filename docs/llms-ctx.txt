@@ -64,9 +64,6 @@
     Members: top, middle, bottom
 
 
-- `def Toast(*c, **kwargs)`
-    Toasts are stacked announcements, positioned on the corner of page.
-
 ## monsterui.foundations
 
 > Data Structures and Utilties

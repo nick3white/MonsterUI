@@ -573,7 +573,7 @@ def Range(*c, # contents of Range tag (often nothing)
            **kwargs # Additional args for Range tag
            )->FT: # Input(..., cls='uk-range', type='range')
     "A Range with default styling"
-    return Uk_input_range(*c, min=min, label=label, max=max, value=value, multiple=len(value.split(','))>1, cls=('uk-range',stringify(cls)), **kwargs)
+    return Uk_input_range(*c, min=min, label=label, max=max, value=value, step=step, multiple=len(value.split(','))>1, cls=('uk-range',stringify(cls)), **kwargs)
 
 # %% ../nbs/02_franken.ipynb
 def TextArea(*c, # contents of TextArea tag (often text)

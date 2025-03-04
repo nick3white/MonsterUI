@@ -2,6 +2,14 @@
 
 <!-- do not remove -->
 
+## 1.0.11
+
+### New Features
+
+- Cusom Themes support in ThemePicker ([#71](https://github.com/AnswerDotAI/MonsterUI/pull/71)), thanks to [@ndendic](https://github.com/ndendic)
+
+
+
 ## 1.0.10
 
 ### New Features

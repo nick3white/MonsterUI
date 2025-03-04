@@ -852,7 +852,7 @@ def ModalContainer(*c, # Components to put in the modal (often `ModalDialog`)
                      **kwargs # Additional args for `Div` tag
                      )->FT: # Div(..., cls='uk-modal uk-modal-container')
     "Creates a modal container that components go in"
-    return fh.Div(*c, cls=('uk-modal uk-modal-container',stringify(cls)), uk_modal=True, **kwargs)
+    return fh.Div(*c, cls=('uk-modal uk-modal-container',stringify(cls)), data_uk_modal=True, **kwargs)
 def ModalDialog(*c, # Components to put in the `ModalDialog` (often `ModalBody`, `ModalHeader`, etc)
                   cls=(), # Additional classes on the `ModalDialog`
                   **kwargs # Additional args for `Div` tag
@@ -884,13 +884,18 @@ def ModalTitle(*c, # Components to put in the `ModalTitle` (often text)
     "Creates a modal title"
     return fh.H2(*c,  cls=('uk-modal-title',  stringify(cls)),  **kwargs)
 def ModalCloseButton(*c, # Components to put in the button (often text and/or an icon)
-                      cls=(), # Additional classes on the button
+                      cls="absolute top-3 right-3", # Additional classes on the button
                       htmx=False, # Whether to use HTMX to close the modal (must add hx_get to a route that closes the modal)
                       **kwargs # Additional args for `Button` tag
                       )->FT: # Button(..., cls='uk-modal-close') + `hx_target` and `hx_swap` if htmx is True
     "Creates a button that closes a modal with js"
-    if htmx: kwargs['onclick'] = 'this.closest(".uk-modal").remove()'
-    return Button(*c, cls=('uk-modal-close', stringify(cls)), **kwargs)
+    if htmx: 
+        kwargs['hx-on--trigger'] = 'this.closest(".uk-modal").remove()'
+        kwargs['hx-trigger'] = 'click, keyup[key=="Escape"] from:body, click[target.classList.contains("uk-modal")] from:.uk-modal'
+    else: 
+        cls = (stringify(cls), 'uk-modal-close')
+    kwargs['data-uk-close'] = True
+    return Button(*c, cls=(stringify(cls)), **kwargs)
 
 # %% ../nbs/02_franken.ipynb
 def Modal(*c,                 # Components to put in the `ModalBody` (often forms, sign in buttons, images, etc.)
@@ -907,7 +912,7 @@ def Modal(*c,                 # Components to put in the `ModalBody` (often form
         )->FT: # Fully styled modal FT Component
     "Creates a modal with the appropriate classes to put the boilerplate in the appropriate places for you"
     if open:
-        cls = stringify((cls, 'uk-open'))
+        cls = (stringify(cls), 'uk-open')
         kwargs['style'] = stringify((kwargs.get('style',''), 'display: block;'))
     cls, dialog_cls, header_cls, body_cls, footer_cls = map(stringify, (cls, dialog_cls, header_cls, body_cls, footer_cls))
     res = []

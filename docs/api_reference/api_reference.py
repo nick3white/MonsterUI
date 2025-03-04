@@ -1037,6 +1037,11 @@ def ex_markdown3():
 def ex_applyclasses():
     return apply_classes('<h1>Hello, World!</h1><p>This is a paragraph</p>')
 
+def ex_applyclasses2():
+    from mistletoe import markdown, HTMLRenderer
+    md = markdown('# Hi\n[a link](www.google.com)', renderer=HTMLRenderer)
+    return Safe(apply_classes(md))
+
 docs_markdown = create_doc_section(
     H1("Markdown + automated HTML styling API Reference"),
     fn2code_string(ex_markdown),
@@ -1045,8 +1050,10 @@ docs_markdown = create_doc_section(
     render_md("You can modify the default styling for markdown rendering with your own css classes with  `class_map_mods"),
     fn2code_string(ex_markdown3),
     render_md("This uses the `apply_classes` function, which can be used to apply classes to html strings.  This is useful for applying styles to any html you get from an external source."),
-    apply_classes,
     fn2code_string(ex_applyclasses),
+    render_md("One common external source is a markdown renderer.  MonsterUI uses tailwind css for styling so you don't get any styling without specifying classes, `apply_classes` can do that for you."),
+    fn2code_string(ex_applyclasses2),
+    apply_classes,
     title="Markdown + HTML Frankification")
 
 

@@ -2131,7 +2131,7 @@ Source
 
   * `c` contents of Section tag (often other tags)
 
-  * `cls` Classes in addition to Section styling
+  * `c`s` Classes in`Button`n to Section styling
 
   * `kwargs`
 

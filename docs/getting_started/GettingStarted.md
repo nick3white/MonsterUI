@@ -1,4 +1,10 @@
-# MonsterUI Getting Started
+# MonsterUI
+
+MonsterUI is a UI framework for FastHTML for building beautiful web interfaces with minimal code. It combines the simplicity of Python with the power of Tailwind. Perfect for data scientists, ML engineers, and developers who want to quickly turn their Python code into polished web apps without the complexity of traditional UI frameworks. Follows semantic HTML patterns when possible.
+
+MonsterUI adds the following  Tailwind-based libraries [Franken UI](https://franken-ui.dev/) and [DaisyUI](https://daisyui.com/) to FastHTML, as well as Python's [Mistletoe](https://github.com/miyuchina/mistletoe) for Markdown, [HighlightJS](https://highlightjs.org/) for code highlighting, and [Katex](https://katex.org/) for latex support.
+
+# Getting Started
 
 ## Installation
 

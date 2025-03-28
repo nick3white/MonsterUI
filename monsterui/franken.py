@@ -465,14 +465,15 @@ def Divider(*c, # contents of Divider tag (often nothing)
 
 # %% ../nbs/02_franken.ipynb
 def DividerSplit(*c, cls=(), line_cls=(), text_cls=()):
-    "Creates a simple horizontal line divider with configurable thickness and vertical spacing"
     cls, line_cls, text_cls = map(stringify,(cls, line_cls, text_cls))
     return Div(cls='relative ' + cls)(
         Div(cls="absolute inset-0 flex items-center " + line_cls)(Span(cls="w-full border-t border-border")),
         Div(cls="relative flex justify-center " + text_cls)(Span(cls="bg-background px-2 ")(*c)))
 
 # %% ../nbs/02_franken.ipynb
-def DividerLine(lwidth=2, y_space=4): return Hr(cls=f"my-{y_space} h-[{lwidth}px] w-full bg-secondary")
+def DividerLine(lwidth=2, y_space=4):
+    "Creates a simple horizontal line divider with configurable thickness and vertical spacing"
+    return Hr(cls=f"my-{y_space} h-[{lwidth}px] w-full bg-secondary")
 
 # %% ../nbs/02_franken.ipynb
 def Article(*c, # contents of Article tag (often other tags)

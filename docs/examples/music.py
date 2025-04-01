@@ -1,8 +1,9 @@
 """FrankenUI Music Example build with MonsterUI (Original design by ShadCN)"""
 
 from fasthtml.common import *
+
 from monsterui.all import *
- 
+
 app, rt = fast_app(hdrs=Theme.blue.headers())
 
 def MusicLi(t,hk=''): return Li(A(DivFullySpaced(t,P(hk,cls=TextPresets.muted_sm))))
@@ -42,6 +43,7 @@ music_headers = NavBar(
             Li(A(DivFullySpaced("Smart Dictation",UkIcon("mic")))),
             Li(A(DivFullySpaced("Emojis & Symbols",UkIcon("globe")))))),
     Button("View", cls=ButtonT.ghost+TextT.gray),DropDownNavContainer(Li(A("View"),NavContainer(map(lambda x: MusicLi(x), view_dd_data)))),
+    brand=DivLAligned(H2("Purrify"))
     )
     
 

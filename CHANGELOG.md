@@ -6,6 +6,27 @@
 
 ### New Features
 
+- Move CDN's to jsdelivr ([#88](https://github.com/AnswerDotAI/MonsterUI/pull/88)), thanks to [@curtis-allan](https://github.com/curtis-allan)
+
+### Bugs Squashed
+
+- Select htmx compatibility bug
+
+## 1.0.14
+
+### New Features
+
+- Move CDN's to jsdelivr ([#88](https://github.com/AnswerDotAI/MonsterUI/pull/88)), thanks to [@curtis-allan](https://github.com/curtis-allan)
+
+### Bugs Squashed
+
+- Select htmx compatability issues 
+
+
+## 1.0.14
+
+### New Features
+
 ### Bugs Squashed
 
 - SVG Path Name Collision Issue in MonsterUI ([#85](https://github.com/AnswerDotAI/MonsterUI/issues/85))

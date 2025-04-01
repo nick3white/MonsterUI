@@ -786,6 +786,7 @@ def Select(*option,            # Options for the select dropdown (can use `Optio
           searchable=False,   # Whether the select should be searchable
           insertable=False,   # Whether to allow user-defined options to be added
           select_kwargs=None, # Additional Arguments passed to Select
+          
            **kwargs           # Additional arguments passed to Uk_select
           ):          
     "Creates a select dropdown with uk styling and option for adding a search box"
@@ -796,11 +797,11 @@ def Select(*option,            # Options for the select dropdown (can use `Optio
         if not id: id = unqid()
         kwargs['hx_trigger'] = kwargs['hx_trigger'].replace('changed', f'uk-select:input from:#{id}')
         kwargs['hx_trigger'] = kwargs['hx_trigger'].replace('change', f'uk-select:input from:#{id}')
-        if 'delay' not in kwargs['hx_trigger']:
-            kwargs['hx_trigger'] +=  ' delay:100ms'
-        if 'hx_include' not in kwargs: kwargs['hx_include']=''
-        kwargs['hx_include'] += ' this'
-        kwargs['hx_include'] = kwargs['hx_include'].strip()
+    if 'delay' not in kwargs['hx_trigger']:
+        kwargs['hx_trigger'] +=  ' delay:100ms'
+    if 'hx_include' not in kwargs: kwargs['hx_include']=''
+    kwargs['hx_include'] += ' this'
+    kwargs['hx_include'] = kwargs['hx_include'].strip()
         
     if id and not name: name = id
 

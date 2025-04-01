@@ -235,7 +235,7 @@
 - `def Divider(*c, **kwargs)`
     Divider with default styling and margin
 
-- `def DividerSplit(*c)`
+- `def DividerLine(lwidth, y_space)`
     Creates a simple horizontal line divider with configurable thickness and vertical spacing
 
 - `def Article(*c, **kwargs)`

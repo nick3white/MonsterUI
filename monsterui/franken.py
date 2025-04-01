@@ -791,15 +791,32 @@ def Select(*option,            # Options for the select dropdown (can use `Optio
     "Creates a select dropdown with uk styling and option for adding a search box"
     inp_cls, cls, cls_custom= map(stringify, (inp_cls, cls, cls_custom))
     select_kwargs = ifnone(select_kwargs, {})
-    uk_select = Uk_select(fh.Select(*option, hidden=True, **select_kwargs),
+        
+    if 'hx_trigger' in kwargs and 'change' in kwargs['hx_trigger']:
+        if not id: id = unqid()
+        kwargs['hx_trigger'] = kwargs['hx_trigger'].replace('changed', f'uk-select:input from:#{id}')
+        kwargs['hx_trigger'] = kwargs['hx_trigger'].replace('change', f'uk-select:input from:#{id}')
+        if 'delay' not in kwargs['hx_trigger']:
+            kwargs['hx_trigger'] +=  ' delay:100ms'
+        if 'hx_include' not in kwargs: kwargs['hx_include']=''
+        kwargs['hx_include'] += ' this'
+        kwargs['hx_include'] = kwargs['hx_include'].strip()
+        
+    if id and not name: name = id
+
+    uk_select = Uk_select(fh.Select(*option, hidden=True, 
+                                    **select_kwargs, 
+                                    
+                                    ),
                          cls_custom=cls_custom,
                          searchable=searchable,
                          placeholder=placeholder,
                          insertable=insertable,
                          cls=inp_cls,
-                         id=id, 
-                         name=name,
-                         **kwargs)
+                          id=id,
+                          name=name,
+                          **kwargs
+                         )
     
     return Div(cls=cls)(uk_select)
 

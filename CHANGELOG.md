@@ -2,6 +2,14 @@
 
 <!-- do not remove -->
 
+## 1.0.14
+
+### New Features
+
+### Bugs Squashed
+
+- SVG Path Name Collision Issue in MonsterUI ([#85](https://github.com/AnswerDotAI/MonsterUI/issues/85))
+
 ## 1.0.13
 
 

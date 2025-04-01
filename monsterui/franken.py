@@ -744,7 +744,7 @@ def LabelCheckboxX(label:str|FT, # FormLabel content (often text)
                 **kwargs # Additional args for `CheckboxX`
                )->FT:  # Div(cls='flex items-center space-x-2')(`FormLabel`, `CheckboxX`)
     "A FormLabel and CheckboxX pair that provides default spacing and links/names them based on id"
-    id = kwargs.pop('id', fh.unqid())
+    if not id: id = fh.unqid()
     if isinstance(label, str) or label.tag != 'label': 
         label = FormLabel(cls=stringify(lbl_cls), fr=id)(label)
     inp = CheckboxX(id=id, cls=stringify(input_cls), **kwargs)        
@@ -792,7 +792,7 @@ def Select(*option,            # Options for the select dropdown (can use `Optio
     "Creates a select dropdown with uk styling and option for adding a search box"
     inp_cls, cls, cls_custom= map(stringify, (inp_cls, cls, cls_custom))
     select_kwargs = ifnone(select_kwargs, {})
-    uk_select = Uk_select(fh.Select(*option, hidden=True, id=id, name=name, **select_kwargs),
+    uk_select = Uk_select(fh.Select(*option, hidden=True, **select_kwargs),
                          cls_custom=cls_custom,
                          searchable=searchable,
                          placeholder=placeholder,

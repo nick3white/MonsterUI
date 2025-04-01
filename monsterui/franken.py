@@ -29,10 +29,9 @@ from itertools import zip_longest
 from typing import Union, Tuple, Optional, Sequence
 from fastcore.all import *
 import copy, re, httpx, os
-from pathlib import Path
+import pathlib
 from mistletoe.html_renderer import HTMLRenderer
 from mistletoe.span_token import Image
-from pathlib import Path
 import mistletoe
 from lxml import html, etree
 from fasthtml.components import Uk_input_range
@@ -1485,7 +1484,7 @@ def get_franken_renderer(img_dir):
             title = f' title="{token.title}"' if hasattr(token, 'title') else ''
             src = token.src
             if img_dir and not src.startswith(('http://', 'https://', '/')):
-                src = f'{Path(img_dir)}/{src}'
+                src = f'{pathlib.Path(img_dir)}/{src}'
             return template.format(src, token.children[0].content if token.children else '', title)
     return FrankenRenderer
 

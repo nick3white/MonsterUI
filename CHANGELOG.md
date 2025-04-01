@@ -2,6 +2,15 @@
 
 <!-- do not remove -->
 
+## 1.0.13
+
+
+### Bugs Squashed
+
+- LabelCheckboxX ignores id set manually ([#80](https://github.com/AnswerDotAI/MonsterUI/issues/80))
+
+- Select sending multiple values to HTMX 
+
 ## 1.0.11
 
 ### New Features

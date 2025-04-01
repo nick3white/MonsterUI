@@ -8,15 +8,15 @@ __all__ = ['franken_class_map', 'TextT', 'TextPresets', 'CodeSpan', 'CodeBlock',
            'DividerT', 'Divider', 'DividerSplit', 'DividerLine', 'Article', 'ArticleTitle', 'ArticleMeta', 'SectionT',
            'Section', 'Form', 'Fieldset', 'Legend', 'Input', 'Radio', 'CheckboxX', 'Range', 'TextArea', 'Switch',
            'Upload', 'UploadZone', 'FormLabel', 'LabelT', 'Label', 'UkFormSection', 'GenericLabelInput', 'LabelInput',
-           'LabelTextArea', 'LabelSwitch', 'LabelRadio', 'LabelCheckboxX', 'LabelSelect', 'Options', 'Select',
-           'LabelRange', 'AT', 'ListT', 'ModalContainer', 'ModalDialog', 'ModalHeader', 'ModalBody', 'ModalFooter',
-           'ModalTitle', 'ModalCloseButton', 'Modal', 'Placeholder', 'Progress', 'UkIcon', 'UkIconLink',
-           'DiceBearAvatar', 'Center', 'FlexT', 'Grid', 'DivFullySpaced', 'DivCentered', 'DivLAligned', 'DivRAligned',
-           'DivVStacked', 'DivHStacked', 'NavT', 'NavContainer', 'NavParentLi', 'NavDividerLi', 'NavHeaderLi',
-           'NavSubtitle', 'NavCloseLi', 'ScrollspyT', 'NavBar', 'SliderContainer', 'SliderItems', 'SliderNav', 'Slider',
-           'DropDownNavContainer', 'TabContainer', 'CardT', 'CardTitle', 'CardHeader', 'CardBody', 'CardFooter',
-           'CardContainer', 'Card', 'TableT', 'Table', 'Td', 'Th', 'Tbody', 'TableFromLists', 'TableFromDicts',
-           'apply_classes', 'render_md', 'get_franken_renderer', 'ThemePicker', 'LightboxContainer', 'LightboxItem']
+           'LabelTextArea', 'LabelSwitch', 'LabelRadio', 'LabelCheckboxX', 'Options', 'Select', 'LabelRange', 'AT',
+           'ListT', 'ModalContainer', 'ModalDialog', 'ModalHeader', 'ModalBody', 'ModalFooter', 'ModalTitle',
+           'ModalCloseButton', 'Modal', 'Placeholder', 'Progress', 'UkIcon', 'UkIconLink', 'DiceBearAvatar', 'Center',
+           'FlexT', 'Grid', 'DivFullySpaced', 'DivCentered', 'DivLAligned', 'DivRAligned', 'DivVStacked', 'DivHStacked',
+           'NavT', 'NavContainer', 'NavParentLi', 'NavDividerLi', 'NavHeaderLi', 'NavSubtitle', 'NavCloseLi',
+           'ScrollspyT', 'NavBar', 'SliderContainer', 'SliderItems', 'SliderNav', 'Slider', 'DropDownNavContainer',
+           'TabContainer', 'CardT', 'CardTitle', 'CardHeader', 'CardBody', 'CardFooter', 'CardContainer', 'Card',
+           'TableT', 'Table', 'Td', 'Th', 'Tbody', 'TableFromLists', 'TableFromDicts', 'apply_classes', 'render_md',
+           'get_franken_renderer', 'ThemePicker', 'LightboxContainer', 'LightboxItem']
 
 # %% ../nbs/02_franken.ipynb
 import fasthtml.common as fh
@@ -751,23 +751,6 @@ def LabelCheckboxX(label:str|FT, # FormLabel content (often text)
     return inp, label
 
 # %% ../nbs/02_franken.ipynb
-def LabelSelect(*option, # Options for the select dropdown (can use `Options` helper function to create)
-               label:str|FT, # FormLabel content (often text)
-               lbl_cls='', # Additional classes for `FormLabel`
-               input_cls='', # Additional classes for `Select`
-               container=Div, # Container to wrap label and input in (default is Div)
-               cls='space-y-2', # Classes on container (default is 'space-y-2')
-               id='', # id for `FormLabel` and `Select` (`id`, `name` and `for` attributes are set to this value)
-                **kwargs # Additional args for `Select`
-                ):
-    "A FormLabel and Select pair that provides default spacing and links/names them based on id (usually UkLabelSelect is a better choice)"
-    if isinstance(label, str) or label.tag != 'label': 
-        label = FormLabel(lbl_cls=stringify(lbl_cls), fr=id)(label)
-    inp = Select(*option, id=id, cls=stringify(input_cls), **kwargs)        
-    if container: return container(label, inp, cls=stringify(cls))
-    return label, inp
-
-# %% ../nbs/02_franken.ipynb
 def Options(*c,                    # Content for an `Option`
             selected_idx:int=None, # Index location of selected `Option`
             disabled_idxs:set=None # Idex locations of disabled `Options`
@@ -792,13 +775,16 @@ def Select(*option,            # Options for the select dropdown (can use `Optio
     "Creates a select dropdown with uk styling and option for adding a search box"
     inp_cls, cls, cls_custom= map(stringify, (inp_cls, cls, cls_custom))
     select_kwargs = ifnone(select_kwargs, {})
-        
-    if 'hx_trigger' in kwargs and 'change' in kwargs['hx_trigger']:
+
+    if 'hx_trigger' not in kwargs: kwargs['hx_trigger']=''
+    if 'change' in kwargs['hx_trigger']:
         if not id: id = unqid()
         kwargs['hx_trigger'] = kwargs['hx_trigger'].replace('changed', f'uk-select:input from:#{id}')
         kwargs['hx_trigger'] = kwargs['hx_trigger'].replace('change', f'uk-select:input from:#{id}')
+    
     if 'delay' not in kwargs['hx_trigger']:
         kwargs['hx_trigger'] +=  ' delay:100ms'
+    
     if 'hx_include' not in kwargs: kwargs['hx_include']=''
     kwargs['hx_include'] += ' this'
     kwargs['hx_include'] = kwargs['hx_include'].strip()

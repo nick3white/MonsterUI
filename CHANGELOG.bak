@@ -2,6 +2,12 @@
 
 <!-- do not remove -->
 
+## 1.0.16
+
+### Bugs Squashed
+
+- Select not properly checking presence of hx-trigger
+
 ## 1.0.14
 
 ### New Features

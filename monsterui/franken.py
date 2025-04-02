@@ -8,15 +8,15 @@ __all__ = ['franken_class_map', 'TextT', 'TextPresets', 'CodeSpan', 'CodeBlock',
            'DividerT', 'Divider', 'DividerSplit', 'DividerLine', 'Article', 'ArticleTitle', 'ArticleMeta', 'SectionT',
            'Section', 'Form', 'Fieldset', 'Legend', 'Input', 'Radio', 'CheckboxX', 'Range', 'TextArea', 'Switch',
            'Upload', 'UploadZone', 'FormLabel', 'LabelT', 'Label', 'UkFormSection', 'GenericLabelInput', 'LabelInput',
-           'LabelTextArea', 'LabelSwitch', 'LabelRadio', 'LabelCheckboxX', 'Options', 'Select', 'LabelRange', 'AT',
-           'ListT', 'ModalContainer', 'ModalDialog', 'ModalHeader', 'ModalBody', 'ModalFooter', 'ModalTitle',
-           'ModalCloseButton', 'Modal', 'Placeholder', 'Progress', 'UkIcon', 'UkIconLink', 'DiceBearAvatar', 'Center',
-           'FlexT', 'Grid', 'DivFullySpaced', 'DivCentered', 'DivLAligned', 'DivRAligned', 'DivVStacked', 'DivHStacked',
-           'NavT', 'NavContainer', 'NavParentLi', 'NavDividerLi', 'NavHeaderLi', 'NavSubtitle', 'NavCloseLi',
-           'ScrollspyT', 'NavBar', 'SliderContainer', 'SliderItems', 'SliderNav', 'Slider', 'DropDownNavContainer',
-           'TabContainer', 'CardT', 'CardTitle', 'CardHeader', 'CardBody', 'CardFooter', 'CardContainer', 'Card',
-           'TableT', 'Table', 'Td', 'Th', 'Tbody', 'TableFromLists', 'TableFromDicts', 'apply_classes', 'render_md',
-           'get_franken_renderer', 'ThemePicker', 'LightboxContainer', 'LightboxItem']
+           'LabelTextArea', 'LabelSwitch', 'LabelRadio', 'LabelCheckboxX', 'Options', 'Select', 'LabelSelect',
+           'LabelRange', 'AT', 'ListT', 'ModalContainer', 'ModalDialog', 'ModalHeader', 'ModalBody', 'ModalFooter',
+           'ModalTitle', 'ModalCloseButton', 'Modal', 'Placeholder', 'Progress', 'UkIcon', 'UkIconLink',
+           'DiceBearAvatar', 'Center', 'FlexT', 'Grid', 'DivFullySpaced', 'DivCentered', 'DivLAligned', 'DivRAligned',
+           'DivVStacked', 'DivHStacked', 'NavT', 'NavContainer', 'NavParentLi', 'NavDividerLi', 'NavHeaderLi',
+           'NavSubtitle', 'NavCloseLi', 'ScrollspyT', 'NavBar', 'SliderContainer', 'SliderItems', 'SliderNav', 'Slider',
+           'DropDownNavContainer', 'TabContainer', 'CardT', 'CardTitle', 'CardHeader', 'CardBody', 'CardFooter',
+           'CardContainer', 'Card', 'TableT', 'Table', 'Td', 'Th', 'Tbody', 'TableFromLists', 'TableFromDicts',
+           'apply_classes', 'render_md', 'get_franken_renderer', 'ThemePicker', 'LightboxContainer', 'LightboxItem']
 
 # %% ../nbs/02_franken.ipynb
 import fasthtml.common as fh
@@ -806,6 +806,27 @@ def Select(*option,            # Options for the select dropdown (can use `Optio
                          )
     
     return Div(cls=cls)(uk_select)
+
+# %% ../nbs/02_franken.ipynb
+def LabelSelect(*option,            # Options for the select dropdown (can use `Options` helper function to create) 
+             label=(),           # String or FT component for the label
+             lbl_cls=(),         # Additional classes for the label
+             inp_cls=(),         # Additional classes for the select input
+             cls=('space-y-2',), # Classes for the outer div
+             id="",              # ID for the select input
+             name="",            # Name attribute for the select input
+             placeholder="",     # Placeholder text for the select input
+             searchable=False,   # Whether the select should be searchable
+             select_kwargs=None, # Additional Arguments passed to Select
+             **kwargs):          # Additional arguments passed to Select
+    "A FormLabel and Select pair that provides default spacing and links/names them based on id"
+    lbl_cls, inp_cls, cls = map(stringify, (lbl_cls, inp_cls, cls))
+    select_kwargs = ifnone(select_kwargs, {})
+    if label:
+        lbl = FormLabel(cls=f'{lbl_cls}', fr=id)(label)
+    select = Select(*option, inp_cls=inp_cls, id=id, name=name if name else id, 
+                   placeholder=placeholder, searchable=searchable, select_kwargs=select_kwargs, **kwargs)
+    return Div(cls=cls)(lbl, select) if label else Div(cls=cls)(select)
 
 # %% ../nbs/02_franken.ipynb
 @delegates(GenericLabelInput, but=['input_fn','cls'])

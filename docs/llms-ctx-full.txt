@@ -313,9 +313,6 @@
 - `def LabelCheckboxX(label, lbl_cls, input_cls, container, cls, id, **kwargs)`
     A FormLabel and CheckboxX pair that provides default spacing and links/names them based on id
 
-- `def LabelSelect(*option, **kwargs)`
-    A FormLabel and Select pair that provides default spacing and links/names them based on id (usually UkLabelSelect is a better choice)
-
 - `def Options(*c)`
     Helper function to wrap things into `Option`s for use in `Select`
 

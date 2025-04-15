@@ -133,6 +133,91 @@ docs_sliders = create_doc_section(
     SliderNav,
     title="Sliders")
 
+# Accordions
+
+def ex_accordion_1():
+    return Div(
+        H2("Multiple Open, No Animation Accordion"),
+        Accordion(
+            AccordionItem(
+                "Section 1",
+                P("Content for the first section."),
+                P("More content here."),
+            ),
+            AccordionItem(
+                "Section 2",
+                P("Content for the second section."),
+                Label("A label inside!"),
+                li_kwargs={"id": "section-2"},
+            ),
+            AccordionItem(
+                "Section 3 - The last one!", P("Content for the third section.")
+            ),
+            multiple=False,
+            animation=True,
+        ),
+    ),
+
+def ex_accordion_2():
+    return Div(
+        H2("Multiple Open, No Animation Accordion"),
+        Accordion(
+            AccordionItem(
+                "Section 1",
+                P("Content for the first section."),
+                P("More content here."),
+                open=True,
+            ),
+            AccordionItem(
+                "Section 2",
+                P("Content for the second section."),
+                Label("A label inside!"),
+                li_kwargs={"id": "section-2"},
+            ),
+            AccordionItem(
+                "Section 3 - The last one!", P("Content for the third section.")
+            ),
+            multiple=True,
+            animation=True,
+        ),
+    ),
+
+def ex_accordion_3():
+    return Div(
+        H2("Multiple Open, No Animation Accordion"),
+        Accordion(
+            AccordionItem(
+                "Section 1",
+                P("Content for the first section."),
+                P("More content here."),
+            ),
+            AccordionItem(
+                "Section 2",
+                P("Content for the second section."),
+                Label("A label inside!"),
+                li_kwargs={"id": "section-2"},
+            ),
+            AccordionItem(
+                "Section 3 - The last one!", P("Content for the third section.")
+            ),
+            multiple=False,
+            animation=False,
+        ),
+    ),
+
+docs_accordion_link = create_doc_section(
+    H1("Accordion"),
+    Div(id='accordion'), # for linking to in release post
+    P("A simple accordion with fluid collapsing and expanding animation where only a single Section can be exanded at any time."),
+    fn2code_string(ex_accordion_1),
+    P("An accordion with fluid collapsing and expanding animation where one section is already expanded at startup and where multiple section can be expanded at any time."),
+    fn2code_string(ex_accordion_2),
+    P("An accordion with no collapsing and expanding animation where only a single Section can be exanded at any time."),
+    fn2code_string(ex_accordion_3),
+    Accordion, 
+    AccordionItem, 
+    title="Accordion")
+
 # Buttons
 
 def ex_buttons(): 

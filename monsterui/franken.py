@@ -4,6 +4,7 @@
 __all__ = ['franken_class_map', 'TextT', 'TextPresets', 'CodeSpan', 'CodeBlock', 'H1', 'H2', 'H3', 'H4', 'H5', 'H6', 'Subtitle',
            'Q', 'Em', 'Strong', 'I', 'Small', 'Mark', 'Del', 'Ins', 'Sub', 'Sup', 'Blockquote', 'Caption', 'Cite',
            'Time', 'Address', 'Abbr', 'Dfn', 'Kbd', 'Samp', 'Var', 'Figure', 'Details', 'Summary', 'Data', 'Meter', 'S',
+
            'U', 'Output', 'PicSumImg', 'ButtonT', 'Button', 'ContainerT', 'BackgroundT', 'Container', 'Titled',
            'DividerT', 'Divider', 'DividerSplit', 'DividerLine', 'Article', 'ArticleTitle', 'ArticleMeta', 'SectionT',
            'Section', 'Form', 'Fieldset', 'Legend', 'Input', 'Radio', 'CheckboxX', 'Range', 'TextArea', 'Switch',
@@ -388,6 +389,64 @@ def PicSumImg(h:int=200,           # Height in pixels
     if blur is not None: 
         url = f"{url}{'?' if not grayscale else '&'}blur={max(1,min(10,blur))}"
     return fh.Img(src=url, loading="lazy", **kwargs)
+
+# %% ../nbs/02_franken.ipynb
+def AccordionItem(title: Union[str, FT], # Content for the accordion item title
+                  *c: FT,                # Content to display when the item is open
+                  cls: Union[str, Enum, tuple] = (), # Additional classes for the outer `Li` container
+                  title_cls: Union[str, Enum, tuple] = ('flex justify-between items-center w-full',), # Additional classes for the title `A` tag
+                  content_cls: Union[str, Enum, tuple] = (), # Additional classes for the content `Div`
+                  open: bool = False,          # Whether this item should be open by default
+                  li_kwargs: Optional[Dict] = None, # Additional attributes for the outer `Li` tag
+                  a_kwargs: Optional[Dict] = None,  # Additional attributes for the title `A` tag
+                  div_kwargs: Optional[Dict] = None # Additional attributes for the content `Div` tag
+                  ) -> FT: # Li(A(title, Span(Icon, Icon)), Div(content))
+    "Creates a single item for use within an Accordion component, handling title, content, and open state."
+    li_attrs, a_attrs, div_attrs = li_kwargs or {}, a_kwargs or {}, div_kwargs or {}
+    li_classes = ['group', stringify(cls)]
+    if open: li_classes.append('uk-open')
+    final_li_cls = stringify(li_classes)
+    combined_title_cls = stringify(('uk-accordion-title', stringify(title_cls)))
+    content_classes = stringify(('uk-accordion-content', stringify(content_cls)))
+    if 'href' not in a_attrs: a_attrs['href'] = '#'
+    icon_container = Span(
+        UkIcon("chevron-down", cls="block group-[.uk-open]:hidden h-5 w-5"),
+        UkIcon("chevron-up", cls="hidden group-[.uk-open]:block h-5 w-5")
+    )
+    return fh.Li(
+        fh.A(title, icon_container, cls=combined_title_cls, **a_attrs),
+        fh.Div(*c, cls=content_classes, **div_attrs),
+        cls=final_li_cls,
+        **li_attrs
+    )
+
+# %% ../nbs/02_franken.ipynb
+def Accordion(*c: AccordionItem, # One or more `AccordionItem` components
+              cls: Union[str, Enum, tuple] = (), # Additional classes for the container (`Ul` or `Div`)
+              multiple: Optional[bool] = None,    # Allow multiple items to be open simultaneously (UIkit option)
+              collapsible: Optional[bool] = None, # Allow all items to be closed (UIkit option, default True)
+              animation: Optional[bool] = None,   # Enable/disable animation (UIkit option, default True)
+              duration: Optional[int] = None,     # Animation duration in ms (UIkit option, default 200)
+              active: Optional[int] = None,       # Index (0-based) of the item to be open by default (UIkit option)
+              transition: Optional[str] = None,   # Animation transition timing function (UIkit option, e.g., 'ease-out')
+              tag: str = 'ul',                    # HTML tag for the container ('ul' or 'div')
+              **kwargs                            # Additional attributes for the container tag (e.g., id)
+              ) -> FT: # Ul(*items...) or Div(*items...)
+    """
+    Creates a styled Accordion container using accordion component.
+    """
+    opts = []
+    if multiple is not None: opts.append(f"multiple: {str(multiple).lower()}")
+    if collapsible is not None: opts.append(f"collapsible: {str(collapsible).lower()}")
+    if animation is not None: opts.append(f"animation: {str(animation).lower()}")
+    if duration is not None: opts.append(f"duration: {duration}")
+    if active is not None: opts.append(f"active: {active}")
+    if transition is not None: opts.append(f"transition: {transition}")
+    uk_attr_val = "; ".join(opts) if opts else ""
+    kwargs['uk-accordion'] = uk_attr_val
+    container_tag = fh.Ul if tag.lower() == 'ul' else fh.Div
+    final_cls = stringify(cls)
+    return container_tag(*c, cls=final_cls, **kwargs)
 
 # %% ../nbs/02_franken.ipynb
 class ButtonT(VEnum):

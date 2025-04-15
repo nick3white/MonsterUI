@@ -204,6 +204,12 @@
 - `def PicSumImg(h, w, id, grayscale, blur, **kwargs)`
     Creates a placeholder image using https://picsum.photos/
 
+- `def AccordionItem(title, *c)`
+    Creates a single item for use within an Accordion component, handling title, content, and open state.
+
+- `def Accordion(*c, **kwargs)`
+    Creates a styled Accordion container using accordion component.
+
 - `class ButtonT(Enum)`
     Options for styling Buttons
     Members: default, ghost, primary, secondary, destructive, text, link, xs, sm, lg, xl, icon

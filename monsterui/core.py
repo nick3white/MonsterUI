@@ -75,7 +75,6 @@ def _headers_theme(color, mode='auto', radii=ThemeRadii.sm, shadows=ThemeShadows
     return fh.Script(f'''
         const htmlElement = document.documentElement;
         {mode_script[mode]}
-          htmlElement.classList.add("uk-theme-{color}");
           htmlElement.classList.add(__FRANKEN__.theme || "uk-theme-{color}");
           htmlElement.classList.add(__FRANKEN__.radii || "{radii}");
           htmlElement.classList.add(__FRANKEN__.shadows || "{shadows}");
@@ -84,11 +83,11 @@ def _headers_theme(color, mode='auto', radii=ThemeRadii.sm, shadows=ThemeShadows
 
 # %% ../nbs/01_core.ipynb
 HEADER_URLS = {
-        'franken_css': "https://unpkg.com/franken-ui@2.0.0-internal.45/dist/css/core.min.css",
-        'franken_js_core': "https://unpkg.com/franken-ui@2.0.0-internal.45/dist/js/core.iife.js",
-        'franken_icons': "https://unpkg.com/franken-ui@2.0.0-internal.45/dist/js/icon.iife.js",
-        'tailwind': "https://cdn.tailwindcss.com",
-        'daisyui': "https://cdn.jsdelivr.net/npm/daisyui@4.12.22/dist/full.min.css",
+        'franken_css': "https://cdn.jsdelivr.net/npm/franken-ui@2.0.0/dist/css/core.min.css",
+        'franken_js_core': "https://cdn.jsdelivr.net/npm/franken-ui@2.0.0/dist/js/core.iife.js",
+        'franken_icons': "https://cdn.jsdelivr.net/npm/franken-ui@2.0.0/dist/js/icon.iife.js",
+        'tailwind': "https://cdn.tailwindcss.com/3.4.16",
+        'daisyui': "https://cdn.jsdelivr.net/npm/daisyui@4.12.24/dist/full.min.css",
         'highlight_js': "https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/highlight.min.js",
         'highlight_python': "https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/languages/python.min.js",
         'highlight_light_css': "https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/styles/atom-one-light.css",

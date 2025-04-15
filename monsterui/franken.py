@@ -4,20 +4,20 @@
 __all__ = ['franken_class_map', 'TextT', 'TextPresets', 'CodeSpan', 'CodeBlock', 'H1', 'H2', 'H3', 'H4', 'H5', 'H6', 'Subtitle',
            'Q', 'Em', 'Strong', 'I', 'Small', 'Mark', 'Del', 'Ins', 'Sub', 'Sup', 'Blockquote', 'Caption', 'Cite',
            'Time', 'Address', 'Abbr', 'Dfn', 'Kbd', 'Samp', 'Var', 'Figure', 'Details', 'Summary', 'Data', 'Meter', 'S',
-           'U', 'Output', 'PicSumImg', 'AccordionItem', 'Accordion', 'ButtonT', 'Button', 'ContainerT', 'BackgroundT',
-           'Container', 'Titled', 'DividerT', 'Divider', 'DividerSplit', 'DividerLine', 'Article', 'ArticleTitle',
-           'ArticleMeta', 'SectionT', 'Section', 'Form', 'Fieldset', 'Legend', 'Input', 'Radio', 'CheckboxX', 'Range',
-           'TextArea', 'Switch', 'Upload', 'UploadZone', 'FormLabel', 'LabelT', 'Label', 'UkFormSection',
-           'GenericLabelInput', 'LabelInput', 'LabelTextArea', 'LabelSwitch', 'LabelRadio', 'LabelCheckboxX',
-           'LabelSelect', 'Options', 'Select', 'LabelRange', 'AT', 'ListT', 'ModalContainer', 'ModalDialog',
-           'ModalHeader', 'ModalBody', 'ModalFooter', 'ModalTitle', 'ModalCloseButton', 'Modal', 'Placeholder',
-           'Progress', 'UkIcon', 'UkIconLink', 'DiceBearAvatar', 'Center', 'FlexT', 'Grid', 'DivFullySpaced',
-           'DivCentered', 'DivLAligned', 'DivRAligned', 'DivVStacked', 'DivHStacked', 'NavT', 'NavContainer',
-           'NavParentLi', 'NavDividerLi', 'NavHeaderLi', 'NavSubtitle', 'NavCloseLi', 'ScrollspyT', 'NavBar',
-           'SliderContainer', 'SliderItems', 'SliderNav', 'Slider', 'DropDownNavContainer', 'TabContainer', 'CardT',
-           'CardTitle', 'CardHeader', 'CardBody', 'CardFooter', 'CardContainer', 'Card', 'TableT', 'Table', 'Td', 'Th',
-           'Tbody', 'TableFromLists', 'TableFromDicts', 'apply_classes', 'render_md', 'get_franken_renderer',
-           'ThemePicker', 'LightboxContainer', 'LightboxItem']
+
+           'U', 'Output', 'PicSumImg', 'ButtonT', 'Button', 'ContainerT', 'BackgroundT', 'Container', 'Titled',
+           'DividerT', 'Divider', 'DividerSplit', 'DividerLine', 'Article', 'ArticleTitle', 'ArticleMeta', 'SectionT',
+           'Section', 'Form', 'Fieldset', 'Legend', 'Input', 'Radio', 'CheckboxX', 'Range', 'TextArea', 'Switch',
+           'Upload', 'UploadZone', 'FormLabel', 'LabelT', 'Label', 'UkFormSection', 'GenericLabelInput', 'LabelInput',
+           'LabelTextArea', 'LabelSwitch', 'LabelRadio', 'LabelCheckboxX', 'Options', 'Select', 'LabelSelect',
+           'LabelRange', 'AT', 'ListT', 'ModalContainer', 'ModalDialog', 'ModalHeader', 'ModalBody', 'ModalFooter',
+           'ModalTitle', 'ModalCloseButton', 'Modal', 'Placeholder', 'Progress', 'UkIcon', 'UkIconLink',
+           'DiceBearAvatar', 'Center', 'FlexT', 'Grid', 'DivFullySpaced', 'DivCentered', 'DivLAligned', 'DivRAligned',
+           'DivVStacked', 'DivHStacked', 'NavT', 'NavContainer', 'NavParentLi', 'NavDividerLi', 'NavHeaderLi',
+           'NavSubtitle', 'NavCloseLi', 'ScrollspyT', 'NavBar', 'SliderContainer', 'SliderItems', 'SliderNav', 'Slider',
+           'DropDownNavContainer', 'TabContainer', 'CardT', 'CardTitle', 'CardHeader', 'CardBody', 'CardFooter',
+           'CardContainer', 'Card', 'TableT', 'Table', 'Td', 'Th', 'Tbody', 'TableFromLists', 'TableFromDicts',
+           'apply_classes', 'render_md', 'get_franken_renderer', 'ThemePicker', 'LightboxContainer', 'LightboxItem']
 
 # %% ../nbs/02_franken.ipynb
 import fasthtml.common as fh
@@ -30,10 +30,9 @@ from itertools import zip_longest
 from typing import Union, Tuple, Optional, Sequence
 from fastcore.all import *
 import copy, re, httpx, os
-from pathlib import Path
+import pathlib
 from mistletoe.html_renderer import HTMLRenderer
 from mistletoe.span_token import Image
-from pathlib import Path
 import mistletoe
 from lxml import html, etree
 from fasthtml.components import Uk_input_range
@@ -811,23 +810,6 @@ def LabelCheckboxX(label:str|FT, # FormLabel content (often text)
     return inp, label
 
 # %% ../nbs/02_franken.ipynb
-def LabelSelect(*option, # Options for the select dropdown (can use `Options` helper function to create)
-               label:str|FT, # FormLabel content (often text)
-               lbl_cls='', # Additional classes for `FormLabel`
-               input_cls='', # Additional classes for `Select`
-               container=Div, # Container to wrap label and input in (default is Div)
-               cls='space-y-2', # Classes on container (default is 'space-y-2')
-               id='', # id for `FormLabel` and `Select` (`id`, `name` and `for` attributes are set to this value)
-                **kwargs # Additional args for `Select`
-                ):
-    "A FormLabel and Select pair that provides default spacing and links/names them based on id (usually UkLabelSelect is a better choice)"
-    if isinstance(label, str) or label.tag != 'label': 
-        label = FormLabel(lbl_cls=stringify(lbl_cls), fr=id)(label)
-    inp = Select(*option, id=id, cls=stringify(input_cls), **kwargs)        
-    if container: return container(label, inp, cls=stringify(cls))
-    return label, inp
-
-# %% ../nbs/02_franken.ipynb
 def Options(*c,                    # Content for an `Option`
             selected_idx:int=None, # Index location of selected `Option`
             disabled_idxs:set=None # Idex locations of disabled `Options`
@@ -846,22 +828,64 @@ def Select(*option,            # Options for the select dropdown (can use `Optio
           searchable=False,   # Whether the select should be searchable
           insertable=False,   # Whether to allow user-defined options to be added
           select_kwargs=None, # Additional Arguments passed to Select
+          
            **kwargs           # Additional arguments passed to Uk_select
           ):          
     "Creates a select dropdown with uk styling and option for adding a search box"
     inp_cls, cls, cls_custom= map(stringify, (inp_cls, cls, cls_custom))
     select_kwargs = ifnone(select_kwargs, {})
-    uk_select = Uk_select(fh.Select(*option, hidden=True, id=id, name=name, **select_kwargs),
+
+    if 'hx_trigger' not in kwargs: kwargs['hx_trigger']=''
+    if 'change' in kwargs['hx_trigger']:
+        if not id: id = unqid()
+        kwargs['hx_trigger'] = kwargs['hx_trigger'].replace('changed', f'uk-select:input from:#{id}')
+        kwargs['hx_trigger'] = kwargs['hx_trigger'].replace('change', f'uk-select:input from:#{id}')
+    
+    if 'delay' not in kwargs['hx_trigger']:
+        kwargs['hx_trigger'] +=  ' delay:100ms'
+    
+    if 'hx_include' not in kwargs: kwargs['hx_include']=''
+    kwargs['hx_include'] += ' this'
+    kwargs['hx_include'] = kwargs['hx_include'].strip()
+        
+    if id and not name: name = id
+
+    uk_select = Uk_select(fh.Select(*option, hidden=True, 
+                                    **select_kwargs, 
+                                    
+                                    ),
                          cls_custom=cls_custom,
                          searchable=searchable,
                          placeholder=placeholder,
                          insertable=insertable,
                          cls=inp_cls,
-                         id=id, 
-                         name=name,
-                         **kwargs)
+                          id=id,
+                          name=name,
+                          **kwargs
+                         )
     
     return Div(cls=cls)(uk_select)
+
+# %% ../nbs/02_franken.ipynb
+def LabelSelect(*option,            # Options for the select dropdown (can use `Options` helper function to create) 
+             label=(),           # String or FT component for the label
+             lbl_cls=(),         # Additional classes for the label
+             inp_cls=(),         # Additional classes for the select input
+             cls=('space-y-2',), # Classes for the outer div
+             id="",              # ID for the select input
+             name="",            # Name attribute for the select input
+             placeholder="",     # Placeholder text for the select input
+             searchable=False,   # Whether the select should be searchable
+             select_kwargs=None, # Additional Arguments passed to Select
+             **kwargs):          # Additional arguments passed to Select
+    "A FormLabel and Select pair that provides default spacing and links/names them based on id"
+    lbl_cls, inp_cls, cls = map(stringify, (lbl_cls, inp_cls, cls))
+    select_kwargs = ifnone(select_kwargs, {})
+    if label:
+        lbl = FormLabel(cls=f'{lbl_cls}', fr=id)(label)
+    select = Select(*option, inp_cls=inp_cls, id=id, name=name if name else id, 
+                   placeholder=placeholder, searchable=searchable, select_kwargs=select_kwargs, **kwargs)
+    return Div(cls=cls)(lbl, select) if label else Div(cls=cls)(select)
 
 # %% ../nbs/02_franken.ipynb
 @delegates(GenericLabelInput, but=['input_fn','cls'])
@@ -1543,7 +1567,7 @@ def get_franken_renderer(img_dir):
             title = f' title="{token.title}"' if hasattr(token, 'title') else ''
             src = token.src
             if img_dir and not src.startswith(('http://', 'https://', '/')):
-                src = f'{Path(img_dir)}/{src}'
+                src = f'{pathlib.Path(img_dir)}/{src}'
             return template.format(src, token.children[0].content if token.children else '', title)
     return FrankenRenderer
 

@@ -2,6 +2,53 @@
 
 <!-- do not remove -->
 
+## 1.0.18
+
+- Hotfix accidental deletion of label select :(
+## 1.0.16
+
+### Bugs Squashed
+
+- Select not properly checking presence of hx-trigger
+
+## 1.0.14
+
+### New Features
+
+- Move CDN's to jsdelivr ([#88](https://github.com/AnswerDotAI/MonsterUI/pull/88)), thanks to [@curtis-allan](https://github.com/curtis-allan)
+
+### Bugs Squashed
+
+- Select htmx compatibility bug
+
+## 1.0.14
+
+### New Features
+
+- Move CDN's to jsdelivr ([#88](https://github.com/AnswerDotAI/MonsterUI/pull/88)), thanks to [@curtis-allan](https://github.com/curtis-allan)
+
+### Bugs Squashed
+
+- Select htmx compatability issues 
+
+
+## 1.0.14
+
+### New Features
+
+### Bugs Squashed
+
+- SVG Path Name Collision Issue in MonsterUI ([#85](https://github.com/AnswerDotAI/MonsterUI/issues/85))
+
+## 1.0.13
+
+
+### Bugs Squashed
+
+- LabelCheckboxX ignores id set manually ([#80](https://github.com/AnswerDotAI/MonsterUI/issues/80))
+
+- Select sending multiple values to HTMX 
+
 ## 1.0.11
 
 ### New Features

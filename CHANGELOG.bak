@@ -2,6 +2,9 @@
 
 <!-- do not remove -->
 
+## 1.0.18
+
+- Hotfix accidental deletion of label select :(
 ## 1.0.16
 
 ### Bugs Squashed

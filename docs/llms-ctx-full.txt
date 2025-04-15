@@ -204,6 +204,12 @@
 - `def PicSumImg(h, w, id, grayscale, blur, **kwargs)`
     Creates a placeholder image using https://picsum.photos/
 
+- `def AccordionItem(title, *c)`
+    Creates a single item for use within an Accordion component, handling title, content, and open state.
+
+- `def Accordion(*c, **kwargs)`
+    Creates a styled Accordion container using accordion component.
+
 - `class ButtonT(Enum)`
     Options for styling Buttons
     Members: default, ghost, primary, secondary, destructive, text, link, xs, sm, lg, xl, icon
@@ -1584,7 +1590,357 @@ def index():
                         Li(podcast_tab())))),
             cols_sm=1, cols_md=1, cols_lg=5, cols_xl=5))
 
-serve()</doc></examples><optional><doc title="Button | Link" desc="Buttons &amp; Links API Reference"># Buttons & Links API Reference
+serve()</doc></examples><optional><doc title="Accordion | Link" desc="&lt;!doctype html&gt;"> <!doctype html>
+ <html>
+   <head>
+     <title>MonsterUI</title>
+     <meta charset="utf-8">
+     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<script src="https://unpkg.com/htmx.org@2.0.4/dist/htmx.min.js"></script><script src="https://cdn.jsdelivr.net/gh/answerdotai/fasthtml-js@1.0.12/fasthtml.js"></script><script src="https://cdn.jsdelivr.net/gh/answerdotai/surreal@main/surreal.js"></script><script src="https://cdn.jsdelivr.net/gh/gnat/css-scope-inline@main/script.js"></script>     <link rel="stylesheet" href="https://unpkg.com/franken-ui@2.0.0-internal.45/dist/css/core.min.css">
+<script type="module" src="https://unpkg.com/franken-ui@2.0.0-internal.45/dist/js/core.iife.js"></script><script type="module" src="https://unpkg.com/franken-ui@2.0.0-internal.45/dist/js/icon.iife.js"></script><script src="https://cdn.tailwindcss.com"></script><script>
+    tailwind.config = {
+        darkMode: 'selector',
+    }
+    </script><script>
+        const htmlElement = document.documentElement;
+        
+          
+          const __FRANKEN__ = JSON.parse(localStorage.getItem("__FRANKEN__") || "{}");
+    
+          if (
+            __FRANKEN__.mode === "dark" ||
+            (!__FRANKEN__.mode &&
+              window.matchMedia("(prefers-color-scheme: dark)").matches)
+          ) {
+            htmlElement.classList.add("dark");
+          } else {
+            htmlElement.classList.remove("dark");
+          }
+        
+          htmlElement.classList.add("uk-theme-blue");
+          htmlElement.classList.add(__FRANKEN__.theme || "uk-theme-blue");
+          htmlElement.classList.add(__FRANKEN__.radii || "uk-radii-sm");
+          htmlElement.classList.add(__FRANKEN__.shadows || "uk-shadows-sm");
+          htmlElement.classList.add(__FRANKEN__.font || "uk-font-sm");
+    </script>     <style>
+.monster-navbar.navbar-bold a {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.monster-navbar.navbar-bold a.uk-active {
+    transform: scale(1.15) ;
+    font-weight: bold;
+    text-shadow: 0 0 12px rgba(var(--p-rgb), 0.4);
+    letter-spacing: 0.02em;
+    color: hsl(var(--p) / 1);
+}
+.monster-navbar.navbar-underline a.uk-active { position: relative; }
+.monster-navbar.navbar-underline a.uk-active::after {
+    content: &#x27;&#x27;;
+    position: absolute;
+    left: 0;
+    bottom: -2px;
+    width: 100%;
+    height: 2px;
+    background: currentColor;
+    animation: slideIn 0.3s ease forwards;
+}
+@keyframes slideIn {
+    from { transform: scaleX(0); }
+    to { transform: scaleX(1); }
+}
+</style>
+     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/daisyui@4.12.22/dist/full.min.css">
+     <style>
+:root {
+  --b1: from hsl(var(--background)) l c h;
+  --bc: from hsl(var(--foreground)) l c h;
+  --m: from hsl(var(--muted)) l c h;
+  --mc: from hsl(var(--muted-foreground)) l c h;
+  --po: from hsl(var(--popover)) l c h;
+  --poc: from hsl(var(--popover-foreground)) l c h;
+  --b2: from hsl(var(--card)) l c h;
+  --b2c: from hsl(var(--card-foreground)) l c h;
+  --br: from hsl(var(--border)) l c h;
+  --in: from hsl(var(--input)) l c h;
+  --p: from hsl(var(--primary)) l c h;
+  --pc: from hsl(var(--primary-foreground)) l c h;
+  --s: from hsl(var(--secondary)) l c h;
+  --sc: from hsl(var(--secondary-foreground)) l c h;
+  --a: from hsl(var(--accent)) l c h;
+  --ac: from hsl(var(--accent-foreground)) l c h;
+  --er: from hsl(var(--destructive)) l c h;
+  --erc: from hsl(var(--destructive-foreground)) l c h;
+  --b3: from hsl(var(--ring)) l c h;
+  --ch1: from hsl(var(--chart-1)) l c h;
+  --ch2: from hsl(var(--chart-2)) l c h;
+  --ch3: from hsl(var(--chart-3)) l c h;
+  --ch4: from hsl(var(--chart-4)) l c h;
+  --ch5: from hsl(var(--chart-5)) l c h;
+  --rd: var(--radius);
+}
+</style>
+<script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/highlight.min.js"></script><script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/languages/python.min.js"></script>     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/styles/atom-one-light.css" id="hljs-light">
+     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/styles/atom-one-dark.css" id="hljs-dark">
+<script src="https://cdn.jsdelivr.net/gh/arronhunt/highlightjs-copy/dist/highlightjs-copy.min.js"></script>     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/arronhunt/highlightjs-copy/dist/highlightjs-copy.min.css">
+<script type="module">
+                    hljs.addPlugin(new CopyButtonPlugin());
+                    hljs.configure({
+                        cssSelector: 'pre code',
+                        languages: ['python'],
+                        ignoreUnescapedHTML: true
+                    });
+                    function updateTheme() {
+                        const isDark = document.documentElement.classList.contains('dark');
+                        document.getElementById('hljs-dark').disabled = !isDark;
+                        document.getElementById('hljs-light').disabled = isDark;
+                    }
+                    new MutationObserver(mutations =>
+                        mutations.forEach(m => m.target.tagName === 'HTML' &&
+                            m.attributeName === 'class' && updateTheme())
+                    ).observe(document.documentElement, { attributes: true });
+                    updateTheme();
+                    htmx.onLoad(hljs.highlightAll);
+                </script>     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/katex.min.css">
+<script type="module">
+                import katex from 'https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/katex.mjs';
+                import autoRender from 'https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/contrib/auto-render.mjs';
+                const options = {
+                  delimiters: [
+                    {left: '$$', right: '$$', display: true},
+                    {left: '$', right: '$', display: false}
+                  ],
+                  ignoredClasses: ['nomath']
+                };
+
+                document.addEventListener('htmx:load', evt => {
+                  const element = evt.detail.elt || document.body;
+                  autoRender(element,options);
+                });
+                </script>     <link rel="icon" type="image/x-icon" href="/favicon.ico">
+<script>
+    (() => {
+        let attempts = 0;
+        const connect = () => {
+            const socket = new WebSocket(`ws://${window.location.host}/live-reload`);
+            socket.onopen = async() => {
+                const res = await fetch(window.location.href);
+                if (res.ok) { 
+                    attempts ? window.location.reload() : console.log('LiveReload connected'); 
+                }};
+            socket.onclose = () => {
+                !attempts++ ? connect() : setTimeout(() => { connect() }, 1);
+                if (attempts > 1000) window.location.reload();
+            }};
+        connect();
+    })();
+    </script>   </head>
+   <body reload-attempts="1" reload-interval="1000" class=" bg-background text-foreground">
+     <div class="flex flex-col md:flex-row w-full">
+<button data-uk-toggle="target: #mobile-sidebar" type="submit" class="uk-btn md:hidden mb-4"><uk-icon icon="menu" height="50" width="50" class="mt-4"></uk-icon></button>       <div hidden id="mobile-sidebar">
+         <ul uk-nav class="uk-nav uk-nav-primary space-y-4 p-4 w-full md:w-full ">
+           <li class="uk-parent ">
+<a href="#">               <div class="flex justify-between items-center w-full">Getting Started</div>
+</a>             <ul class="uk-nav-sub uk-nav-primary ">
+               <li>
+<a href="#" hx-get="/" hx-push-url="true" hx-target="#content">Getting Started</a>               </li>
+               <li>
+<a href="#" hx-get="/tutorial_app" hx-push-url="true" hx-target="#content">Tutorial App</a>               </li>
+             </ul>
+           </li>
+           <li class="uk-parent ">
+<a href="#">               <div class="flex justify-between items-center w-full">API Reference</div>
+</a>             <ul class="uk-nav-sub uk-nav-primary ">
+               <li>
+<a href="#" hx-get="/api_ref/docs_button_link" hx-push-url="true" hx-target="#content">Button | Link</a>               </li>
+               <li>
+<a href="#" hx-get="/api_ref/docs_cards" hx-push-url="true" hx-target="#content">Cards</a>               </li>
+               <li>
+<a href="#" hx-get="/api_ref/docs_containers" hx-push-url="true" hx-target="#content">Containers</a>               </li>
+               <li>
+<a href="#" hx-get="/api_ref/docs_dividers" hx-push-url="true" hx-target="#content">Dividers</a>               </li>
+               <li>
+<a href="#" hx-get="/api_ref/docs_forms" hx-push-url="true" hx-target="#content">Forms</a>               </li>
+               <li>
+<a href="#" hx-get="/api_ref/docs_html" hx-push-url="true" hx-target="#content">Html</a>               </li>
+               <li>
+<a href="#" hx-get="/api_ref/docs_icons_images" hx-push-url="true" hx-target="#content">Icons | Images</a>               </li>
+               <li>
+<a href="#" hx-get="/api_ref/docs_layout" hx-push-url="true" hx-target="#content">Layout</a>               </li>
+               <li>
+<a href="#" hx-get="/api_ref/docs_lightbox" hx-push-url="true" hx-target="#content">Lightbox</a>               </li>
+               <li>
+<a href="#" hx-get="/api_ref/docs_lists" hx-push-url="true" hx-target="#content">Lists</a>               </li>
+               <li>
+<a href="#" hx-get="/api_ref/docs_loading" hx-push-url="true" hx-target="#content">Loading</a>               </li>
+               <li>
+<a href="#" hx-get="/api_ref/docs_markdown" hx-push-url="true" hx-target="#content">Markdown</a>               </li>
+               <li>
+<a href="#" hx-get="/api_ref/docs_modals" hx-push-url="true" hx-target="#content">Modals</a>               </li>
+               <li>
+<a href="#" hx-get="/api_ref/docs_navigation" hx-push-url="true" hx-target="#content">Navigation</a>               </li>
+               <li>
+<a href="#" hx-get="/api_ref/docs_notifications" hx-push-url="true" hx-target="#content">Notifications</a>               </li>
+               <li>
+<a href="#" hx-get="/api_ref/docs_sliders" hx-push-url="true" hx-target="#content">Sliders</a>               </li>
+               <li>
+<a href="#" hx-get="/api_ref/docs_steps" hx-push-url="true" hx-target="#content">Steps</a>               </li>
+               <li>
+<a href="#" hx-get="/api_ref/docs_tables" hx-push-url="true" hx-target="#content">Tables</a>               </li>
+               <li>
+<a href="#" hx-get="/api_ref/docs_theme_headers" hx-push-url="true" hx-target="#content">Theme | Headers</a>               </li>
+               <li>
+<a href="#" hx-get="/api_ref/docs_typography" hx-push-url="true" hx-target="#content">Typography</a>               </li>
+             </ul>
+           </li>
+           <li class="uk-parent ">
+<a href="#">               <div class="flex justify-between items-center w-full">Guides</div>
+</a>             <ul class="uk-nav-sub uk-nav-primary ">
+               <li>
+<a href="#" hx-get="/tutorial_spacing" hx-push-url="true" hx-target="#content">Spacing</a>               </li>
+               <li>
+<a href="#" hx-get="/tutorial_layout" hx-push-url="true" hx-target="#content">Layout</a>               </li>
+             </ul>
+           </li>
+           <li class="uk-parent ">
+<a href="#">               <div class="flex justify-between items-center w-full">Examples</div>
+</a>             <ul class="uk-nav-sub uk-nav-primary ">
+               <li>
+<a href="#" hx-get="/tasks/" hx-push-url="true" hx-target="#content">Task</a>               </li>
+               <li>
+<a href="#" hx-get="/cards/" hx-push-url="true" hx-target="#content">Card</a>               </li>
+               <li>
+<a href="#" hx-get="/dashboard/" hx-push-url="true" hx-target="#content">Dashboard</a>               </li>
+               <li>
+<a href="#" hx-get="/forms/" hx-push-url="true" hx-target="#content">Form</a>               </li>
+               <li>
+<a href="#" hx-get="/music/" hx-push-url="true" hx-target="#content">Music</a>               </li>
+               <li>
+<a href="#" hx-get="/auth/" hx-push-url="true" hx-target="#content">Auth</a>               </li>
+               <li>
+<a href="#" hx-get="/playground/" hx-push-url="true" hx-target="#content">Playground</a>               </li>
+               <li>
+<a href="#" hx-get="/mail/" hx-push-url="true" hx-target="#content">Mail</a>               </li>
+               <li>
+<a href="#" hx-get="/ticket/" hx-push-url="true" hx-target="#content">Ticket</a>               </li>
+               <li>
+<a href="#" hx-get="/scrollspy/" hx-push-url="true" hx-target="#content">Scrollspy</a>               </li>
+             </ul>
+           </li>
+           <li>
+<a href="#" hx-get="/theme_switcher" hx-push-url="true" hx-target="#content">Theme</a>           </li>
+         </ul>
+       </div>
+       <div class="md:flex w-full">
+         <div class="hidden md:block w-1/5 max-w-52">
+           <ul uk-nav class="uk-nav uk-nav-primary space-y-4 p-4 w-full md:w-full ">
+             <li class="uk-parent ">
+<a href="#">                 <div class="flex justify-between items-center w-full">Getting Started</div>
+</a>               <ul class="uk-nav-sub uk-nav-primary ">
+                 <li>
+<a href="#" hx-get="/" hx-push-url="true" hx-target="#content">Getting Started</a>                 </li>
+                 <li>
+<a href="#" hx-get="/tutorial_app" hx-push-url="true" hx-target="#content">Tutorial App</a>                 </li>
+               </ul>
+             </li>
+             <li class="uk-parent ">
+<a href="#">                 <div class="flex justify-between items-center w-full">API Reference</div>
+</a>               <ul class="uk-nav-sub uk-nav-primary ">
+                 <li>
+<a href="#" hx-get="/api_ref/docs_button_link" hx-push-url="true" hx-target="#content">Button | Link</a>                 </li>
+                 <li>
+<a href="#" hx-get="/api_ref/docs_cards" hx-push-url="true" hx-target="#content">Cards</a>                 </li>
+                 <li>
+<a href="#" hx-get="/api_ref/docs_containers" hx-push-url="true" hx-target="#content">Containers</a>                 </li>
+                 <li>
+<a href="#" hx-get="/api_ref/docs_dividers" hx-push-url="true" hx-target="#content">Dividers</a>                 </li>
+                 <li>
+<a href="#" hx-get="/api_ref/docs_forms" hx-push-url="true" hx-target="#content">Forms</a>                 </li>
+                 <li>
+<a href="#" hx-get="/api_ref/docs_html" hx-push-url="true" hx-target="#content">Html</a>                 </li>
+                 <li>
+<a href="#" hx-get="/api_ref/docs_icons_images" hx-push-url="true" hx-target="#content">Icons | Images</a>                 </li>
+                 <li>
+<a href="#" hx-get="/api_ref/docs_layout" hx-push-url="true" hx-target="#content">Layout</a>                 </li>
+                 <li>
+<a href="#" hx-get="/api_ref/docs_lightbox" hx-push-url="true" hx-target="#content">Lightbox</a>                 </li>
+                 <li>
+<a href="#" hx-get="/api_ref/docs_lists" hx-push-url="true" hx-target="#content">Lists</a>                 </li>
+                 <li>
+<a href="#" hx-get="/api_ref/docs_loading" hx-push-url="true" hx-target="#content">Loading</a>                 </li>
+                 <li>
+<a href="#" hx-get="/api_ref/docs_markdown" hx-push-url="true" hx-target="#content">Markdown</a>                 </li>
+                 <li>
+<a href="#" hx-get="/api_ref/docs_modals" hx-push-url="true" hx-target="#content">Modals</a>                 </li>
+                 <li>
+<a href="#" hx-get="/api_ref/docs_navigation" hx-push-url="true" hx-target="#content">Navigation</a>                 </li>
+                 <li>
+<a href="#" hx-get="/api_ref/docs_notifications" hx-push-url="true" hx-target="#content">Notifications</a>                 </li>
+                 <li>
+<a href="#" hx-get="/api_ref/docs_sliders" hx-push-url="true" hx-target="#content">Sliders</a>                 </li>
+                 <li>
+<a href="#" hx-get="/api_ref/docs_steps" hx-push-url="true" hx-target="#content">Steps</a>                 </li>
+                 <li>
+<a href="#" hx-get="/api_ref/docs_tables" hx-push-url="true" hx-target="#content">Tables</a>                 </li>
+                 <li>
+<a href="#" hx-get="/api_ref/docs_theme_headers" hx-push-url="true" hx-target="#content">Theme | Headers</a>                 </li>
+                 <li>
+<a href="#" hx-get="/api_ref/docs_typography" hx-push-url="true" hx-target="#content">Typography</a>                 </li>
+               </ul>
+             </li>
+             <li class="uk-parent ">
+<a href="#">                 <div class="flex justify-between items-center w-full">Guides</div>
+</a>               <ul class="uk-nav-sub uk-nav-primary ">
+                 <li>
+<a href="#" hx-get="/tutorial_spacing" hx-push-url="true" hx-target="#content">Spacing</a>                 </li>
+                 <li>
+<a href="#" hx-get="/tutorial_layout" hx-push-url="true" hx-target="#content">Layout</a>                 </li>
+               </ul>
+             </li>
+             <li class="uk-parent ">
+<a href="#">                 <div class="flex justify-between items-center w-full">Examples</div>
+</a>               <ul class="uk-nav-sub uk-nav-primary ">
+                 <li>
+<a href="#" hx-get="/tasks/" hx-push-url="true" hx-target="#content">Task</a>                 </li>
+                 <li>
+<a href="#" hx-get="/cards/" hx-push-url="true" hx-target="#content">Card</a>                 </li>
+                 <li>
+<a href="#" hx-get="/dashboard/" hx-push-url="true" hx-target="#content">Dashboard</a>                 </li>
+                 <li>
+<a href="#" hx-get="/forms/" hx-push-url="true" hx-target="#content">Form</a>                 </li>
+                 <li>
+<a href="#" hx-get="/music/" hx-push-url="true" hx-target="#content">Music</a>                 </li>
+                 <li>
+<a href="#" hx-get="/auth/" hx-push-url="true" hx-target="#content">Auth</a>                 </li>
+                 <li>
+<a href="#" hx-get="/playground/" hx-push-url="true" hx-target="#content">Playground</a>                 </li>
+                 <li>
+<a href="#" hx-get="/mail/" hx-push-url="true" hx-target="#content">Mail</a>                 </li>
+                 <li>
+<a href="#" hx-get="/ticket/" hx-push-url="true" hx-target="#content">Ticket</a>                 </li>
+                 <li>
+<a href="#" hx-get="/scrollspy/" hx-push-url="true" hx-target="#content">Scrollspy</a>                 </li>
+               </ul>
+             </li>
+             <li>
+<a href="#" hx-get="/theme_switcher" hx-push-url="true" hx-target="#content">Theme</a>             </li>
+           </ul>
+         </div>
+         <div id="content" class="md:w-4/5 w-full mr-5">
+           <div class="uk-container mt-5 uk-container-xl">
+             <div class="uk-card ">
+               <div class="uk-card-body space-y-6">
+                 <div class="uk-card-body ">
+                   <h1 class="uk-h1 ">404 - Page Not Found</h1>
+                   <p>The page you&#x27;re looking for doesn&#x27;t exist.</p>
+                 </div>
+               </div>
+             </div>
+           </div>
+         </div>
+       </div>
+     </div>
+   </body>
+ </html></doc><doc title="Button | Link" desc="Buttons &amp; Links API Reference"># Buttons & Links API Reference
 
 See Source
 

@@ -18,6 +18,7 @@
 - [Music](https://monsterui.answer.ai/music/md): FrankenUI Music Example build with MonsterUI (Original design by ShadCN)
 
 ## Optional
+- [Accordion | Link](https://monsterui.answer.ai/api_ref/docs_accordion_link/md): <!doctype html>
 - [Button | Link](https://monsterui.answer.ai/api_ref/docs_button_link/md): Buttons & Links API Reference
 - [Cards](https://monsterui.answer.ai/api_ref/docs_cards/md): Cards API Reference
 - [Containers](https://monsterui.answer.ai/api_ref/docs_containers/md): Articles, Containers & Sections API Reference

@@ -298,7 +298,7 @@
     A Label with default styling
 
 - `class LabelT(Enum)`
-    Members: primary, secondary, danger
+    Members: primary, secondary, destructive
 
 
 - `def Label(*c, **kwargs)`

@@ -4,20 +4,20 @@
 __all__ = ['franken_class_map', 'TextT', 'TextPresets', 'CodeSpan', 'CodeBlock', 'H1', 'H2', 'H3', 'H4', 'H5', 'H6', 'Subtitle',
            'Q', 'Em', 'Strong', 'I', 'Small', 'Mark', 'Del', 'Ins', 'Sub', 'Sup', 'Blockquote', 'Caption', 'Cite',
            'Time', 'Address', 'Abbr', 'Dfn', 'Kbd', 'Samp', 'Var', 'Figure', 'Details', 'Summary', 'Data', 'Meter', 'S',
-
-           'U', 'Output', 'PicSumImg', 'ButtonT', 'Button', 'ContainerT', 'BackgroundT', 'Container', 'Titled',
-           'DividerT', 'Divider', 'DividerSplit', 'DividerLine', 'Article', 'ArticleTitle', 'ArticleMeta', 'SectionT',
-           'Section', 'Form', 'Fieldset', 'Legend', 'Input', 'Radio', 'CheckboxX', 'Range', 'TextArea', 'Switch',
-           'Upload', 'UploadZone', 'FormLabel', 'LabelT', 'Label', 'UkFormSection', 'GenericLabelInput', 'LabelInput',
-           'LabelTextArea', 'LabelSwitch', 'LabelRadio', 'LabelCheckboxX', 'Options', 'Select', 'LabelSelect',
-           'LabelRange', 'AT', 'ListT', 'ModalContainer', 'ModalDialog', 'ModalHeader', 'ModalBody', 'ModalFooter',
-           'ModalTitle', 'ModalCloseButton', 'Modal', 'Placeholder', 'Progress', 'UkIcon', 'UkIconLink',
-           'DiceBearAvatar', 'Center', 'FlexT', 'Grid', 'DivFullySpaced', 'DivCentered', 'DivLAligned', 'DivRAligned',
-           'DivVStacked', 'DivHStacked', 'NavT', 'NavContainer', 'NavParentLi', 'NavDividerLi', 'NavHeaderLi',
-           'NavSubtitle', 'NavCloseLi', 'ScrollspyT', 'NavBar', 'SliderContainer', 'SliderItems', 'SliderNav', 'Slider',
-           'DropDownNavContainer', 'TabContainer', 'CardT', 'CardTitle', 'CardHeader', 'CardBody', 'CardFooter',
-           'CardContainer', 'Card', 'TableT', 'Table', 'Td', 'Th', 'Tbody', 'TableFromLists', 'TableFromDicts',
-           'apply_classes', 'render_md', 'get_franken_renderer', 'ThemePicker', 'LightboxContainer', 'LightboxItem']
+           'U', 'Output', 'PicSumImg', 'AccordionItem', 'Accordion', 'ButtonT', 'Button', 'ContainerT', 'BackgroundT',
+           'Container', 'Titled', 'DividerT', 'Divider', 'DividerSplit', 'DividerLine', 'Article', 'ArticleTitle',
+           'ArticleMeta', 'SectionT', 'Section', 'Form', 'Fieldset', 'Legend', 'Input', 'Radio', 'CheckboxX', 'Range',
+           'TextArea', 'Switch', 'Upload', 'UploadZone', 'FormLabel', 'LabelT', 'Label', 'UkFormSection',
+           'GenericLabelInput', 'LabelInput', 'LabelTextArea', 'LabelSwitch', 'LabelRadio', 'LabelCheckboxX', 'Options',
+           'Select', 'LabelSelect', 'LabelRange', 'AT', 'ListT', 'ModalContainer', 'ModalDialog', 'ModalHeader',
+           'ModalBody', 'ModalFooter', 'ModalTitle', 'ModalCloseButton', 'Modal', 'Placeholder', 'Progress', 'UkIcon',
+           'UkIconLink', 'DiceBearAvatar', 'Center', 'FlexT', 'Grid', 'DivFullySpaced', 'DivCentered', 'DivLAligned',
+           'DivRAligned', 'DivVStacked', 'DivHStacked', 'NavT', 'NavContainer', 'NavParentLi', 'NavDividerLi',
+           'NavHeaderLi', 'NavSubtitle', 'NavCloseLi', 'ScrollspyT', 'NavBar', 'SliderContainer', 'SliderItems',
+           'SliderNav', 'Slider', 'DropDownNavContainer', 'TabContainer', 'CardT', 'CardTitle', 'CardHeader',
+           'CardBody', 'CardFooter', 'CardContainer', 'Card', 'TableT', 'Table', 'Td', 'Th', 'Tbody', 'TableFromLists',
+           'TableFromDicts', 'apply_classes', 'render_md', 'get_franken_renderer', 'ThemePicker', 'LightboxContainer',
+           'LightboxItem']
 
 # %% ../nbs/02_franken.ipynb
 import fasthtml.common as fh
@@ -702,7 +702,7 @@ class LabelT(VEnum):
     def _generate_next_value_(name, start, count, last_values): return str2ukcls('label', name)
     primary = auto()
     secondary = auto()
-    danger = auto()
+    destructive = auto()
 
 # %% ../nbs/02_franken.ipynb
 def Label(*c, # contents of Label tag (often text)

@@ -24,7 +24,7 @@ import fasthtml.common as fh
 from .foundations import *
 from fasthtml.common import Div, P, Span, FT
 from enum import Enum, auto
-from fasthtml.components import Uk_select,Uk_input_tag,Uk_icon
+from fasthtml.components import Uk_select,Uk_input_tag,Uk_icon,Uk_input_range
 from functools import partial
 from itertools import zip_longest
 from typing import Union, Tuple, Optional, Sequence
@@ -35,7 +35,6 @@ from mistletoe.html_renderer import HTMLRenderer
 from mistletoe.span_token import Image
 import mistletoe
 from lxml import html, etree
-from fasthtml.components import Uk_input_range
 import fasthtml.components as fh_comp
 
 # %% ../nbs/02_franken.ipynb

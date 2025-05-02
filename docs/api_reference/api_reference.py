@@ -137,7 +137,7 @@ docs_sliders = create_doc_section(
 
 def ex_accordion_1():
     return Div(
-        H2("Multiple Open, No Animation Accordion"),
+        H2("Accordion Header"),
         Accordion(
             AccordionItem(
                 "Section 1",
@@ -160,7 +160,7 @@ def ex_accordion_1():
 
 def ex_accordion_2():
     return Div(
-        H2("Multiple Open, No Animation Accordion"),
+        H2("Accordion Header"),
         Accordion(
             AccordionItem(
                 "Section 1",
@@ -184,7 +184,7 @@ def ex_accordion_2():
 
 def ex_accordion_3():
     return Div(
-        H2("Multiple Open, No Animation Accordion"),
+        H2("Accordion Header"),
         Accordion(
             AccordionItem(
                 "Section 1",
@@ -206,14 +206,16 @@ def ex_accordion_3():
     ),
 
 docs_accordion_link = create_doc_section(
-    H1("Accordion"),
+    H1("Accordion API Reference"),
     Div(id='accordion'), # for linking to in release post
+    H3("Example Accordions"),
     P("A simple accordion with fluid collapsing and expanding animation where only a single Section can be exanded at any time."),
     fn2code_string(ex_accordion_1),
-    P("An accordion with fluid collapsing and expanding animation where one section is already expanded at startup and where multiple section can be expanded at any time."),
+    P("An accordion with fluid collapsing and expanding animation where one section is already expanded at startup and multiple section can be expanded at any time."),
     fn2code_string(ex_accordion_2),
     P("An accordion with no collapsing and expanding animation where only a single Section can be exanded at any time."),
     fn2code_string(ex_accordion_3),
+    H3("API Reference"),
     Accordion, 
     AccordionItem, 
     title="Accordion")
@@ -279,7 +281,7 @@ docs_theme_headers = create_doc_section(
     fast_app,
     FastHTML,
 
-    Blockquote(P("Users have said", A("this site", href="https://ui.jln.dev/"), " is helpful in creating your own themes.")),
+    Blockquote(P("Users have said ", A("this site", href="https://ui.jln.dev/"), " is helpful in creating your own themes.")),
 
     title="Headers")
 
@@ -727,7 +729,6 @@ def ex_modal():
 docs_modals = create_doc_section(
     H1("Modals API Reference"),
     H3("Example Modal"),
-    Subtitle("This is a subtitle"),
     fn2code_string(ex_modal),
     Modal,
     ModalCloseButton,
@@ -1157,7 +1158,7 @@ def ex_loading2():
     return Div(*rows, cls='flex flex-col gap-4')
 
 docs_loading = create_doc_section(
-    H1("Loading IndicatorsAPI Reference"),
+    H1("Loading Indicators API Reference"),
     fn2code_string(ex_loading1),
     fn2code_string(ex_loading2),
     Loading,

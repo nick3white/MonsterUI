@@ -420,7 +420,7 @@ def AccordionItem(title: Union[str, FT], # Content for the accordion item title
     )
 
 # %% ../nbs/02_franken.ipynb
-def Accordion(*c: AccordionItem, # One or more `AccordionItem` components
+def Accordion(*c: 'AccordionItem', # One or more `AccordionItem` components
               cls: Union[str, Enum, tuple] = (), # Additional classes for the container (`Ul` or `Div`)
               multiple: Optional[bool] = None,    # Allow multiple items to be open simultaneously (UIkit option)
               collapsible: Optional[bool] = None, # Allow all items to be closed (UIkit option, default True)

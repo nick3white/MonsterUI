@@ -56,7 +56,7 @@ def button_section():
                 LabelInput("Name"), 
                 cols=2), 
            Grid(Button("Submit Information", cls=ButtonT.primary),
-                Button("Delete Information", cls=ButtonT.danger),
+                Button("Delete Information", cls=ButtonT.destructive),
                 Button("Cancel"),
                 cols=3)
        )
@@ -68,7 +68,7 @@ def button_section():
         List(
             Li("Use ButtonT.primary for the most important actions (ie add to card, checkout, etc.)"),
             Li("Use ButtonT.secondary for actions that are important but not the primary action (ie save, etc.)"),
-            Li("Use ButtonT.danger for destructive actions"),
+            Li("Use ButtonT.destructive for destructive actions"),
             Li("Use default styling for UX actions (ie go cancel, close etc.)"),
             cls=ListT.bullet
         ),

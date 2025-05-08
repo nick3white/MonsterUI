@@ -836,7 +836,7 @@ def Select(*option,            # Options for the select dropdown (can use `Optio
 
     if 'hx_trigger' not in kwargs: kwargs['hx_trigger']=''
     if 'change' in kwargs['hx_trigger']:
-        if not id: id = unqid()
+        if not id: id = fh.unqid()
         kwargs['hx_trigger'] = kwargs['hx_trigger'].replace('changed', f'uk-select:input from:#{id}')
         kwargs['hx_trigger'] = kwargs['hx_trigger'].replace('change', f'uk-select:input from:#{id}')
     

@@ -182,12 +182,11 @@ class Theme(Enum):
     violet = auto()
     zinc = auto()
 
-    def _create_headers(self, urls, mode='auto', daisy=True, highlightjs=False, katex=True, radii=ThemeRadii.sm, shadows=ThemeShadows.sm, font=ThemeFont.sm):
+    def _create_headers(self, urls, mode='auto', icons=True, daisy=True, highlightjs=False, katex=True, radii=ThemeRadii.sm, shadows=ThemeShadows.sm, font=ThemeFont.sm):
         "Create header elements with given URLs"
         hdrs = [
             fh.Link(rel="stylesheet", href=urls['franken_css']),
             fh.Script(type="module", src=urls['franken_js_core']),
-            fh.Script(type="module", src=urls['franken_icons']),
             fh.Script(src=urls['tailwind']),
             fh.Script("""
     tailwind.config = {
@@ -197,8 +196,8 @@ class Theme(Enum):
             _headers_theme(self.value, mode=mode, radii=radii, shadows=shadows, font=font),
             scrollspy_style]
 
-        if daisy:
-            hdrs += [fh.Link(rel="stylesheet", href=urls['daisyui']), daisy_styles]
+        if icons: hdrs.append(fh.Script(type="module", src=urls['franken_icons']))
+        if daisy: hdrs += [fh.Link(rel="stylesheet", href=urls['daisyui']), daisy_styles]
             
         if highlightjs:
             hdrs += [
@@ -252,12 +251,12 @@ class Theme(Enum):
                 ]
         return hdrs
 
-    def headers(self, mode='auto', daisy=True, highlightjs=False, katex=True, radii=ThemeRadii.sm, shadows=ThemeShadows.sm, font=ThemeFont.sm ):
+    def headers(self, mode='auto', icons=True, daisy=True, highlightjs=False, katex=True, radii=ThemeRadii.sm, shadows=ThemeShadows.sm, font=ThemeFont.sm ):
         "Create frankenui and tailwind cdns"
-        return self._create_headers(HEADER_URLS, mode=mode, daisy=daisy, highlightjs=highlightjs, katex=katex, radii=radii, shadows=shadows, font=font)    
+        return self._create_headers(HEADER_URLS, mode=mode, icons=icons, daisy=daisy, highlightjs=highlightjs, katex=katex, radii=radii, shadows=shadows, font=font)    
     
-    def local_headers(self, mode='auto', static_dir='static', daisy=True, highlightjs=False, katex=True, radii='md', shadows='sm', font='sm'):
+    def local_headers(self, mode='auto', static_dir='static', icons=True, daisy=True, highlightjs=False, katex=True, radii='md', shadows='sm', font='sm'):
         "Create headers using local files downloaded from CDNs"
         Path(static_dir).mkdir(exist_ok=True)
         local_urls = dict([_download_resource(url, static_dir) for url in HEADER_URLS.items()])
-        return self._create_headers(local_urls, mode=mode, daisy=daisy, highlightjs=highlightjs, katex=katex, radii=radii, shadows=shadows, font=font)
+        return self._create_headers(local_urls, mode=mode, icons=icons, daisy=daisy, highlightjs=highlightjs, katex=katex, radii=radii, shadows=shadows, font=font)

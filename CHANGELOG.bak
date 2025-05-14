@@ -6,18 +6,26 @@
 
 ### New Features
 
+- Add `icon` header param to optionally not bring in icons js lib ([#99](https://github.com/AnswerDotAI/MonsterUI/issues/99))
+
+### Bugs Squashed
+
+- added fh. to unqid ([#98](https://github.com/AnswerDotAI/MonsterUI/pull/98)), thanks to [@MorsCerta-crypto](https://github.com/MorsCerta-crypto)
+
+
+## 1.0.19
+
+### New Features
+
 - Add accordion component ([#94](https://github.com/AnswerDotAI/MonsterUI/pull/94)), thanks to [@MichlF](https://github.com/MichlF)
-
 - Fix theme logic ([#93](https://github.com/AnswerDotAI/MonsterUI/pull/93)), thanks to [@curtis-allan](https://github.com/curtis-allan)
-  - Tiny PR to address theme loading issues. Currently when changing the theme via the modal, it saves to localStorage correctly but both the `default` theme *and* the localStorage preference are added to the html tag. This is causing conflicts where certain themes are overriding others.
-
-Removing the additional `htmlElement.classList.add("uk-theme-{color}");` snippet ensures the theme matches the option set in storage, or uses to the default if none is set. This is how it's documented in FrankenUI, so I'm guessing it was added on purpose - let me know the functionality you were aiming for and we can try to find another solution!
-
 
 
 ## 1.0.18
 
 - Hotfix accidental deletion of label select :(
+
+
 ## 1.0.16
 
 ### Bugs Squashed
@@ -33,41 +41,15 @@ Removing the additional `htmlElement.classList.add("uk-theme-{color}");` snippet
 ### Bugs Squashed
 
 - Select htmx compatibility bug
-
-## 1.0.14
-
-### New Features
-
-- Move CDN's to jsdelivr ([#88](https://github.com/AnswerDotAI/MonsterUI/pull/88)), thanks to [@curtis-allan](https://github.com/curtis-allan)
-
-### Bugs Squashed
-
-- Select htmx compatability issues 
-
-
-## 1.0.14
-
-### New Features
-
-### Bugs Squashed
-
 - SVG Path Name Collision Issue in MonsterUI ([#85](https://github.com/AnswerDotAI/MonsterUI/issues/85))
 
-## 1.0.13
 
+## 1.0.13
 
 ### Bugs Squashed
 
 - LabelCheckboxX ignores id set manually ([#80](https://github.com/AnswerDotAI/MonsterUI/issues/80))
-
 - Select sending multiple values to HTMX 
-
-## 1.0.11
-
-### New Features
-
-- Cusom Themes support in ThemePicker ([#71](https://github.com/AnswerDotAI/MonsterUI/pull/71)), thanks to [@ndendic](https://github.com/ndendic)
-
 
 
 ## 1.0.10
@@ -77,15 +59,9 @@ Removing the additional `htmlElement.classList.add("uk-theme-{color}");` snippet
 - Cusom Themes support in ThemePicker ([#71](https://github.com/AnswerDotAI/MonsterUI/pull/71)), thanks to [@ndendic](https://github.com/ndendic)
 
 
-
-## 1.0.9
-
-
-
-
 ## 1.0.8
 
-# Add lightbox and Insertable select
+- Add lightbox and Insertable select
 
 ## 1.0.7
 
@@ -124,7 +100,6 @@ Removing the additional `htmlElement.classList.add("uk-theme-{color}");` snippet
 ## 1.0.1
 
 - Theme bug fix not allowing theme changes to stick, thanks to [@zaseem-bisquared](https://github.com/Zaseem-BIsquared)
-
 - Documentation bug fix on tutorial app, thanks to [@decherd](https://github.com/decherd)
 
 

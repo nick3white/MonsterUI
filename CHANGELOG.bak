@@ -2,6 +2,19 @@
 
 <!-- do not remove -->
 
+## 1.0.19
+
+### New Features
+
+- Add accordion component ([#94](https://github.com/AnswerDotAI/MonsterUI/pull/94)), thanks to [@MichlF](https://github.com/MichlF)
+
+- Fix theme logic ([#93](https://github.com/AnswerDotAI/MonsterUI/pull/93)), thanks to [@curtis-allan](https://github.com/curtis-allan)
+  - Tiny PR to address theme loading issues. Currently when changing the theme via the modal, it saves to localStorage correctly but both the `default` theme *and* the localStorage preference are added to the html tag. This is causing conflicts where certain themes are overriding others.
+
+Removing the additional `htmlElement.classList.add("uk-theme-{color}");` snippet ensures the theme matches the option set in storage, or uses to the default if none is set. This is how it's documented in FrankenUI, so I'm guessing it was added on purpose - let me know the functionality you were aiming for and we can try to find another solution!
+
+
+
 ## 1.0.18
 
 - Hotfix accidental deletion of label select :(

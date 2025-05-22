@@ -1186,6 +1186,18 @@ def ex_area_chart():
         cls='max-w-md max-h-md'
     )
 
+def ex_area_chart2():
+    return Apex_Chart(
+        chart_type="area",
+        series=[
+            {"name": "2024", "data": [45, 52, 38, 24, 33, 26]},
+            {"name": "2025", "data": [35, 41, 62, 42, 13, 18]},
+        ],
+        categories=["Jan", "Feb", "Mar", "Apr", "May", "Jun"],
+        fill={"type": "gradient", "gradient": {"shadeIntensity": 1, "opacityFrom": 0.4, "opacityTo": 0.1}},
+        cls='max-w-md max-h-md'
+    )
+
 def ex_donut_chart():
     return Apex_Chart(
         chart_type=ChartT.donut,
@@ -1199,9 +1211,9 @@ def ex_heatmap_chart():
         chart_type=ChartT.heatmap,
         series=[{"name": f"W{i}", "data": [i * j for j in range(1, 8)]} for i in range(1, 4)],
         plotOptions={"heatmap": {"colorScale": {"ranges": [
-            {"from": 0, "to": 20, "color": "#90caf9"},
-            {"from": 21, "to": 40, "color": "#42a5f5"},
-            {"from": 41, "to": 60, "color": "#1e88e5"},
+            {"from": 0, "to": 7, "color": "#90caf9"},
+            {"from": 8, "to": 15, "color": "#42a5f5"},
+            {"from": 16, "to": 23, "color": "#1e88e5"},
         ]}}},
         cls='max-w-md max-h-md'
     )
@@ -1292,24 +1304,38 @@ docs_charts = create_doc_section(
     ),
     H2("Example usage", cls="mt-4"),
     H4("Simple line chart", cls="mt-4"),
+    P("A minimal single-series line chart that relies on the default ",CodeSpan('smooth')," stroke to illustrate a trend across a category X-axis."),
     fn2code_string(ex_line_chart),
     H4("Area chart with gradient fill", cls="mt-4"),
-    fn2code_string(ex_area_chart),
+    P("This two-series area example layers a vertical gradient beneath each series and compares volumes while soft-fading toward transparency."),
+    fn2code_string(ex_area_chart2),
     H4("Donut chart", cls="mt-4"),
+    P("Transforms a pie into a donut by setting ",CodeSpan('ChartT.donut'),", leaving the centre hollow for totals or labels and highlighting proportional composition of four categories."),
     fn2code_string(ex_donut_chart),
     H4("Heatmap chart", cls="mt-4"),
+    P("Shows a three-row heatmap where each cell’s shade is driven by custom ",CodeSpan('colorScale.ranges'),", turning numeric intensity into visual cues. "),
     fn2code_string(ex_heatmap_chart),
-    H4("Multi-series line chart", cls="mt-4"),
+        H4("Multi-series line chart", cls="mt-4"),
+    P("Contrasts three independent trends by supplying a three-color palette to the global ",CodeSpan('colors')," array."),
     fn2code_string(ex_multi_line_chart),
-    H4("Rainbow bars chart", cls="mt-4"),   
+    H4("Rainbow bars chart", cls="mt-4"),
+    P("Enables ",CodeSpan('plotOptions.bar.distributed')," so every bar cycles through the palette, giving each column a distinct hue—useful when every data-point stands for a unique label."),
     fn2code_string(ex_rainbow_bars_chart),
+
     H4("Gradient lines chart", cls="mt-4"),
+    P("Applies per-series ",CodeSpan('gradientToColors')," values, creating two independently fading ribbons that improve separation while retaining a shared style language."),
     fn2code_string(ex_gradient_lines_chart),
+
     H4("Chart with toolbar", cls="mt-4"),
+    P("Demonstrates interactive features by setting ",CodeSpan('enable_zoom')," and ",CodeSpan('show_toolbar'),", adding zoom/selection tools and export buttons for on-the-fly analysis."),
     fn2code_string(ex_cpu_chart),
+
     H4("Rainbow chart", cls="mt-4"),
+    P("A condensed distributed-bar variant that repeats the rainbow technique on a five-day slice, reinforcing how the flag colors individual data-points."),
     fn2code_string(ex_rainbow_chart),
-    H4("Area chart", cls="mt-4"),
+
+    H4("Single-series gradient area", cls="mt-4"),
+    P("Uses a lone gradient-filled area combined with ",CodeSpan('show_tooltip_title')," to keep tooltips lean—ideal when space is tight but context still matters."),
     fn2code_string(ex_area_chart),
     ChartT,
     Apex_Chart,

@@ -183,7 +183,7 @@ class Theme(Enum):
     violet = auto()
     zinc = auto()
 
-    def _create_headers(self, urls, mode='auto', icons=True, daisy=True, highlightjs=False, katex=True, charts=True, radii=ThemeRadii.sm, shadows=ThemeShadows.sm, font=ThemeFont.sm):
+    def _create_headers(self, urls, mode='auto', icons=True, daisy=True, highlightjs=False, katex=True, apex_charts=False, radii=ThemeRadii.sm, shadows=ThemeShadows.sm, font=ThemeFont.sm):
         "Create header elements with given URLs"
         hdrs = [
             fh.Link(rel="stylesheet", href=urls['franken_css']),

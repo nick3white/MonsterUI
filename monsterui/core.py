@@ -199,7 +199,7 @@ class Theme(Enum):
 
         if icons: hdrs.append(fh.Script(type="module", src=urls['franken_icons']))
         if daisy: hdrs += [fh.Link(rel="stylesheet", href=urls['daisyui']), daisy_styles]
-        if charts: hdrs += [fh.Script(type='module', src=urls['apex_charts'])]
+        if apex_charts: hdrs += [fh.Script(type='module', src=urls['apex_charts'])]
             
         if highlightjs:
             hdrs += [
@@ -253,12 +253,12 @@ class Theme(Enum):
                 ]
         return hdrs
 
-    def headers(self, mode='auto', icons=True, daisy=True, highlightjs=False, katex=True, radii=ThemeRadii.sm, shadows=ThemeShadows.sm, font=ThemeFont.sm ):
+    def headers(self, mode='auto', icons=True, daisy=True, highlightjs=False, katex=True, apex_charts=False, radii=ThemeRadii.sm, shadows=ThemeShadows.sm, font=ThemeFont.sm ):
         "Create frankenui and tailwind cdns"
-        return self._create_headers(HEADER_URLS, mode=mode, icons=icons, daisy=daisy, highlightjs=highlightjs, katex=katex, radii=radii, shadows=shadows, font=font)    
+        return self._create_headers(HEADER_URLS, mode=mode, icons=icons, daisy=daisy, highlightjs=highlightjs, katex=katex, apex_charts=apex_charts, radii=radii, shadows=shadows, font=font)    
     
-    def local_headers(self, mode='auto', static_dir='static', icons=True, daisy=True, highlightjs=False, katex=True, radii='md', shadows='sm', font='sm'):
+    def local_headers(self, mode='auto', static_dir='static', icons=True, daisy=True, highlightjs=False, katex=True, apex_charts=False, radii='md', shadows='sm', font='sm'):
         "Create headers using local files downloaded from CDNs"
         Path(static_dir).mkdir(exist_ok=True)
         local_urls = dict([_download_resource(url, static_dir) for url in HEADER_URLS.items()])
-        return self._create_headers(local_urls, mode=mode, icons=icons, daisy=daisy, highlightjs=highlightjs, katex=katex, radii=radii, shadows=shadows, font=font)
+        return self._create_headers(local_urls, mode=mode, icons=icons, daisy=daisy, highlightjs=highlightjs, katex=katex, apex_charts=apex_charts, radii=radii, shadows=shadows, font=font)

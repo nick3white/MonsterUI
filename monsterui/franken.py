@@ -17,7 +17,7 @@ __all__ = ['franken_class_map', 'TextT', 'TextPresets', 'CodeSpan', 'CodeBlock',
            'SliderNav', 'Slider', 'DropDownNavContainer', 'TabContainer', 'CardT', 'CardTitle', 'CardHeader',
            'CardBody', 'CardFooter', 'CardContainer', 'Card', 'TableT', 'Table', 'Td', 'Th', 'Tbody', 'TableFromLists',
            'TableFromDicts', 'apply_classes', 'render_md', 'get_franken_renderer', 'ThemePicker', 'LightboxContainer',
-           'LightboxItem', 'ChartT', 'Apex_Chart']
+           'LightboxItem', 'ChartT', 'apex_json_formater', 'ApexChart']
 
 # %% ../nbs/02_franken.ipynb
 import fasthtml.common as fh
@@ -1662,7 +1662,7 @@ def _deep_merge(a: Dict, b: Dict) -> Dict:
             out[k] = deepcopy(v)
     return out
 
-def Apex_Chart(
+def apex_json_formater(
     *,
     series: Union[List[Dict], List[float]],  # Data to plot. For axis charts, pass a list of series-objects; for pie/donut/radialBar, pass a flat list of values. See Apex “Working with Data” docs. :contentReference[oaicite:turn0search11]{index=0}
     chart_type: ChartT = ChartT.line,        # One of Apex’s supported chart types (line, area, bar, pie, donut, heatmap, etc.). :contentReference[oaicite:turn0search1]{index=1}
@@ -1676,11 +1676,10 @@ def Apex_Chart(
     curve: Literal["smooth", "straight", "stepline"] = "smooth",  # Stroke curve style for line/area. :contentReference[oaicite:turn0search9]{index=9}
     stroke_width: int = 2,                   # Width (px) of line/area strokes. :contentReference[oaicite:turn0search9]{index=10}
     colors: List[str] | None = None,         # Palette array or callback for series/points. :contentReference[oaicite:turn0search10]{index=11}
-    cls: str = '',                           # Extra CSS classes for the outer <div>. (Utility parameter, no Apex reference.)
     **extra_options,                         # Arbitrary ApexCharts options to deep-merge over the defaults.
 ) -> Div:
     """
-    Build a Div that renders an ApexCharts graph.
+    Helpert function that constructs basic Apex Charts json string.
     All boolean parameters default to *False* (or *None*) to avoid surprising side-effects; pass ``True`` to opt-in.
     Any key you pass via ``extra_options`` overrides the baked-in defaults without losing the design-system styles.   
     """
@@ -1715,4 +1714,14 @@ def Apex_Chart(
         base.setdefault("plotOptions", {}).setdefault("bar", {})["distributed"] = True
 
     merged = _deep_merge(base, extra_options)
-    return Div(Uk_chart(fh.Script(json.dumps(merged, separators=(",", ":")), type="application/json")), cls=stringify(cls))
+    return merged
+    # return json.dumps(merged, separators=(",", ":"))
+
+def ApexChart(*, 
+              apex, # Apex chart json
+              cls='', # Class for the chart Div container
+              **kws # Additional args for the chart Div container
+              )->FT: 
+    "Apex chart component"
+    js=NotStr(f"<script type='application/json'>{json.dumps(apex)}</script>")
+    return Div(Uk_chart(js), cls=stringify(cls), **kws)

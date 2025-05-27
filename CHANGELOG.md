@@ -2,6 +2,17 @@
 
 <!-- do not remove -->
 
+## 1.0.21
+
+### New Features
+
+- The new `ApexChart` component can create line charts, pie charts and [more](https://monsterui.answer.ai/api_ref/docs_charts). ([#110](https://github.com/AnswerDotAI/MonsterUI/pull/110)), thanks to [@ndendic](https://github.com/ndendic)
+- Toasts now disappear automatically after 5 seconds. You can adjust the duration by using the `dur` field (e.g. `Toast('My Toast', dur=10.0)`). ([#109](https://github.com/AnswerDotAI/MonsterUI/pull/109)), thanks to [@comhar](https://github.com/comhar)
+
+### Breaking Change
+- Katex is no longer included in the default headers. To include it set `katex=True` when calling `.headers`. (i.e. `Theme.slate.headers(katex=True)`). ([#105](https://github.com/AnswerDotAI/MonsterUI/pull/105)), thanks to [@comhar](https://github.com/comhar)
+
+
 ## 1.0.20
 
 ### New Features

@@ -14,10 +14,10 @@
     Selector to choose theme and get all headers needed for app.  Includes frankenui + tailwind + daisyui + highlight.js options
     Members: slate, stone, gray, neutral, red, rose, orange, green, blue, yellow, violet, zinc
 
-    - `headers(self, mode, icons, daisy, highlightjs, katex, radii, shadows, font)`
+    - `headers(self, mode, icons, daisy, highlightjs, katex, apex_charts, radii, shadows, font)`
         Create frankenui and tailwind cdns
 
-    - `local_headers(self, mode, static_dir, icons, daisy, highlightjs, katex, radii, shadows, font)`
+    - `local_headers(self, mode, static_dir, icons, daisy, highlightjs, katex, apex_charts, radii, shadows, font)`
         Create headers using local files downloaded from CDNs
 
 
@@ -509,6 +509,9 @@
 
 - `def LightboxItem(*c, **kwargs)`
     Anchor tag with appropriate structure to go inside a `LightBoxContainer`
+
+- `def ApexChart(**kws)`
+    Apex chart component
 </doc></api reference><examples><doc title="Mail" desc="FrankenUI Mail Example built with MonsterUI (original design by ShadCN)">"""FrankenUI Mail Example built with MonsterUI (original design by ShadCN)"""
 
 from fasthtml.common import *

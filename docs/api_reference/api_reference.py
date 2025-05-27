@@ -1165,3 +1165,44 @@ docs_loading = create_doc_section(
     LoadingT,
     title="Loading")
 
+
+# Charts
+def ex_line_chart():
+    return ApexChart(
+        opts={
+            "chart": {"type":"line", "zoom":{"enabled": False}, "toolbar":{"show":False}},
+            "series": [{"name":"Desktops", "data": [186, 305, 237, 73, 209, 214, 355]}],
+            "xaxis": {"categories":["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul"]}
+        },
+        cls='max-w-md max-h-md'
+    )
+
+def ex_pie_chart():
+    return ApexChart(
+        opts={
+            "chart": {"type":"pie", "zoom":{"enabled": False}, "toolbar":{"show":False}},
+            "series": [186, 305, 237, 73, 209, 214, 355],
+            "labels": ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul"]
+        },
+        cls='max-w-md max-h-md'
+    )
+
+docs_charts = create_doc_section(
+    H1("Charts API Reference"),
+    P(
+        "MonsterUI supports ", A("ApexCharts", href="https://apexcharts.com/", cls='underline'),
+        ", a javascript library for rendering different charts like line and pie charts. ",
+        "See the full list of chart types ", A("here.", href="https://apexcharts.com/javascript-chart-demos/", cls='underline'),
+    ),
+    P("To render a chart you'll need to include the ApexChart js in your app headers like this"),
+    CodeSpan("app, rt = fast_app(hdrs=Theme.blue.headers(apex_charts=True))"),
+    P("Then create an " , CodeSpan("ApexChart"), " component as shown in the examples below."),
+    P("Generally, you should be able to take any chart from the ApexChart docs, convert the chart's options var to a python dict and plug it straight into MonsterUI's ApexChart component."),
+    H2("Example usage", cls="mt-4"),
+    H4("Line chart", cls="mt-4"),
+    fn2code_string(ex_line_chart),
+    H4("Pie chart", cls="mt-4"),
+    fn2code_string(ex_pie_chart),
+    ApexChart,
+    title="Charts"
+)

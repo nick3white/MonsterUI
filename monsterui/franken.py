@@ -17,14 +17,14 @@ __all__ = ['franken_class_map', 'TextT', 'TextPresets', 'CodeSpan', 'CodeBlock',
            'SliderNav', 'Slider', 'DropDownNavContainer', 'TabContainer', 'CardT', 'CardTitle', 'CardHeader',
            'CardBody', 'CardFooter', 'CardContainer', 'Card', 'TableT', 'Table', 'Td', 'Th', 'Tbody', 'TableFromLists',
            'TableFromDicts', 'apply_classes', 'render_md', 'get_franken_renderer', 'ThemePicker', 'LightboxContainer',
-           'LightboxItem']
+           'LightboxItem', 'ApexChart']
 
 # %% ../nbs/02_franken.ipynb
 import fasthtml.common as fh
 from .foundations import *
 from fasthtml.common import Div, P, Span, FT
 from enum import Enum, auto
-from fasthtml.components import Uk_select,Uk_input_tag,Uk_icon,Uk_input_range
+from fasthtml.components import Uk_select,Uk_input_tag,Uk_icon,Uk_input_range, Uk_chart
 from functools import partial
 from itertools import zip_longest
 from typing import Union, Tuple, Optional, Sequence
@@ -36,6 +36,7 @@ from mistletoe.span_token import Image
 import mistletoe
 from lxml import html, etree
 import fasthtml.components as fh_comp
+import json
 
 # %% ../nbs/02_franken.ipynb
 class TextT(VEnum):
@@ -1627,3 +1628,13 @@ def LightboxItem(*c, # Component that when clicked will open the lightbox (often
                 )->FT: # A(... href, data_alt, cls., ...)
     "Anchor tag with appropriate structure to go inside a `LightBoxContainer`"
     return fh.A(*c, href=href, data_alt=data_alt, cls=stringify(cls), **kwargs)
+
+# %% ../nbs/02_franken.ipynb
+def ApexChart(*, 
+              opts:Dict, # ApexChart options used to render your chart (e.g. {"chart":{"type":"line"}, ...})
+              cls: Enum | str | tuple = (), # Classes for the outer container
+              **kws, # Additional args for the outer container
+              )->FT:  # Div(Uk_chart(Script(...)))
+    "Apex chart component"
+    js=NotStr(f"<script type='application/json'>{json.dumps(opts)}</script>")
+    return Div(Uk_chart(js), cls=stringify(cls), **kws)

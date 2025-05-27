@@ -27,7 +27,7 @@ from enum import Enum, auto
 from fasthtml.components import Uk_select,Uk_input_tag,Uk_icon,Uk_input_range, Uk_chart
 from functools import partial
 from itertools import zip_longest
-from typing import Union, Tuple, Optional, Sequence, Literal, List, Dict
+from typing import Union, Tuple, Optional, Sequence
 from fastcore.all import *
 import copy, re, httpx, os
 import pathlib
@@ -37,7 +37,6 @@ import mistletoe
 from lxml import html, etree
 import fasthtml.components as fh_comp
 import json
-from copy import deepcopy
 
 # %% ../nbs/02_franken.ipynb
 class TextT(VEnum):

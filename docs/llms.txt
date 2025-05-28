@@ -18,27 +18,27 @@
 - [Scrollspy](https://monsterui.answer.ai/scrollspy/md): MonsterUI Scrollspy Example application
 
 ## Optional
-- [Accordion | Link](https://monsterui.answer.ai/api_ref/docs_accordion_link/md): Accordion
-- [Button | Link](https://monsterui.answer.ai/api_ref/docs_button_link/md): Buttons & Links API Reference
-- [Cards](https://monsterui.answer.ai/api_ref/docs_cards/md): Cards API Reference
-- [Charts](https://monsterui.answer.ai/api_ref/docs_charts/md): <!doctype html>
-- [Containers](https://monsterui.answer.ai/api_ref/docs_containers/md): Articles, Containers & Sections API Reference
-- [Dividers](https://monsterui.answer.ai/api_ref/docs_dividers/md): Dividers API Reference
-- [Forms](https://monsterui.answer.ai/api_ref/docs_forms/md): Forms and User Inputs API Reference
-- [Html](https://monsterui.answer.ai/api_ref/docs_html/md): HTML Styling API Reference
-- [Icons | Images](https://monsterui.answer.ai/api_ref/docs_icons_images/md): Icons & Images API Reference
-- [Layout](https://monsterui.answer.ai/api_ref/docs_layout/md): Layout (Flex and Grid) API Reference
-- [Lightbox](https://monsterui.answer.ai/api_ref/docs_lightbox/md): Lightbox API Reference
-- [Lists](https://monsterui.answer.ai/api_ref/docs_lists/md): Lists API Reference
-- [Loading](https://monsterui.answer.ai/api_ref/docs_loading/md): Loading IndicatorsAPI Reference
-- [Markdown](https://monsterui.answer.ai/api_ref/docs_markdown/md): Markdown + automated HTML styling API Reference
-- [Modals](https://monsterui.answer.ai/api_ref/docs_modals/md): Modals API Reference
-- [Navigation](https://monsterui.answer.ai/api_ref/docs_navigation/md): Navigation (Nav, NavBar, Tabs, etc.) API Reference
-- [Notifications](https://monsterui.answer.ai/api_ref/docs_notifications/md): Alerts & Toasts API Reference
-- [Sliders](https://monsterui.answer.ai/api_ref/docs_sliders/md): Carousel Sliders API Reference
-- [Steps](https://monsterui.answer.ai/api_ref/docs_steps/md): Steps API Reference
-- [Tables](https://monsterui.answer.ai/api_ref/docs_tables/md): Tables API Reference
-- [Theme | Headers](https://monsterui.answer.ai/api_ref/docs_theme_headers/md): Theme and Headers API Reference
-- [Typography](https://monsterui.answer.ai/api_ref/docs_typography/md): Typography API Reference
+- [Accordion | Link](https://monsterui.answer.ai/api_ref/docs_accordion_link/md): Internal Server Error
+- [Button | Link](https://monsterui.answer.ai/api_ref/docs_button_link/md): Internal Server Error
+- [Cards](https://monsterui.answer.ai/api_ref/docs_cards/md): Internal Server Error
+- [Charts](https://monsterui.answer.ai/api_ref/docs_charts/md): Internal Server Error
+- [Containers](https://monsterui.answer.ai/api_ref/docs_containers/md): Internal Server Error
+- [Dividers](https://monsterui.answer.ai/api_ref/docs_dividers/md): Internal Server Error
+- [Forms](https://monsterui.answer.ai/api_ref/docs_forms/md): Internal Server Error
+- [Html](https://monsterui.answer.ai/api_ref/docs_html/md): Internal Server Error
+- [Icons | Images](https://monsterui.answer.ai/api_ref/docs_icons_images/md): Internal Server Error
+- [Layout](https://monsterui.answer.ai/api_ref/docs_layout/md): Internal Server Error
+- [Lightbox](https://monsterui.answer.ai/api_ref/docs_lightbox/md): Internal Server Error
+- [Lists](https://monsterui.answer.ai/api_ref/docs_lists/md): Internal Server Error
+- [Loading](https://monsterui.answer.ai/api_ref/docs_loading/md): Internal Server Error
+- [Markdown](https://monsterui.answer.ai/api_ref/docs_markdown/md): Internal Server Error
+- [Modals](https://monsterui.answer.ai/api_ref/docs_modals/md): Internal Server Error
+- [Navigation](https://monsterui.answer.ai/api_ref/docs_navigation/md): Internal Server Error
+- [Notifications](https://monsterui.answer.ai/api_ref/docs_notifications/md): Internal Server Error
+- [Sliders](https://monsterui.answer.ai/api_ref/docs_sliders/md): Internal Server Error
+- [Steps](https://monsterui.answer.ai/api_ref/docs_steps/md): Internal Server Error
+- [Tables](https://monsterui.answer.ai/api_ref/docs_tables/md): Internal Server Error
+- [Theme | Headers](https://monsterui.answer.ai/api_ref/docs_theme_headers/md): Internal Server Error
+- [Typography](https://monsterui.answer.ai/api_ref/docs_typography/md): Internal Server Error
 - [Layout](https://monsterui.answer.ai/tutorial_layout/md): MonsterUI Page Layout Guide
 - [Spacing](https://monsterui.answer.ai/tutorial_spacing/md): Padding & Margin & Spacing, Oh my! (MonsterUI Spacing Guide)

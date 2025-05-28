@@ -50,7 +50,7 @@ class TextT(VEnum):
     # Text Size
     xs, sm, lg, xl = 'text-xs', 'text-sm', 'text-lg', 'text-xl'
     # Text Weight
-    light, normal, medium, bold, extrabold = 'font-normal','font-light','font-medium','font-bold','font-extrabold'
+    light, normal, medium, bold, extrabold = 'font-light','font-normal','font-medium','font-bold','font-extrabold'
     # Text Color
     muted,primary,secondary = 'text-gray-500 dark:text-gray-200', 'text-primary', 'text-secondary'
     success,warning, error, info =  'text-success', 'text-warning', 'text-error', 'text-info'

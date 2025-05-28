@@ -435,6 +435,7 @@ docs_notifications = create_doc_section(
     P("To define toast colors, set the class of the alert wrapped by the toast:"),
     fn2code_string(ex_toasts2),
     P("Toasts will disappear automatically after 5 seconds. To change the duration of the toast set the `dur` param like this `Toast('Content', dur=10)`."),
+    P("Here's a demo ",  A("app", href="https://gallery.fastht.ml/split/dynamic_user_interface_(htmx)/toast", target="_blank", rel="noopener noreferrer", cls='underline'), " showing how to trigger a toast.", cls='mt-4'),
     Toast, ToastHT, ToastVT,
     title="Alerts & Toasts")
 

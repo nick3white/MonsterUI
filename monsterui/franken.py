@@ -586,7 +586,7 @@ def Form(*c, # contents of Form tag (often Buttons, FormLabels, and LabelInputs)
 
 # %% ../nbs/02_franken.ipynb
 def Fieldset(*c, # contents of Fieldset tag (often other tags)
-             cls=(), # Classes in addition to Fieldset styling
+             cls='flex', # Classes in addition to Fieldset styling
              **kwargs # Additional args for Fieldset tag
              )->FT: # Fieldset(..., cls='uk-fieldset')
     "A Fieldset with default styling"

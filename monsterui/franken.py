@@ -16,7 +16,7 @@ __all__ = ['franken_class_map', 'TextT', 'TextPresets', 'CodeSpan', 'CodeBlock',
            'NavHeaderLi', 'NavSubtitle', 'NavCloseLi', 'ScrollspyT', 'NavBar', 'SliderContainer', 'SliderItems',
            'SliderNav', 'Slider', 'DropDownNavContainer', 'TabContainer', 'CardT', 'CardTitle', 'CardHeader',
            'CardBody', 'CardFooter', 'CardContainer', 'Card', 'TableT', 'Table', 'Td', 'Th', 'Tbody', 'TableFromLists',
-           'TableFromDicts', 'apply_classes', 'render_md', 'get_franken_renderer', 'ThemePicker', 'LightboxContainer',
+           'TableFromDicts', 'apply_classes', 'get_franken_renderer', 'render_md', 'ThemePicker', 'LightboxContainer',
            'LightboxItem', 'ApexChart']
 
 # %% ../nbs/02_franken.ipynb
@@ -1526,14 +1526,16 @@ franken_class_map = {
 # %% ../nbs/02_franken.ipynb
 def apply_classes(html_str:str, # Html string
                   class_map=None, # Class map
-                  class_map_mods=None # Class map that will modify the class map map (useful for small changes to a base class map)
+                  class_map_mods=None # Class map that will modify the class map map (for small changes to base map)
                  )->str: # Html string with classes applied
     "Apply classes to html string"
     if not html_str: return html_str
+    # Handles "Unicode strings with encoding declaration are not supported":
+    if html_str[:100].lstrip().startswith('<?xml'): html_str = html_str.split('?>', 1)[1].strip()
+    class_map = ifnone(class_map, franken_class_map)
+    if class_map_mods: class_map = {**class_map, **class_map_mods}
     try:
-        class_map = ifnone(class_map, franken_class_map)
-        if class_map_mods: class_map = {**class_map, **class_map_mods}
-        html_str = html.fromstring(html_str)
+        html_str = html.fragment_fromstring(html_str)
         for selector, classes in class_map.items():
             # Handle descendant selectors (e.g., 'pre code')
             xpath = '//' + '/descendant::'.join(selector.split())
@@ -1542,19 +1544,7 @@ def apply_classes(html_str:str, # Html string
                 new_class = f"{existing_class} {classes}".strip()
                 element.set('class', new_class)
         return etree.tostring(html_str, encoding='unicode', method='html')
-    except etree.ParserError:
-        return html_str
-
-# %% ../nbs/02_franken.ipynb
-def render_md(md_content:str, # Markdown content
-               class_map=None, # Class map
-               class_map_mods=None # Additional class map
-              )->FT: # Rendered markdown
-    "Renders markdown using mistletoe and lxml"
-    if md_content=='': return md_content
-    # Check for required dependencies        
-    html_content = mistletoe.markdown(md_content) #, mcp.PygmentsRenderer)
-    return NotStr(apply_classes(html_content, class_map, class_map_mods))
+    except (etree.ParserError,ValueError): return html_str
 
 # %% ../nbs/02_franken.ipynb
 def get_franken_renderer(img_dir):

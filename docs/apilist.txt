@@ -495,11 +495,11 @@
 - `def apply_classes(html_str, class_map, class_map_mods)`
     Apply classes to html string
 
-- `def render_md(md_content, class_map, class_map_mods)`
-    Renders markdown using mistletoe and lxml
-
 - `def get_franken_renderer(img_dir)`
     Create a renderer class with the specified img_dir
+
+- `def render_md(md_content, class_map, class_map_mods, img_dir)`
+    Renders markdown using mistletoe and lxml with custom image handling
 
 - `def ThemePicker(color, radii, shadows, font, mode, cls, custom_themes)`
     Theme picker component with configurable sections

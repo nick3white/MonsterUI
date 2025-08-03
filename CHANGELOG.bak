@@ -2,6 +2,18 @@
 
 <!-- do not remove -->
 
+## 1.0.22
+
+- Create custom themes
+
+### Bugs Squashed
+
+- Unicode strings with encoding declaration are not supported ([#123](https://github.com/AnswerDotAI/MonsterUI/issues/123))
+- Update DropDownNavContainer class to remove unnecessary width class ([#114](https://github.com/AnswerDotAI/MonsterUI/pull/114)), thanks to [@ndendic](https://github.com/ndendic)
+- fix font weight ordering ([#113](https://github.com/AnswerDotAI/MonsterUI/pull/113)), thanks to [@comhar](https://github.com/comhar)
+- FieldSet inputs in Form are misaligned when monsterui is active ([#87](https://github.com/AnswerDotAI/MonsterUI/issues/87))
+
+
 ## 1.0.21
 
 ### New Features
@@ -10,6 +22,7 @@
 - Toasts now disappear automatically after 5 seconds. You can adjust the duration by using the `dur` field (e.g. `Toast('My Toast', dur=10.0)`). ([#109](https://github.com/AnswerDotAI/MonsterUI/pull/109)), thanks to [@comhar](https://github.com/comhar)
 
 ### Breaking Change
+
 - Katex is no longer included in the default headers. To include it set `katex=True` when calling `.headers`. (i.e. `Theme.slate.headers(katex=True)`). ([#105](https://github.com/AnswerDotAI/MonsterUI/pull/105)), thanks to [@comhar](https://github.com/comhar)
 
 

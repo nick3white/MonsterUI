@@ -10,3 +10,4 @@ matplotlib
 pysymbol_llm @ git+https://github.com/AnswerDotAI/pysymbol-llm.git
 mistletoe
 lxml
+html2text

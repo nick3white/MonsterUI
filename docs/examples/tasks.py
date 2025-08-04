@@ -9,13 +9,13 @@ app, rt = fast_app(hdrs=Theme.blue.headers())
 
 def LAlignedCheckTxt(txt): return DivLAligned(UkIcon(icon='check'), P(txt, cls=TextPresets.muted_sm))
 
-with open('data/status_list.json', 'r') as f: data     = json.load(f)
-with open('data/statuses.json',    'r') as f: statuses = json.load(f)
+with open('data_/status_list.json', 'r') as f: data     = json.load(f)
+with open('data_/statuses.json',    'r') as f: statuses = json.load(f)
 
 def _create_tbl_data(d):
-    return {'Done': d['selected'], 'Task': d['id'], 'Title': d['title'], 
+    return {'Done': d['selected'], 'Task': d['id'], 'Title': d['title'],
             'Status'  : d['status'], 'Priority': d['priority'] }
-    
+
 data = [_create_tbl_data(d)  for d in data]
 page_size = 15
 current_page = 0

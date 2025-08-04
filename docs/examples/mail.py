@@ -25,7 +25,7 @@ sidebar = NavContainer(
     *[MailSbLi(i, t, c) for i, t, c in sidebar_group2],
     cls='mt-3')
 
-mail_data = json.load(open(pathlib.Path('data/mail.json')))
+mail_data = json.load(open(pathlib.Path('data_/mail.json')))
 
 def format_date(date_str):
     date_obj = datetime.fromisoformat(date_str)

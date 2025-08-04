@@ -1535,7 +1535,7 @@ def apply_classes(html_str:str, # Html string
     class_map = ifnone(class_map, franken_class_map)
     if class_map_mods: class_map = {**class_map, **class_map_mods}
     try:
-        html_str = html.fragment_fromstring(html_str)
+        html_str = html.fromstring(html_str)
         for selector, classes in class_map.items():
             # Handle descendant selectors (e.g., 'pre code')
             xpath = '//' + '/descendant::'.join(selector.split())

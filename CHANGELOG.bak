@@ -2,6 +2,14 @@
 
 <!-- do not remove -->
 
+## 1.0.23
+
+### Bugs Squashed
+
+- fragment md parsing does not work ([#124](https://github.com/AnswerDotAI/MonsterUI/issues/124))
+- llms.txt showing "internal server" errors ([#122](https://github.com/AnswerDotAI/MonsterUI/issues/122))
+
+
 ## 1.0.22
 
 - Create custom themes

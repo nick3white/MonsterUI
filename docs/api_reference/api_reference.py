@@ -733,6 +733,7 @@ docs_modals = create_doc_section(
     H3("Example Modal"),
     fn2code_string(ex_modal),
     Modal,
+    P("If you want to trigger a htmx event on close (like calling a route) you can use `hx_trigger='hidden'` to catch the close event."),
     ModalCloseButton,
     P("The remainder of the Modal functions below are used internally by the `Modal` function for you.  You shouldn't need to use them unless you're doing something really special."),
     ModalTitle,

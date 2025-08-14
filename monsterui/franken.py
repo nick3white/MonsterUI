@@ -968,15 +968,10 @@ def ModalTitle(*c, # Components to put in the `ModalTitle` (often text)
     return fh.H2(*c,  cls=('uk-modal-title',  stringify(cls)),  **kwargs)
 def ModalCloseButton(*c, # Components to put in the button (often text and/or an icon)
                       cls="absolute top-3 right-3", # Additional classes on the button
-                      htmx=False, # Whether to use HTMX to close the modal (must add hx_get to a route that closes the modal)
                       **kwargs # Additional args for `Button` tag
-                      )->FT: # Button(..., cls='uk-modal-close') + `hx_target` and `hx_swap` if htmx is True
+                      )->FT: # Button(..., cls='uk-modal-close')
     "Creates a button that closes a modal with js"
-    if htmx: 
-        kwargs['hx-on--trigger'] = 'this.closest(".uk-modal").remove()'
-        kwargs['hx-trigger'] = 'click, keyup[key=="Escape"] from:body, click[target.classList.contains("uk-modal")] from:.uk-modal'
-    else: 
-        cls = (stringify(cls), 'uk-modal-close')
+    cls = (stringify(cls), 'uk-modal-close')
     kwargs['data-uk-close'] = True
     return Button(*c, cls=(stringify(cls)), **kwargs)
 
@@ -990,13 +985,14 @@ def Modal(*c,                 # Components to put in the `ModalBody` (often form
         body_cls='space-y-6', # Additional classes on the `ModalBody`
         footer_cls=(),        # Additional classes on the `ModalFooter`
         id='',                # id for the outermost container
-        open=False,           # Whether the modal is open (typically used for HTMX controlled modals)
+        hx_init=False,        # Initialize modal with UIKit on load (used for modals added to the DOM by HTMX)
+        hx_open=False,        # Open modal on load (used for modals added to the DOM by HTMX)
         **kwargs              # Additional args for the outermost `Div` tag
         )->FT: # Fully styled modal FT Component
     "Creates a modal with the appropriate classes to put the boilerplate in the appropriate places for you"
-    if open:
-        cls = (stringify(cls), 'uk-open')
-        kwargs['style'] = stringify((kwargs.get('style',''), 'display: block;'))
+    if not id: id = fh.unqid()
+    if hx_open: kwargs["hx_on__load"] = f"UIkit.modal('#{id}').show()"
+    if hx_init and not hx_open: kwargs["hx_on__load"] = f"UIkit.modal('#{id}')"
     cls, dialog_cls, header_cls, body_cls, footer_cls = map(stringify, (cls, dialog_cls, header_cls, body_cls, footer_cls))
     res = []
     if header: res.append(ModalHeader(cls=header_cls)(header))

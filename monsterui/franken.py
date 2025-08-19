@@ -993,6 +993,7 @@ def Modal(*c,                 # Components to put in the `ModalBody` (often form
     if not id: id = fh.unqid()
     if hx_open: kwargs["hx_on__load"] = f"UIkit.modal('#{id}').show()"
     if hx_init and not hx_open: kwargs["hx_on__load"] = f"UIkit.modal('#{id}')"
+    if hx_open or hx_init: kwargs["hx-on:hidden"] = "this.remove()"
     cls, dialog_cls, header_cls, body_cls, footer_cls = map(stringify, (cls, dialog_cls, header_cls, body_cls, footer_cls))
     res = []
     if header: res.append(ModalHeader(cls=header_cls)(header))

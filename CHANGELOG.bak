@@ -2,6 +2,13 @@
 
 <!-- do not remove -->
 
+## 1.0.24
+
+### New Features
+
+- use uikit to initialise and open modals inserted with htmx ([#127](https://github.com/AnswerDotAI/MonsterUI/pull/127)), thanks to [@comhar](https://github.com/comhar)
+
+
 ## 1.0.23
 
 ### Bugs Squashed

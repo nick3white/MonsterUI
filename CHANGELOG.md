@@ -2,6 +2,15 @@
 
 <!-- do not remove -->
 
+## 1.0.25
+
+
+### Bugs Squashed
+
+- remove modal on close ([#130](https://github.com/AnswerDotAI/MonsterUI/pull/130)), thanks to [@comhar](https://github.com/comhar)
+- Buttons not working in Modal added to the DOM by HTMX. ([#126](https://github.com/AnswerDotAI/MonsterUI/issues/126))
+
+
 ## 1.0.24
 
 ### New Features

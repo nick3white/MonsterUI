@@ -2,8 +2,14 @@
 
 <!-- do not remove -->
 
-## 1.0.25
+## 1.0.26
 
+### Bugs Squashed
+
+- fix `render_md` non http/s urls ([#133](https://github.com/AnswerDotAI/MonsterUI/pull/133)), thanks to [@comhar](https://github.com/comhar)
+
+
+## 1.0.25
 
 ### Bugs Squashed
 

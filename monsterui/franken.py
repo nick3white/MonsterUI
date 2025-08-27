@@ -1553,7 +1553,7 @@ def get_franken_renderer(img_dir):
             template = '<img src="{}" alt="{}"{} class="max-w-full h-auto rounded-lg mb-6">'
             title = f' title="{token.title}"' if hasattr(token, 'title') else ''
             src = token.src
-            if img_dir and not src.startswith(('http://', 'https://', '/')):
+            if img_dir and not src.startswith(('http://', 'https://', '/', 'attachment:', 'blob:', 'data:')):
                 src = f'{pathlib.Path(img_dir)}/{src}'
             return template.format(src, token.children[0].content if token.children else '', title)
     return FrankenRenderer

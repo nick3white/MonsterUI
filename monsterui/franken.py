@@ -1562,11 +1562,12 @@ def get_franken_renderer(img_dir):
 def render_md(md_content:str, # Markdown content
              class_map=None, # Class map
              class_map_mods=None, # Additional class map
-             img_dir:str=None # Directory containing images
+             img_dir:str=None, # Directory containing images
+             renderer=None # optional, custom renderer
              )->FT: # Rendered markdown
     "Renders markdown using mistletoe and lxml with custom image handling"
     if md_content=='': return md_content
-    renderer = get_franken_renderer(img_dir)
+    renderer = get_franken_renderer(img_dir) if not renderer else renderer
     html_content = mistletoe.markdown(md_content, renderer)
     return NotStr(apply_classes(html_content, class_map, class_map_mods))
 

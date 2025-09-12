@@ -16,7 +16,7 @@ __all__ = ['franken_class_map', 'TextT', 'TextPresets', 'CodeSpan', 'CodeBlock',
            'NavHeaderLi', 'NavSubtitle', 'NavCloseLi', 'ScrollspyT', 'NavBar', 'SliderContainer', 'SliderItems',
            'SliderNav', 'Slider', 'DropDownNavContainer', 'TabContainer', 'CardT', 'CardTitle', 'CardHeader',
            'CardBody', 'CardFooter', 'CardContainer', 'Card', 'TableT', 'Table', 'Td', 'Th', 'Tbody', 'TableFromLists',
-           'TableFromDicts', 'apply_classes', 'get_franken_renderer', 'render_md', 'ThemePicker', 'LightboxContainer',
+           'TableFromDicts', 'apply_classes', 'FrankenRenderer', 'render_md', 'ThemePicker', 'LightboxContainer',
            'LightboxItem', 'ApexChart']
 
 # %% ../nbs/02_franken.ipynb
@@ -1544,31 +1544,32 @@ def apply_classes(html_str:str, # Html string
     except (etree.ParserError,ValueError): return html_str
 
 # %% ../nbs/02_franken.ipynb
-def get_franken_renderer(img_dir):
-    "Create a renderer class with the specified img_dir"
-    class FrankenRenderer(HTMLRenderer):
-        "Custom renderer for Franken UI that handles image paths"
-        def render_image(self, token):
-            "Modify image paths if they're relative and img_dir is specified"
-            template = '<img src="{}" alt="{}"{} class="max-w-full h-auto rounded-lg mb-6">'
-            title = f' title="{token.title}"' if hasattr(token, 'title') else ''
-            src = token.src
-            if img_dir and not src.startswith(('http://', 'https://', '/', 'attachment:', 'blob:', 'data:')):
-                src = f'{pathlib.Path(img_dir)}/{src}'
-            return template.format(src, token.children[0].content if token.children else '', title)
-    return FrankenRenderer
+class FrankenRenderer(HTMLRenderer):
+    "Custom renderer for Franken UI that handles image paths"
+    def __init__(self, *args, img_dir=None, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.img_dir = img_dir
+
+    def render_image(self, token):
+        "Modify image paths if they're relative and self.img_dir is specified"
+        self.img_dir=None
+        template = '<img src="{}" alt="{}"{} class="max-w-full h-auto rounded-lg mb-6">'
+        title = f' title="{token.title}"' if hasattr(token, 'title') else ''
+        src = token.src
+        if self.img_dir and not src.startswith(('http://', 'https://', '/', 'attachment:', 'blob:', 'data:')):
+            src = f'{pathlib.Path(self.img_dir)}/{src}'
+        return template.format(src, token.children[0].content if token.children else '', title)
 
 # %% ../nbs/02_franken.ipynb
 def render_md(md_content:str, # Markdown content
              class_map=None, # Class map
              class_map_mods=None, # Additional class map
              img_dir:str=None, # Directory containing images
-             renderer=None # optional, custom renderer
+             renderer=FrankenRenderer # custom renderer
              )->FT: # Rendered markdown
     "Renders markdown using mistletoe and lxml with custom image handling"
     if md_content=='': return md_content
-    renderer = get_franken_renderer(img_dir) if not renderer else renderer
-    html_content = mistletoe.markdown(md_content, renderer)
+    html_content = mistletoe.markdown(md_content, partial(renderer, img_dir=img_dir))
     return NotStr(apply_classes(html_content, class_map, class_map_mods))
 
 # %% ../nbs/02_franken.ipynb

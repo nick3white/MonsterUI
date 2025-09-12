@@ -2,8 +2,44 @@
 
 <!-- do not remove -->
 
-## 1.0.25
+## 1.0.27
 
+
+### Bugs Squashed
+
+- `render_md` doesn't render images with data uris when `img_dir` is set ([#132](https://github.com/AnswerDotAI/MonsterUI/issues/132))
+  - In the demo app below `render_md` correctly renders a red circle when `img_dir` is unset.  However if `img_dir` is set (e.g.`render_md(img, img_dir='.')` ) then the img is no longer rendered 😞 .
+ 
+```python
+# /// script
+# dependencies = ["python-fasthtml", "MonsterUI", "mistletoe"]
+# ///
+
+from fasthtml.common import *
+from monsterui.all import *
+
+app, rt = fast_app(hdrs=Theme.blue.headers())
+
+img = "![Red](data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgdmlld0JveD0iMCAwIDEwMCAxMDAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CiAgPGNpcmNsZSBjeD0iNTAiIGN5PSI1MCIgcj0iNDAiIGZpbGw9InJlZCIvPgo8L3N2Zz4K)"
+
+@rt
+def index():
+    return Div(cls="bg-white flex justify-center items-center min-h-screen")(
+        render_md(img),
+    )
+
+serve(port=5111)
+```
+
+
+## 1.0.26
+
+### Bugs Squashed
+
+- fix `render_md` non http/s urls ([#133](https://github.com/AnswerDotAI/MonsterUI/pull/133)), thanks to [@comhar](https://github.com/comhar)
+
+
+## 1.0.25
 
 ### Bugs Squashed
 

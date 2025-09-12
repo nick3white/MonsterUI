@@ -2,6 +2,17 @@
 
 <!-- do not remove -->
 
+## 1.0.27
+
+### New Features
+
+- allow optional renderer ([#134](https://github.com/AnswerDotAI/MonsterUI/pull/134))
+
+### Bugs Squashed
+
+- `render_md` doesn't render images with data uris when `img_dir` is set ([#132](https://github.com/AnswerDotAI/MonsterUI/issues/132))
+
+
 ## 1.0.26
 
 ### Bugs Squashed

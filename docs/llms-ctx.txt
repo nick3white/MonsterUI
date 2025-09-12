@@ -495,8 +495,13 @@
 - `def apply_classes(html_str, class_map, class_map_mods)`
     Apply classes to html string
 
-- `def get_franken_renderer(img_dir)`
-    Create a renderer class with the specified img_dir
+- `class FrankenRenderer`
+    Custom renderer for Franken UI that handles image paths
+
+    - `def __init__(self, *args, **kwargs)`
+    - `def render_image(self, token)`
+        Modify image paths if they're relative and self.img_dir is specified
+
 
 - `def render_md(md_content, class_map, class_map_mods, img_dir, renderer)`
     Renders markdown using mistletoe and lxml with custom image handling

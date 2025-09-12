@@ -1552,7 +1552,6 @@ class FrankenRenderer(HTMLRenderer):
 
     def render_image(self, token):
         "Modify image paths if they're relative and self.img_dir is specified"
-        self.img_dir=None
         template = '<img src="{}" alt="{}"{} class="max-w-full h-auto rounded-lg mb-6">'
         title = f' title="{token.title}"' if hasattr(token, 'title') else ''
         src = token.src

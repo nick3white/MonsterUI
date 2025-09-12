@@ -498,7 +498,7 @@
 - `def get_franken_renderer(img_dir)`
     Create a renderer class with the specified img_dir
 
-- `def render_md(md_content, class_map, class_map_mods, img_dir)`
+- `def render_md(md_content, class_map, class_map_mods, img_dir, renderer)`
     Renders markdown using mistletoe and lxml with custom image handling
 
 - `def ThemePicker(color, radii, shadows, font, mode, cls, custom_themes)`

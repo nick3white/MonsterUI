@@ -1532,7 +1532,7 @@ def apply_classes(html_str:str, # Html string
     class_map = ifnone(class_map, franken_class_map)
     if class_map_mods: class_map = {**class_map, **class_map_mods}
     try:
-        html_str = html.fromstring(html_str)
+        html_str = html.fragment_fromstring(html_str, create_parent=True)
         for selector, classes in class_map.items():
             # Handle descendant selectors (e.g., 'pre code')
             xpath = '//' + '/descendant::'.join(selector.split())
@@ -1540,7 +1540,7 @@ def apply_classes(html_str:str, # Html string
                 existing_class = element.get('class', '')
                 new_class = f"{existing_class} {classes}".strip()
                 element.set('class', new_class)
-        return etree.tostring(html_str, encoding='unicode', method='html')
+        return ''.join(etree.tostring(c, encoding='unicode', method='html') for c in html_str)
     except (etree.ParserError,ValueError): return html_str
 
 # %% ../nbs/02_franken.ipynb

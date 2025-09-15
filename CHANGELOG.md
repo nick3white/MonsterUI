@@ -2,6 +2,13 @@
 
 <!-- do not remove -->
 
+## 1.0.29
+
+### Bugs Squashed
+
+- `apply_classes` wraps some elements in html/body/head tags ([#135](https://github.com/AnswerDotAI/MonsterUI/issues/135))
+
+
 ## 1.0.28
 
 ### New Features

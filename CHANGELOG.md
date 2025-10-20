@@ -2,6 +2,14 @@
 
 <!-- do not remove -->
 
+## 1.0.30
+
+### New Features
+
+- Add JS Scrollspy ([#136](https://github.com/AnswerDotAI/MonsterUI/pull/136)), thanks to [@curtis-allan](https://github.com/curtis-allan)
+- Add Toggle Button & Loader Button components, thanks to [@curtis-allan](https://github.com/curtis-allan)
+
+
 ## 1.0.29
 
 ### Bugs Squashed

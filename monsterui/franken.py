@@ -17,7 +17,7 @@ __all__ = ['franken_class_map', 'TextT', 'TextPresets', 'CodeSpan', 'CodeBlock',
            'SliderNav', 'Slider', 'DropDownNavContainer', 'TabContainer', 'CardT', 'CardTitle', 'CardHeader',
            'CardBody', 'CardFooter', 'CardContainer', 'Card', 'TableT', 'Table', 'Td', 'Th', 'Tbody', 'TableFromLists',
            'TableFromDicts', 'apply_classes', 'FrankenRenderer', 'render_md', 'ThemePicker', 'LightboxContainer',
-           'LightboxItem', 'ApexChart']
+           'LightboxItem', 'ApexChart', 'ScrollSpy', 'LoaderButton', 'ToggleBtn']
 
 # %% ../nbs/02_franken.ipynb
 import fasthtml.common as fh
@@ -1626,3 +1626,53 @@ def ApexChart(*,
     "Apex chart component"
     js=NotStr(f"<script type='application/json'>{json.dumps(opts)}</script>")
     return Div(Uk_chart(js), cls=stringify(cls), **kws)
+
+# %% ../nbs/02_franken.ipynb
+def ScrollSpy(headings=[1,2,3,4,5], # Heading levels to map section/links from
+              active_styles:str='color: hsl(var(--foreground));font-weight:600', # Styles applied to active link
+              target_sel:str='body', # Container to render scrollspy links from,
+              **kwargs
+              )->FT:
+    "Standalone javascript scrollspy implementation, mapping heading levels into link/sections"
+    js = """
+import scrollSpy from 'https://cdn.jsdelivr.net/npm/@sidsbrmnn/scrollspy@1.x/+esm';
+(() => {
+    const sel='%s', hs=Array.from(htmx.findAll(htmx.find('%s'), sel));
+    if(!hs.length) return;
+    const cnt={}, slug=t=>{t=t.toLowerCase().trim().replace(/[^a-z0-9\\s-]/g,'').replace(/\\s+/g,'-').replace(/-+/g,'-')||'section';
+    const c=cnt[t]=(cnt[t]||0)+1;return c>1?`${t}-${c-1}`:t};
+    const nav=document.querySelector('#scrollspy-nav ol');
+    for(const h of hs){
+        const id=slug(h.textContent), p=h.parentNode;
+        if(!p.id) p.id=id;
+        if(p.matches('section')) continue;
+        if(!p.classList.contains('uk-section')) {
+            const s=document.createElement('section');
+            s.id=id; p.insertBefore(s,h); s.appendChild(h);
+            let n=s.nextSibling;
+            while(n && !(n.matches && n.matches(sel))){const nx=n.nextSibling; s.appendChild(n); n=nx;}}
+        const li=document.createElement('li'), a=document.createElement('a');
+        a.href='#'+id; a.textContent=h.textContent.trim();
+        a.style.textIndent = `${((parseInt(h.tagName[1])-1)*0.75)}rem`;
+        li.className='border-l-4 has-[.active]:border-l-[hsl(var(--primary))]';
+        a.className=`p-1 hover:underline scrollspy-item block text-sm text-muted-foreground truncate`;
+        li.appendChild(a); nav.appendChild(li);}
+    const sp = scrollSpy('#scrollspy-nav',{sectionSelector:'section,.uk-section',activeClass:'active',targetSelector:'.scrollspy-item',offset:100});
+})()""" % (','.join([f'h{i}' for i in headings]), target_sel)
+    return Nav(id='scrollspy-nav', cls='pr-1.5', **kwargs)(
+            Style(f'a.active {{ {active_styles}; }}'),
+            Ol(cls='empty:hidden flex flex-col h-full divide-y border-y'),
+            Script(Safe(js), type='module'))
+
+# %% ../nbs/02_franken.ipynb
+def LoaderButton(*c, cls='uk-btn-default', icon_func=partial(UkIcon, icon='loader'), **kwargs):
+    "A button that displays a loading spinner when an HTMX request is in flight"
+    loader = icon_func(cls='group-disabled:animate-spin group-enabled:hidden absolute')
+    return Button(Span(*c, cls='group-disabled:opacity-0'), loader, hx_disabled_elt='this',
+            cls=stringify((cls, 'relative group disabled:cursor-not-allowed')), **kwargs)
+
+# %% ../nbs/02_franken.ipynb
+def ToggleBtn(*c, cls='uk-btn-default', checked_cls='bg-primary', label_kw={}, **kwargs):
+    "Styled toggle button component, acts like a switch"
+    return fh.Label(c, Input(type='checkbox', hidden=True, **kwargs), tabindex="0",
+                    cls=stringify(('uk-btn text-nowrap cursor-pointer', cls, *[f'has-[:checked]:{c}' for c in checked_cls.split()])))

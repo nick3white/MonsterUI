@@ -517,6 +517,15 @@
 
 - `def ApexChart(**kws)`
     Apex chart component
+
+- `def ScrollSpy(headings, active_styles, target_sel, **kwargs)`
+    Standalone javascript scrollspy implementation, mapping heading levels into link/sections
+
+- `def LoaderButton(*c, **kwargs)`
+    A button that displays a loading spinner when an HTMX request is in flight
+
+- `def ToggleBtn(*c, **kwargs)`
+    Styled toggle button component, acts like a switch
 </doc></api reference><examples><doc title="Music" desc="FrankenUI Music Example build with MonsterUI (Original design by ShadCN)">"""FrankenUI Music Example build with MonsterUI (Original design by ShadCN)"""
 
 from fasthtml.common import *
